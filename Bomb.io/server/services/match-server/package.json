@@ -1,0 +1,18 @@
+{
+  "name": "@bomb-io/match-server",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "bun --watch src/index.ts",
+    "start": "bun src/index.ts",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "@bomb-io/shared": "workspace:*",
+    "ioredis": "^5.3.2"
+  },
+  "devDependencies": {
+    "bun-types": "latest",
+    "typescript": "^5.4.0"
+  }
+}

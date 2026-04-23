@@ -1,0 +1,37 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mongod --version)",
+      "Bash(redis-server --version)",
+      "Bash(where mongod:*)",
+      "Bash(where redis-server:*)",
+      "Bash(where cmake:*)",
+      "Bash(where cl:*)",
+      "Bash(npm start:*)",
+      "Bash(cmd /c \"vcpkg\\\\\\\\bootstrap-vcpkg.bat -disableMetrics\")",
+      "Bash(powershell -Command \"& { .\\\\bootstrap-vcpkg.bat -disableMetrics }\")",
+      "Bash(\"../../vcpkg/vcpkg.exe\" install:*)",
+      "Bash(./vcpkg/vcpkg.exe search:*)",
+      "Bash(pwsh --version)",
+      "Bash(powershell -Command '$PSVersionTable.PSVersion')",
+      "Read(//c/Program Files/**)",
+      "Bash(powershell -ExecutionPolicy Bypass -File vcpkg_install.ps1)",
+      "Bash(e:/Github/Mobile/Tech-Challenge/Agar.io/server/windows/vcpkg_installed/x64-windows/tools/protobuf/protoc.exe --cpp_out=e:/Github/Mobile/Tech-Challenge/Agar.io/server/windows/obj/Release/AgarServer/proto_gen --proto_path=e:/Github/Mobile/Tech-Challenge/Agar.io/proto e:/Github/Mobile/Tech-Challenge/Agar.io/proto/agario.proto)",
+      "Bash(echo \"Exit: $?\")",
+      "Bash(\"../../vcpkg/vcpkg.exe\" --version)",
+      "Read(//e/Github/Mobile/**)",
+      "Bash(powershell -Command \"& 'C:/Program Files \\(x86\\)/Microsoft Visual Studio/2017/Enterprise/MSBuild/15.0/Bin/MSBuild.exe' AgarServer.sln /p:Configuration=Release /p:Platform=x64 /t:Build /m 2>&1\")",
+      "Bash(grep \"\\\\.dll$\")",
+      "Bash(powershell -Command \"& 'C:/Program Files \\(x86\\)/Microsoft Visual Studio/2017/Enterprise/MSBuild/15.0/Bin/MSBuild.exe' LogicTest.vcxproj /p:Configuration=Release /p:Platform=x64 /t:Rebuild /m 2>&1\")",
+      "Bash(\"e:/Github/Mobile/Tech-Challenge/Agar.io/server/windows/bin/LogicTest/LogicTest.exe\")",
+      "Bash(start AgarServer.exe)",
+      "Read(//c/Program Files \\(x86\\)/Microsoft Visual Studio/2017/Enterprise/MSBuild/15.0/Bin/**)",
+      "Bash(powershell -Command \"& 'C:\\\\\\\\Program Files \\(x86\\)\\\\\\\\Microsoft Visual Studio\\\\\\\\2017\\\\\\\\Enterprise\\\\\\\\MSBuild\\\\\\\\15.0\\\\\\\\Bin\\\\\\\\MSBuild.exe' 'e:\\\\\\\\Github\\\\\\\\Mobile\\\\\\\\Tech-Challenge\\\\\\\\Agar.io\\\\\\\\server\\\\\\\\windows\\\\\\\\AgarServer.vcxproj' /p:Configuration=Release /p:Platform=x64 /t:Build /m /nologo 2>&1\")",
+      "Bash(powershell -Command \"Get-NetTCPConnection -LocalPort 3000 -ErrorAction SilentlyContinue | Select-Object -First 1 State,LocalPort\")",
+      "Bash(powershell -Command \"Get-NetTCPConnection -LocalPort 3000 -ErrorAction SilentlyContinue | Select-Object State,LocalPort,RemotePort\")"
+    ],
+    "additionalDirectories": [
+      "e:\\Github\\Mobile\\Tech-Challenge\\Agar.io\\server"
+    ]
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find E:/Github/Jude0629/talent-baby/backend -name *.test.ts -o -name *.spec.ts)"
+    ]
+  }
+}

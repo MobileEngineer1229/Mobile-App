@@ -1,0 +1,25 @@
+syntax = "proto3";
+package bombio;
+
+message Vector2 {
+  int32 x = 1;
+  int32 y = 2;
+}
+
+enum TerrainType {
+  GRASS = 0;
+  FOREST = 1;
+  SNOW = 2;
+  WATER = 3;
+  MOUNTAIN = 4;
+  DESTRUCTIBLE = 5;
+  INDESTRUCTIBLE = 6;
+}
+
+enum Direction {
+  NONE = 0;
+  UP = 1;
+  DOWN = 2;
+  LEFT = 3;
+  RIGHT = 4;
+}

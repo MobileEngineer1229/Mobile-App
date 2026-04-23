@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0"
+         xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;cxx;c</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Network">
+      <UniqueIdentifier>{B1C2D3E4-F5A6-7890-BCDE-F01234567890}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game">
+      <UniqueIdentifier>{C2D3E4F5-A6B7-8901-CDEF-012345678901}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Data">
+      <UniqueIdentifier>{D3E4F5A6-B7C8-9012-DEF0-123456789012}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Proto">
+      <UniqueIdentifier>{E4F5A6B7-C8D9-0123-EF01-234567890123}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Network -->
+    <ClCompile Include="..\src\TcpServer.cpp">
+      <Filter>Source Files\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\UdpServer.cpp">
+      <Filter>Source Files\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\PacketSerializer.cpp">
+      <Filter>Source Files\Network</Filter>
+    </ClCompile>
+    <!-- Game -->
+    <ClCompile Include="..\src\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\SpatialGrid.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Systems.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\GameLoop.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Player.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <!-- Data -->
+    <ClCompile Include="..\src\Database.cpp">
+      <Filter>Source Files\Data</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\RedisClient.cpp">
+      <Filter>Source Files\Data</Filter>
+    </ClCompile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ClInclude Include="..\src\Config.h">         <Filter>Header Files</Filter> </ClInclude>
+    <ClInclude Include="..\src\Vec2.h">            <Filter>Header Files</Filter> </ClInclude>
+    <ClInclude Include="..\src\Components.h">      <Filter>Header Files</Filter> </ClInclude>
+    <ClInclude Include="..\src\Food.h">            <Filter>Header Files</Filter> </ClInclude>
+    <ClInclude Include="..\src\Player.h">          <Filter>Header Files</Filter> </ClInclude>
+    <ClInclude Include="..\src\World.h">           <Filter>Header Files</Filter> </ClInclude>
+    <ClInclude Include="..\src\SpatialGrid.h">     <Filter>Header Files</Filter> </ClInclude>
+    <ClInclude Include="..\src\Systems.h">         <Filter>Header Files</Filter> </ClInclude>
+    <ClInclude Include="..\src\GameLoop.h">        <Filter>Header Files</Filter> </ClInclude>
+    <ClInclude Include="..\src\Database.h">        <Filter>Header Files</Filter> </ClInclude>
+    <ClInclude Include="..\src\RedisClient.h">     <Filter>Header Files</Filter> </ClInclude>
+    <ClInclude Include="..\src\PacketSerializer.h"><Filter>Header Files</Filter> </ClInclude>
+    <ClInclude Include="..\src\TcpServer.h">       <Filter>Header Files</Filter> </ClInclude>
+    <ClInclude Include="..\src\UdpServer.h">       <Filter>Header Files</Filter> </ClInclude>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\proto\agario.proto"><Filter>Proto</Filter></None>
+    <None Include="vcpkg.json" />
+  </ItemGroup>
+
+</Project>

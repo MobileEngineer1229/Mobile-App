@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(psql:*)",
+      "Bash(\"/c/Program Files/PostgreSQL/18/bin/psql.exe\" -U postgres -d talent_baby_db -f \"E:/Github/Jude0629/talent-baby/backend/database/migrations/020_set_activity_image_urls_months_10_12.sql\")",
+      "Bash(PGPASSWORD=213515 \"/c/Program Files/PostgreSQL/18/bin/psql.exe\":*)",
+      "Bash(PGPASSWORD=213515 \"/c/Program Files/PostgreSQL/18/bin/psql\" -U postgres -h localhost -d talent_baby_db -f \"E:/Github/Mobile/Talent-Baby/backend/database/migrations/024_milestone_definitions.sql\" 2>&1)",
+      "Bash(grep -E \"\\\\.\\(java|xml\\)$\")",
+      "Bash(xargs grep *)",
+      "Bash(echo \"Backend starting PID: $!\")"
+    ]
+  }
+}

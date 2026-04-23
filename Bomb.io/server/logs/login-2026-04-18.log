@@ -1,0 +1,18 @@
+2026-04-18 04:35:18.407 [Login]  🔑 LOGIN  user=bomber_king  > playerId=abc123
+2026-04-18 04:35:18.408 [Login]  📝 REGISTER  user=new_player
+2026-04-18 04:35:18.408 [Login]  🚫 FAIL  user=hacker  > wrong password
+2026-04-18 04:35:18.409 [Login]  ✅ POST   /login  200  38ms
+2026-04-18 04:35:18.409 [Login]  ⚠️  Suspicious login attempt  ip="9.8.7.6"
+2026-04-18 04:49:21.126  [Login]  [INFO]  🚀 Server ready on :8000  mongo="localhost/bombio"
+2026-04-18 04:49:21.127  [Login]  [DEBUG]  🔍 Checking Redis session cache  key="session:abc"
+2026-04-18 04:49:21.127  [Login]  [INFO]  📋 MongoDB connected
+2026-04-18 04:49:21.127  [Login]  [AUTH]  📝 REGISTER  user=bomber_king  > playerId=abc123
+2026-04-18 04:49:21.129  [Login]  [AUTH]  🔑 LOGIN  user=tank_destroyer
+2026-04-18 04:49:21.129  [Login]  [AUTH]  🚫 FAIL  user=hacker  > Invalid credentials
+2026-04-18 04:49:21.129  [Login]  [AUTH]  👋 LOGOUT  user=bomber_king
+2026-04-18 04:49:21.130  [Login]  [HTTP]  ✅ POST   /register  201  38ms
+2026-04-18 04:49:21.130  [Login]  [HTTP]  ✅ POST   /login  200  12ms
+2026-04-18 04:49:21.130  [Login]  [HTTP]  ⚠️  POST   /login  401  8ms  > Invalid credentials
+2026-04-18 04:49:21.130  [Login]  [HTTP]  ✅ GET    /characters  200  4ms
+2026-04-18 04:49:21.130  [Login]  [WARN]  ⚠️  High auth failure rate  ip="9.8.7.6"  count=10
+2026-04-18 04:49:21.130  [Login]  [ERROR]  💀 MongoDB timeout → connection timed out

@@ -1,0 +1,17 @@
+syntax = "proto3";
+package bombio.terrain;
+
+import "common.proto";
+
+message MapData {
+  string map_id            = 1;
+  string name              = 2;
+  uint32 width             = 3;
+  uint32 height            = 4;
+  repeated uint32 tiles    = 5; // flat array of TerrainType values, row-major
+  repeated bombio.Vector2 spawn_points = 6;
+}
+
+message MapList {
+  repeated MapData maps = 1;
+}

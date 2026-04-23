@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "lib": ["ESNext"],
+    "ignoreDeprecations": "6.0",
+    "baseUrl": ".",
+    "paths": {
+      "@bomb-io/shared/types":        ["./shared/types/index.ts"],
+      "@bomb-io/shared/utils":        ["./shared/utils/index.ts"],
+      "@bomb-io/db/mongo/connection": ["./db/mongo/connection.ts"],
+      "@bomb-io/db/mongo/models":     ["./db/mongo/models/index.ts"],
+      "@bomb-io/db/mongo/models/*":   ["./db/mongo/models/*.ts"],
+      "@bomb-io/db/mongo/seed/*":     ["./db/mongo/seed/*.ts"]
+    }
+  }
+}

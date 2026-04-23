@@ -1,0 +1,243 @@
+syntax = "proto3";
+package agario;
+
+// ─────────────────────────────────────────────
+//  Enums
+// ─────────────────────────────────────────────
+
+enum GameMode {
+    FFA          = 0;
+    BATTLE_ROYALE = 1;
+    TEAMS        = 2;
+    EXPERIMENTAL = 3;
+    PARTY        = 4;
+    RUSH         = 5;
+}
+
+enum Team {
+    NONE  = 0;
+    RED   = 1;
+    GREEN = 2;
+    BLUE  = 3;
+}
+
+// ─────────────────────────────────────────────
+//  Sub-messages
+// ─────────────────────────────────────────────
+
+// One cell belonging to a player (player can have up to 16 after splits)
+message CellState {
+    uint32 cell_id  = 1;
+    float  x        = 2;
+    float  y        = 3;
+    float  radius   = 4;
+    float  mass     = 5;
+}
+
+message PlayerState {
+    uint32            player_id   = 1;
+    string            name        = 2;
+    uint32            color       = 3;    // packed ARGB
+    string            skin_id     = 4;
+    Team              team        = 5;
+    uint32            level       = 6;
+    repeated CellState cells      = 7;   // all split cells
+    float             total_mass  = 8;
+}
+
+message FoodState {
+    uint32 id    = 1;
+    float  x     = 2;
+    float  y     = 3;
+    uint32 color = 4;
+    float  mass  = 5;
+}
+
+message VirusState {
+    uint32 id      = 1;
+    float  x       = 2;
+    float  y       = 3;
+    float  radius  = 4;
+    bool   is_red  = 5;   // red virus (experimental mode)
+}
+
+// ─────────────────────────────────────────────
+//  TCP Reliable Messages
+// ─────────────────────────────────────────────
+
+message JoinRequest {
+    string    name      = 1;
+    GameMode  mode      = 2;
+    string    party_code = 3;   // for PARTY mode
+    string    skin_id   = 4;
+}
+
+message WelcomeMsg {
+    uint32   player_id  = 1;
+    float    world_w    = 2;
+    float    world_h    = 3;
+    GameMode mode       = 4;
+    Team     team       = 5;
+    string   sdp_answer = 6;   // WebRTC SDP answer for DataChannel
+    uint32   level      = 7;
+    uint32   xp         = 8;
+    uint32   xp_to_next = 9;
+}
+
+message SdpOffer {
+    string sdp = 1;
+}
+
+message IceCandidate {
+    string candidate  = 1;
+    string sdp_mid    = 2;
+    int32  sdp_m_line = 3;
+}
+
+message DeathMsg {
+    string killer_name  = 1;
+    uint32 final_score  = 2;
+    uint32 rank         = 3;
+    uint32 xp_gained    = 4;
+    bool   level_up     = 5;
+    uint32 new_level    = 6;
+}
+
+message LeaderboardEntry {
+    uint32 rank       = 1;
+    string name       = 2;
+    float  total_mass = 3;
+    uint32 level      = 4;
+    Team   team       = 5;
+}
+
+message LeaderboardMsg {
+    repeated LeaderboardEntry entries    = 1;
+    uint32                    my_rank    = 2;
+    float                     my_mass    = 3;
+}
+
+message ChatMsg {
+    uint32 player_id = 1;
+    string sender    = 2;
+    string content   = 3;
+    Team   team      = 4;   // NONE = global
+}
+
+message ChatSend {
+    string content  = 1;
+    bool   team_only = 2;
+}
+
+// Quest progress update
+message QuestUpdate {
+    string quest_id      = 1;
+    string description   = 2;
+    uint32 current       = 3;
+    uint32 target        = 4;
+    bool   completed     = 5;
+    uint32 reward_xp     = 6;
+    string reward_skin   = 7;
+}
+
+// Battle Royale safe zone info
+message SafeZoneMsg {
+    float center_x    = 1;
+    float center_y    = 2;
+    float radius      = 3;
+    float shrink_rate = 4;   // units per second
+    uint32 phase      = 5;
+}
+
+// XP / Level up notification
+message LevelUpMsg {
+    uint32 new_level   = 1;
+    uint32 xp          = 2;
+    uint32 xp_to_next  = 3;
+    float  mass_bonus  = 4;   // extra starting mass unlocked
+    string unlocked_skin = 5;
+}
+
+// Wrapper for all TCP messages
+message TcpPacket {
+    enum Type {
+        UNKNOWN       = 0;
+        JOIN_REQUEST  = 1;
+        WELCOME       = 2;
+        SDP_OFFER     = 3;
+        ICE_CANDIDATE = 4;
+        DEATH         = 5;
+        LEADERBOARD   = 6;
+        CHAT_SEND     = 7;
+        CHAT_MSG      = 8;
+        QUEST_UPDATE  = 9;
+        SAFE_ZONE     = 10;
+        LEVEL_UP      = 11;
+    }
+    Type type = 1;
+    oneof payload {
+        JoinRequest    join_request  = 10;
+        WelcomeMsg     welcome       = 11;
+        SdpOffer       sdp_offer     = 12;
+        IceCandidate   ice_candidate = 13;
+        DeathMsg       death         = 14;
+        LeaderboardMsg leaderboard   = 15;
+        ChatSend       chat_send     = 16;
+        ChatMsg        chat_msg      = 17;
+        QuestUpdate    quest_update  = 18;
+        SafeZoneMsg    safe_zone     = 19;
+        LevelUpMsg     level_up      = 20;
+    }
+}
+
+// ─────────────────────────────────────────────
+//  UDP (WebRTC DataChannel) — Battle Messages
+// ─────────────────────────────────────────────
+
+// C → S  : player input (every frame ~60Hz)
+message MoveInput {
+    uint32 player_id = 1;
+    uint32 seq       = 2;
+    float  mouse_x   = 3;   // world-space target X (where mouse points)
+    float  mouse_y   = 4;
+    bool   split     = 5;   // spacebar pressed
+    bool   eject     = 6;   // W key held
+}
+
+// S → C  : full snapshot on first join
+message FullSnapshot {
+    uint32                tick    = 1;
+    repeated PlayerState  players = 2;
+    repeated FoodState    foods   = 3;
+    repeated VirusState   viruses = 4;
+}
+
+// S → C  : delta every tick (20Hz)
+message DeltaUpdate {
+    uint32                tick              = 1;
+    uint32                ack_seq           = 2;
+    repeated PlayerState  changed_players   = 3;
+    repeated uint32       removed_players   = 4;
+    repeated FoodState    new_foods         = 5;
+    repeated uint32       eaten_food_ids    = 6;
+    repeated VirusState   changed_viruses   = 7;
+    repeated uint32       removed_virus_ids = 8;
+    // Mass eject pellets (shown briefly before being eaten)
+    repeated FoodState    ejected_mass      = 9;
+}
+
+// Wrapper for all UDP messages
+message UdpPacket {
+    enum Type {
+        UNKNOWN       = 0;
+        MOVE_INPUT    = 1;
+        FULL_SNAPSHOT = 2;
+        DELTA_UPDATE  = 3;
+    }
+    Type type = 1;
+    oneof payload {
+        MoveInput    move_input    = 10;
+        FullSnapshot full_snapshot = 11;
+        DeltaUpdate  delta_update  = 12;
+    }
+}

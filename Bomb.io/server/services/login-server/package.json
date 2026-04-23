@@ -1,0 +1,23 @@
+{
+  "name": "@bomb-io/login-server",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "bun --watch src/index.ts",
+    "start": "bun src/index.ts",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "@bomb-io/shared": "workspace:*",
+    "@bomb-io/db": "workspace:*",
+    "ioredis": "^5.3.2",
+    "jsonwebtoken": "^9.0.2",
+    "bcryptjs": "^2.4.3"
+  },
+  "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.6",
+    "@types/bcryptjs": "^2.4.6",
+    "bun-types": "latest",
+    "typescript": "^5.4.0"
+  }
+}

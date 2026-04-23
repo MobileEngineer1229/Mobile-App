@@ -1,0 +1,40 @@
+syntax = "proto3";
+package bombio.character;
+
+enum AbilityType {
+  NONE             = 0;
+  EXTRA_BOMB       = 1;
+  SPEED_BOOST      = 2;
+  BOMB_KICK        = 3;
+  BLAST_SHIELD     = 4;
+  REMOTE_DETONATE  = 5;
+  GHOST_WALK       = 6;
+  BLAST_PLUS       = 7;
+}
+
+message AbilitySlot {
+  AbilityType ability_type   = 1;
+  uint32      cooldown_ticks = 2;
+  uint32      duration_ticks = 3;
+  bool        is_passive     = 4;
+}
+
+message CharacterData {
+  uint32 character_id      = 1;
+  string name              = 2;
+  uint32 level             = 3;
+  uint32 experience        = 4;
+  uint32 base_hp           = 5;
+  float  base_speed        = 6;
+  uint32 base_bomb_count   = 7;
+  uint32 base_blast_radius = 8;
+  repeated AbilitySlot abilities = 9;
+  string skin_id           = 10;
+  string bomb_effect_id    = 11;
+}
+
+message PlayerCharacters {
+  uint32 player_id                   = 1;
+  repeated CharacterData characters  = 2;
+  uint32 active_character_id         = 3;
+}
