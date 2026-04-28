@@ -434,3 +434,27 @@ project/
 | Hindi / Bengali / Tamil | `ai4bharat/indic-bert` or `xlm-roberta-base` |
 | African languages | `xlm-roberta-base` (best general option) |
 | European languages | `bert-base-multilingual-cased` |
+
+---
+
+## Recommended Tech Stack
+
+### Mobile App (Consumer-Facing)
+- **Mobile**: Android Native (Java) — min SDK API 24 (Android 7.0+)
+- **On-Device Inference**: TensorFlow Lite for Android (`org.tensorflow:tensorflow-lite`) — run exported `.tflite` model directly in-app for offline inference
+- **Camera**: CameraX (Android Jetpack) — capture leaf/skin/crop photos for image model input
+- **HTTP Client**: Retrofit 2 + OkHttp — call Express.js backend for server-side ONNX inference when connectivity is available
+- **Local DB**: Room Database — store inference history, symptom logs, offline results
+- **Auth**: Firebase Auth (Android SDK)
+- **Push Notifications**: Firebase Cloud Messaging (FCM) — health or crop alerts based on AI output
+- **Image Loading**: Glide
+- **Architecture**: MVVM + LiveData + ViewModel (Android Jetpack)
+
+### Backend & AI Serving
+- **API Server**: Node.js + Express.js + PostgreSQL — user accounts, inference history, alert rules
+- **AI Microservice**: Python FastAPI — loads and serves ONNX models (NLP + image); called internally by Express.js, not exposed directly to the app
+- **NLP Model**: Fine-tuned `xlm-roberta-base` exported to ONNX — symptom classification in local language
+- **Image Model**: Fine-tuned EfficientNet-B0 or YOLOv8 exported to TFLite (mobile) and ONNX (server)
+- **Model Storage**: Local filesystem or AWS S3 — model weights served to FastAPI at startup
+- **Rate Limiting / Queue**: Redis + Bull (Node.js) — queue AI inference jobs to prevent overload
+- **Monitoring**: Prometheus + Grafana — track inference latency and error rate per model endpoint

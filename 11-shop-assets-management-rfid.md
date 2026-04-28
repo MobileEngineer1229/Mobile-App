@@ -72,11 +72,15 @@ A mobile app for tracking and managing physical assets in a shop, warehouse, or 
 ---
 
 ## Recommended Tech Stack
-- **Mobile**: Flutter (good plugin ecosystem for BLE and NFC)
-- **RFID Reader**: Zebra, Chainway, or Impinj handheld UHF RFID reader via BLE/USB
-- **NFC (fallback)**: flutter_nfc_kit for HF tag reading
-- **QR Fallback**: mobile_scanner package
-- **Backend**: Node.js + PostgreSQL
-- **Offline**: SQLite with sync queue
+- **Mobile**: Android Native (Java) — min SDK API 24 (Android 7.0+)
+- **Backend**: Node.js + Express.js + PostgreSQL
+- **HTTP Client**: Retrofit 2 + OkHttp
+- **RFID Reader**: Zebra, Chainway, or Impinj UHF RFID reader via Android Bluetooth API or USB OTG (Android USB Host API)
+- **NFC Fallback**: Android NFC API (`NfcAdapter`) — HF tag reading for short-range scanning
+- **QR Code Fallback**: Google ML Kit Barcode Scanning API (Android) or ZXing Android library
+- **Local DB / Offline**: Room Database + WorkManager — offline-first asset DB; sync queue when back online
 - **Auth**: JWT + RBAC (admin / manager / staff)
-- **Reports**: PDF generation with PDFKit or server-side rendering
+- **PDF Reports**: iText 7 for Android (on-device) + PDFKit server-side (Node.js) for scheduled reports
+- **Push Notifications**: Firebase Cloud Messaging (FCM) — overdue checkout and maintenance alerts
+- **Image Loading**: Glide — asset photos
+- **Architecture**: MVVM + LiveData + ViewModel (Android Jetpack)

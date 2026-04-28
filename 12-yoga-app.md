@@ -78,14 +78,21 @@ Reference app: Pocket Yoga (https://apps.apple.com/us/app/pocket-yoga/id34740050
 ---
 
 ## Recommended Tech Stack
-- **Mobile**: Flutter / React Native
-- **Video**: HLS streaming via AWS CloudFront or Cloudflare Stream; video player: video_player (Flutter)
-- **AI Pose**: MediaPipe Pose (on-device, Flutter plugin) or Google ML Kit
-- **Backend**: Node.js + PostgreSQL
-- **Live Classes**: Agora.io or Daily.co for real-time video
-- **Audio Cues**: Text-to-speech (gTTS) or pre-recorded audio files
-- **Offline**: HLS segment download with file management
-- **Health Sync**: Apple HealthKit / Google Fit
+- **Mobile**: Android Native (Java) — min SDK API 24 (Android 7.0+)
+- **Backend**: Node.js + Express.js + PostgreSQL
+- **HTTP Client**: Retrofit 2 + OkHttp
+- **Video Streaming**: ExoPlayer — HLS streaming via AWS CloudFront or Cloudflare Stream
+- **Offline Video**: ExoPlayer DownloadManager — HLS segment caching for offline practice
+- **AI Pose Correction**: MediaPipe Pose Android SDK + TensorFlow Lite (on-device, 33 keypoints at 30 fps)
+- **Camera**: CameraX (Android Jetpack) — live pose correction camera feed
+- **Live Classes**: Agora.io Android SDK — real-time group video (up to 20 participants)
+- **Audio Cues**: Android MediaPlayer — pre-recorded pose instruction audio files
+- **Local DB / Offline**: Room Database — session logs, practice history, downloaded class metadata
+- **Auth**: Firebase Auth (Android SDK)
+- **Push Notifications**: Firebase Cloud Messaging (FCM) — class reminders, streak alerts
+- **Health Sync**: Google Health Connect API (Android) — log yoga minutes as exercise
+- **Image Loading**: Glide
+- **Architecture**: MVVM + LiveData + ViewModel (Android Jetpack)
 
 
 Yoga and Mobile Usage

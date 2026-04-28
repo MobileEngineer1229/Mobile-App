@@ -18,3 +18,4 @@
 - [ ] 14. [AI Model Setup for HealthCare & Agriculture](./14-ai-model-healthcare-agriculture.md)
 - [ ] 15. [Height Increase App](./15-height-increase-app.md)
 - [ ] 16. [Women Health Management App](./16-women-health-management-app.md)
+- [ ] 17. [AR/AI Hair Style App](./17-ar-ai-hair-style-app.md)

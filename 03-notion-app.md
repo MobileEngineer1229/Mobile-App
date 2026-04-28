@@ -76,10 +76,16 @@ A productivity and note-taking app inspired by Notion — a block-based document
 ---
 
 ## Recommended Tech Stack
-- **Frontend**: Next.js (web) + React Native (mobile)
-- **Block Editor**: Slate.js or TipTap (web), custom implementation (mobile)
-- **Real-Time**: Socket.io + Yjs (CRDT library)
-- **Backend**: Node.js + PostgreSQL (with JSONB for block content)
-- **Search**: PostgreSQL full-text search or Typesense
-- **Auth**: NextAuth.js / Clerk
-- **Storage**: S3 for file/image uploads
+- **Mobile**: Android Native (Java) — min SDK API 24 (Android 7.0+)
+- **Web Frontend**: Next.js + React (full desktop editor experience)
+- **Block Editor (Android)**: Custom RecyclerView-based block editor using SpannableString for rich text
+- **Real-Time Sync**: Socket.io Android client + Yjs CRDT (via WebSocket) — collaborative editing
+- **Backend**: Node.js + Express.js + PostgreSQL (JSONB for block content storage)
+- **Search**: PostgreSQL full-text search (tsvector + tsquery)
+- **HTTP Client**: Retrofit 2 + OkHttp
+- **Local DB / Offline**: Room Database — page and block cache; WorkManager for operation sync queue
+- **Auth**: Firebase Auth (Android SDK) — Google Sign-In, email/password
+- **File Storage**: AWS S3 — image blocks, file attachments
+- **Image Loading**: Glide
+- **Push Notifications**: Firebase Cloud Messaging (FCM) — mention and comment alerts
+- **Architecture**: MVVM + LiveData + ViewModel (Android Jetpack)

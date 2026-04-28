@@ -78,11 +78,17 @@ An AI-powered health monitoring and early detection app that analyzes user healt
 ---
 
 ## Recommended Tech Stack
-- **Mobile**: Flutter
-- **AI/ML**: TensorFlow Lite (on-device); Python Flask/FastAPI for server-side models
-- **Symptom NLP**: BioBERT / ClinicalBERT fine-tuned on symptom-condition data
-- **Skin Detection**: CNN trained on ISIC 2020 dataset (EfficientNet or ResNet)
-- **Wearable Sync**: Apple HealthKit, Google Health Connect, Fitbit API
-- **Backend**: Node.js + PostgreSQL (TimescaleDB for vitals time-series)
-- **Security**: AES-256 encryption at rest, TLS 1.3 in transit, zero-knowledge architecture optional
-- **Reports**: PDF generation with Puppeteer or PDFKit
+- **Mobile**: Android Native (Java) — min SDK API 24 (Android 7.0+)
+- **Backend**: Node.js + Express.js + PostgreSQL (TimescaleDB extension for vitals time-series)
+- **HTTP Client**: Retrofit 2 + OkHttp
+- **On-Device AI**: TensorFlow Lite for Android — skin lesion classifier, cough sound classifier (runs offline)
+- **Symptom NLP (Server)**: BioBERT / ClinicalBERT fine-tuned model served via Python FastAPI microservice, called internally by Express.js
+- **Skin Detection (Server)**: EfficientNet CNN (ISIC 2020 dataset) served via FastAPI microservice
+- **Camera**: CameraX (Android Jetpack) — skin lesion photo capture
+- **Audio**: Android AudioRecord API — cough recording for respiratory analysis
+- **Wearable Sync**: Google Health Connect API (Android) — pulls data from Fitbit, Garmin, Wear OS
+- **Security**: SQLCipher for Room Database (AES-256 at rest); TLS 1.3 in transit
+- **Push Notifications**: Firebase Cloud Messaging (FCM) — medication and vital logging reminders
+- **PDF Reports**: iText 7 for Android — health summary PDF for doctor visits
+- **Auth**: Firebase Auth (Android SDK)
+- **Architecture**: MVVM + LiveData + ViewModel (Android Jetpack)

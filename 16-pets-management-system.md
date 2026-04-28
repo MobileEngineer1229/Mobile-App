@@ -105,13 +105,16 @@ A comprehensive mobile app for pet owners to manage their pets' health, daily ca
 ---
 
 ## Recommended Tech Stack
-- **Mobile**: Flutter (iOS + Android)
-- **Backend**: Node.js + PostgreSQL
-- **Charts**: fl_chart — weight growth curve, activity history bar chart, health score trend
-- **Maps / GPS**: Google Maps SDK + Geolocator plugin (walk tracking, lost pet radius)
-- **AI / Symptom Engine**: Rule-based triage (local JSON ruleset) + on-device TensorFlow Lite for pattern detection
+- **Mobile**: Android Native (Java) — min SDK API 24 (Android 7.0+)
+- **Backend**: Node.js + Express.js + PostgreSQL
+- **HTTP Client**: Retrofit 2 + OkHttp
+- **Charts**: MPAndroidChart — weight growth curve, activity history bar chart, health score trend line
+- **Maps / GPS**: Google Maps SDK for Android + FusedLocationProviderClient — GPS walk tracking, lost pet broadcast radius
+- **AI Symptom Engine**: Rule-based triage (local JSON ruleset in Room DB) + TensorFlow Lite for recurring pattern detection
 - **Push Notifications**: Firebase Cloud Messaging (FCM) — vaccine reminders, meal alerts, lost pet broadcasts
-- **File Storage**: AWS S3 or Firebase Storage — vet records, X-rays, photos
-- **Auth**: Firebase Auth with optional biometric lock
-- **Offline**: Hive / SQLite — all logs and profiles work offline, sync when connected
-- **Export**: PDF generation via pdf package (Flutter) — shareable health summary per pet
+- **File Storage**: AWS S3 (via backend) or Firebase Storage — vet records, X-rays, pet photos
+- **Image Loading**: Glide
+- **Auth**: Firebase Auth (Android SDK) + Android BiometricPrompt API (optional biometric lock)
+- **Local DB / Offline**: Room Database + WorkManager — all logs and profiles work fully offline; background sync on reconnect
+- **PDF Export**: iText 7 for Android — shareable health summary per pet
+- **Architecture**: MVVM + LiveData + ViewModel (Android Jetpack)

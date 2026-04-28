@@ -74,11 +74,16 @@ A travel and tour booking mobile app that helps users discover destinations, boo
 ---
 
 ## Recommended Tech Stack
-- **Mobile**: Flutter / React Native
-- **Backend**: Node.js + PostgreSQL
-- **Maps**: Google Maps SDK / Mapbox
-- **Payment**: Stripe or PayPal SDK
-- **Storage**: Firebase Storage / AWS S3 (images)
-- **Notifications**: Firebase Cloud Messaging (FCM)
-- **Search**: Elasticsearch or Algolia for fast destination/tour search
-- **Offline**: SQLite + cached map tiles
+- **Mobile**: Android Native (Java) — min SDK API 24 (Android 7.0+)
+- **Backend**: Node.js + Express.js + PostgreSQL
+- **HTTP Client**: Retrofit 2 + OkHttp
+- **Maps**: Google Maps SDK for Android — destination pins, route display, geo-based search
+- **Offline Maps**: Mapbox SDK for Android — offline tile download for itinerary areas
+- **Payment**: Stripe Android SDK
+- **Image Loading**: Glide — destination and tour listing photos
+- **Image Storage**: AWS S3 (via backend)
+- **Local DB / Offline**: Room Database — saved itineraries, downloaded tour content, wishlists
+- **Search (Backend)**: Elasticsearch — destination and tour full-text + geo search
+- **Auth**: Firebase Auth (Android SDK)
+- **Push Notifications**: Firebase Cloud Messaging (FCM) — booking confirmations, travel alerts
+- **Architecture**: MVVM + LiveData + ViewModel (Android Jetpack)

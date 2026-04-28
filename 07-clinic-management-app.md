@@ -81,11 +81,16 @@ A mobile and web app for managing clinic operations — patient appointments, me
 ---
 
 ## Recommended Tech Stack
-- **Mobile**: Flutter / React Native
-- **Web Dashboard**: React + Next.js
-- **Backend**: Node.js + PostgreSQL
-- **Real-Time Queue**: Socket.io
-- **Auth**: JWT + RBAC
-- **Video Consult**: Agora.io or Daily.co SDK
-- **PDF Generation**: PDFKit / Puppeteer
-- **ICD-10 DB**: WHO ICD-10 API or local dataset
+- **Mobile (Patient & Doctor)**: Android Native (Java) — min SDK API 24 (Android 7.0+)
+- **Web Dashboard (Admin / Receptionist)**: Next.js + React
+- **Backend**: Node.js + Express.js + PostgreSQL
+- **Real-Time Queue**: Socket.io — queue position pushed to patient app in real time
+- **HTTP Client**: Retrofit 2 + OkHttp
+- **Auth**: JWT + RBAC (patient, doctor, nurse, pharmacist, admin)
+- **Video Consultation**: Agora.io Android SDK or Daily.co (WebRTC)
+- **Push Notifications**: Firebase Cloud Messaging (FCM) — queue alerts, appointment reminders
+- **PDF Generation**: iText 7 for Android (patient-side) + PDFKit / Puppeteer (server-side invoices)
+- **Local DB / Offline**: Room Database — appointment cache and patient summaries for offline access
+- **ICD-10 Search**: WHO ICD-10 API or local SQLite dataset bundled with the app
+- **Image Loading**: Glide
+- **Architecture**: MVVM + LiveData + ViewModel (Android Jetpack)

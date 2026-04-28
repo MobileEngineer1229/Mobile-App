@@ -74,10 +74,13 @@ Reference apps: Flo (https://flo.health), Period Tracker (org.iggymedia.periodtr
 ---
 
 ## Recommended Tech Stack
-- **Mobile**: Flutter / React Native
-- **Local Storage**: SQLite / Hive with AES encryption at rest
-- **Backend** (optional): Node.js + PostgreSQL with end-to-end encryption
-- **Auth**: Biometric lock (Face ID / fingerprint) for app access
-- **Charts**: fl_chart or Victory Native for cycle calendar and BBT chart
-- **Notifications**: Firebase Cloud Messaging / local notifications
-- **Anonymization**: No PII required; UUID-based accounts optional
+- **Mobile**: Android Native (Java) — min SDK API 24 (Android 7.0+)
+- **Backend**: Node.js + Express.js + PostgreSQL (end-to-end encrypted data, optional cloud sync)
+- **HTTP Client**: Retrofit 2 + OkHttp
+- **Local DB / Offline**: Room Database + SQLCipher (AES-256 encryption at rest) — all cycle data encrypted locally
+- **Charts**: MPAndroidChart — cycle calendar view, BBT temperature chart, symptom phase heatmap
+- **Auth**: Firebase Auth (Android SDK) + Android BiometricPrompt API (fingerprint/face lock for app access)
+- **Push Notifications**: Firebase Cloud Messaging (FCM) + Android AlarmManager — period reminders, pill reminders
+- **PDF Export**: iText 7 for Android — doctor report with cycle history
+- **Anonymous Mode**: Local-only Room Database with no Firebase account required; UUID-based identity
+- **Architecture**: MVVM + LiveData + ViewModel (Android Jetpack)

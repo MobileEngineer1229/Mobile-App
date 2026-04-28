@@ -84,11 +84,16 @@ A mobile app to control, monitor, and automate smart home devices — lights, th
 ---
 
 ## Recommended Tech Stack
-- **Mobile**: Flutter / React Native
-- **Hub/Local Server**: Home Assistant or custom Node.js + MQTT (Mosquitto broker)
+- **Mobile**: Android Native (Java) — min SDK API 24 (Android 7.0+)
+- **Hub / Local Server**: Node.js + MQTT (Mosquitto broker) — runs on Raspberry Pi or local NUC
 - **Protocol Bridges**: Zigbee2MQTT, Z-Wave JS, Matter SDK
-- **Cloud Backend**: Node.js + PostgreSQL (user accounts, remote access)
-- **Real-Time**: MQTT over WebSocket
-- **Time-Series DB**: InfluxDB or TimescaleDB (energy data)
-- **Auth**: OAuth2 + JWT, end-to-end encryption for sensitive commands
+- **Cloud Backend**: Node.js + Express.js + PostgreSQL — user accounts, remote access, automation rules
+- **MQTT Client (Android)**: Eclipse Paho Android Client — real-time device state pub/sub over WebSocket
+- **HTTP Client**: Retrofit 2 + OkHttp
+- **Time-Series DB**: TimescaleDB (PostgreSQL extension) — energy monitoring data
+- **Auth**: OAuth2 + JWT; end-to-end encrypted commands for locks and cameras
+- **BLE Device Pairing**: Android Bluetooth API
+- **Geofencing**: Google Play Services Geofence API (arrive/leave home automations)
+- **Push Notifications**: Firebase Cloud Messaging (FCM) — motion alerts, smoke alarm triggers
 - **Voice**: Google Smart Home API / Amazon Alexa Smart Home Skill
+- **Architecture**: MVVM + LiveData + ViewModel (Android Jetpack)

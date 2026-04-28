@@ -68,9 +68,16 @@ A language learning mobile app focused on Russian, teaching alphabet, vocabulary
 ---
 
 ## Recommended Tech Stack
-- **Mobile**: Flutter
-- **Backend**: Node.js + PostgreSQL
-- **Audio**: expo-av / just_audio, hosted on S3 or Firebase Storage
-- **Speech**: Google Speech-to-Text API or Azure Speech SDK
-- **SRS**: Custom SM-2 implementation
-- **State Management**: Riverpod / BLoC
+- **Mobile**: Android Native (Java) — min SDK API 24 (Android 7.0+)
+- **Backend**: Node.js + Express.js + PostgreSQL
+- **HTTP Client**: Retrofit 2 + OkHttp
+- **Audio Playback**: ExoPlayer — pronunciation audio, listening exercises
+- **Audio Recording**: Android AudioRecord API — speaking practice capture
+- **Speech Scoring**: Google Speech-to-Text API (via backend) or Android SpeechRecognizer
+- **SRS**: Custom SM-2 implementation (Java) stored in Room Database
+- **Local DB / Offline**: Room Database — flashcard decks, lesson progress, downloaded audio
+- **Image Loading**: Glide
+- **Auth**: Firebase Auth (Android SDK)
+- **Push Notifications**: Firebase Cloud Messaging (FCM) — streak and review reminders
+- **Audio Storage**: AWS S3 — native speaker pronunciation files
+- **Architecture**: MVVM + LiveData + ViewModel (Android Jetpack)

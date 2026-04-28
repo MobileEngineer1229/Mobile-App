@@ -75,11 +75,16 @@ A mobile app for farmers and agricultural workers to monitor crop health, manage
 ---
 
 ## Recommended Tech Stack
-- **Mobile**: Flutter (excellent offline + cross-platform)
-- **Backend**: Node.js + PostgreSQL with PostGIS for farm plot geometry
-- **AI/ML**: TensorFlow Lite (on-device inference) or REST API to Python Flask model
-- **Weather API**: OpenWeatherMap / Tomorrow.io
-- **IoT**: MQTT broker (Mosquitto) + Node-RED
-- **Offline**: SQLite / Hive
-- **Satellite Imagery**: Google Earth Engine API or Sentinel Hub
-- **Maps**: Google Maps or Mapbox with polygon drawing tools
+- **Mobile**: Android Native (Java) — min SDK API 24 (Android 7.0+)
+- **Backend**: Node.js + Express.js + PostgreSQL + PostGIS (farm plot geometry)
+- **HTTP Client**: Retrofit 2 + OkHttp
+- **AI Disease Detection**: TensorFlow Lite for Android — on-device leaf photo inference
+- **Image Capture**: CameraX (Android Jetpack) — leaf photo capture for AI detection
+- **Weather API**: OpenWeatherMap or Tomorrow.io (called via Express.js backend)
+- **IoT / MQTT**: Eclipse Paho Android Client — subscribe to soil sensor topics, trigger irrigation valves
+- **Maps**: Google Maps SDK for Android — farm plot polygon drawing (Google Maps Polygon API)
+- **Satellite Imagery**: Sentinel Hub or Google Earth Engine API (via backend)
+- **Local DB / Offline**: Room Database + WorkManager — full offline-first; all logs stored locally, sync on reconnect
+- **Auth**: Firebase Auth (Android SDK)
+- **Push Notifications**: Firebase Cloud Messaging (FCM) — weather alerts, pest detection alerts
+- **Architecture**: MVVM + LiveData + ViewModel (Android Jetpack)

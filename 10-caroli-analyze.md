@@ -450,22 +450,26 @@ All errors follow a consistent format:
 ## Recommended Tech Stack
 
 ### App
-- **Mobile**: Flutter / React Native
-- **Food DB**: Open Food Facts API + custom additions
-- **Barcode**: ZXing (Android) / AVFoundation (iOS) via flutter_barcode_scanner
-- **AI Photo**: Custom food detection model (YOLOv8 + nutrition DB lookup)
-- **Charts**: fl_chart / Victory Native
-- **Health Sync**: Apple HealthKit / Google Fit SDK
-- **Notifications**: Local notifications for logging reminders
+- **Mobile**: Android Native (Java) — min SDK API 24 (Android 7.0+)
+- **HTTP Client**: Retrofit 2 + OkHttp
+- **Barcode Scanner**: Google ML Kit Barcode Scanning API (Android)
+- **Camera**: CameraX (Android Jetpack) — meal photo capture for AI analysis
+- **Charts**: MPAndroidChart — calorie trend, macro breakdown, weight progress
+- **Local DB / Offline**: Room Database — food diary, custom meals, weight log
+- **Health Sync**: Google Health Connect API (Android) — log calories and exercise
+- **Auth**: Firebase Auth (Android SDK)
+- **Push Notifications**: Firebase Cloud Messaging (FCM) — meal logging and water reminders
+- **Image Loading**: Glide
+- **Architecture**: MVVM + LiveData + ViewModel (Android Jetpack)
 
 ### API Service
-- **API Framework**: Node.js + Express or Fastify (REST), or Python FastAPI
+- **API Framework**: Node.js + Express.js (REST)
 - **Database**: PostgreSQL (food DB, user accounts, API keys, usage logs)
 - **Rate Limiting**: Redis (`ioredis`) with atomic INCR per key per day
 - **Auth**: API key hashed with bcrypt stored in DB; Bearer token on each request
-- **Photo AI**: FastAPI microservice with YOLOv8 + TensorFlow Lite food classifier
-- **API Docs**: Swagger / OpenAPI 3.0 auto-generated from route definitions
+- **Photo AI**: Python FastAPI microservice (YOLOv8 + TensorFlow Lite food classifier) — called internally by Express.js
+- **API Docs**: Swagger / OpenAPI 3.0 (swagger-jsdoc + swagger-ui-express)
 - **Developer Portal**: Next.js frontend for API key management and usage dashboard
 - **Billing**: Stripe for Pro/Enterprise plan subscriptions and overage billing
-- **Monitoring**: Prometheus + Grafana for API latency, error rate, requests/sec
-- **Caching**: Redis cache for frequent food lookups (TTL: 24h) to reduce DB load
+- **Monitoring**: Prometheus + Grafana — API latency, error rate, requests/sec
+- **Caching**: Redis — frequent food lookups cached (TTL: 24h) to reduce DB load

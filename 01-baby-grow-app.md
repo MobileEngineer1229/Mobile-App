@@ -67,8 +67,14 @@ A mobile app to help parents track and monitor their baby's growth, development 
 ---
 
 ## Recommended Tech Stack
-- **Mobile**: Flutter / React Native
-- **Backend**: Node.js + PostgreSQL or Firebase Firestore
-- **Charts**: fl_chart (Flutter) or Victory Native (RN)
-- **Auth**: Firebase Auth with family sharing via invite link
-- **Offline**: SQLite / Hive for local storage with sync queue
+- **Mobile**: Android Native (Java) — min SDK API 24 (Android 7.0+)
+- **Backend**: Node.js + Express.js + PostgreSQL
+- **HTTP Client**: Retrofit 2 + OkHttp
+- **Charts**: MPAndroidChart — WHO growth percentile curves, sleep timeline bar chart
+- **Local DB / Offline**: Room Database (Jetpack) + WorkManager — offline-first logs, background sync
+- **Image Loading**: Glide — milestone photo display
+- **Auth**: Firebase Auth (Android SDK) — email + Google Sign-In; family invite via Firebase Dynamic Links
+- **Push Notifications**: Firebase Cloud Messaging (FCM) — feeding, vaccine, and sleep reminders
+- **Image Storage**: Firebase Storage — milestone photos
+- **PDF Export**: iText 7 for Android — health record PDF for doctor visits
+- **Architecture**: MVVM + LiveData + ViewModel (Android Jetpack)

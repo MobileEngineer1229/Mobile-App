@@ -76,11 +76,15 @@ Display predicted range with 95% confidence band.
 ---
 
 ## Recommended Tech Stack
-- **Mobile**: Flutter (iOS + Android)
-- **Backend**: Node.js + PostgreSQL
-- **Charts**: fl_chart (Flutter)
-- **Posture AI**: TensorFlow Lite / MediaPipe Pose (on-device inference)
-- **Nutrition DB**: Open Food Facts API or Nutritionix API
-- **Auth**: Firebase Auth
-- **Offline**: Hive for local exercise and meal logs
-- **Notifications**: Firebase Cloud Messaging (FCM)
+- **Mobile**: Android Native (Java) — min SDK API 24 (Android 7.0+)
+- **Backend**: Node.js + Express.js + PostgreSQL
+- **HTTP Client**: Retrofit 2 + OkHttp
+- **Charts**: MPAndroidChart — height trend line chart, WHO/CDC percentile overlay, weekly consistency bar chart
+- **Posture AI**: TensorFlow Lite + MediaPipe Pose Android SDK — on-device side-profile posture analysis via CameraX
+- **Camera**: CameraX (Android Jetpack) — posture photo/video capture
+- **Local DB / Offline**: Room Database — height measurements, exercise logs, meal logs
+- **Nutrition DB**: Open Food Facts API or Nutritionix API (via Express.js backend)
+- **Auth**: Firebase Auth (Android SDK)
+- **Push Notifications**: Firebase Cloud Messaging (FCM) — exercise, sleep, and meal reminders
+- **Image Loading**: Glide
+- **Architecture**: MVVM + LiveData + ViewModel (Android Jetpack)

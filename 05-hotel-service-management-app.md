@@ -73,11 +73,17 @@ A hotel operations and guest service management app with two sides: a guest-faci
 ---
 
 ## Recommended Tech Stack
-- **Guest Mobile App**: Flutter / React Native
-- **Admin Dashboard**: Next.js / React
-- **Backend**: Node.js + PostgreSQL
-- **Real-Time**: Socket.io for live order and room status updates
-- **Payment**: Stripe / local payment gateway
-- **Push Notifications**: Firebase Cloud Messaging
-- **Auth**: JWT with role-based access control (RBAC)
-- **BLE/NFC Keys**: Integration with SALTO, ASSA ABLOY, or similar SDK
+- **Guest Mobile App**: Android Native (Java) — min SDK API 24 (Android 7.0+)
+- **Staff / Housekeeping App**: Android Native (Java) — same codebase, role-based UI
+- **Admin Dashboard**: Next.js + React (web)
+- **Backend**: Node.js + Express.js + PostgreSQL
+- **Real-Time**: Socket.io — live room status board, order tracking, service request queue
+- **HTTP Client**: Retrofit 2 + OkHttp
+- **Payment**: Stripe Android SDK / local payment gateway
+- **Push Notifications**: Firebase Cloud Messaging (FCM)
+- **Auth**: JWT + RBAC (guest, staff, housekeeping, supervisor, admin)
+- **Digital Key — BLE**: Android Bluetooth API + SALTO or ASSA ABLOY SDK
+- **Digital Key — NFC**: Android NFC API — QR/NFC room key delivery
+- **Local DB / Offline**: Room Database + WorkManager — task queue for housekeeping staff in low-signal areas
+- **Image Loading**: Glide
+- **Architecture**: MVVM + LiveData + ViewModel (Android Jetpack)
