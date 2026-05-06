@@ -1,9 +1,9 @@
 import { AbilityType } from '../../../shared/types';
-import type { Player, AbilityState, Bomb } from '../../../shared/types';
+import type { Player, PlayerId, AbilityState, Bomb } from '../../../shared/types';
 import type { BombSystem } from './bomb-system';
 
 export class AbilitySystem {
-  updateCooldowns(players: Map<number, Player>): void {
+  updateCooldowns(players: Map<PlayerId, Player>): void {
     players.forEach(player => {
       player.abilityStates.forEach(state => {
         if (state.cooldownRemaining > 0) {

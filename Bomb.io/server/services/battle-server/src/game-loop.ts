@@ -3,7 +3,7 @@ const TICK_MS   = 1000 / TICK_RATE;
 
 export class GameLoop {
   currentFrame = 0;
-  private timer: Timer | null = null;
+  private timer: ReturnType<typeof setInterval> | null = null;
   private lastTime = 0;
 
   constructor(private onTick: (frame: number) => void) {}

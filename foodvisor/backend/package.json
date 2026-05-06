@@ -1,0 +1,35 @@
+{
+  "name": "foodvisor-backend",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "migrate": "tsx src/migrate.ts",
+    "migrate:images": "tsx src/migrate.ts --download-images",
+    "download:food-images": "tsx src/download-food-images.ts",
+    "download:real-food-images": "tsx src/download-real-food-images.ts",
+    "remove:generated-food-images": "tsx src/remove-generated-food-images.ts",
+    "import:food-material": "tsx src/import-food-material.ts",
+    "import:comprehensive": "tsx src/import-comprehensive-food-database.ts",
+    "import:usda": "tsx src/import-usda-foods.ts",
+    "seed": "tsx src/migrate.ts --download-images"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mongoose": "^8.9.5",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/morgan": "^1.9.9",
+    "@types/node": "^22.10.7",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3"
+  }
+}

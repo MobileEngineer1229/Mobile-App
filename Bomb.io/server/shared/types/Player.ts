@@ -7,8 +7,10 @@ export interface PlayerAddress {
   port: number;
 }
 
+export type PlayerId = string;
+
 export interface Player {
-  id: number;
+  id: PlayerId;
   username: string;
   sessionToken: string;
   address: PlayerAddress;
@@ -41,7 +43,7 @@ export interface PlayerInput {
 }
 
 export interface PlayerState {
-  playerId: number;
+  playerId: PlayerId;
   characterId: number;
   position: Vector2;
   facing: Direction;

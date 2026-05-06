@@ -1,3 +1,6 @@
+// @ts-nocheck
+// Legacy UDP transport kept for reference. The browser client and active server use ws-server.ts.
+
 import { GameLoop } from './game-loop';
 import { BombSystem } from './bomb-system';
 import { TerrainSystem } from './terrain-system';

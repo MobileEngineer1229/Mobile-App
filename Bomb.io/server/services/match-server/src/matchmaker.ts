@@ -1,5 +1,5 @@
-import type { Redis } from 'ioredis';
 import { GameMode } from '../../../shared/types';
+import type { PlayerId } from '../../../shared/types';
 import type { RoomManager, RoomInfo } from './room-manager';
 
 const QUEUE_KEY  = 'matchmaking:queue';
@@ -7,16 +7,16 @@ const MIN_PLAYERS = 2;
 const MAX_PLAYERS = 4;
 
 export class Matchmaker {
-  constructor(private redis: Redis, private rooms: RoomManager) {}
+  constructor(private redis: any, private rooms: RoomManager) {}
 
   // ── CUSTOM matchmaking queue (auto-creates a CUSTOM room when enough players) ──
 
-  async enqueue(playerId: number, mapId = 'random', gameMode = GameMode.INDIVIDUAL): Promise<void> {
+  async enqueue(playerId: PlayerId, mapId = 'random', gameMode = GameMode.INDIVIDUAL): Promise<void> {
     await this.redis.rpush(QUEUE_KEY, JSON.stringify({ playerId, mapId, gameMode, joinedAt: Date.now() }));
     await this.tryMatch();
   }
 
-  async dequeue(playerId: number): Promise<void> {
+  async dequeue(playerId: PlayerId): Promise<void> {
     const entries = await this.redis.lrange(QUEUE_KEY, 0, -1);
     for (const entry of entries) {
       if (JSON.parse(entry).playerId === playerId) {
@@ -31,7 +31,7 @@ export class Matchmaker {
     if (len < MIN_PLAYERS) return null;
 
     const entries = await this.redis.lrange(QUEUE_KEY, 0, MAX_PLAYERS - 1);
-    const players = entries.map(e => JSON.parse(e) as { playerId: number; mapId: string; gameMode: GameMode });
+    const players = entries.map((e: string) => JSON.parse(e) as { playerId: PlayerId; mapId: string; gameMode: GameMode });
 
     const room = await this.rooms.createCustomRoom(
       players[0].playerId,
@@ -53,7 +53,7 @@ export class Matchmaker {
 
     await this.redis.publish('match:ready', JSON.stringify({
       roomId:    room.roomId,
-      playerIds: players.map((p: { playerId: number }) => p.playerId),
+      playerIds: players.map((p: { playerId: PlayerId }) => p.playerId),
       gameMode:  room.gameMode,
       teams:     (started as RoomInfo).teams,
     }));
@@ -67,7 +67,7 @@ export class Matchmaker {
 
   // ── LARGE room join (no matchmaking — just drop into the next available room) ──
 
-  async joinLarge(playerId: number): Promise<RoomInfo> {
+  async joinLarge(playerId: PlayerId): Promise<RoomInfo> {
     const room = await this.rooms.joinLargeRoom(playerId);
     if (!room) throw new Error('No large room available');
 

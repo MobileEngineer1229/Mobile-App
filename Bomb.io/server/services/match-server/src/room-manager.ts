@@ -1,6 +1,6 @@
 // Redis instance typed as any — ioredis uses `export =` which can't be `import type`'d with ESNext modules
 import { RoomType, GameMode } from '../../../shared/types';
-import type { RoomInfo, RoomStatus, Team } from '../../../shared/types';
+import type { PlayerId, RoomInfo, RoomStatus, Team } from '../../../shared/types';
 
 export type { RoomInfo, RoomStatus };
 
@@ -46,7 +46,7 @@ export class RoomManager {
     return room;
   }
 
-  async joinLargeRoom(playerId: number): Promise<RoomInfo | null> {
+  async joinLargeRoom(playerId: PlayerId): Promise<RoomInfo | null> {
     const room = await this.ensureLargeRoom();
     if (room.playerIds.includes(playerId)) return room;
     room.playerIds.push(playerId);
@@ -62,7 +62,7 @@ export class RoomManager {
   // ── CUSTOM rooms (player-created) ────────────────────────────────────────
 
   async createCustomRoom(
-    creatorPlayerId: number,
+    creatorPlayerId: PlayerId,
     mapId:      string,
     maxPlayers: number,
     gameMode:   GameMode,
@@ -79,7 +79,7 @@ export class RoomManager {
     return room;
   }
 
-  async joinRoom(playerId: number, roomId: string): Promise<RoomInfo | null> {
+  async joinRoom(playerId: PlayerId, roomId: string): Promise<RoomInfo | null> {
     const room = await this.getRoom(roomId);
     if (!room || room.status !== 'WAITING') return null;
     if (room.playerIds.length >= room.maxPlayers) return null;
@@ -91,7 +91,7 @@ export class RoomManager {
   }
 
   // Creator explicitly starts the game (for CUSTOM rooms)
-  async startRoom(roomId: string, requesterId: number): Promise<RoomInfo | { error: string }> {
+  async startRoom(roomId: string, requesterId: PlayerId): Promise<RoomInfo | { error: string }> {
     const room = await this.getRoom(roomId);
     if (!room)                                   return { error: 'Room not found' };
     if (room.type !== RoomType.CUSTOM)            return { error: 'Only custom rooms can be manually started' };
@@ -109,7 +109,7 @@ export class RoomManager {
     return room;
   }
 
-  async leaveRoom(playerId: number, roomId: string): Promise<void> {
+  async leaveRoom(playerId: PlayerId, roomId: string): Promise<void> {
     const room = await this.getRoom(roomId);
     if (!room) return;
     room.playerIds = room.playerIds.filter(id => id !== playerId);
@@ -159,7 +159,7 @@ export class RoomManager {
     gameMode:        GameMode;
     maxPlayers:      number;
     mapId:           string;
-    creatorPlayerId: number | null;
+    creatorPlayerId: PlayerId | null;
   }): RoomInfo {
     return {
       roomId:           `room-${roomSeq++}-${Date.now()}`,
@@ -188,7 +188,7 @@ export class RoomManager {
   }
 }
 
-function assignTeams(playerIds: number[]): Team[] {
+function assignTeams(playerIds: PlayerId[]): Team[] {
   const shuffled = [...playerIds].sort(() => Math.random() - 0.5);
   const mid      = Math.ceil(shuffled.length / 2);
   return [

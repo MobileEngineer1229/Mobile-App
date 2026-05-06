@@ -1,5 +1,6 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import { createHash } from 'node:crypto';
 import { Player } from '../../../db/mongo/models';
 import type { IPlayer } from '../../../db/mongo/models';
 
@@ -12,12 +13,7 @@ export interface AuthPayload {
 }
 
 async function sha256(input: string): Promise<string> {
-  const data = new TextEncoder().encode(input);
-  const buf  = await globalThis.crypto.subtle.digest('SHA-256', data);
-  return Array.from(new Uint8Array(buf))
-    .map(b => b.toString(16).padStart(2, '0'))
-    .join('')
-    .slice(0, 32);
+  return createHash('sha256').update(input).digest('hex').slice(0, 32);
 }
 
 export class AuthHandler {
@@ -27,7 +23,7 @@ export class AuthHandler {
     username: string,
     password: string,
     email?: string,
-  ): Promise<{ token: string; playerId: string } | { error: string }> {
+  ): Promise<{ token: string; playerId: string; username: string } | { error: string }> {
     const resolvedEmail = email?.trim() || `${username.toLowerCase()}@bomb.io`;
     const existing = await Player.findOne({ $or: [{ username }, { email: resolvedEmail }] });
     if (existing) {
@@ -37,7 +33,7 @@ export class AuthHandler {
     const player = await Player.create({ username, email: resolvedEmail, passwordHash });
     const token  = this.signToken({ playerId: String(player._id), username });
     await this.cacheSession(token, String(player._id));
-    return { token, playerId: String(player._id) };
+    return { token, playerId: String(player._id), username };
   }
 
   async login(

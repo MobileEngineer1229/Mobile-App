@@ -1,5 +1,5 @@
 interface Session {
-  playerId: number;
+  playerId: string;
   username: string;
   token: string;
 }

@@ -48,7 +48,7 @@ export function createMatchApp(rooms: RoomManager, matchmaker: Matchmaker): void
       }
 
       if (req.method === 'POST' && pathname === '/rooms/large/join') {
-        const { playerId } = await req.json();
+        const { playerId } = await req.json() as any;
         if (!playerId) return json(400, { error: 'playerId required' });
         const room = await matchmaker.joinLarge(playerId);
         log.join(playerId, room.roomId, { map: room.mapId, players: room.playerIds.length });
@@ -63,7 +63,7 @@ export function createMatchApp(rooms: RoomManager, matchmaker: Matchmaker): void
       }
 
       if (req.method === 'POST' && pathname === '/rooms') {
-        const body = await req.json();
+        const body = await req.json() as any;
         if (!body.playerId || !body.mapId) return json(400, { error: 'playerId and mapId required' });
         const gameMode = body.gameMode === 'TEAM' ? GameMode.TEAM : GameMode.INDIVIDUAL;
         const room = await rooms.createCustomRoom(body.playerId, body.mapId, Number(body.maxPlayers ?? 4), gameMode);
@@ -74,7 +74,7 @@ export function createMatchApp(rooms: RoomManager, matchmaker: Matchmaker): void
 
       const joinM = pathname.match(/^\/rooms\/([^/]+)\/join$/);
       if (req.method === 'POST' && joinM) {
-        const { playerId } = await req.json();
+        const { playerId } = await req.json() as any;
         if (!playerId) return json(400, { error: 'playerId required' });
         const room = await rooms.joinRoom(playerId, joinM[1]);
         if (!room) {
@@ -88,7 +88,7 @@ export function createMatchApp(rooms: RoomManager, matchmaker: Matchmaker): void
 
       const startM = pathname.match(/^\/rooms\/([^/]+)\/start$/);
       if (req.method === 'POST' && startM) {
-        const { playerId } = await req.json();
+        const { playerId } = await req.json() as any;
         const result = await rooms.startRoom(startM[1], playerId);
         if ('error' in result) {
           log.warn('Start failed', { roomId: startM[1], reason: result.error });
@@ -101,7 +101,7 @@ export function createMatchApp(rooms: RoomManager, matchmaker: Matchmaker): void
 
       const leaveM = pathname.match(/^\/rooms\/([^/]+)\/leave$/);
       if (req.method === 'DELETE' && leaveM) {
-        const { playerId } = await req.json();
+        const { playerId } = await req.json() as any;
         await rooms.leaveRoom(playerId, leaveM[1]);
         log.leave(playerId, leaveM[1]);
         return json(200, { ok: true });
@@ -109,7 +109,7 @@ export function createMatchApp(rooms: RoomManager, matchmaker: Matchmaker): void
 
       // ── Matchmaking queue ──────────────────────────────────────────────────
       if (req.method === 'POST' && pathname === '/queue') {
-        const body = await req.json();
+        const body = await req.json() as any;
         const gameMode = body.gameMode === 'TEAM' ? GameMode.TEAM : GameMode.INDIVIDUAL;
         await matchmaker.enqueue(body.playerId, body.mapId, gameMode);
         const qLen = await matchmaker.getQueueLength();
@@ -117,9 +117,9 @@ export function createMatchApp(rooms: RoomManager, matchmaker: Matchmaker): void
         return json(200, { queued: true, queueLength: qLen });
       }
 
-      const deqM = pathname.match(/^\/queue\/(\d+)$/);
+      const deqM = pathname.match(/^\/queue\/([^/]+)$/);
       if (req.method === 'DELETE' && deqM) {
-        await matchmaker.dequeue(Number(deqM[1]));
+        await matchmaker.dequeue(deqM[1]);
         log.info('Player dequeued', { playerId: deqM[1] });
         return json(200, { ok: true });
       }

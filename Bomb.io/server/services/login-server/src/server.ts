@@ -31,7 +31,7 @@ export function createLoginApp(redis: any): void {
     try {
       // ── Auth ──────────────────────────────────────────────────────────────
       if (req.method === 'POST' && pathname === '/register') {
-        const { username, password, email } = await req.json();
+        const { username, password, email } = await req.json() as any;
         if (!username || !password) return json(400, { error: 'username and password required' });
         const r = await auth.register(username, password, email);
         if ('error' in r) {
@@ -43,7 +43,7 @@ export function createLoginApp(redis: any): void {
       }
 
       if (req.method === 'POST' && pathname === '/login') {
-        const { username, password } = await req.json();
+        const { username, password } = await req.json() as any;
         const r = await auth.login(username, password);
         if ('error' in r) {
           log.auth('FAIL', username, r.error);
@@ -88,7 +88,7 @@ export function createLoginApp(redis: any): void {
       if (req.method === 'POST' && pathname === '/characters/unlock') {
         const payload = await auth.validateToken(bearer(req));
         if (!payload) return json(401, { error: 'Unauthorized' });
-        const { templateId } = await req.json();
+        const { templateId } = await req.json() as any;
         const r = await chars.unlockCharacter(payload.playerId, templateId);
         if ('error' in r) { log.warn('Unlock failed', { user: payload.username, templateId }); return json(400, r); }
         log.ok('Character unlocked', { user: payload.username, templateId });
@@ -99,7 +99,7 @@ export function createLoginApp(redis: any): void {
       if (req.method === 'POST' && xpM) {
         const payload = await auth.validateToken(bearer(req));
         if (!payload) return json(401, { error: 'Unauthorized' });
-        const { xp } = await req.json();
+        const { xp } = await req.json() as any;
         const updated = await chars.addExperience(payload.playerId, xpM[1], Number(xp));
         if (!updated) return json(404, { error: 'Character not found' });
         log.ok('XP added', { user: payload.username, charId: xpM[1], xp });
@@ -110,7 +110,7 @@ export function createLoginApp(redis: any): void {
       if (req.method === 'PATCH' && cosM) {
         const payload = await auth.validateToken(bearer(req));
         if (!payload) return json(401, { error: 'Unauthorized' });
-        const { field, value } = await req.json();
+        const { field, value } = await req.json() as any;
         const updated = await chars.applyCosmetic(payload.playerId, cosM[1], field, value);
         if (!updated) return json(404, { error: 'Character not found' });
         log.ok('Cosmetic applied', { user: payload.username, charId: cosM[1], field });

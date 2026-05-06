@@ -1,3 +1,5 @@
+import type { PlayerId } from './Player';
+
 export type RoomStatus = 'WAITING' | 'STARTING' | 'IN_GAME' | 'FINISHED';
 
 export enum RoomType {
@@ -12,7 +14,7 @@ export enum GameMode {
 
 export interface Team {
   teamId:    1 | 2;
-  playerIds: number[];
+  playerIds: PlayerId[];
 }
 
 export interface RoomInfo {
@@ -20,11 +22,11 @@ export interface RoomInfo {
   type:             RoomType;
   status:           RoomStatus;
   gameMode:         GameMode;
-  playerIds:        number[];
+  playerIds:        PlayerId[];
   maxPlayers:       number;
   mapId:            string;
   teams:            Team[];          // populated at start for TEAM mode, empty otherwise
-  creatorPlayerId:  number | null;   // null for LARGE rooms
+  creatorPlayerId:  PlayerId | null; // null for LARGE rooms
   battleServerHost: string;
   battleServerPort: number;
   createdAt:        number;

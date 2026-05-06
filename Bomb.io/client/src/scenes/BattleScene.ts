@@ -39,7 +39,7 @@ const MM_PAD = 8;
 // ── Types ─────────────────────────────────────────────────────────────────────
 
 interface ServerPlayer {
-  id: number;
+  id: string;
   username: string;
   x: number;
   y: number;
@@ -87,7 +87,7 @@ interface MapData {
 // ── Rendered entities ─────────────────────────────────────────────────────────
 
 interface RenderedPlayer {
-  id: number;
+  id: string;
   username: string;
   tileX: number;
   tileY: number;
@@ -117,7 +117,7 @@ export class BattleScene extends Phaser.Scene {
   private pingMs = 0;
 
   // Session / room data (from scene init)
-  private myId = 0;
+  private myId = '';
   private myUsername = '';
   private token = '';
   private roomId = '';
@@ -134,10 +134,10 @@ export class BattleScene extends Phaser.Scene {
   private offY = 0;
 
   // Entities
-  private players = new Map<number, RenderedPlayer>();
+  private players = new Map<string, RenderedPlayer>();
   private bombs   = new Map<number, RenderedBomb>();
   private explosionGfx!: Phaser.GameObjects.Graphics;
-  private colorAssign = new Map<number, number>(); // playerId → color index
+  private colorAssign = new Map<string, number>(); // playerId -> color index
   private colorCounter = 0;
 
   // Local player state (for input)
@@ -355,7 +355,7 @@ export class BattleScene extends Phaser.Scene {
     }
 
     // Track which player IDs are in this state
-    const seenIds = new Set<number>();
+    const seenIds = new Set<string>();
 
     for (const sp of msg.players) {
       seenIds.add(sp.id);
@@ -549,7 +549,7 @@ export class BattleScene extends Phaser.Scene {
 
   // ── Player rendering ──────────────────────────────────────────────────────
 
-  private getColor(playerId: number): number {
+  private getColor(playerId: string): number {
     if (!this.colorAssign.has(playerId)) {
       this.colorAssign.set(playerId, this.colorCounter % PLAYER_COLORS.length);
       this.colorCounter++;

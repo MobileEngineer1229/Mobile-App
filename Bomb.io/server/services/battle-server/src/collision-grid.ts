@@ -1,10 +1,10 @@
 import { SpatialGrid } from '../../../shared/utils';
-import type { Player } from '../../../shared/types';
+import type { Player, PlayerId } from '../../../shared/types';
 
 export class CollisionGrid {
   private spatial = new SpatialGrid(1);
 
-  sync(players: Map<number, Player>): void {
+  sync(players: Map<PlayerId, Player>): void {
     this.spatial.clear();
     players.forEach(p => {
       if (p.isAlive) {
@@ -17,10 +17,10 @@ export class CollisionGrid {
     return [...this.spatial.getNearby(x, y, 0.5)];
   }
 
-  getPlayersInCells(cells: { x: number; y: number }[]): Set<number> {
-    const hit = new Set<number>();
+  getPlayersInCells(cells: { x: number; y: number }[]): Set<PlayerId> {
+    const hit = new Set<PlayerId>();
     cells.forEach(({ x, y }) => {
-      this.getPlayersAt(x, y).forEach(id => hit.add(Number(id)));
+      this.getPlayersAt(x, y).forEach(id => hit.add(id));
     });
     return hit;
   }

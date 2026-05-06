@@ -31,7 +31,8 @@ import { CollisionGrid }   from './collision-grid';
 import { MatchReporter }   from './match-reporter';
 import { Logger }          from '../../../shared/logger';
 import { GameMode, TerrainType } from '../../../shared/types';
-import type { Player, Bomb, MapData, PlayerInput } from '../../../shared/types';
+import type { Player, PlayerId, Bomb, MapData, PlayerInput } from '../../../shared/types';
+import { createHash } from 'node:crypto';
 
 const log             = new Logger('Battle');
 const BOMB_RATE_MS    = 200;   // min ms between bombs per player
@@ -41,7 +42,7 @@ const MIN_PLAYERS     = 2;     // game starts when this many join
 // ── Per-WebSocket session data ────────────────────────────────────────────────
 
 interface WsData {
-  playerId: number | null;
+  playerId: PlayerId | null;
   roomId:   string | null;
 }
 
@@ -58,7 +59,7 @@ interface TrackedPlayer extends Player {
 // ── BattleRoom ────────────────────────────────────────────────────────────────
 
 export class BattleRoom {
-  private players         = new Map<number, TrackedPlayer>();
+  private players         = new Map<PlayerId, TrackedPlayer>();
   private bombs           = new Map<number, Bomb>();
   private terrainSystem:  TerrainSystem;
   private collisionGrid   = new CollisionGrid();
@@ -103,7 +104,7 @@ export class BattleRoom {
     }
   }
 
-  removePlayer(playerId: number): void {
+  removePlayer(playerId: PlayerId): void {
     this.players.delete(playerId);
     log.leave(playerId, this.roomId);
     if (this.players.size === 0) {
@@ -112,7 +113,7 @@ export class BattleRoom {
     }
   }
 
-  handleInput(playerId: number, input: PlayerInput): void {
+  handleInput(playerId: PlayerId, input: PlayerInput): void {
     const player = this.players.get(playerId);
     if (!player?.isAlive) return;
 
@@ -382,17 +383,18 @@ export class BattleServer {
 
   private async handleJoin(ws: any, msg: any): Promise<void> {
     const { roomId, playerId, token, username } = msg;
+    const playerKey = String(playerId ?? '');
 
-    if (!roomId || !playerId) {
+    if (!roomId || !playerKey) {
       ws.send(JSON.stringify({ type: 'ERROR', message: 'roomId and playerId required' }));
       return;
     }
 
     // Validate session token against Redis
     if (token) {
-      const valid = await this.validateToken(token);
+      const valid = await this.validateToken(token, playerKey);
       if (!valid) {
-        log.warn('Invalid token on JOIN', { playerId, roomId });
+        log.warn('Invalid token on JOIN', { playerId: playerKey, roomId });
         ws.send(JSON.stringify({ type: 'ERROR', message: 'Invalid or expired token' }));
         ws.close(4001, 'UNAUTHORIZED');
         return;
@@ -423,8 +425,8 @@ export class BattleServer {
 
     // Build Player object
     const player: Player = {
-      id:               Number(playerId),
-      username:         String(username ?? `Player${playerId}`),
+      id:               playerKey,
+      username:         String(username ?? `Player${playerKey}`),
       sessionToken:     token ?? '',
       address:          { host: ws.remoteAddress ?? '0.0.0.0', port: 0 },
       position:         { x: spawn.x, y: spawn.y },
@@ -443,13 +445,17 @@ export class BattleServer {
       characters:       [{
         characterId:    1,
         name:           'Blaster',
+        level:          1,
+        experience:     0,
         baseHp:         3,
         currentHp:      3,
         baseSpeed:      1,
-        currentSpeed:   1,
         baseBombCount:  1,
         baseBlastRadius:2,
         abilities:      [],
+        abilityStates:  [],
+        skinId:         'blaster_default',
+        bombEffectId:   'bomb_default',
       }],
     };
 
@@ -471,7 +477,7 @@ export class BattleServer {
     }));
 
     room.addPlayer(player, ws);
-    log.info('Player joined room', { playerId, roomId, spawnX: spawn.x, spawnY: spawn.y });
+    log.info('Player joined room', { playerId: playerKey, roomId, spawnX: spawn.x, spawnY: spawn.y });
   }
 
   private handleInput(ws: any, msg: any): void {
@@ -499,11 +505,11 @@ export class BattleServer {
     return 'volcano-isle';
   }
 
-  private async validateToken(token: string): Promise<boolean> {
+  private async validateToken(token: string, playerId: PlayerId): Promise<boolean> {
     try {
       const hash   = await sha256(token);
-      const exists = await this.redis.exists(`session:${hash}`);
-      return exists > 0;
+      const sessionPlayerId = await this.redis.get(`session:${hash}`);
+      return sessionPlayerId === playerId;
     } catch { return false; }
   }
 }
@@ -511,9 +517,5 @@ export class BattleServer {
 // ── Shared utility ─────────────────────────────────────────────────────────────
 
 async function sha256(input: string): Promise<string> {
-  const buf = await globalThis.crypto.subtle.digest(
-    'SHA-256', new TextEncoder().encode(input),
-  );
-  return Array.from(new Uint8Array(buf))
-    .map(b => b.toString(16).padStart(2, '0')).join('').slice(0, 32);
+  return createHash('sha256').update(input).digest('hex').slice(0, 32);
 }

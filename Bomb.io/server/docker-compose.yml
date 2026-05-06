@@ -58,6 +58,8 @@ services:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
       - LOGIN_SERVER_URL=http://login-server:8000
+      - BATTLE_SERVER_HOST=localhost
+      - UDP_PORT_START=5000
     depends_on:
       redis:
         condition: service_healthy
@@ -68,13 +70,15 @@ services:
   battle-server:
     build: ./services/battle-server
     ports:
-      - "5000-5010:5000-5010/udp"
+      - "5000:5000"
     environment:
+      - PORT=5000
       - REDIS_HOST=redis
       - REDIS_PORT=6379
       - MONGO_URI=mongodb://${MONGO_USER:-bombio}:${MONGO_PASSWORD:-bombiopass}@mongodb:27017/bombio?authSource=admin
+      - BATTLE_SERVER_HOST=localhost
       - UDP_PORT_START=5000
-      - UDP_PORT_END=5010
+      - UDP_PORT_END=5000
       - MATCH_SERVER_URL=http://match-server:8001
       - MAX_PLAYERS_PER_ROOM=50
     depends_on:

@@ -49,17 +49,17 @@ export const api = {
   match: {
     listLargeRooms:  () => get(`${BASE.match}/rooms/large`),
     listCustomRooms: () => get(`${BASE.match}/rooms`),
-    joinLargeRoom:  (playerId: number, token: string) =>
+    joinLargeRoom:  (playerId: string, token: string) =>
       post(`${BASE.match}/rooms/large/join`, { playerId }, token),
-    createCustomRoom: (playerId: number, mapId: string, maxPlayers: number, gameMode: string, token: string) =>
+    createCustomRoom: (playerId: string, mapId: string, maxPlayers: number, gameMode: string, token: string) =>
       post(`${BASE.match}/rooms`, { playerId, mapId, maxPlayers, gameMode }, token),
-    joinRoom:  (roomId: string, playerId: number, token: string) =>
+    joinRoom:  (roomId: string, playerId: string, token: string) =>
       post(`${BASE.match}/rooms/${roomId}/join`, { playerId }, token),
-    startRoom: (roomId: string, playerId: number, token: string) =>
+    startRoom: (roomId: string, playerId: string, token: string) =>
       post(`${BASE.match}/rooms/${roomId}/start`, { playerId }, token),
-    leaveRoom: (roomId: string, playerId: number, token: string) =>
+    leaveRoom: (roomId: string, playerId: string, token: string) =>
       del(`${BASE.match}/rooms/${roomId}/leave`, { playerId }, token),
-    queueUp: (playerId: number, mapId: string, gameMode: string, token: string) =>
+    queueUp: (playerId: string, mapId: string, gameMode: string, token: string) =>
       post(`${BASE.match}/queue`, { playerId, mapId, gameMode }, token),
   },
   rank: {

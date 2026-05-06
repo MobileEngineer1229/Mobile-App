@@ -22,4 +22,4 @@ Write-Host "  Client : http://localhost:3000" -ForegroundColor Yellow
 Write-Host "  Login  : http://localhost:8000" -ForegroundColor Yellow
 Write-Host "  Match  : http://localhost:8001" -ForegroundColor Yellow
 Write-Host "  Rank   : http://localhost:8002" -ForegroundColor Yellow
-Write-Host "  Battle : UDP :5000" -ForegroundColor Yellow
+Write-Host "  Battle : WebSocket ws://localhost:5000/battle" -ForegroundColor Yellow

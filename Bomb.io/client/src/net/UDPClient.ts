@@ -1,5 +1,5 @@
-// Browser UDP simulation over WebSocket relay
-// A thin relay WebSocket server on the battle server echoes UDP frames as binary WS messages.
+// Browser battle transport over WebSocket.
+// The battle server accepts JSON messages at /battle; browsers cannot use raw UDP.
 
 export interface GameState {
   frame: number;
@@ -10,7 +10,7 @@ export interface GameState {
 }
 
 export interface PlayerStateMsg {
-  playerId: number; characterId: number;
+  playerId: string; characterId: number;
   x: number; y: number; facing: number;
   hp: number; maxHp: number;
   bombsAvailable: number; bombsMax: number; blastRadius: number;
@@ -22,7 +22,7 @@ export interface BombStateMsg {
 }
 
 export interface ExplosionMsg {
-  bombId: number; cells: { x: number; y: number }[]; hitPlayers: number[];
+  bombId: number; cells: { x: number; y: number }[]; hitPlayers: string[];
 }
 
 export interface TerrainUpdateMsg {
@@ -30,7 +30,7 @@ export interface TerrainUpdateMsg {
 }
 
 export type GameStateCallback = (state: GameState) => void;
-export type GameOverCallback  = (winnerId: number | null) => void;
+export type GameOverCallback  = (winnerId: string | null) => void;
 
 export class GameClient {
   private ws: WebSocket | null = null;
@@ -42,20 +42,26 @@ export class GameClient {
     this.onGameOver = onGameOver;
   }
 
-  connect(host: string, port: number): void {
-    this.ws = new WebSocket(`ws://${host}:${port}/ws`);
-    this.ws.binaryType = 'arraybuffer';
+  connect(host: string, port: number, join?: {
+    roomId: string;
+    playerId: string;
+    token: string;
+    username: string;
+  }): void {
+    this.ws = new WebSocket(`ws://${host}:${port}/battle`);
 
+    this.ws.onopen = () => {
+      if (join) this.ws?.send(JSON.stringify({ type: 'JOIN', ...join }));
+    };
     this.ws.onmessage = (event) => {
       try {
-        const text = typeof event.data === 'string'
-          ? event.data
-          : new TextDecoder().decode(event.data);
-        const msg = JSON.parse(text);
+        const msg = JSON.parse(event.data as string);
         if (msg.type === 'GAME_OVER') {
           this.onGameOver(msg.winnerId);
-        } else {
+        } else if (msg.type === 'STATE') {
           this.onState(msg as GameState);
+        } else {
+          console.log('[GameClient] Server message', msg);
         }
       } catch {}
     };
@@ -66,14 +72,14 @@ export class GameClient {
 
   sendInput(sequence: number, moveDir: number, placeBomb: boolean, abilitySlot: number, characterId: number): void {
     if (!this.ws || this.ws.readyState !== WebSocket.OPEN) return;
-    const buf = new ArrayBuffer(7);
-    const view = new DataView(buf);
-    view.setUint16(0, sequence);
-    view.setUint8(2, placeBomb ? 0x01 : 0x00);
-    view.setUint8(3, moveDir);
-    view.setUint8(4, abilitySlot);
-    view.setUint16(5, characterId);
-    this.ws.send(buf);
+    this.ws.send(JSON.stringify({
+      type: 'INPUT',
+      seq: sequence,
+      dir: moveDir,
+      bomb: placeBomb,
+      ability: abilitySlot,
+      charId: characterId,
+    }));
   }
 
   disconnect(): void {

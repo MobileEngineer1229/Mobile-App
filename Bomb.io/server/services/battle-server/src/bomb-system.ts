@@ -1,4 +1,4 @@
-import type { Bomb, ExplosionResult } from '../../../shared/types';
+import type { Bomb, ExplosionResult, PlayerId } from '../../../shared/types';
 import type { TerrainSystem } from './terrain-system';
 import type { CollisionGrid } from './collision-grid';
 
@@ -75,7 +75,7 @@ export class BombSystem {
     return { bombId: bomb.id, affectedCells, destroyedBlocks, hitPlayers, triggeredBombIds };
   }
 
-  placeBomb(playerId: number, x: number, y: number, blastRadius: number, isRemote = false): Bomb {
+  placeBomb(playerId: PlayerId, x: number, y: number, blastRadius: number, isRemote = false): Bomb {
     return {
       id: bombIdCounter++,
       ownerPlayerId: playerId,
@@ -87,7 +87,7 @@ export class BombSystem {
     };
   }
 
-  triggerRemote(playerId: number, bombs: Map<number, Bomb>): void {
+  triggerRemote(playerId: PlayerId, bombs: Map<number, Bomb>): void {
     bombs.forEach((bomb, id) => {
       if (bomb.ownerPlayerId === playerId && bomb.isRemote) {
         bomb.fuseTicks = 1;

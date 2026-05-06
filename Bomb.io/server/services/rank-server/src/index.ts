@@ -61,13 +61,15 @@ async function bootstrap(): Promise<void> {
 
       // Internal endpoint called by battle-server to record match results
       if (req.method === 'POST' && pathname === '/match-result') {
-        const body = await req.json();
+        const body = await req.json() as any;
         const { roomId, results } = body; // results: [{playerId, kills, deaths, won}]
         log.gameStart(roomId, results?.length ?? 0);
-        for (const r of results ?? []) {
-          const newElo = await leaderboard.recordResult(r.playerId, r.kills, r.deaths, r.won);
-          const delta  = Math.round(newElo - (r.prevElo ?? newElo));
-          log.rank(r.playerId, newElo, delta);
+        const winnerId = body.winnerId ?? results?.find((r: any) => r.won)?.playerId;
+        if (winnerId && Array.isArray(results)) {
+          const before = await leaderboard.getStats(String(winnerId));
+          await leaderboard.recordResult(String(winnerId), results);
+          const after = await leaderboard.getStats(String(winnerId));
+          log.rank(String(winnerId), after.elo, after.elo - before.elo);
         }
         return json(200, { ok: true });
       }

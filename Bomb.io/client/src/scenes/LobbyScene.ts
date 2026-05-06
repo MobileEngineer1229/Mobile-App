@@ -20,8 +20,8 @@ const MAPS = ['volcano-isle', 'frozen-tundra', 'desert-ruins', 'jungle-maze', 'c
 
 interface RoomInfo {
   roomId: string; type: string; status: string; gameMode: string;
-  playerIds: number[]; maxPlayers: number; mapId: string;
-  creatorPlayerId: number | null;
+  playerIds: string[]; maxPlayers: number; mapId: string;
+  creatorPlayerId: string | null;
 }
 
 // ── CSS injected once ─────────────────────────────────────────────────────────

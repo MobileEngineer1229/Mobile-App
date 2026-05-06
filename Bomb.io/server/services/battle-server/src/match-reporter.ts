@@ -1,4 +1,4 @@
-import type { Player } from '../../../shared/types';
+import type { Player, PlayerId } from '../../../shared/types';
 
 interface MatchResultEvent {
   roomId:         string;
@@ -28,8 +28,8 @@ export class MatchReporter {
   async publish(
     roomId: string,
     mapId: string,
-    players: Map<number, Player & { kills: number; deaths: number; damageDealt: number; eliminatedAtFrame: number }>,
-    winnerId: number | null,
+    players: Map<PlayerId, Player & { kills: number; deaths: number; damageDealt: number; eliminatedAtFrame: number }>,
+    winnerId: PlayerId | null,
     startedAt: number,
     totalFrames: number,
   ): Promise<void> {
@@ -46,7 +46,7 @@ export class MatchReporter {
       roomId,
       mapId,
       winnerId:       winnerId !== null ? String(winnerId) : null,
-      winnerUsername: winnerId !== null ? (players.get(winnerId)?.sessionToken ?? String(winnerId)) : null,
+      winnerUsername: winnerId !== null ? (players.get(winnerId)?.username ?? winnerId) : null,
       startedAt,
       endedAt,
       totalFrames,
@@ -54,7 +54,7 @@ export class MatchReporter {
         const char = p.characters.find(c => c.characterId === p.activeCharacterId);
         return {
           playerId:      String(p.id),
-          username:      p.sessionToken, // reuse token field as username placeholder
+          username:      p.username,
           characterId:   String(p.activeCharacterId),
           characterName: char?.name ?? 'Unknown',
           placement:     idx + 1,
