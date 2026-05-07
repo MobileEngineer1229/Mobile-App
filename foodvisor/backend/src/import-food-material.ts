@@ -5,6 +5,7 @@ import path from "path";
 import { connectDatabase } from "./db.js";
 import { dailyValueProfiles } from "./data/dailyValueProfiles.js";
 import { DailyValueProfile, Food } from "./models/content.js";
+import { translateChineseFoodName } from "./utils/chineseFoodKorean.js";
 
 type MaterialRecord = {
   name: string;
@@ -326,7 +327,7 @@ const koreanSubgroupNames: Record<string, string> = {
 };
 
 function resolvedKoreanName(chineseName: string, classification: ReturnType<typeof classify>) {
-  const translated = koreanName(chineseName);
+  const translated = translateChineseFoodName(chineseName, classification.category);
   if (!containsCjk(translated)) return translated;
 
   const category = koreanCategoryNames[classification.category] || "식품";
@@ -506,7 +507,6 @@ function buildFood(record: ImportRecord, imageUrl: string) {
   const allergenList = inferAllergens(record.name, classification.sourceCategory);
 
   return {
-    name: koName,
     koreanName: koName,
     chineseName: record.name,
     dataType: "food-material-master",

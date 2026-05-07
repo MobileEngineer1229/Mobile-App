@@ -10,7 +10,7 @@ apiRouter.get("/health", (_req, res) => {
 });
 
 apiRouter.use("/dashboard", dashboardRouter);
-apiRouter.use("/foods", createCrudRouter(Food, ["name", "koreanName", "chineseName", "brand", "category", "foodGroup", "foodSubgroup", "tags"]));
+apiRouter.use("/foods", createCrudRouter(Food, ["koreanName", "chineseName", "brand", "category", "foodGroup", "foodSubgroup", "tags"]));
 apiRouter.use("/daily-value-profiles", createCrudRouter(DailyValueProfile, ["profileKey", "label", "purpose", "notes"]));
 apiRouter.use("/recipes", createCrudRouter(Recipe, ["title", "description", "mealType", "tags"]));
 apiRouter.use("/recipe-ingredients", createCrudRouter(RecipeIngredient, ["name", "koreanName", "foodName", "category", "notes"]));

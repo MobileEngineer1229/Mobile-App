@@ -15,6 +15,10 @@
     "import:food-material": "tsx src/import-food-material.ts",
     "import:comprehensive": "tsx src/import-comprehensive-food-database.ts",
     "import:usda": "tsx src/import-usda-foods.ts",
+    "normalize:food-names": "tsx src/normalize-food-names.ts",
+    "translate:food-names:deepseek": "tsx src/translate-food-names-deepseek.ts",
+    "import:korean-names": "tsx src/import-korean-names-from-reference.ts",
+    "verify:nutrients": "tsx src/verify-nutrient-data.ts",
     "seed": "tsx src/migrate.ts --download-images"
   },
   "dependencies": {

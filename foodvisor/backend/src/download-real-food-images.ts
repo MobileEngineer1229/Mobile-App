@@ -6,7 +6,8 @@ import { Food } from "./models/content.js";
 
 type FoodRecord = {
   _id: unknown;
-  name?: string;
+  koreanName?: string;
+  chineseName?: string;
   brand?: string;
   category?: string;
   foodGroup?: string;
@@ -76,7 +77,7 @@ function extensionFromContentType(contentType: string) {
 }
 
 function queryFor(food: FoodRecord) {
-  const name = clean(food.name);
+  const name = clean(food.koreanName || food.chineseName || "");
   const brand = clean(food.brand);
   return brand ? `${brand} ${name}` : name;
 }
@@ -138,7 +139,7 @@ async function openFoodFactsCandidate(food: FoodRecord): Promise<ImageCandidate 
 async function wikimediaCandidate(food: FoodRecord): Promise<ImageCandidate | null> {
   if (food.brand) return null;
 
-  const query = `${clean(food.name)} food`;
+  const query = `${clean(food.koreanName || food.chineseName || "")} food`;
   const params = new URLSearchParams({
     action: "query",
     format: "json",
@@ -182,7 +183,7 @@ async function wikimediaCandidate(food: FoodRecord): Promise<ImageCandidate | nu
         pageUrl: info.descriptionurl || info.url,
         license: clean(info.extmetadata?.LicenseShortName?.value || "Wikimedia Commons license"),
         title,
-        score: scoreMatch(food.name || "", title)
+        score: scoreMatch(food.koreanName || food.chineseName || "", title)
       });
     }
   }
@@ -207,7 +208,7 @@ async function findCandidate(food: FoodRecord) {
         if (candidate) return candidate;
       }
     } catch (error) {
-      console.warn(`${provider} failed for ${food.name}: ${error instanceof Error ? error.message : String(error)}`);
+      console.warn(`${provider} failed for ${queryFor(food)}: ${error instanceof Error ? error.message : String(error)}`);
     }
   }
   return null;
@@ -227,7 +228,7 @@ async function saveImage(food: FoodRecord, candidate: ImageCandidate) {
   if (buffer.length < 2048) throw new Error("Image too small to trust");
 
   const ext = extensionFromContentType(contentType);
-  const fileName = `real-${String(food._id)}-${slugify(food.name || "food")}.${ext}`;
+  const fileName = `real-${String(food._id)}-${slugify(food.koreanName || food.chineseName || "food")}.${ext}`;
   const filePath = path.join(imageDir, fileName);
   await writeFile(filePath, buffer);
   return `/images/foods/${fileName}`;
@@ -250,8 +251,8 @@ if (sourceFilter.length) {
 }
 
 const foods = await Food.find(query)
-  .select("name brand category foodGroup foodSubgroup dataSource imageUrl imageSourceUrl imageLicense")
-  .sort({ brand: -1, name: 1 })
+  .select("koreanName chineseName brand category foodGroup foodSubgroup dataSource imageUrl imageSourceUrl imageLicense")
+  .sort({ brand: -1, koreanName: 1 })
   .limit(limit)
   .lean() as FoodRecord[];
 

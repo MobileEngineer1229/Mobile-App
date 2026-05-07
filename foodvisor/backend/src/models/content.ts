@@ -86,8 +86,7 @@ const reviewFlag = {
 
 const foodSchema = new Schema(
   {
-    name: { type: String, required: true, trim: true, index: true },
-    koreanName: { type: String, trim: true, index: true },
+    koreanName: { type: String, required: true, trim: true, index: true },
     chineseName: { type: String, trim: true, index: true },
     fdcId: { type: Number, unique: true, sparse: true, index: true },
     dataType: { type: String, trim: true, index: true },

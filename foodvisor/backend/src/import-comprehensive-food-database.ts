@@ -213,9 +213,8 @@ function buildDocument(food: ParsedFood) {
   const classification = classify(food.name);
   const allergyList = allergens(food.name, food.brand);
   return {
-    name: food.name,
+    koreanName: food.name,
     brand: food.brand,
-    koreanName: "",
     dataType: food.source.key,
     ...classification,
     servingSize: "100 g",
@@ -265,7 +264,7 @@ async function flush(batch: ReturnType<typeof buildDocument>[], source: SourceCo
 
   const operations = batch.map((doc) => ({
     updateOne: {
-      filter: { name: doc.name, brand: doc.brand, dataSource: source.dataSource },
+      filter: { koreanName: doc.koreanName, brand: doc.brand, dataSource: source.dataSource },
       update: { $setOnInsert: doc },
       upsert: true
     }
@@ -283,8 +282,8 @@ for (const profile of dailyValueProfiles) {
   await DailyValueProfile.updateOne({ profileKey: profile.profileKey }, { $set: profile }, { upsert: true });
 }
 
-const existing = await Food.find({}, { name: 1, brand: 1 }).lean();
-const seen = new Set(existing.map((food) => recordKey(String(food.name || ""), typeof food.brand === "string" ? food.brand : undefined)));
+const existing = await Food.find({}, { koreanName: 1, brand: 1 }).lean();
+const seen = new Set(existing.map((food) => recordKey(String(food.koreanName || ""), typeof food.brand === "string" ? food.brand : undefined)));
 
 let imported = 0;
 let skippedDuplicates = 0;
