@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="6dp"
+    android:layout_marginEnd="6dp"
+    android:layout_marginBottom="16dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="0dp"
+    app:cardBackgroundColor="@color/dark_4">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <!-- Device Icon (First Row - Left) -->
+        <ImageView
+            android:id="@+id/imageViewDeviceIcon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/lamp"
+            android:contentDescription="Device icon"
+            android:scaleType="fitCenter"
+            app:tint="@color/white"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <!-- Toggle Switch (First Row - Right) -->
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/switchDeviceStatus"
+            style="@style/Widget.SmartHome.SwitchMaterial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/imageViewDeviceIcon"
+            app:layout_constraintBottom_toBottomOf="@id/imageViewDeviceIcon" />
+
+        <!-- Device Name (Second Row - Full Width) -->
+        <TextView
+            android:id="@+id/textViewDeviceName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Smart Lamp"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:fontFamily="@font/urbanist"
+            android:maxLines="1"
+            android:ellipsize="end"
+            app:layout_constraintTop_toBottomOf="@id/imageViewDeviceIcon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp" />
+
+        <!-- Room/Location Name (Third Row) -->
+        <TextView
+            android:id="@+id/textViewRoomName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Living Room"
+            android:textSize="14sp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/urbanist"
+            android:alpha="0.7"
+            android:maxLines="1"
+            android:ellipsize="end"
+            app:layout_constraintTop_toBottomOf="@id/textViewDeviceName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="4dp" />
+
+        <!-- Wi-Fi Connectivity Indicator (Pill Shape, Fourth Row) -->
+        <LinearLayout
+            android:id="@+id/layoutWifiConnectivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/wifi_pill_background"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            app:layout_constraintTop_toBottomOf="@id/textViewRoomName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="8dp">
+
+            <ImageView
+                android:id="@+id/imageViewWifiIcon"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:src="@drawable/ic_wifi"
+                android:contentDescription="Wi-Fi"
+                app:tint="@color/white"
+                android:alpha="0.7" />
+
+            <TextView
+                android:id="@+id/textViewWifiText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Wi-Fi"
+                android:textSize="12sp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/urbanist"
+                android:alpha="0.7"
+                android:layout_marginStart="4dp" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
+

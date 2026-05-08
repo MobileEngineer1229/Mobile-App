@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:maxHeight="260dp"
+    android:fillViewport="false">
+
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bg_rounded_dark"
+    android:paddingTop="2dp"
+    android:paddingBottom="2dp">
+
+        <!-- Today -->
+        <TextView
+            android:id="@+id/itemToday"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Today"
+            android:textSize="14sp"
+            android:fontFamily="@font/urbanist"
+            android:textColor="@color/white"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:background="@drawable/ripple_dark"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/dark_5" />
+
+        <!-- This Week -->
+        <TextView
+            android:id="@+id/itemThisWeek"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="This Week"
+            android:textSize="14sp"
+            android:fontFamily="@font/urbanist"
+            android:textColor="@color/white"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:background="@drawable/ripple_dark"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/dark_5" />
+
+        <!-- Last month -->
+        <TextView
+            android:id="@+id/itemLastMonth"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Last month"
+            android:textSize="14sp"
+            android:fontFamily="@font/urbanist"
+            android:textColor="@color/white"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:background="@drawable/ripple_dark"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/dark_5" />
+
+        <!-- Last 3 months -->
+        <TextView
+            android:id="@+id/itemLast3Months"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Last 3 months"
+            android:textSize="14sp"
+            android:fontFamily="@font/urbanist"
+            android:textColor="@color/white"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:background="@drawable/ripple_dark"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/dark_5" />
+
+        <!-- Last 6 months -->
+        <TextView
+            android:id="@+id/itemLast6Months"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Last 6 months"
+            android:textSize="14sp"
+            android:fontFamily="@font/urbanist"
+            android:textColor="@color/white"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:background="@drawable/ripple_dark"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/dark_5" />
+
+        <!-- This year -->
+        <TextView
+            android:id="@+id/itemThisYear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="This year"
+            android:textSize="14sp"
+            android:fontFamily="@font/urbanist"
+            android:textColor="@color/white"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:background="@drawable/ripple_dark"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/dark_5" />
+
+        <!-- Last year -->
+        <TextView
+            android:id="@+id/itemLastYear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Last year"
+            android:textSize="14sp"
+            android:fontFamily="@font/urbanist"
+            android:textColor="@color/white"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:background="@drawable/ripple_dark"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/dark_5" />
+
+        <!-- All time -->
+        <TextView
+            android:id="@+id/itemAllTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="All time"
+            android:textSize="14sp"
+            android:fontFamily="@font/urbanist"
+            android:textColor="@color/white"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:background="@drawable/ripple_dark"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/dark_5" />
+
+        <!-- Custom range.. -->
+        <TextView
+            android:id="@+id/itemCustomRange"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Custom range.."
+            android:textSize="14sp"
+            android:fontFamily="@font/urbanist"
+            android:textColor="@color/white"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:background="@drawable/ripple_dark"
+            android:clickable="true"
+            android:focusable="true" />
+
+</LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

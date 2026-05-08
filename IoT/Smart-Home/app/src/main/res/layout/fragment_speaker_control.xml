@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dark_1">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="0dp"
+            android:paddingBottom="100dp">
+
+            <!-- Now Playing -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="267dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                app:cardCornerRadius="20dp"
+                app:cardBackgroundColor="@color/dark_4"
+                app:cardElevation="0dp"
+                android:layout_marginBottom="24dp"
+                android:padding="12dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_spotify"
+                        android:tint="@color/green"
+                        android:layout_marginEnd="8dp" />
+
+                    <TextView
+                        android:id="@+id/textViewNowPlaying"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Ed Sheeran - Shape of You"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/urbanist"
+                        android:ellipsize="end"
+                        android:maxLines="1" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- Volume Arc Control -->
+            <FrameLayout
+                android:layout_width="330dp"
+                android:layout_height="330dp"
+                android:layout_marginBottom="24dp"
+                android:gravity="center">
+
+                <!-- Volume Arc -->
+                <com.smarthome.iot.ui.views.VolumeArcView
+                    android:id="@+id/volumeArcView"
+                    android:layout_width="330dp"
+                    android:layout_height="330dp"
+                    android:layout_gravity="center" />
+
+                <!-- Volume Display in Center -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/textViewVolume"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="65%"
+                        android:textColor="@color/white"
+                        android:textSize="48sp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/urbanist" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Volume"
+                        android:textColor="@color/white_alpha_70"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/urbanist"
+                        android:layout_marginTop="4dp" />
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+            <!-- Playback Controls -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginBottom="24dp">
+
+                <!-- Previous Button - 56dp x 56dp circle -->
+                <FrameLayout
+                    android:id="@+id/buttonPrevious"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:background="@drawable/bg_circle_nav_button"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackgroundBorderless">
+                    
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center"
+                        android:src="@android:drawable/ic_media_rew"
+                        android:tint="@color/white" />
+                        
+                </FrameLayout>
+
+                <!-- Pause Button - 76dp x 76dp circle -->
+                <FrameLayout
+                    android:id="@+id/buttonPause"
+                    android:layout_width="76dp"
+                    android:layout_height="76dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginEnd="24dp"
+                    android:background="@drawable/bg_circle_pause_button"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackgroundBorderless">
+
+                    <ImageView
+                        android:id="@+id/imageViewPauseIcon"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center"
+                        android:src="@android:drawable/ic_media_pause"
+                        android:tint="@color/white" />
+
+                </FrameLayout>
+
+                <!-- Next Button - 56dp x 56dp circle -->
+                <FrameLayout
+                    android:id="@+id/buttonNext"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:background="@drawable/bg_circle_nav_button"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackgroundBorderless">
+                    
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center"
+                        android:src="@android:drawable/ic_media_ff"
+                        android:tint="@color/white" />
+                        
+                </FrameLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Progress Bar - Fixed at bottom, 40dp from bottom -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="40dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp">
+
+        <TextView
+            android:id="@+id/textViewCurrentTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="02:48"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:fontFamily="@font/urbanist"
+            android:layout_marginEnd="8dp" />
+
+        <SeekBar
+            android:id="@+id/seekBarProgress"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="20"
+            android:max="100"
+            android:progress="45"
+            android:progressTint="@color/primary"
+            android:thumbTint="@color/white"
+            android:minHeight="28dp"
+            android:maxHeight="28dp" />
+
+        <TextView
+            android:id="@+id/textViewTotalTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="03:53"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:fontFamily="@font/urbanist"
+            android:layout_marginStart="8dp" />
+
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -53,23 +53,21 @@ function VitaminChips({ vitamins }: { vitamins?: Record<string, number> }) {
 }
 ```
 
-### Vitamin definitions (color = food-source-based palette)
+### Vitamin definitions (color = option a — A orange, D gold)
 
-**Color rule (global, fixed):** Each vitamin has exactly **one** color, identical across every row of the table. The color is anchored to the food most strongly associated with that vitamin globally (e.g. carrot for A, salmon for D). The chip color does **not** depend on the food row it is rendered in — `[A]` looks the same on a carrot row as on a beef row. Letters provide redundant encoding to disambiguate similar tones (e.g. yellows for B1/B2/B6).
-
-| key | label | full (NK) | unit | 대표 식품 (color anchor) | bg | fg | class |
-|---|---|---|---|---|---|---|---|
-| `vitaminA` | A | 비타민 A | µg RAE | 당근/호박 (carrot orange) | `#fdba74` | `#9a3412` | `vit-A` |
-| `vitaminB1` | B1 | 비타민 B1 (티아민) | mg | 통밀/현미 (whole grain tan) | `#fde68a` | `#78350f` | `vit-B1` |
-| `vitaminB2` | B2 | 비타민 B2 (리보플라빈) | mg | 달걀노른자 (egg yolk) | `#fef08a` | `#854d0e` | `vit-B2` |
-| `vitaminB3` | B3 | 비타민 B3 (니아신) | mg | 참치 (tuna pink) | `#fed7d7` | `#be123c` | `vit-B3` |
-| `vitaminB6` | B6 | 비타민 B6 | mg | 바나나 (banana cream) | `#fef9c3` | `#a16207` | `vit-B6` |
-| `vitaminB12` | B12 | 비타민 B12 | µg | 간/조개 (liver burgundy) | `#fecdd3` | `#881337` | `vit-B12` |
-| `vitaminC` | C | 비타민 C | mg | 파프리카/딸기 (bright red) | `#fecaca` | `#991b1b` | `vit-C` |
-| `vitaminD` | D | 비타민 D | µg | 연어 (salmon orange) | `#ffd6b3` | `#c2410c` | `vit-D` |
-| `vitaminE` | E | 비타민 E | mg | 아몬드/올리브 (olive) | `#ecfccb` | `#3f6212` | `vit-E` |
-| `vitaminK` | K | 비타민 K | µg | 시금치/케일 (dark leaf green) | `#86efac` | `#14532d` | `vit-K` |
-| `folate` | F | 엽산 | µg | 렌즈콩/잎채소 (lime) | `#d9f99d` | `#365314` | `vit-F` |
+| key | label | full (NK) | unit | bg | fg | class |
+|---|---|---|---|---|---|---|
+| `vitaminA` | A | 비타민 A | µg RAE | #fed7aa | `#9a3412` | `vit-A` |
+| `vitaminB1` | B1 | 비타민 B1 (티아민) | mg | #dbeafe` | `#1e40af` | `vit-B1` |
+| `vitaminB2` | B2 | 비타민 B2 (리보플라빈) | mg | `#fef9c3` | `#a16207` | `vit-B2` |
+| `vitaminB3` | B3 | 비타민 B3 (니아신) | mg | `#cffafe` | `#0e7490` | `vit-B3` |
+| `vitaminB6` | B6 | 비타민 B6 | mg | `#ccfbf1` | `#115e59` | `vit-B6` |
+| `vitaminB12` | B12 | 비타민 B12 | µg | `#fce7f3` | `#9f1239` | `vit-B12` |
+| `vitaminC` | C | 비타민 C | mg | `#dcfce7` | `#166534` | `vit-C` |
+| `vitaminD` | D | 비타민 D | µg | `#fef3c7` | `#a16207` | `vit-D` |
+| `vitaminE` | E | 비타민 E | mg | `#ecfccb` | `#3f6212` | `vit-E` |
+| `vitaminK` | K | 비타민 K | µg | `#bbf7d0` | `#14532d` | `vit-K` |
+| `folate` | F | 엽산 | µg | `#d9f99d` | `#365314` | `vit-F` |
 
 Order in the table follows the table above (A → folate). Stable ordering keeps the visual scannable.
 

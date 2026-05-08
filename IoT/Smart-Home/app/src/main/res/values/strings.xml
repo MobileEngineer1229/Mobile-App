@@ -1,0 +1,565 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Smartify</string>
+    <string name="welcome_message">Welcome to Smart Home</string>
+    <string name="device_list">Device List</string>
+    <string name="no_devices">No Devices</string>
+    <string name="add_device">Add Device</string>
+    <string name="device_name">Device Name</string>
+    <string name="device_status">Status</string>
+    <string name="status">Status</string>
+    <string name="online">Online</string>
+    <string name="offline">Offline</string>
+    <string name="on">On</string>
+    <string name="off">Off</string>
+    <string name="refresh">Refresh</string>
+    <string name="error_loading_devices">Error loading devices</string>
+    <string name="loading_devices">Loading devices…</string>
+    <string name="retry">Retry</string>
+    <string name="menu_theme">Theme</string>
+    <string name="menu_theme_light">Light Theme</string>
+    <string name="menu_theme_dark">Dark Theme</string>
+    <string name="menu_theme_system">System Default</string>
+    <string name="theme_changed">Theme changed</string>
+    <string name="get_started">Let\'s Get Started</string>
+    <string name="get_started_signup">Get Started</string>
+    <string name="sign_in">Sign in</string>
+    <string name="sign_up">Sign up</string>
+    <string name="create_account">Create Account</string>
+    <string name="sign_up_subtitle">Fill in your details to create your account</string>
+    <string name="join_smartify_today">Join Smartify Today</string>
+    <string name="join_smartify_subtitle">Join Smartify, Your Gateway to Smart Living.</string>
+    <string name="i_agree_terms">I agree to Smartify Terms &amp; Conditions.</string>
+    <string name="already_have_account">Already have an account? Sign in</string>
+    <string name="dont_have_account">Don\'t have an account? Sign up</string>
+    <string name="sign_up_loading">Sign up…</string>
+    <string name="sign_in_loading">Sign in…</string>
+    <string name="select_country_of_origin">Select Country of Origin</string>
+    <string name="select_country_subtitle">Let\'s start by selecting the country where your smart home resides.</string>
+    <string name="search_country">Search Country</string>
+    <string name="add_home_name">Add Home Name</string>
+    <string name="add_home_name_subtitle">Every smart home needs a name. What would you like to call yours?</string>
+    <string name="add_rooms">Add Rooms</string>
+    <string name="add_rooms_subtitle">Select the rooms in your house. Don\'t worry, you can always add more later.</string>
+    <string name="set_home_location">Set Home Location</string>
+    <string name="set_home_location_subtitle">Pin your home\'s location to enhance location-based features. Privacy is our priority.</string>
+    <string name="enable_location">Enable Location</string>
+    <string name="enable_location_description">Please activate the location feature, so we can find your home address.</string>
+    <string name="not_now">Not Now</string>
+    <string name="well_done">Well Done!</string>
+    <string name="onboarding_complete_message">Congratulations! Your home is now a Smartify haven. Start exploring and managing your smart space with ease.</string>
+    <string name="address_details">Address Details</string>
+    <string name="study_room">Study Room</string>
+    <string name="dining_room">Dining Room</string>
+    <string name="backyard">Backyard</string>
+    <string name="full_name">Full Name</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="forgot_password_title">Forgot Your Password? 🔑</string>
+    <string name="forgot_password_description">We\'ve got you covered. Enter your registered email to reset your password. We will send an OTP code to your email for the next steps.</string>
+    <string name="your_registered_email">Your Registered Email</string>
+    <string name="send_otp_code">Send OTP Code</string>
+    <string name="enter_otp_code_title">Enter OTP Code 🔑</string>
+    <string name="enter_otp_description">Please check your email inbox for a message from Smartify. Enter the one-time verification code below.</string>
+    <string name="resend_code">Resend code</string>
+    <string name="email_hint_placeholder">demo@smartify.com</string>
+    <string name="secure_your_account_title">Secure Your Account 🔒</string>
+    <string name="secure_your_account_description">Almost there! Create a new password for your Smartify account to keep it secure. Remember to choose a strong and unique password.</string>
+    <string name="new_password">New Password</string>
+    <string name="confirm_new_password">Confirm New Password</string>
+    <string name="enter_new_password">Enter new password</string>
+    <string name="confirm_new_password_hint">Confirm new password</string>
+    <string name="save_new_password">Save New Password</string>
+    <string name="toggle_password_visibility">Toggle password visibility</string>
+    <string name="youre_all_set">You\'re All Set!</string>
+    <string name="password_reset_success_description">Your password has been successfully changed.</string>
+    <string name="onboarding_headline">Empower Your Home, Simplify Your Life</string>
+    <string name="onboarding_description">Transform your living space into a smarter, more connected home with Smartify. All at your fingertips.</string>
+    <string name="onboarding_headline_2">Effortless Control, Automate, &amp; Secure</string>
+    <string name="onboarding_description_2">Smartify empowers you to control your devices, &amp; automate your routines. Embrace a world where your home adapts to your needs.</string>
+    <string name="onboarding_headline_3">Efficiency that Saves, Comfort that Lasts.</string>
+    <string name="onboarding_description_3">Take control of your home\'s energy usage, set preferences, and enjoy a space that adapts to your needs while saving power.</string>
+    <string name="lets_get_started">Let\'s Get Started!</string>
+    <string name="lets_dive_in">Let\'s dive in into your account</string>
+    <string name="continue_with_google">Continue with Google</string>
+    <string name="continue_with_apple">Continue with Apple</string>
+    <string name="continue_with_facebook">Continue with Facebook</string>
+    <string name="continue_with_twitter">Continue with Twitter</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="terms_of_service">Terms of Service</string>
+    <string name="skip">Skip</string>
+    <string name="continue_text">Continue</string>
+    <string name="onboarding_phone_content">Onboarding phone content preview</string>
+    <string name="onboarding_background">Onboarding background overlay</string>
+    <string name="welcome_back">Welcome Back! 👋</string>
+    <string name="your_smart_home_your_rules">Your Smart Home, Your Rules.</string>
+    <string name="remember_me">Remember me</string>
+    <string name="or">or</string>
+    <string name="back">Back</string>
+    <string name="my_home">My Home</string>
+    <string name="all_devices">All Devices</string>
+    <string name="all_rooms">All Rooms</string>
+    <string name="living_room">Living Room</string>
+    <string name="bedroom">Bedroom</string>
+    <string name="kitchen">Kitchen</string>
+    <string name="bathroom">Bathroom</string>
+    <string name="you_havent_added_device">You haven\'t added a device yet.</string>
+    <string name="home">Home</string>
+    <string name="smart">Smart</string>
+    <string name="reports">Reports</string>
+    <string name="account">Account</string>
+    <string name="new_york_city_usa">New York City, USA</string>
+    <string name="today_cloudy">Today Cloudy</string>
+    <string name="aqi">AQI</string>
+    <string name="humidity">Humidity</string>
+    <string name="wind_speed">Wind Speed</string>
+    
+    <!-- Add Device Flow -->
+    <string name="nearby_devices">Nearby Devices</string>
+    <string name="add_manual">Add Manual</string>
+    <string name="scan_device">Scan Device</string>
+    <string name="looking_for_nearby_devices">Looking for nearby devices…</string>
+    <string name="turn_on_wifi_bluetooth">Turn on your Wifi &amp; Bluetooth to connect</string>
+    <string name="connect_to_all_devices">Connect to All Devices</string>
+    <string name="cant_find_devices">Can\'t find your devices? Learn more</string>
+    <string name="device_detected">Device Detected</string>
+    <string name="connect_to_device">Connect to device</string>
+    <string name="connect">Connect</string>
+    <string name="connecting">Connecting…</string>
+    <string name="connected">Connected!</string>
+    <string name="you_have_connected">You have connected to %1$s</string>
+    <string name="go_to_homepage">Go to Homepage</string>
+    <string name="control_device">Control Device</string>
+    <string name="cant_connect_devices">Can\'t connect with your devices? Learn more</string>
+    <string name="cant_connect_question">Can\'t connect with your devices?</string>
+    <string name="enter_setup_code_manually">Enter setup code manually</string>
+    <string name="setup_code_instructions">Only applies to material devices only. Find the setup code on the device, packaging, or manual.</string>
+    <string name="processing_device">Processing Device…</string>
+    <string name="device_qr_code">Device QR Code</string>
+    <string name="device_qr_description">Scan this QR code with another phone to add this device, or share it with other household members.</string>
+    <string name="setup_code_label">Setup Code</string>
+    <string name="product_id_label">Product ID</string>
+    <string name="device_num_label">Device Number</string>
+    <string name="device_type_label">Device Type</string>
+    <string name="share_qr_code">Share QR Code</string>
+    <string name="show_qr_code">Show QR Code</string>
+    <string name="popular">Popular</string>
+    <string name="lightning">Lightning</string>
+    <string name="camera">Camera</string>
+    <string name="cameras">Cameras</string>
+    <string name="electronics">Electronics</string>
+    <string name="smart_v1_cctv">Smart V1 CCTV</string>
+    <string name="smart_webcam">Smart Webcam</string>
+    <string name="smart_v2_cctv">Smart V2 CCTV</string>
+    <string name="smart_lamp">Smart Lamp</string>
+    <string name="stereo_speaker">Stereo Speaker</string>
+    <string name="turn_on_light_confirm">Turn on the light and confirm whether the light blinks rapidly.</string>
+    <string name="learn_more">Learn more</string>
+    <string name="share">Share</string>
+    <string name="close">Close</string>
+    <string name="we_are_listening">We are listening… What do you want to do?</string>
+    <string name="smart_thermostat">Smart Thermostat</string>
+    <string name="smart_lock">Smart Lock</string>
+    <string name="smart_bulb">Smart Bulb</string>
+    <string name="led_strip">LED Strip</string>
+    <string name="smart_switch">Smart Switch</string>
+    <string name="smart_dimmer">Smart Dimmer</string>
+    <string name="dimmer_switch">Dimmer Switch</string>
+    <string name="smart_plug">Smart Plug</string>
+    <string name="smart_doorbell">Smart Doorbell</string>
+    <string name="doorbell_camera">Doorbell Camera</string>
+    <string name="security_camera">Security Camera</string>
+    <string name="baby_monitor">Baby Monitor</string>
+    <string name="smart_tv">Smart TV</string>
+    <string name="smart_refrigerator">Smart Refrigerator</string>
+    <string name="smart_washer">Smart Washer</string>
+    <string name="smart_ac">Smart AC</string>
+    <string name="smart_air_conditioner">Smart Air Conditioner</string>
+    <string name="smart_fan">Smart Fan</string>
+    <string name="wifi_router">Wi-Fi Router</string>
+    
+    <!-- Account & Settings -->
+    <string name="general">General</string>
+    <string name="smart_home">Smart Home</string>
+    <string name="notification_icon">Notification icon</string>
+    <string name="arrow">Arrow</string>
+    <string name="settings">Settings</string>
+    <string name="today">Today</string>
+    <string name="yesterday">Yesterday</string>
+    <string name="support">Support</string>
+    <string name="logout">Logout</string>
+    <string name="home_management">Home Management</string>
+    <string name="voice_assistants">Voice Assistants</string>
+    <string name="notifications">Notifications</string>
+    <string name="account_security">Account &amp; Security</string>
+    <string name="linked_accounts">Linked Accounts</string>
+    <string name="app_appearance">App Appearance</string>
+    <string name="additional_settings">Additional Settings</string>
+    <string name="data_analytics">Data &amp; Analytics</string>
+    <string name="help_support">Help &amp; Support</string>
+    <string name="profile_picture">Profile Picture</string>
+    <string name="view">View</string>
+    <string name="more_options">More Options</string>
+    <string name="setting_icon">Setting Icon</string>
+    <string name="confirm_logout">Are you sure you want to logout?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    
+    <!-- Voice Assistants -->
+    <string name="voice_assistant_icon">Voice Assistant Icon</string>
+    <string name="linked">Linked</string>
+    <string name="unlinked">Unlinked</string>
+    <string name="link_to_google_assistant">Link to Google Assistant</string>
+    <string name="link_google_assistant_description">Hey Google, meet Smartify! Link these two up and you\'ll be living the voice-controlled life in no time. Just talk, and your devices will listen.</string>
+    <string name="linking_account_message">Linking your Smartify account to Google Assistant…</string>
+    <string name="linked_success_message">Your Smartify account is now seamlessly linked with Google Assistant. Get ready to experience the ultimate hands-free control.</string>
+    <string name="ok">OK</string>
+    <string name="smartify">Smartify</string>
+    <string name="google_assistant">Google Assistant</string>
+    <string name="amazon_alexa">Amazon Alexa</string>
+    <string name="microsoft_cortana">Microsoft Cortana</string>
+    <string name="samsung_bixby">Samsung Bixby</string>
+    <string name="naver_clova">Naver Clova</string>
+    <string name="apple_siri">Apple Siri</string>
+    
+    <!-- Profile & Settings -->
+    <string name="my_profile">My Profile</string>
+    <string name="edit_profile_picture">Edit Profile Picture</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="gender">Gender</string>
+    <string name="birthdate">Birthdate</string>
+    <string name="save">Save</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="other">Other</string>
+    
+    <!-- Notification Types -->
+    <string name="device_status_alerts">Device Status Alerts</string>
+    <string name="energy_consumption_alerts">Energy Consumption Alerts</string>
+    <string name="bill_reminders">Bill Reminders</string>
+    <string name="automation_updates">Automation Updates</string>
+    <string name="device_maintenance_reminders">Device Maintenance Reminders</string>
+    <string name="security_alerts">Security Alerts</string>
+    <string name="weather_based_suggestions">Weather-Based Suggestions</string>
+    <string name="community_updates">Community Updates</string>
+    <string name="home_invitations">Home Invitations</string>
+    <string name="user_access_alerts">User Access Alerts</string>
+    <string name="customer_support_updates">Customer Support Updates</string>
+    <string name="feedback_updates">Feedback &amp; Updates</string>
+    
+    <!-- Security Settings -->
+    <string name="biometric_id">Biometric ID</string>
+    <string name="face_id">Face ID</string>
+    <string name="sms_authenticator">SMS Authenticator</string>
+    <string name="google_authenticator">Google Authenticator</string>
+    <string name="change_password">Change Password</string>
+    <string name="device_management">Device Management</string>
+    <string name="device_management_subtitle">Manage your account on the various devices you own.</string>
+    <string name="deactivate_account">Deactivate Account</string>
+    <string name="deactivate_account_subtitle">Temporarily deactivate your account. Easily reactivate when you\'re ready.</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="delete_account_subtitle">Permanently remove your account and data. Proceed with caution.</string>
+    
+    <!-- Linked Accounts -->
+    <string name="account_icon">Account Icon</string>
+    <string name="account_connected">Connected</string>
+    <string name="account_connect">Connect</string>
+    <string name="disconnect">Disconnect</string>
+    <string name="google">Google</string>
+    <string name="apple">Apple</string>
+    <string name="facebook">Facebook</string>
+    <string name="twitter">Twitter</string>
+    
+    <!-- Additional Settings -->
+    <string name="temperature_units">Temperature Units</string>
+    <string name="celsius">Celsius</string>
+    <string name="fahrenheit">Fahrenheit</string>
+    <string name="clear_cache">Clear Cache</string>
+    <string name="experimental_features">Experimental Features</string>
+    <string name="system_permissions">System Permissions</string>
+    <string name="legal_information">Legal Information</string>
+    <string name="check_for_updates">Check for Updates</string>
+    <string name="update_available">Update Available</string>
+    <string name="update_required">Update Required</string>
+    <string name="update_message">A new version of the app is available. Please update to continue.</string>
+    <string name="update_required_message">This version is no longer supported. Please update to continue using the app.</string>
+    <string name="update_now">Update Now</string>
+    <string name="later">Later</string>
+    <string name="app_version">App Version</string>
+    <string name="current_version">Current Version</string>
+    <string name="version_info">Version Information</string>
+    
+    <!-- Data & Analytics -->
+    <string name="data_usage">Data Usage</string>
+    <string name="data_usage_subtitle">Control how your data is used for analytics. Customize your preferences.</string>
+    <string name="ad_preferences">Ad Preferences</string>
+    <string name="ad_preferences_subtitle">Manage ad personalization settings. Tailor your ad experience.</string>
+    <string name="download_my_data">Download My Data</string>
+    <string name="download_my_data_subtitle">Request a copy of your data. Your information. your control.</string>
+    
+    <!-- App Appearance -->
+    <string name="theme">Theme</string>
+    <string name="choose_theme">Choose Theme</string>
+    <string name="system_default">System Default</string>
+    <string name="light">Light</string>
+    <string name="dark">Dark</string>
+    <string name="app_language">App Language</string>
+    <string name="flag">Flag</string>
+    <string name="selected">Selected</string>
+    <string name="cancel">Cancel</string>
+    <string name="english_us">English (US)</string>
+    <string name="korean">Korean</string>
+    <string name="english_uk">English (UK)</string>
+    <string name="mandarin">Mandarin</string>
+    <string name="spanish">Spanish</string>
+    <string name="hindi">Hindi</string>
+    <string name="french">French</string>
+    <string name="arabic">Arabic</string>
+    <string name="russian">Russian</string>
+    <string name="japanese">Japanese</string>
+    
+    <!-- Help & Support -->
+    <string name="faq">FAQ</string>
+    <string name="contact_support">Contact Support</string>
+    <string name="partner">Partner</string>
+    <string name="job_vacancy">Job Vacancy</string>
+    <string name="accessibility">Accessibility</string>
+    <string name="feedback">Feedback</string>
+    <string name="about_us">About us</string>
+    <string name="rate_us">Rate us</string>
+    <string name="visit_our_website">Visit Our Website</string>
+    <string name="follow_us_on_social_media">Follow us on Social Media</string>
+    <string name="search">Search</string>
+    <string name="services">Services</string>
+    <string name="customer_support">Customer Support</string>
+    <string name="website">Website</string>
+    <string name="whatsapp">WhatsApp</string>
+    <string name="instagram">Instagram</string>
+    <string name="icon">Icon</string>
+    <string name="logout_confirmation_message">Are you sure you want to log out?</string>
+    <string name="yes_logout">Yes, Logout</string>
+    
+    <!-- FAQ Questions -->
+    <string name="faq_what_is_smartify">What is Smartify?</string>
+    <string name="faq_what_is_smartify_answer">Smartify is a user-friendly smart home application that enables seamless control and automation of connected devices, enhancing your living experience through innovative technology.</string>
+    <string name="faq_add_device">How do I add a new device?</string>
+    <string name="faq_add_device_answer">To add a new device, go to the Devices section, tap the Add Device button, and follow the on-screen instructions to connect your device to your smart home network.</string>
+    <string name="faq_create_automation">How do I create an automation?</string>
+    <string name="faq_create_automation_answer">Navigate to the Automations section, tap Create Automation, select your devices and conditions, and set up the desired actions for your automation.</string>
+    <string name="faq_tap_to_run">What\'s the \'Tap-to-Run\' feature?</string>
+    <string name="faq_tap_to_run_answer">Tap-to-Run allows you to quickly execute predefined actions with a single tap, making it easy to control multiple devices at once.</string>
+    <string name="faq_offline_use">Can I use Smartify offline?</string>
+    <string name="faq_offline_use_answer">Yes, Smartify can work offline for basic device control. However, some features like cloud sync and remote access require an internet connection.</string>
+    <string name="faq_reset_password">How can I reset my password?</string>
+    <string name="faq_reset_password_answer">Go to the Sign In screen, tap Forgot Password, enter your email address, and follow the instructions sent to your email to reset your password.</string>
+    
+    <!-- Privacy Policy Content -->
+    <string name="privacy_policy_content">Smartify Privacy Policy\n\nWelcome to Smartify. This Privacy Policy explains how we collect, use, and protect your personal information when you use our smart home application.\n\n1. Information We Collect\n\nWe collect several types of information:\n\n• Personal Information: Name, email address, contact details\n• Device Information: Connected smart devices, device names, statuses\n• Usage Data: How you interact with the app, control history, usage patterns\n\n2. How We Use Your Information\n\nWe use the collected information to:\n\n• Provide and improve our services\n• Personalize your experience\n• Send important updates and notifications\n• Ensure security and prevent fraud\n\n3. Data Security\n\nWe implement appropriate security measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction.\n\n4. Your Rights\n\nYou have the right to access, update, or delete your personal information at any time through the app settings.\n\n5. Contact Us\n\nIf you have questions about this Privacy Policy, please contact us through the Contact Support section.</string>
+    
+    <!-- Terms of Service Content -->
+    <string name="terms_of_service_content">Smartify Terms of Service\n\nBy using the Smartify application, you agree to be bound by these Terms of Service.\n\n1. Acceptance of Terms\n\nBy accessing or using Smartify, you agree to comply with and be bound by these Terms. If you do not agree, please do not use the application.\n\n2. Use of Services\n\nYou are granted a non-exclusive, non-transferable, revocable license to use Smartify for personal, non-commercial purposes.\n\n3. User Account\n\nYou may be required to create an account to access certain features. You are responsible for maintaining the confidentiality of your account credentials.\n\n4. Prohibited Activities\n\nYou agree not to:\n\n• Violate any applicable laws or regulations\n• Infringe on intellectual property rights\n• Transmit harmful or malicious code\n• Attempt to gain unauthorized access\n\n5. Limitation of Liability\n\nSmartify is provided \"as is\" without warranties. We are not liable for any damages arising from your use of the application.\n\n6. Changes to Terms\n\nWe reserve the right to modify these Terms at any time. Continued use constitutes acceptance of modified Terms.</string>
+    
+    <!-- Home Management -->
+    <string name="create_a_home">Create a Home</string>
+    <string name="join_a_home">Join a Home</string>
+    <string name="room_management">Room Management</string>
+    <string name="location">Location</string>
+    <string name="home_members">Home Members</string>
+    <string name="delete_home">Delete Home</string>
+    <string name="rooms">Room(s)</string>
+    <string name="devices">Device(s)</string>
+    <string name="add_room">Add Room</string>
+    <string name="manage_rooms">Manage Rooms</string>
+    <string name="edit_home_name">Edit Home Name</string>
+    <string name="delete_room">Delete Room</string>
+    <string name="delete_room_confirmation">Are you sure you want to delete the Room \'%1$s\' ?</string>
+    <string name="delete_room_warning">All devices paired and associated with this room will be unpaired after this action.</string>
+    <string name="yes_delete">Yes, Delete</string>
+    <string name="room_deleted_success">The Room \"%1$s\" has been successfully deleted!</string>
+    <string name="kids_room">Kids\' Room</string>
+    <string name="library">Library</string>
+    <string name="balcony">Balcony</string>
+    <string name="workshop">Workshop</string>
+    <string name="rooftop">Rooftop</string>
+    <string name="owner">Owner</string>
+    <string name="admin">Admin</string>
+    <string name="member">Member</string>
+    <string name="you">You</string>
+    <string name="room_name">Room Name</string>
+    <string name="edit_room_name">Edit Room Name</string>
+    <string name="room_updated_success">Room name updated successfully</string>
+    <string name="suggested">Suggested</string>
+    <string name="home_name">Home Name</string>
+    
+    <!-- Add Member -->
+    <string name="add_member">Add Member</string>
+    <string name="invite_via_email">Invite via Email</string>
+    <string name="invite_via_qr_code">Invite via QR Code</string>
+    <string name="select_role">Select Role</string>
+    <string name="admin_role_description">Manage devices &amp; rooms, manage members, &amp; manage smart scenes</string>
+    <string name="member_role_description">Use devices, use smart scenes</string>
+    <string name="send_invite">Send Invite</string>
+    <string name="share_invite">Share Invite</string>
+    <string name="invitation_code">Invitation Code</string>
+    <string name="invitation_sent_success">An invitation has been sent to \'%1$s\'</string>
+    
+    <!-- Member Details -->
+    <string name="home_member">Home Member</string>
+    <string name="remove_member">Remove Member</string>
+    <string name="remove_member_confirmation">Are you sure you want to remove \'%1$s\' ?</string>
+    <string name="yes_remove">Yes, Remove</string>
+    <string name="member_removed_success">"%1$s" has been removed!</string>
+    
+    <!-- Delete Home -->
+    <string name="delete_home_confirmation">Are you sure you want to delete this home?</string>
+    <string name="delete_home_warning">After the home is deleted, all members will be removed, and all devices will be unpaired.</string>
+    <string name="yes_delete_home">Yes, Delete</string>
+    <string name="home_deleted_success">"%1$s" has been successfully deleted!</string>
+    
+    <!-- Create Home -->
+    <string name="create_a_home_title">Create a Home</string>
+    <string name="add_rooms_title">Add Room(s)</string>
+    
+    <!-- Join Home -->
+    <string name="join_a_home_title">Join a Home</string>
+    <string name="enter_invitation_code">Enter the Invitation Code</string>
+    <string name="invitation_code_instruction">Please contact the home Administrator to get the invitation code.</string>
+    <string name="scan_qr">Scan QR</string>
+    <string name="cant_scan_qr">Can\'t scan the QR code?</string>
+    <string name="enter_invitation_code_button">Enter the Invitation Code</string>
+    <string name="join">Join</string>
+    <string name="joining_home">Joining the Home…</string>
+    <string name="recent_people">Recent people</string>
+    <string name="social_media">Social media</string>
+    <string name="telegram">Telegram</string>
+    <string name="role">Role</string>
+    <string name="home_joined_success">Successfully joined the home!</string>
+    
+    <!-- Smart Scene -->
+    <string name="scene">Scene</string>
+    <string name="automation">Automation</string>
+    <string name="tap_to_run">Tap-to-Run</string>
+    <string name="create_scene">Create Scene</string>
+    <string name="scene_name">Scene Name</string>
+    <string name="when_any_condition_met">When any condition is met</string>
+    <string name="when_all_conditions_met">When all conditions are met</string>
+    <string name="add_task">Add Task</string>
+    <string name="task">task</string>
+    <string name="tasks">tasks</string>
+    
+    <!-- Scene Triggers -->
+    <string name="tap_to_run_trigger">Tap-to-Run</string>
+    <string name="tap_to_run_example">Example: Turn on all the lights in the living room in one tap.</string>
+    <string name="when_weather_changes">When Weather Changes</string>
+    <string name="when_weather_changes_example">Example: When the surrounding temperature is more than 25°C.</string>
+    <string name="when_location_changes">When Location Changes</string>
+    <string name="when_location_changes_example">Example: When you get home or leave the house.</string>
+    <string name="schedule_time">Schedule Time</string>
+    <string name="schedule_time_example">Example: When it\'s 08:00 AM, when it\'s morning, when it\'s evening.</string>
+    <string name="when_device_status_changes">When Device Status Changes</string>
+    <string name="when_device_status_changes_example">Example: When an unusual activity is detected.</string>
+    <string name="change_arm_mode">Change Arm Mode</string>
+    <string name="change_arm_mode_example">Example: Disarmed, arm stay, or arm away via gateway.</string>
+    <string name="when_alarm_triggered">When Alarm Triggered</string>
+    <string name="when_alarm_triggered_example">Example: When a fire alarm or emergency alarm is triggered.</string>
+
+    <!-- Device Status Condition -->
+    <string name="select_device">Select Device</string>
+    <string name="select_status">Select Status</string>
+    <string name="device_status_condition">Device Status</string>
+    <string name="no_devices_available">No devices available</string>
+
+    <!-- Arm Mode Condition -->
+    <string name="select_arm_mode">Select Arm Mode</string>
+    <string name="arm_mode_condition">Arm Mode</string>
+    <string name="disarmed">Disarmed</string>
+    <string name="arm_stay">Arm Stay</string>
+    <string name="arm_away">Arm Away</string>
+    <string name="disarmed_description">All sensors and alarms are disabled</string>
+    <string name="arm_stay_description">Perimeter sensors active, motion sensors off</string>
+    <string name="arm_away_description">All sensors and alarms are active</string>
+
+    <!-- Weather Conditions -->
+    <string name="temperature">Temperature</string>
+    <string name="weather">Weather</string>
+    <string name="sunrise_sunset">Sunrise / Sunset</string>
+    
+    <!-- Humidity Options -->
+    <string name="dry">Dry</string>
+    <string name="comfortable">Comfortable</string>
+    <string name="moist">Moist</string>
+    
+    <!-- Weather Options -->
+    <string name="sunny">Sunny</string>
+    <string name="cloudy">Cloudy</string>
+    <string name="rainy">Rainy</string>
+    <string name="snowy">Snowy</string>
+    <string name="hazy">Hazy</string>
+    
+    <!-- Sunrise/Sunset -->
+    <string name="sunrise">Sunrise</string>
+    <string name="sunset">Sunset</string>
+    
+    <!-- Task Types -->
+    <string name="control_single_device">Control Single Device</string>
+    <string name="select_smart_scene">Select Smart Scene</string>
+    <string name="change_arm_mode_task">Change Arm Mode</string>
+    <string name="send_notification">Send Notification</string>
+    <string name="delay_the_action">Delay the Action</string>
+    
+    <!-- Device Control -->
+    <string name="select_function">Select Function</string>
+    <string name="function">Function</string>
+    
+    <!-- Scene Success -->
+    <string name="scene_created_success">Scene created successfully!</string>
+    <string name="tap_to_run_created">Tap-to-Run Created</string>
+    
+    <!-- Style Selection -->
+    <string name="style">Style</string>
+    <string name="color">Color</string>
+    <string name="launch_tap_to_run">Launch Tap-to-Run</string>
+    <string name="one_tap_execute_commands">One tap to execute commands</string>
+    
+    <!-- Common Actions -->
+    <string name="add">Add</string>
+    <string name="delete">Delete</string>
+    
+    <!-- Scene Management -->
+    <string name="logs">Logs</string>
+    <string name="manage_smart_scenes">Manage Smart Scenes</string>
+    <string name="delete_smart_scene">Delete Smart Scene</string>
+    <string name="delete_scene_confirmation">Are you sure you want to delete the scene \'%1$s\' ?</string>
+    <string name="scene_deleted_success">Scene \"%1$s\" successfully deleted!</string>
+    <string name="drag_to_reorder">Drag to reorder</string>
+    <string name="calendar">Calendar</string>
+    
+    <!-- Location Selection -->
+    <string name="arrive_at_preset_location">"Arrive at" a Preset Location</string>
+    <string name="arrive_at_example">Example: When I come home, turn on all the lights in the house.</string>
+    <string name="leave_preset_location">"Leave" a Preset Location</string>
+    <string name="leave_example">Example: When I leave the house, turn off all devices.</string>
+    <string name="arrive_at">Arrive at</string>
+    <string name="confirm">Confirm</string>
+    
+    <!-- Schedule Time -->
+    <string name="repeat">Repeat</string>
+    <string name="every_day">Every Day</string>
+    <string name="every_weekday">Every Weekday</string>
+    <string name="every_weekend">Every Weekend</string>
+    <string name="custom">Custom</string>
+    
+    <!-- Delay Action -->
+    <string name="hours">Hours</string>
+    <string name="minutes">Minutes</string>
+    <string name="seconds">Seconds</string>
+    <string name="h">h</string>
+    <string name="m">m</string>
+    <string name="s">s</string>
+    
+    <!-- Scene Name Examples -->
+    <string name="welcome_home_automation">Welcome Home Automation</string>
+    <string name="bedtime_bliss_automation">Bedtime Bliss Automation</string>
+</resources>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black">
+
+    <!-- Close Button -->
+    <ImageButton
+        android:id="@+id/buttonClose"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/ic_close"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/close"
+        android:tint="@color/white"
+        android:layout_margin="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Listening Prompt -->
+    <TextView
+        android:id="@+id/textViewListening"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/we_are_listening"
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/textViewCommand"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="100dp" />
+
+    <!-- User Command -->
+    <TextView
+        android:id="@+id/textViewCommand"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="&quot;Turn on all the lights in the entire room&quot;"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:alpha="0.8"
+        android:gravity="center"
+        android:padding="16dp"
+        app:layout_constraintTop_toBottomOf="@id/textViewListening"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="24dp" />
+
+    <!-- Audio Waveform Placeholder -->
+    <ImageView
+        android:id="@+id/imageViewWaveform"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@android:drawable/ic_menu_view"
+        android:contentDescription="Audio waveform"
+        android:alpha="0.3"
+        android:scaleType="fitXY"
+        app:layout_constraintTop_toBottomOf="@id/textViewCommand"
+        app:layout_constraintBottom_toTopOf="@id/imageViewAssistant"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="32dp" />
+
+    <!-- Voice Assistant Icon -->
+    <ImageView
+        android:id="@+id/imageViewAssistant"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:src="@drawable/bobo_mascot"
+        android:contentDescription="Voice Assistant"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="40dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

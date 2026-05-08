@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dark_1">
+
+    <!-- App Bar -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/dark_1"
+        android:elevation="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="16dp">
+
+            <ImageButton
+                android:id="@+id/buttonBack"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_arrow_back"
+                android:contentDescription="@string/back"
+                app:tint="@color/white" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/arm_mode_condition"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/urbanist"
+                android:gravity="center"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp" />
+
+            <View
+                android:layout_width="40dp"
+                android:layout_height="40dp" />
+
+        </LinearLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Content -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_marginBottom="100dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            android:paddingTop="24dp">
+
+            <!-- Arm Mode Selection Card -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="16dp"
+                app:cardBackgroundColor="@color/dark_4"
+                app:cardElevation="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/select_arm_mode"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/urbanist"
+                        android:layout_marginBottom="16dp" />
+
+                    <!-- Disarmed -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/buttonDisarmed"
+                        android:layout_width="match_parent"
+                        android:layout_height="64dp"
+                        android:text="@string/disarmed"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:fontFamily="@font/urbanist"
+                        android:textStyle="bold"
+                        android:backgroundTint="@color/primary"
+                        app:cornerRadius="12dp"
+                        android:layout_marginBottom="8dp"
+                        style="@style/Widget.MaterialComponents.Button.NoCaps" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/disarmed_description"
+                        android:textColor="@color/white_alpha_70"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/urbanist"
+                        android:layout_marginBottom="16dp"
+                        android:paddingStart="4dp"
+                        android:paddingEnd="4dp" />
+
+                    <!-- Arm Stay -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/buttonArmStay"
+                        android:layout_width="match_parent"
+                        android:layout_height="64dp"
+                        android:text="@string/arm_stay"
+                        android:textColor="@color/white_alpha_70"
+                        android:textSize="16sp"
+                        android:fontFamily="@font/urbanist"
+                        android:textStyle="bold"
+                        android:backgroundTint="@color/dark_5"
+                        app:cornerRadius="12dp"
+                        android:layout_marginBottom="8dp"
+                        style="@style/Widget.MaterialComponents.Button.NoCaps" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/arm_stay_description"
+                        android:textColor="@color/white_alpha_70"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/urbanist"
+                        android:layout_marginBottom="16dp"
+                        android:paddingStart="4dp"
+                        android:paddingEnd="4dp" />
+
+                    <!-- Arm Away -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/buttonArmAway"
+                        android:layout_width="match_parent"
+                        android:layout_height="64dp"
+                        android:text="@string/arm_away"
+                        android:textColor="@color/white_alpha_70"
+                        android:textSize="16sp"
+                        android:fontFamily="@font/urbanist"
+                        android:textStyle="bold"
+                        android:backgroundTint="@color/dark_5"
+                        app:cornerRadius="12dp"
+                        style="@style/Widget.MaterialComponents.Button.NoCaps" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/arm_away_description"
+                        android:textColor="@color/white_alpha_70"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/urbanist"
+                        android:layout_marginTop="8dp"
+                        android:paddingStart="4dp"
+                        android:paddingEnd="4dp" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Continue Button -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonContinue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="32dp"
+        android:text="@string/continue_text"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:fontFamily="@font/urbanist"
+        android:textStyle="bold"
+        android:backgroundTint="@color/primary"
+        android:minHeight="56dp"
+        app:cornerRadius="28dp"
+        style="@style/Widget.MaterialComponents.Button.NoCaps" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

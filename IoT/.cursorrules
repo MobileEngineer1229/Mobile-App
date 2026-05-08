@@ -1,0 +1,685 @@
+# Smart Home IoT Project - Root Cursor Rules
+
+## Project Overview
+This is a Smart Home IoT application consisting of:
+1. **Android Native Frontend** (`Smart-Home/`) - Mobile app for controlling IoT devices
+2. **Express.js Backend** (`Smart-Home-Backend/`) - REST API backend for device and user management
+
+## Project Structure
+```
+IoT/
+├── Smart-Home/              # Android Native Frontend
+│   ├── app/                # Android application module
+│   │   ├── src/main/       # Main source code
+│   │   │   ├── java/       # Java source files
+│   │   │   └── res/        # Android resources
+│   │   └── build.gradle    # App-level Gradle config
+│   └── build.gradle        # Project-level Gradle config
+│
+└── Smart-Home-Backend/     # Express.js Backend
+    ├── src/                # TypeScript source code
+    ├── database/           # Database schema and migrations
+    ├── logs/               # Application logs
+    └── package.json        # Node.js dependencies
+```
+
+## Technology Stack
+
+### Frontend (Android)
+- **Language**: Java 8
+- **Min SDK**: 24 (Android 7.0)
+- **Target SDK**: 33 (Android 13)
+- **Architecture**: Activity-based (consider MVVM migration)
+- **Networking**: Retrofit 2.9.0, OkHttp 4.11.0
+- **Database**: Room 2.5.0
+- **MQTT**: Eclipse Paho
+- **UI**: Material Design Components
+
+### Backend (Express.js)
+- **Runtime**: Node.js 18.18.0
+- **Language**: TypeScript 5.3.3
+- **Framework**: Express.js 4.18.2
+- **Database**: PostgreSQL (pg 8.11.3)
+- **Authentication**: JWT (jsonwebtoken 9.0.2)
+- **Validation**: express-validator 7.0.1
+- **Logging**: Winston 3.11.0
+- **API Docs**: Swagger/OpenAPI
+
+## Architecture Patterns
+
+### Backend
+- **Layered Architecture**: Controllers → Services → Repositories → Database
+- **Dependency Injection**: Constructor injection
+- **Repository Pattern**: Abstract database operations
+- **Service Layer**: Business logic separation
+
+### Frontend
+- **Activity-Based**: Current architecture
+- **Repository Pattern**: For data management (TO BE IMPLEMENTED)
+- **MVVM/MVP**: Recommended for future migration
+
+## API Integration
+
+### Base URLs
+- **Development (Emulator)**: `http://10.0.2.2:3003`
+- **Development (Physical Device)**: `http://<local-ip>:3003`
+- **Production**: Configure via environment variables
+
+### Authentication
+- **Method**: JWT Bearer Token
+- **Flow**: Signup → Login → Store Token → Include in Headers
+- **Header Format**: `Authorization: Bearer <token>`
+- **Token Storage**: SharedPreferences (Android), consider Android Keystore for production
+
+### API Endpoints
+See individual `.cursorrules` files in `Smart-Home-Backend/` and `Smart-Home/` for detailed endpoint documentation.
+
+## Data Flow
+
+### Device Management Flow
+1. User authenticates (signup/login) → Receives JWT token
+2. App stores token locally (SharedPreferences)
+3. App fetches device list from backend → `GET /api/v1/devices`
+4. App caches devices locally (Room Database)
+5. User controls device → App sends command via MQTT or API
+6. Device status updates → Backend receives update → App syncs via API or MQTT
+7. App displays updated device status
+
+### Data Synchronization
+- **Online**: Sync local cache with backend
+- **Offline**: Use cached data, queue operations for later sync
+- **Conflict Resolution**: Server wins or last-write-wins strategy
+
+## Development Workflow
+
+### Backend Development
+1. Ensure Node.js 18.18.0 is installed
+2. Create `.env` file with required variables
+3. Setup PostgreSQL database and run schema.sql
+4. Install dependencies: `npm install` or `pnpm install`
+5. Run development server: `npm run dev`
+6. Access Swagger UI: `http://localhost:3003/api-docs`
+
+### Frontend Development
+1. Open project in Android Studio
+2. Sync Gradle files
+3. Ensure backend is running
+4. Update API base URL if needed
+5. Run on emulator or physical device
+6. Test API integration
+
+## Common Tasks
+
+### Adding a New API Endpoint
+1. **Backend**:
+   - Add route in `src/routes/`
+   - Add controller method in `src/controllers/`
+   - Add service method in `src/services/`
+   - Add repository method in `src/repositories/`
+   - Add validation in `src/validators/`
+   - Document in Swagger (JSDoc annotations)
+   - Test endpoint
+
+2. **Frontend**:
+   - Add Retrofit interface method in `network/api/`
+   - Add API service method in `network/services/`
+   - Create/update response models
+   - Update UI to use new endpoint
+   - Handle errors appropriately
+
+### Adding a New Device Type
+1. **Backend**:
+   - Update device_type_enum if needed (or use metadata)
+   - Update device model/interface
+   - Update validation schemas
+   - Update Swagger documentation
+
+2. **Frontend**:
+   - Update Device model
+   - Add device type UI components
+   - Implement device-specific controls
+   - Update device adapter
+
+## Code Standards
+
+### General
+- Follow existing code style and patterns
+- Write self-documenting code
+- Add comments for complex logic
+- Handle errors gracefully
+- Use meaningful variable and function names
+
+### Backend
+- Use TypeScript strict mode
+- Follow layered architecture
+- Validate all inputs
+- Use proper HTTP status codes
+- Document all endpoints in Swagger
+- Log important events
+
+### Frontend
+- Follow Java naming conventions
+- Extract strings to resources
+- Use Material Design components
+- Handle network errors
+- Test on multiple screen sizes
+- Follow Android best practices
+
+## Testing
+
+### Backend
+- Unit tests for services and utilities
+- Integration tests for API endpoints
+- Test error scenarios
+- Test authentication and authorization
+
+### Frontend
+- Unit tests for business logic
+- Integration tests for API calls
+- UI tests for critical flows
+- Test error handling
+
+## Security Considerations
+
+### Backend
+- JWT token authentication
+- Password hashing with bcryptjs
+- Input validation and sanitization
+- SQL injection prevention (parameterized queries)
+- CORS configuration
+- Helmet for security headers
+- Rate limiting (consider implementing)
+
+### Frontend
+- Secure token storage (consider Android Keystore)
+- HTTPS for all API calls
+- Input validation
+- Certificate pinning (consider for production)
+- Secure device pairing
+
+## Performance
+
+### Backend
+- Database connection pooling
+- Query optimization with indexes
+- Response compression
+- Pagination for list endpoints
+
+### Frontend
+- RecyclerView optimization
+- Image loading and caching
+- Background threads for network calls
+- Memory leak prevention
+- Lazy loading and pagination
+
+## Documentation
+
+### Documentation Structure
+- **Root README.md**: Project overview, quick start, architecture
+- **Backend README.md**: Backend setup, API endpoints, development guide
+- **Mobile README.md**: Mobile app setup, features, development guide
+- **Swagger UI**: Interactive API documentation at `/api-docs`
+- **Code Comments**: JSDoc for backend, JavaDoc for mobile app
+
+### Documentation Maintenance Rules
+
+**IMPORTANT: When adding new features or making changes, you MUST update documentation:**
+
+1. **When Adding New API Endpoints**:
+   - Add endpoint to Swagger documentation (JSDoc comments in route files)
+   - Update backend README.md with endpoint description
+   - Update root README.md API endpoints section
+   - Add request/response examples if complex
+
+2. **When Adding New Features to Mobile App**:
+   - Update mobile README.md features section
+   - Document new screens/activities
+   - Update mock data documentation if applicable
+   - Add usage examples for complex features
+
+3. **When Changing Database Schema**:
+   - Create migration file with descriptive name
+   - Add migration to `migrations.ts`
+   - Update backend README.md database schema section
+   - Document new tables/columns in comments
+
+4. **When Adding New Dependencies**:
+   - Update README.md with new dependency
+   - Document why it's needed
+   - Update setup instructions if needed
+
+5. **When Changing Configuration**:
+   - Update `.env` example in README
+   - Document new environment variables
+   - Update setup instructions
+
+6. **Documentation File Locations**:
+   - Root: `README.md` - Main project documentation
+   - Backend: `Smart-Home-Backend/README.md` - Backend-specific docs
+   - Mobile: `Smart-Home/README.md` - Mobile app docs
+   - Backend Logging: `Smart-Home-Backend/docs/LOGGING.md` - Logging guide
+   - Mobile Mock Data: `Smart-Home/MOCK_DATA_SETUP.md` - Mock data guide
+
+7. **Documentation Format**:
+   - Use Markdown format
+   - Include code examples
+   - Add table of contents for long documents
+   - Use emojis for visual organization (optional)
+   - Keep examples up-to-date
+
+8. **Before Committing**:
+   - Review all documentation changes
+   - Ensure examples work
+   - Check for broken links
+   - Verify formatting is correct
+
+## Environment Configuration
+
+### Backend
+- Use `.env` file (never commit)
+- Required variables documented in README
+- Environment-specific configurations
+
+### Frontend
+- BuildConfig for API URLs
+- Resources for configuration
+- Different build variants for environments
+
+## When Working on This Project
+
+1. **Read the specific `.cursorrules`** in each subdirectory for detailed guidelines
+2. **Follow the established architecture** and patterns
+3. **Maintain consistency** across both frontend and backend
+4. **Test integration** between frontend and backend
+5. **Update documentation** when adding features
+6. **Handle errors gracefully** on both sides
+7. **Consider offline functionality** in the mobile app
+8. **Keep API contracts** in sync between frontend and backend
+9. **Use proper logging** for debugging
+10. **Follow security best practices**
+
+## Integration Points
+
+### Authentication
+- Backend provides JWT tokens
+- Frontend stores and uses tokens
+- Token expiration handling
+
+### Device Management
+- Backend stores device data
+- Frontend displays and controls devices
+- Real-time updates via MQTT or polling
+
+### Data Synchronization
+- Backend is source of truth
+- Frontend caches for offline use
+- Sync on app start and periodically
+
+## Settings & Profile Management
+
+### User Profile Settings
+- **My Profile Screen**: Editable profile information including:
+  - Profile picture with edit functionality
+  - Full Name (editable text field)
+  - Email (read-only or editable based on requirements)
+  - Phone Number (with country code selector)
+  - Gender (dropdown selection)
+  - Birthdate (date picker)
+- **Database**: Store in `users` table with proper validation
+- **API Endpoints**: 
+  - `GET /api/v1/users/profile` - Get user profile
+  - `PUT /api/v1/users/profile` - Update user profile
+  - `POST /api/v1/users/profile/picture` - Update profile picture
+
+### Notification Settings
+- **Notifications Screen**: Toggle switches for various notification types:
+  - Device Status Alerts
+  - Energy Consumption Alerts
+  - Bill Reminders
+  - Automation Updates
+  - Device Maintenance Reminders
+  - Security Alerts
+  - Weather-Based Suggestions
+  - Community Updates
+  - Home Invitations
+  - User Access Alerts
+  - Customer Support Updates
+  - Feedback & Updates
+- **Database**: Store in `user_notification_preferences` table (optimized structure)
+- **API Endpoints**:
+  - `GET /api/v1/users/notifications/preferences` - Get notification preferences
+  - `PUT /api/v1/users/notifications/preferences` - Update notification preferences
+  - `PUT /api/v1/users/notifications/preferences/:type` - Update single notification type
+
+### Account & Security Settings
+- **Account & Security Screen**: Security features and account management:
+  - **Security Toggles**:
+    - Biometric ID
+    - Face ID
+    - SMS Authenticator
+    - Google Authenticator
+  - **Account Actions**:
+    - Change Password
+    - Device Management (with subtitle)
+    - Deactivate Account (with subtitle)
+    - Delete Account (red text, with warning subtitle)
+- **Database**: Store in `user_security_settings` table
+- **API Endpoints**:
+  - `GET /api/v1/users/security/settings` - Get security settings
+  - `PUT /api/v1/users/security/settings` - Update security settings
+  - `POST /api/v1/users/change-password` - Change password
+  - `GET /api/v1/users/devices` - Get user's devices (for device management)
+  - `POST /api/v1/users/deactivate` - Deactivate account
+  - `POST /api/v1/users/delete` - Delete account (with confirmation)
+
+### Database Optimization
+- Use normalized tables for settings to allow easy extension
+- Use JSONB columns for flexible metadata storage
+- Create indexes on frequently queried fields (user_id, notification_type, etc.)
+- Use foreign key constraints for data integrity
+- Implement soft deletes for account deactivation
+
+### Internationalization (i18n)
+- **Supported Languages**: English (default) and Korean
+- **Resource Structure**:
+  - English strings: `res/values/strings.xml` (default)
+  - Korean strings: `res/values-ko/strings.xml`
+  - Android automatically selects the appropriate language based on device locale
+- **String Resources**:
+  - **ALWAYS use string resources** (`@string/string_name`) instead of hardcoded text
+  - All user-facing text must be in `strings.xml`
+  - Use `getString(R.string.string_name)` in Java code
+  - Use `@string/string_name` in XML layouts
+- **Adding New Strings**:
+  1. Add English string to `res/values/strings.xml`
+  2. Add Korean translation to `res/values-ko/strings.xml`
+  3. Use the same `name` attribute for both
+  4. Never hardcode text directly in layouts or Java code
+- **Language Switching**:
+  - Users can change language via "App Language" setting in Account → App Appearance
+  - App will restart to apply language changes
+  - Language preference should be saved in SharedPreferences
+- **Best Practices**:
+  - Use parameterized strings for dynamic content: `%1$s`, `%2$d`, etc.
+  - Keep string names descriptive and consistent
+  - Group related strings with comments in XML
+  - Test UI with both languages to ensure proper layout
+
+### UI Design Guidelines
+- **Color Scheme**: 
+  - Dark theme background: `@color/dark_3` (#1F222A)
+  - Card backgrounds: `@color/dark_4` (#262A35)
+  - Primary accent: `@color/primary` (#405FF2)
+  - Text: White with appropriate alpha for secondary text
+  - Error/Danger: `@color/error` (#F75555) for delete actions
+- **Typography**:
+  - **Font Family**: All text elements (TextView, Button, TextInputEditText, CheckBox, etc.) must use `android:fontFamily="@font/urbanist"`
+  - This includes: labels, input fields, buttons, checkboxes, and all text content
+  - Apply font consistently across all UI screens for brand consistency
+- **Structure**:
+  - Consistent padding: 24dp for main content, 16dp for cards
+  - Card corner radius: 12-16dp
+  - Toggle switches: Material Design Switch component
+  - Text fields: Material Design TextInputLayout with proper styling
+  - Icons: 24dp size, white tint with appropriate alpha
+- **Bottom Navigation Bar**:
+  - **Standard Configuration**: All BottomNavigationView instances MUST use the following configuration:
+    ```xml
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:layout_gravity="bottom"
+        android:background="@color/dark_1"
+        style="@style/CustomBottomNavigationView"
+        app:itemIconTint="@color/nav_item_color_selector"
+        app:itemTextColor="@color/nav_item_color_selector"
+        app:labelVisibilityMode="labeled"
+        app:itemIconSize="14dp"
+        app:itemPaddingTop="4dp"
+        app:itemPaddingBottom="16dp"
+        app:itemPadding="0dp"
+        app:itemTextAppearanceActive="@style/BottomNavTextStyleActive"
+        app:itemTextAppearanceInactive="@style/BottomNavTextStyle"
+        app:menu="@menu/bottom_navigation" />
+    ```
+  - **Key Attributes**:
+    - Fixed height: `42dp` (not `wrap_content`)
+    - Item padding top: `4dp`
+    - Item padding bottom: `16dp`
+    - Icon size: `14dp`
+    - Background color: `@color/dark_1` (or `@color/dark_3` for Reports screens)
+    - Text styles: Use `BottomNavTextStyleActive` and `BottomNavTextStyle` from `styles.xml`
+  - **Note**: Background color may vary per screen (`dark_1` for most screens, `dark_3` for Reports), but all other attributes must remain consistent
+- **Tab Buttons (Switch-Style Selection)**:
+  - **Style**: All tab buttons MUST use `@style/Widget.SmartHome.TabButton` from `styles.xml`
+  - **Behavior**: Works like a switch - only one button can be selected at a time
+  - **Selected State**: Primary blue background (`@drawable/tab_selected_background`)
+  - **Unselected State**: Dark gray background (`@drawable/tab_unselected_background`)
+  - **No Stroke/Border**: Style removes all Material Design default strokes and borders
+  - **Implementation**:
+    ```xml
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonTab1"
+        style="@style/Widget.SmartHome.TabButton"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_weight="1"
+        android:background="@drawable/tab_unselected_background"
+        android:textAppearance="@style/TextAppearance.Urbanist.Large.Bold"
+        android:text="Tab 1"
+        android:textColor="@color/white"
+        android:elevation="0dp" />
+    ```
+  - **Java Code Pattern**: Always use the following pattern to update tab buttons:
+    ```java
+    private void updateTabButtons() {
+        // Clear background tint to ensure our drawables are used (no stroke)
+        buttonTab1.setBackgroundTintList(null);
+        buttonTab1.setElevation(0f);
+        buttonTab2.setBackgroundTintList(null);
+        buttonTab2.setElevation(0f);
+        
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            buttonTab1.setStateListAnimator(null);
+            buttonTab2.setStateListAnimator(null);
+        }
+        
+        // Update based on selection state
+        boolean isTab1Selected = currentTab.equals("tab1");
+        
+        buttonTab1.post(() -> {
+            if (isTab1Selected) {
+                buttonTab1.setBackground(ContextCompat.getDrawable(this, R.drawable.tab_selected_background));
+            } else {
+                buttonTab1.setBackground(ContextCompat.getDrawable(this, R.drawable.tab_unselected_background));
+            }
+            buttonTab1.setTextColor(ContextCompat.getColor(this, R.color.white));
+            buttonTab1.invalidate();
+        });
+        
+        buttonTab2.post(() -> {
+            if (isTab1Selected) {
+                buttonTab2.setBackground(ContextCompat.getDrawable(this, R.drawable.tab_unselected_background));
+            } else {
+                buttonTab2.setBackground(ContextCompat.getDrawable(this, R.drawable.tab_selected_background));
+            }
+            buttonTab2.setTextColor(ContextCompat.getColor(this, R.color.white));
+            buttonTab2.invalidate();
+        });
+    }
+    ```
+  - **Key Points**:
+    - Always clear `backgroundTintList` to prevent Material Design from applying default styling
+    - Set `elevation` to `0f` to remove shadows
+    - Set `stateListAnimator` to `null` to disable Material animations
+    - Use `post()` to ensure backgrounds are set after MaterialButton initialization
+    - Selected button: `tab_selected_background` (primary blue)
+    - Unselected button: `tab_unselected_background` (dark gray)
+    - Text appearance: `@style/TextAppearance.Urbanist.Large.Bold` (16sp, bold)
+    - Text color: Always white (`@color/white`)
+    - Height/Width: Can vary per screen (e.g., 42dp, 48dp) but style remains consistent
+  - **Used In**:
+    - Smart Scene: Automation/Tap-to-Run tabs
+    - Smart Lamp: White/Color/Scene tabs
+    - Air Conditioner: Cooling/Heating/Purifying tabs
+    - Notifications: General/Smart Home tabs
+    - Add Device: Nearby Devices/Add Manual tabs
+
+## AI-Assisted Development & Prompt Engineering
+
+### Effective Prompt Guidelines for AI Coding Tools
+
+When working with AI coding assistants (like Cursor, GitHub Copilot, etc.), follow these guidelines to get the best results:
+
+#### What Makes a Great Prompt
+
+A strong coding prompt should include:
+
+1. **Context**
+   - What project is this? What stack? What constraints?
+   - Reference relevant files or code sections
+
+2. **Intent**
+   - What do you want the AI to do — generate code, refactor, explain, debug, architect?
+   - Be specific about the desired outcome
+
+3. **Boundaries**
+   - Coding style, patterns, frameworks, file structure, naming conventions
+   - Reference existing code patterns in the project
+
+4. **Output Format**
+   - Single file? Multiple files? Step-by-step reasoning? Comments?
+   - Specify if you want explanations or just code
+
+5. **Tone & Approach**
+   - Prefer clean, modular, production-ready code
+   - Think like a senior developer
+   - Suggest improvements if design can be cleaner
+
+#### Prompt Template for This Project
+
+When asking AI assistants to work on this project, use this structure:
+
+```
+You are my senior software engineer and coding partner.
+Write code that is clean, modular, and production-ready.
+
+Follow these rules:
+- Use clear architecture and separation of concerns
+- Prefer readability over cleverness
+- Explain decisions briefly when needed
+- If the task is ambiguous, ask clarifying questions
+- When generating code, include only the necessary files
+- Use consistent naming, comments, and patterns
+- Avoid unnecessary abstractions unless they improve maintainability
+
+My stack:
+- Frontend: Android (Java 8, Material Design, Retrofit, Room)
+- Backend: Node.js/Express.js (TypeScript, PostgreSQL)
+- Architecture: Layered (Controllers → Services → Repositories)
+
+My coding style:
+- Backend: TypeScript strict mode, layered architecture, dependency injection
+- Frontend: Activity-based (considering MVVM migration), Repository pattern
+- Follow existing patterns in the codebase
+
+My goals for this project:
+- Clean, maintainable code
+- Proper error handling
+- Security best practices
+- Good documentation
+
+Task:
+[Your specific task here]
+```
+
+#### Example Prompts for Common Tasks
+
+**Refactoring:**
+```
+Refactor this code to be cleaner, more modular, and easier to maintain.
+Follow the existing architecture patterns in this project.
+Explain only the key improvements.
+```
+
+**Architecture:**
+```
+Design a clean architecture for this feature following our layered architecture pattern.
+Show folder structure, responsibilities, and data flow.
+Reference existing patterns in [specific file/component].
+```
+
+**Debugging:**
+```
+Find the root cause of this bug and propose a fix.
+Explain the reasoning step-by-step.
+Consider both frontend and backend if applicable.
+```
+
+**Generating a New Feature:**
+```
+Implement this feature using clean architecture and best practices.
+- Backend: Add route, controller, service, repository, validation
+- Frontend: Add API service, update UI, handle errors
+- Generate only the necessary files
+- Follow existing naming conventions
+```
+
+**UI Implementation:**
+```
+Create this UI component following our design guidelines:
+- Use Material Design components
+- Apply Urbanist font family
+- Follow color scheme (@color/dark_3, @color/primary, etc.)
+- Use string resources for all text
+- Support both English and Korean
+```
+
+#### Best Practices for AI-Assisted Development
+
+1. **Be Specific**: Include file paths, function names, and relevant context
+2. **Reference Existing Code**: Point to similar implementations in the project
+3. **Ask for Explanations**: When code is complex, ask AI to explain the approach
+4. **Iterate**: Start with a high-level request, then refine with follow-ups
+5. **Review AI Output**: Always review and test AI-generated code
+6. **Maintain Consistency**: Ensure AI follows project conventions and patterns
+7. **Use Project Context**: Reference `.cursorrules` files and existing code patterns
+
+#### When AI Should Ask Questions
+
+The AI should ask clarifying questions when:
+- Task requirements are ambiguous
+- Multiple implementation approaches are possible
+- Design decisions could impact architecture
+- Security or performance implications are unclear
+- Integration points with existing code are unclear
+
+#### Code Quality Expectations
+
+AI-generated code should:
+- Follow existing code style and patterns
+- Include proper error handling
+- Use appropriate logging
+- Include necessary comments for complex logic
+- Handle edge cases appropriately
+- Follow security best practices
+- Be testable and maintainable
+
+## Future Enhancements
+
+### Backend
+- WebSocket support for real-time updates
+- Rate limiting
+- Caching layer (Redis)
+- Device authentication mechanism
+- Command queue for offline devices
+
+### Frontend
+- Complete API integration
+- Room Database implementation
+- MQTT service integration
+- Offline mode with sync
+- Push notifications
+- MVVM architecture migration
+

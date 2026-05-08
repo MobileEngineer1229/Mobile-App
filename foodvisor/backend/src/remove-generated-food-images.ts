@@ -2,7 +2,7 @@ import "dotenv/config";
 import { opendir, unlink } from "fs/promises";
 import path from "path";
 import { connectDatabase } from "./db.js";
-import { Food } from "./models/content.js";
+import { Food } from "./models/food.js";
 
 const imageDir = path.join(process.cwd(), "public", "images", "foods");
 const patterns = [/^cfd-.*\.svg$/i, /^usda-.*\.svg$/i];

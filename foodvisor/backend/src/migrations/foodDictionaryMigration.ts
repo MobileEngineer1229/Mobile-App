@@ -2,7 +2,8 @@ import { mkdir, stat, writeFile } from "fs/promises";
 import path from "path";
 import { dailyValueProfiles } from "../data/dailyValueProfiles.js";
 import { foodDictionary } from "../data/foodDictionary.js";
-import { DailyValueProfile, Food } from "../models/content.js";
+import { DailyValueProfile } from "../models/daily-value-profile.js";
+import { Food } from "../models/food.js";
 
 const imageDir = path.join(process.cwd(), "public", "images", "foods");
 

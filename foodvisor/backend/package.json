@@ -13,6 +13,12 @@
     "download:real-food-images": "tsx src/download-real-food-images.ts",
     "remove:generated-food-images": "tsx src/remove-generated-food-images.ts",
     "import:food-material": "tsx src/import-food-material.ts",
+    "import:china-food-composition": "tsx src/import-china-food-composition.ts",
+    "import:food-composition-u2": "tsx src/import-food-composition-u2.ts",
+    "import:foodyou-swiss": "tsx src/import-foodyou-swiss-food-composition.ts",
+    "import:lp-diet-sr28": "tsx src/import-lp-diet-sr28.ts",
+    "import:opennutritracker-activities": "tsx src/import-opennutritracker-activities.ts",
+    "import:human-type-qa": "tsx src/import-human-type-qa.ts",
     "import:comprehensive": "tsx src/import-comprehensive-food-database.ts",
     "import:usda": "tsx src/import-usda-foods.ts",
     "normalize:food-names": "tsx src/normalize-food-names.ts",
@@ -22,13 +28,19 @@
     "seed": "tsx src/migrate.ts --download-images"
   },
   "dependencies": {
+    "compression": "^1.8.1",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "express-validator": "^7.3.2",
+    "helmet": "^8.1.0",
+    "javascript-lp-solver": "^1.0.3",
     "mongoose": "^8.9.5",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "winston": "^3.19.0"
   },
   "devDependencies": {
+    "@types/compression": "^1.8.1",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
     "@types/morgan": "^1.9.9",

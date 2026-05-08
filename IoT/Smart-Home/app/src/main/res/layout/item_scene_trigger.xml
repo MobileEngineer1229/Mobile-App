@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="12dp"
+    app:cardBackgroundColor="@color/dark_4"
+    app:cardElevation="0dp"
+    android:layout_marginBottom="12dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/imageViewIcon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/schedule"
+            android:layout_marginEnd="16dp"
+            android:scaleType="fitCenter" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textViewTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Schedule Time"
+                android:textColor="@color/white"
+                android:textAppearance="@style/TextAppearance.Urbanist.H6.Semibold"
+                android:layout_marginBottom="4dp" />
+
+            <TextView
+                android:id="@+id/textViewExample"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Example: When it's 08:00 AM, when it's morning, when it's evening."
+                android:textColor="@color/white_alpha_70"
+                android:textAppearance="@style/TextAppearance.Urbanist.Medium.Regular" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_arrow_forward"
+            android:tint="@color/white"
+            android:alpha="0.7" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

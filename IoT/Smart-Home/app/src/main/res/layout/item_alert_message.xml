@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/alertMessageContainer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:background="@drawable/bg_alert_error"
+    android:paddingStart="12dp"
+    android:paddingEnd="12dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:visibility="gone">
+
+    <ImageView
+        android:id="@+id/imageViewAlertIcon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/ic_error"
+        android:contentDescription="Alert icon"
+        android:tint="@color/error"
+        android:layout_marginEnd="8dp" />
+
+    <TextView
+        android:id="@+id/textViewAlertMessage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Alert Message"
+        android:textSize="14sp"
+        android:fontFamily="@font/urbanist"
+        android:textColor="@color/error" />
+
+</LinearLayout>

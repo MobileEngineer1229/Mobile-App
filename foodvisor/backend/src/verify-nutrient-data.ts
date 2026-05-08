@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import mongoose from "mongoose";
 import { connectDatabase } from "./db.js";
-import { Food } from "./models/content.js";
+import { Food } from "./models/food.js";
 
 type NutrientRow = Record<string, string>;
 type MaterialRow = Record<string, string>;

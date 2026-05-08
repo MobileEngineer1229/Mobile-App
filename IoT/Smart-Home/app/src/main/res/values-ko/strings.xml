@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">스마티파이</string>
+    <string name="welcome_message">스마트 홈에 오신 것을 환영합니다</string>
+    <string name="device_list">기기 목록</string>
+    <string name="no_devices">기기가 없습니다</string>
+    <string name="add_device">기기 추가</string>
+    <string name="device_name">기기 이름</string>
+    <string name="device_status">상태</string>
+    <string name="online">온라인</string>
+    <string name="offline">오프라인</string>
+    <string name="on">켜짐</string>
+    <string name="off">꺼짐</string>
+    <string name="refresh">새로고침</string>
+    <string name="error_loading_devices">기기 로딩 오류</string>
+    <string name="retry">다시 시도</string>
+    <string name="menu_theme">테마</string>
+    <string name="menu_theme_light">라이트 테마</string>
+    <string name="menu_theme_dark">다크 테마</string>
+    <string name="menu_theme_system">시스템 기본값</string>
+    <string name="theme_changed">테마가 변경되었습니다</string>
+    <string name="get_started">시작하기</string>
+    <string name="sign_in">로그인</string>
+    <string name="sign_up">회원가입</string>
+    <string name="create_account">계정 만들기</string>
+    <string name="sign_up_subtitle">세부 정보를 입력하여 계정을 만드세요</string>
+    <string name="join_smartify_today">오늘 스마티파이에 가입하세요</string>
+    <string name="join_smartify_subtitle">스마티파이에 가입하세요, 스마트 라이프의 관문입니다.</string>
+    <string name="i_agree_terms">스마티파이 이용약관에 동의합니다.</string>
+    <string name="already_have_account">이미 계정이 있으신가요? 로그인</string>
+    <string name="sign_up_loading">회원가입 중…</string>
+    <string name="sign_in_loading">로그인 중…</string>
+    <string name="select_country_of_origin">원산지 국가 선택</string>
+    <string name="select_country_subtitle">스마트 홈이 위치한 국가를 선택하여 시작하세요.</string>
+    <string name="search_country">국가 검색</string>
+    <string name="add_home_name">홈 이름 추가</string>
+    <string name="add_home_name_subtitle">모든 스마트 홈에는 이름이 필요합니다. 어떤 이름을 사용하시겠습니까?</string>
+    <string name="add_rooms">방 추가</string>
+    <string name="add_rooms_subtitle">집의 방을 선택하세요. 나중에 더 추가할 수 있으니 걱정하지 마세요.</string>
+    <string name="set_home_location">홈 위치 설정</string>
+    <string name="set_home_location_subtitle">홈의 위치를 고정하여 위치 기반 기능을 향상시키세요. 개인정보 보호가 최우선입니다.</string>
+    <string name="enable_location">위치 활성화</string>
+    <string name="enable_location_description">홈 주소를 찾을 수 있도록 위치 기능을 활성화해주세요.</string>
+    <string name="not_now">나중에</string>
+    <string name="well_done">잘하셨습니다!</string>
+    <string name="onboarding_complete_message">축하합니다! 이제 집이 스마티파이 천국이 되었습니다. 쉽게 스마트 공간을 탐색하고 관리하세요.</string>
+    <string name="address_details">주소 세부 정보</string>
+    <string name="study_room">서재</string>
+    <string name="dining_room">식당</string>
+    <string name="backyard">마당</string>
+    <string name="full_name">전체 이름</string>
+    <string name="email">이메일</string>
+    <string name="password">비밀번호</string>
+    <string name="confirm_password">비밀번호 확인</string>
+    <string name="forgot_password">비밀번호를 잊으셨나요?</string>
+    <string name="forgot_password_title">비밀번호를 잊으셨나요? 🔑</string>
+    <string name="forgot_password_description">걱정 마세요. 비밀번호를 재설정하려면 등록된 이메일을 입력하세요. 다음 단계를 위해 이메일로 OTP 코드를 보내드리겠습니다.</string>
+    <string name="your_registered_email">등록된 이메일</string>
+    <string name="send_otp_code">OTP 코드 보내기</string>
+    <string name="enter_otp_code_title">OTP 코드 입력 🔑</string>
+    <string name="enter_otp_description">스마티파이에서 보낸 이메일을 확인하세요. 아래에 일회용 인증 코드를 입력하세요.</string>
+    <string name="resend_code">코드 다시 보내기</string>
+    <string name="email_hint_placeholder">demo@smartify.com</string>
+    <string name="secure_your_account_title">계정 보안 🔒</string>
+    <string name="secure_your_account_description">거의 다 왔습니다! 스마티파이 계정의 새 비밀번호를 만들어 보안을 유지하세요. 강력하고 고유한 비밀번호를 선택하세요.</string>
+    <string name="new_password">새 비밀번호</string>
+    <string name="confirm_new_password">새 비밀번호 확인</string>
+    <string name="enter_new_password">새 비밀번호 입력</string>
+    <string name="confirm_new_password_hint">새 비밀번호 확인</string>
+    <string name="save_new_password">새 비밀번호 저장</string>
+    <string name="toggle_password_visibility">비밀번호 표시 전환</string>
+    <string name="youre_all_set">모든 준비가 완료되었습니다!</string>
+    <string name="password_reset_success_description">비밀번호가 성공적으로 변경되었습니다.</string>
+    <string name="onboarding_headline">집을 강화하고 삶을 단순화하세요</string>
+    <string name="onboarding_description">스마티파이로 생활 공간을 더 스마트하고 연결된 홈으로 변환하세요. 모든 것이 손끝에 있습니다.</string>
+    <string name="onboarding_headline_2">쉬운 제어, 자동화 및 보안</string>
+    <string name="onboarding_description_2">스마티파이는 기기를 제어하고 루틴을 자동화할 수 있게 해줍니다. 집이 필요에 맞게 적응하는 세계를 경험하세요.</string>
+    <string name="onboarding_headline_3">절약하는 효율성, 지속되는 편안함</string>
+    <string name="onboarding_description_3">홈의 에너지 사용을 제어하고, 선호도를 설정하며, 전력을 절약하면서 필요에 맞게 적응하는 공간을 즐기세요.</string>
+    <string name="lets_get_started">시작하겠습니다!</string>
+    <string name="lets_dive_in">계정으로 들어가기</string>
+    <string name="continue_with_google">Google로 계속하기</string>
+    <string name="continue_with_apple">Apple로 계속하기</string>
+    <string name="continue_with_facebook">Facebook으로 계속하기</string>
+    <string name="continue_with_twitter">Twitter로 계속하기</string>
+    <string name="privacy_policy">개인정보 처리방침</string>
+    <string name="terms_of_service">이용약관</string>
+    <string name="skip">건너뛰기</string>
+    <string name="continue_text">계속</string>
+    <string name="onboarding_phone_content">온보딩 전화 콘텐츠 미리보기</string>
+    <string name="onboarding_background">온보딩 배경 오버레이</string>
+    <string name="welcome_back">다시 오신 것을 환영합니다! 👋</string>
+    <string name="your_smart_home_your_rules">당신의 스마트 홈, 당신의 규칙.</string>
+    <string name="remember_me">로그인 정보 저장</string>
+    <string name="or">또는</string>
+    <string name="back">뒤로</string>
+    <string name="my_home">내 홈</string>
+    <string name="all_devices">모든 기기</string>
+    <string name="all_rooms">모든 방</string>
+    <string name="living_room">거실</string>
+    <string name="bedroom">침실</string>
+    <string name="kitchen">주방</string>
+    <string name="bathroom">화장실</string>
+    <string name="you_havent_added_device">아직 기기를 추가하지 않았습니다.</string>
+    <string name="home">홈</string>
+    <string name="smart">스마트</string>
+    <string name="reports">리포트</string>
+    <string name="account">계정</string>
+    <string name="new_york_city_usa">미국 뉴욕시</string>
+    <string name="today_cloudy">오늘 흐림</string>
+    <string name="aqi">대기질 지수</string>
+    <string name="humidity">습도</string>
+    <string name="wind_speed">풍속</string>
+    
+    <!-- Add Device Flow -->
+    <string name="nearby_devices">주변 기기</string>
+    <string name="add_manual">수동 추가</string>
+    <string name="scan_device">기기 스캔</string>
+    <string name="looking_for_nearby_devices">주변 기기를 찾는 중…</string>
+    <string name="turn_on_wifi_bluetooth">연결하려면 Wi-Fi 및 Bluetooth를 켜세요</string>
+    <string name="connect_to_all_devices">모든 기기에 연결</string>
+    <string name="cant_find_devices">기기를 찾을 수 없나요? 자세히 알아보기</string>
+    <string name="device_detected">기기 감지됨</string>
+    <string name="connect_to_device">기기에 연결</string>
+    <string name="connect">연결</string>
+    <string name="connecting">연결 중…</string>
+    <string name="connected">연결됨!</string>
+    <string name="you_have_connected">%1$s에 연결되었습니다</string>
+    <string name="go_to_homepage">홈페이지로 이동</string>
+    <string name="control_device">기기 제어</string>
+    <string name="cant_connect_devices">기기에 연결할 수 없나요? 자세히 알아보기</string>
+    <string name="cant_connect_question">기기에 연결할 수 없나요?</string>
+    <string name="enter_setup_code_manually">설정 코드를 수동으로 입력</string>
+    <string name="setup_code_instructions">재료 기기에만 적용됩니다. 기기, 포장 또는 매뉴얼에서 설정 코드를 찾으세요.</string>
+    <string name="processing_device">기기 처리 중…</string>
+    <string name="device_qr_code">기기 QR 코드</string>
+    <string name="device_qr_description">이 QR 코드를 다른 핸드폰으로 스캔하여 기기를 추가하거나, 가족 구성원에게 공유하세요.</string>
+    <string name="setup_code_label">설정 코드</string>
+    <string name="product_id_label">제품 ID</string>
+    <string name="device_num_label">기기 번호</string>
+    <string name="device_type_label">기기 유형</string>
+    <string name="share_qr_code">QR 코드 공유</string>
+    <string name="show_qr_code">QR 코드 보기</string>
+    <string name="popular">인기</string>
+    <string name="lightning">번개</string>
+    <string name="camera">카메라</string>
+    <string name="cameras">카메라</string>
+    <string name="electronics">전자제품</string>
+    <string name="smart_v1_cctv">스마트 V1 CCTV</string>
+    <string name="smart_webcam">스마트 웹캠</string>
+    <string name="smart_v2_cctv">스마트 V2 CCTV</string>
+    <string name="smart_lamp">스마트 램프</string>
+    <string name="stereo_speaker">스테레오 스피커</string>
+    <string name="turn_on_light_confirm">불을 켜고 불이 빠르게 깜빡이는지 확인하세요.</string>
+    <string name="learn_more">자세히 알아보기</string>
+    <string name="share">공유</string>
+    <string name="close">닫기</string>
+    <string name="we_are_listening">듣고 있습니다… 무엇을 하고 싶으신가요?</string>
+    <string name="smart_thermostat">스마트 온도 조절기</string>
+    <string name="smart_lock">스마트 도어락</string>
+    <string name="smart_bulb">스마트 전구</string>
+    <string name="led_strip">LED 스트립</string>
+    <string name="smart_switch">스마트 스위치</string>
+    <string name="smart_dimmer">스마트 디머</string>
+    <string name="dimmer_switch">디머 스위치</string>
+    <string name="smart_plug">스마트 플러그</string>
+    <string name="smart_doorbell">스마트 도어벨</string>
+    <string name="doorbell_camera">도어벨 카메라</string>
+    <string name="security_camera">보안 카메라</string>
+    <string name="baby_monitor">베이비 모니터</string>
+    <string name="smart_tv">스마트 TV</string>
+    <string name="smart_refrigerator">스마트 냉장고</string>
+    <string name="smart_washer">스마트 세탁기</string>
+    <string name="smart_ac">스마트 에어컨</string>
+    <string name="smart_air_conditioner">스마트 에어컨</string>
+    <string name="smart_fan">스마트 선풍기</string>
+    <string name="wifi_router">Wi-Fi 라우터</string>
+    
+    <!-- Account & Settings -->
+    <string name="general">일반</string>
+    <string name="smart_home">스마트 홈</string>
+    <string name="notification_icon">알림 아이콘</string>
+    <string name="arrow">화살표</string>
+    <string name="settings">설정</string>
+    <string name="today">오늘</string>
+    <string name="yesterday">어제</string>
+    <string name="support">지원</string>
+    <string name="logout">로그아웃</string>
+    <string name="home_management">홈 관리</string>
+    <string name="voice_assistants">음성 어시스턴트</string>
+    <string name="notifications">알림</string>
+    <string name="account_security">계정 및 보안</string>
+    <string name="linked_accounts">연결된 계정</string>
+    <string name="app_appearance">앱 모양</string>
+    <string name="additional_settings">추가 설정</string>
+    <string name="data_analytics">데이터 및 분석</string>
+    <string name="help_support">도움말 및 지원</string>
+    <string name="profile_picture">프로필 사진</string>
+    <string name="view">보기</string>
+    <string name="more_options">더 많은 옵션</string>
+    <string name="setting_icon">설정 아이콘</string>
+    <string name="confirm_logout">로그아웃하시겠습니까?</string>
+    <string name="yes">예</string>
+    <string name="no">아니오</string>
+    
+    <!-- Voice Assistants -->
+    <string name="voice_assistant_icon">음성 어시스턴트 아이콘</string>
+    <string name="linked">연결됨</string>
+    <string name="unlinked">연결 해제됨</string>
+    <string name="link_to_google_assistant">Google 어시스턴트에 연결</string>
+    <string name="link_google_assistant_description">안녕하세요 Google, 스마티파이를 만나보세요! 이 두 가지를 연결하면 곧 음성 제어 생활을 즐길 수 있습니다. 말만 하면 기기가 듣습니다.</string>
+    <string name="linking_account_message">스마티파이 계정을 Google 어시스턴트에 연결하는 중…</string>
+    <string name="linked_success_message">스마티파이 계정이 Google 어시스턴트와 원활하게 연결되었습니다. 최고의 핸즈프리 제어를 경험할 준비를 하세요.</string>
+    <string name="ok">확인</string>
+    <string name="smartify">스마티파이</string>
+    <string name="google_assistant">Google 어시스턴트</string>
+    <string name="amazon_alexa">Amazon Alexa</string>
+    <string name="microsoft_cortana">Microsoft Cortana</string>
+    <string name="samsung_bixby">Samsung Bixby</string>
+    <string name="naver_clova">네이버 클로바</string>
+    <string name="apple_siri">Apple Siri</string>
+    
+    <!-- Profile & Settings -->
+    <string name="my_profile">내 프로필</string>
+    <string name="edit_profile_picture">프로필 사진 편집</string>
+    <string name="phone_number">전화번호</string>
+    <string name="gender">성별</string>
+    <string name="birthdate">생년월일</string>
+    <string name="save">저장</string>
+    <string name="male">남성</string>
+    <string name="female">여성</string>
+    <string name="other">기타</string>
+    
+    <!-- Notification Types -->
+    <string name="device_status_alerts">기기 상태 알림</string>
+    <string name="energy_consumption_alerts">에너지 소비 알림</string>
+    <string name="bill_reminders">청구서 알림</string>
+    <string name="automation_updates">자동화 업데이트</string>
+    <string name="device_maintenance_reminders">기기 유지보수 알림</string>
+    <string name="security_alerts">보안 알림</string>
+    <string name="weather_based_suggestions">날씨 기반 제안</string>
+    <string name="community_updates">커뮤니티 업데이트</string>
+    <string name="home_invitations">홈 초대</string>
+    <string name="user_access_alerts">사용자 접근 알림</string>
+    <string name="customer_support_updates">고객 지원 업데이트</string>
+    <string name="feedback_updates">피드백 및 업데이트</string>
+    
+    <!-- Security Settings -->
+    <string name="biometric_id">생체 인증</string>
+    <string name="face_id">Face ID</string>
+    <string name="sms_authenticator">SMS 인증</string>
+    <string name="google_authenticator">Google 인증</string>
+    <string name="change_password">비밀번호 변경</string>
+    <string name="device_management">기기 관리</string>
+    <string name="device_management_subtitle">소유한 다양한 기기에서 계정을 관리하세요.</string>
+    <string name="deactivate_account">계정 비활성화</string>
+    <string name="deactivate_account_subtitle">계정을 일시적으로 비활성화합니다. 준비되면 쉽게 다시 활성화할 수 있습니다.</string>
+    <string name="delete_account">계정 삭제</string>
+    <string name="delete_account_subtitle">계정과 데이터를 영구적으로 제거합니다. 주의해서 진행하세요.</string>
+    
+    <!-- Linked Accounts -->
+    <string name="account_icon">계정 아이콘</string>
+    <string name="account_connected">연결됨</string>
+    <string name="account_connect">연결</string>
+    <string name="disconnect">연결 해제</string>
+    <string name="google">Google</string>
+    <string name="apple">Apple</string>
+    <string name="facebook">Facebook</string>
+    <string name="twitter">Twitter</string>
+    
+    <!-- Additional Settings -->
+    <string name="temperature_units">온도 단위</string>
+    <string name="celsius">섭씨</string>
+    <string name="fahrenheit">화씨</string>
+    <string name="clear_cache">캐시 지우기</string>
+    <string name="experimental_features">실험적 기능</string>
+    <string name="system_permissions">시스템 권한</string>
+    <string name="legal_information">법적 정보</string>
+    <string name="check_for_updates">업데이트 확인</string>
+    
+    <!-- Data & Analytics -->
+    <string name="data_usage">데이터 사용</string>
+    <string name="data_usage_subtitle">분석을 위해 데이터가 사용되는 방식을 제어하세요. 선호도를 사용자 정의하세요.</string>
+    <string name="ad_preferences">광고 선호도</string>
+    <string name="ad_preferences_subtitle">광고 개인화 설정을 관리하세요. 광고 경험을 맞춤 설정하세요.</string>
+    <string name="download_my_data">내 데이터 다운로드</string>
+    <string name="download_my_data_subtitle">데이터 사본을 요청하세요. 귀하의 정보, 귀하의 제어.</string>
+    
+    <!-- App Appearance -->
+    <string name="theme">테마</string>
+    <string name="choose_theme">테마 선택</string>
+    <string name="system_default">시스템 기본값</string>
+    <string name="light">라이트</string>
+    <string name="dark">다크</string>
+    <string name="app_language">앱 언어</string>
+    <string name="flag">깃발</string>
+    <string name="selected">선택됨</string>
+    <string name="cancel">취소</string>
+    <string name="english_us">영어 (미국)</string>
+    <string name="korean">한국어</string>
+    <string name="english_uk">영어 (영국)</string>
+    <string name="mandarin">중국어</string>
+    <string name="spanish">스페인어</string>
+    <string name="hindi">힌디어</string>
+    <string name="french">프랑스어</string>
+    <string name="arabic">아랍어</string>
+    <string name="russian">러시아어</string>
+    <string name="japanese">일본어</string>
+    
+    <!-- Help & Support -->
+    <string name="faq">자주 묻는 질문</string>
+    <string name="contact_support">고객 지원 문의</string>
+    <string name="partner">파트너</string>
+    <string name="job_vacancy">채용 공고</string>
+    <string name="accessibility">접근성</string>
+    <string name="feedback">피드백</string>
+    <string name="about_us">회사 소개</string>
+    <string name="rate_us">평가하기</string>
+    <string name="visit_our_website">웹사이트 방문</string>
+    <string name="follow_us_on_social_media">소셜 미디어에서 팔로우하기</string>
+    <string name="search">검색</string>
+    <string name="services">서비스</string>
+    <string name="customer_support">고객 지원</string>
+    <string name="website">웹사이트</string>
+    <string name="whatsapp">WhatsApp</string>
+    <string name="instagram">Instagram</string>
+    <string name="icon">아이콘</string>
+    <string name="logout_confirmation_message">로그아웃하시겠습니까?</string>
+    <string name="yes_logout">예, 로그아웃</string>
+    
+    <!-- FAQ Questions -->
+    <string name="faq_what_is_smartify">스마티파이가 무엇인가요?</string>
+    <string name="faq_what_is_smartify_answer">스마티파이는 연결된 기기의 원활한 제어와 자동화를 가능하게 하는 사용자 친화적인 스마트 홈 애플리케이션으로, 혁신적인 기술을 통해 생활 경험을 향상시킵니다.</string>
+    <string name="faq_add_device">새 기기를 어떻게 추가하나요?</string>
+    <string name="faq_add_device_answer">새 기기를 추가하려면 기기 섹션으로 이동하여 기기 추가 버튼을 탭하고 화면의 지시에 따라 기기를 스마트 홈 네트워크에 연결하세요.</string>
+    <string name="faq_create_automation">자동화를 어떻게 만들나요?</string>
+    <string name="faq_create_automation_answer">자동화 섹션으로 이동하여 자동화 만들기를 탭하고, 기기와 조건을 선택한 다음 자동화에 대한 원하는 작업을 설정하세요.</string>
+    <string name="faq_tap_to_run">\'탭하여 실행\' 기능이 무엇인가요?</string>
+    <string name="faq_tap_to_run_answer">탭하여 실행을 사용하면 한 번의 탭으로 미리 정의된 작업을 빠르게 실행할 수 있어 여러 기기를 한 번에 제어할 수 있습니다.</string>
+    <string name="faq_offline_use">스마티파이를 오프라인에서 사용할 수 있나요?</string>
+    <string name="faq_offline_use_answer">예, 스마티파이는 기본 기기 제어를 위해 오프라인에서 작동할 수 있습니다. 그러나 클라우드 동기화 및 원격 액세스와 같은 일부 기능은 인터넷 연결이 필요합니다.</string>
+    <string name="faq_reset_password">비밀번호를 어떻게 재설정하나요?</string>
+    <string name="faq_reset_password_answer">로그인 화면으로 이동하여 비밀번호 찾기를 탭하고, 이메일 주소를 입력한 다음 이메일로 전송된 지시에 따라 비밀번호를 재설정하세요.</string>
+    
+    <!-- Privacy Policy Content -->
+    <string name="privacy_policy_content">스마티파이 개인정보 처리방침\n\n스마티파이에 오신 것을 환영합니다. 이 개인정보 처리방침은 스마트 홈 애플리케이션을 사용할 때 개인정보를 수집, 사용 및 보호하는 방법을 설명합니다.\n\n1. 수집하는 정보\n\n다음과 같은 여러 유형의 정보를 수집합니다:\n\n• 개인정보: 이름, 이메일 주소, 연락처 세부 정보\n• 기기 정보: 연결된 스마트 기기, 기기 이름, 상태\n• 사용 데이터: 앱과의 상호 작용 방식, 제어 기록, 사용 패턴\n\n2. 정보 사용 방법\n\n수집한 정보를 다음 용도로 사용합니다:\n\n• 서비스 제공 및 개선\n• 경험 개인화\n• 중요한 업데이트 및 알림 전송\n• 보안 보장 및 사기 방지\n\n3. 데이터 보안\n\n개인정보에 대한 무단 액세스, 변경, 공개 또는 파괴로부터 보호하기 위해 적절한 보안 조치를 구현합니다.\n\n4. 귀하의 권리\n\n앱 설정을 통해 언제든지 개인정보에 액세스, 업데이트 또는 삭제할 권리가 있습니다.\n\n5. 문의하기\n\n이 개인정보 처리방침에 대한 질문이 있으시면 고객 지원 섹션을 통해 문의하세요.</string>
+    
+    <!-- Terms of Service Content -->
+    <string name="terms_of_service_content">스마티파이 이용약관\n\n스마티파이 애플리케이션을 사용함으로써 귀하는 이 이용약관에 구속되는 것에 동의합니다.\n\n1. 약관 수락\n\n스마티파이에 액세스하거나 사용함으로써 귀하는 이 약관을 준수하고 구속되는 것에 동의합니다. 동의하지 않는 경우 애플리케이션을 사용하지 마세요.\n\n2. 서비스 사용\n\n개인적이고 비상업적인 목적으로 스마티파이를 사용할 수 있는 비독점적, 양도 불가능, 취소 가능한 라이선스가 부여됩니다.\n\n3. 사용자 계정\n\n특정 기능에 액세스하려면 계정을 만들어야 할 수 있습니다. 계정 자격 증명의 기밀성을 유지할 책임이 있습니다.\n\n4. 금지된 활동\n\n다음과 같은 행위를 하지 않기로 동의합니다:\n\n• 적용 가능한 법률 또는 규정 위반\n• 지적 재산권 침해\n• 유해하거나 악성 코드 전송\n• 무단 액세스 시도\n\n5. 책임 제한\n\n스마티파이는 \"있는 그대로\" 보증 없이 제공됩니다. 애플리케이션 사용으로 인한 모든 손해에 대해 책임을 지지 않습니다.\n\n6. 약관 변경\n\n언제든지 이 약관을 수정할 권리를 보유합니다. 계속 사용하면 수정된 약관에 대한 수락을 의미합니다.</string>
+    
+    <!-- Home Management -->
+    <string name="create_a_home">홈 만들기</string>
+    <string name="join_a_home">홈 참가</string>
+    <string name="room_management">방 관리</string>
+    <string name="location">위치</string>
+    <string name="home_members">홈 멤버</string>
+    <string name="delete_home">홈 삭제</string>
+    <string name="rooms">방</string>
+    <string name="devices">기기</string>
+    <string name="add_room">방 추가</string>
+    <string name="manage_rooms">방 관리</string>
+    <string name="edit_home_name">홈 이름 편집</string>
+    <string name="delete_room">방 삭제</string>
+    <string name="delete_room_confirmation">방 \'%1$s\'을(를) 삭제하시겠습니까?</string>
+    <string name="delete_room_warning">이 작업 후 이 방에 연결되고 연결된 모든 기기가 연결 해제됩니다.</string>
+    <string name="yes_delete">예, 삭제</string>
+    <string name="room_deleted_success">방 \"%1$s\"이(가) 성공적으로 삭제되었습니다!</string>
+    <string name="kids_room">아이 방</string>
+    <string name="library">도서관</string>
+    <string name="balcony">발코니</string>
+    <string name="workshop">작업실</string>
+    <string name="rooftop">옥상</string>
+    <string name="owner">소유자</string>
+    <string name="admin">관리자</string>
+    <string name="member">멤버</string>
+    <string name="you">당신</string>
+    <string name="room_name">방 이름</string>
+    <string name="edit_room_name">방 이름 편집</string>
+    <string name="room_updated_success">방 이름이 업데이트되었습니다</string>
+    <string name="suggested">제안됨</string>
+    <string name="home_name">홈 이름</string>
+    
+    <!-- Add Member -->
+    <string name="add_member">멤버 추가</string>
+    <string name="invite_via_email">이메일로 초대</string>
+    <string name="invite_via_qr_code">QR 코드로 초대</string>
+    <string name="select_role">역할 선택</string>
+    <string name="admin_role_description">기기 및 방 관리, 멤버 관리, 스마트 장면 관리</string>
+    <string name="member_role_description">기기 사용, 스마트 장면 사용</string>
+    <string name="send_invite">초대 보내기</string>
+    <string name="share_invite">초대 공유</string>
+    <string name="invitation_code">초대 코드</string>
+    <string name="invitation_sent_success">\'%1$s\'에 초대가 전송되었습니다</string>
+    
+    <!-- Member Details -->
+    <string name="home_member">홈 멤버</string>
+    <string name="remove_member">멤버 제거</string>
+    <string name="remove_member_confirmation">\'%1$s\'을(를) 제거하시겠습니까?</string>
+    <string name="yes_remove">예, 제거</string>
+    <string name="member_removed_success">"%1$s"이(가) 제거되었습니다!</string>
+    
+    <!-- Delete Home -->
+    <string name="delete_home_confirmation">이 홈을 삭제하시겠습니까?</string>
+    <string name="delete_home_warning">홈이 삭제된 후 모든 멤버가 제거되고 모든 기기가 연결 해제됩니다.</string>
+    <string name="yes_delete_home">예, 삭제</string>
+    <string name="home_deleted_success">"%1$s"이(가) 성공적으로 삭제되었습니다!</string>
+    
+    <!-- Create Home -->
+    <string name="create_a_home_title">홈 만들기</string>
+    <string name="add_rooms_title">방 추가</string>
+    
+    <!-- Join Home -->
+    <string name="join_a_home_title">홈 참가</string>
+    <string name="enter_invitation_code">초대 코드 입력</string>
+    <string name="invitation_code_instruction">초대 코드를 받으려면 홈 관리자에게 문의하세요.</string>
+    <string name="scan_qr">QR 스캔</string>
+    <string name="cant_scan_qr">QR 코드를 스캔할 수 없나요?</string>
+    <string name="enter_invitation_code_button">초대 코드 입력</string>
+    <string name="join">참가</string>
+    <string name="joining_home">홈에 참가하는 중…</string>
+    <string name="recent_people">최근 연락처</string>
+    <string name="social_media">소셜 미디어</string>
+    <string name="telegram">Telegram</string>
+    <string name="role">역할</string>
+    <string name="home_joined_success">홈에 성공적으로 참가했습니다!</string>
+    
+    <!-- Smart Scene -->
+    <string name="automation">자동화</string>
+    <string name="tap_to_run">탭으로 실행</string>
+    <string name="create_scene">장면 만들기</string>
+    <string name="scene_name">장면 이름</string>
+    <string name="when_any_condition_met">조건 중 하나가 충족될 때</string>
+    <string name="when_all_conditions_met">모든 조건이 충족될 때</string>
+    <string name="add_task">작업 추가</string>
+    <string name="task">작업</string>
+    <string name="tasks">작업</string>
+    
+    <!-- Scene Triggers -->
+    <string name="tap_to_run_trigger">탭으로 실행</string>
+    <string name="tap_to_run_example">예: 한 번의 탭으로 거실의 모든 조명 켜기.</string>
+    <string name="when_weather_changes">날씨가 변경될 때</string>
+    <string name="when_weather_changes_example">예: 주변 온도가 25°C 이상일 때.</string>
+    <string name="when_location_changes">위치가 변경될 때</string>
+    <string name="when_location_changes_example">예: 집에 도착하거나 집을 떠날 때.</string>
+    <string name="schedule_time">시간 예약</string>
+    <string name="schedule_time_example">예: 오전 8시, 아침, 저녁일 때.</string>
+    <string name="when_device_status_changes">기기 상태가 변경될 때</string>
+    <string name="when_device_status_changes_example">예: 비정상적인 활동이 감지될 때.</string>
+    <string name="change_arm_mode">보안 모드 변경</string>
+    <string name="change_arm_mode_example">예: 게이트웨이를 통해 해제, 재실 보안, 외출 보안.</string>
+    <string name="when_alarm_triggered">알람이 작동할 때</string>
+    <string name="when_alarm_triggered_example">예: 화재 경보 또는 비상 경보가 작동할 때.</string>
+    
+    <!-- Weather Conditions -->
+    <string name="temperature">온도</string>
+    <string name="weather">날씨</string>
+    <string name="sunrise_sunset">일출 / 일몰</string>
+    
+    <!-- Humidity Options -->
+    <string name="dry">건조</string>
+    <string name="comfortable">적당함</string>
+    <string name="moist">습함</string>
+    
+    <!-- Weather Options -->
+    <string name="sunny">맑음</string>
+    <string name="cloudy">흐림</string>
+    <string name="rainy">비</string>
+    <string name="snowy">눈</string>
+    <string name="hazy">안개</string>
+    
+    <!-- Sunrise/Sunset -->
+    <string name="sunrise">일출</string>
+    <string name="sunset">일몰</string>
+    
+    <!-- Task Types -->
+    <string name="control_single_device">단일 기기 제어</string>
+    <string name="select_smart_scene">스마트 장면 선택</string>
+    <string name="change_arm_mode_task">보안 모드 변경</string>
+    <string name="send_notification">알림 보내기</string>
+    <string name="delay_the_action">작업 지연</string>
+    
+    <!-- Device Control -->
+    <string name="select_function">기능 선택</string>
+    <string name="function">기능</string>
+    
+    <!-- Scene Success -->
+    <string name="scene_created_success">장면이 성공적으로 생성되었습니다!</string>
+    <string name="tap_to_run_created">Tap-to-Run 생성됨</string>
+    
+    <!-- Style Selection -->
+    <string name="style">스타일</string>
+    <string name="color">색상</string>
+    <string name="launch_tap_to_run">Tap-to-Run 실행</string>
+    <string name="one_tap_execute_commands">한 번의 탭으로 명령 실행</string>
+    
+    <!-- Common Actions -->
+    <string name="add">추가</string>
+    <string name="delete">삭제</string>
+</resources>

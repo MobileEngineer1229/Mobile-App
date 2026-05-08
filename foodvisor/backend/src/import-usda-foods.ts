@@ -3,7 +3,8 @@ import { mkdir, readFile, writeFile } from "fs/promises";
 import path from "path";
 import { connectDatabase } from "./db.js";
 import { dailyValueProfiles } from "./data/dailyValueProfiles.js";
-import { DailyValueProfile, Food } from "./models/content.js";
+import { DailyValueProfile } from "./models/daily-value-profile.js";
+import { Food } from "./models/food.js";
 
 type FdcNutrient = {
   nutrientId?: number;

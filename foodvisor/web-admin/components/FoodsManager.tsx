@@ -3,9 +3,9 @@
 import {
   Check, ChevronDown, ChevronLeft, ChevronRight,
   ChevronsLeft, ChevronsRight, Pencil, Plus, Search,
-  Shield, Trash2, X, Zap
+  Shield, Trash2, Upload, X, Zap
 } from "lucide-react";
-import { FormEvent, useEffect, useMemo, useState } from "react";
+import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import PageHeader from "@/components/PageHeader";
 import { API_URL, apiFetch } from "@/lib/api";
 
@@ -62,6 +62,7 @@ type Food = {
 };
 
 type ApiList = { items: Food[]; total: number; page: number; limit: number };
+type ImageUploadResponse = { imageUrl: string; imageStatus: string };
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
@@ -99,6 +100,18 @@ const IMG_BASE = API_URL.replace(/\/api\/?$/, "");
 function resolveImg(url?: string) {
   if (!url) return "";
   return url.startsWith("/") ? `${IMG_BASE}${url}` : url;
+}
+
+function fileToBase64(file: File) {
+  return new Promise<string>((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const result = String(reader.result ?? "");
+      resolve(result.includes(",") ? result.split(",")[1] : result);
+    };
+    reader.onerror = () => reject(new Error("Could not read image."));
+    reader.readAsDataURL(file);
+  });
 }
 
 // Daily Value (성인 기준) — used to sort vitamin chips by relative contribution
@@ -195,8 +208,40 @@ function TextareaF({ label, name, value, wide }: { label: string; name: string; 
 function FoodForm({ food, onClose, onSaved }: { food: Partial<Food>; onClose: () => void; onSaved: () => void }) {
   const [tab, setTab] = useState<TabId>("basic");
   const [saving, setSaving] = useState(false);
+  const [uploadingImage, setUploadingImage] = useState(false);
   const [error, setError] = useState("");
+  const [imageUrl, setImageUrl] = useState(food.imageUrl ?? "");
+  const [imageStatus, setImageStatus] = useState(food.imageStatus ?? "missing");
+  const imageInputRef = useRef<HTMLInputElement>(null);
   const isNew = !food._id;
+
+  async function handleImageUpload(file?: File) {
+    if (!file) return;
+    if (!file.type.startsWith("image/")) {
+      setError("이미지 파일만 업로드할 수 있습니다.");
+      return;
+    }
+    if (file.size > 8 * 1024 * 1024) {
+      setError("이미지는 8MB보다 작아야 합니다.");
+      return;
+    }
+
+    setUploadingImage(true);
+    setError("");
+    try {
+      const data = await fileToBase64(file);
+      const uploaded = await apiFetch<ImageUploadResponse>("/foods/image-upload", {
+        method: "POST",
+        body: JSON.stringify({ fileName: file.name, mimeType: file.type, data })
+      });
+      setImageUrl(uploaded.imageUrl);
+      setImageStatus(uploaded.imageStatus || "uploaded");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "이미지 업로드 실패");
+    } finally {
+      setUploadingImage(false);
+    }
+  }
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -259,8 +304,8 @@ function FoodForm({ food, onClose, onSaved }: { food: Partial<Food>; onClose: ()
       sourceNote: str("sourceNote"),
       tags: tags("tags"),
       barcode: str("barcode"),
-      imageUrl: str("imageUrl"),
-      imageStatus: str("imageStatus"),
+      imageUrl,
+      imageStatus,
       icon: str("icon"),
       doctor_verified: fd.get("doctor_verified") === "true"
     };
@@ -408,11 +453,29 @@ function FoodForm({ food, onClose, onSaved }: { food: Partial<Food>; onClose: ()
               <div className="fm-grid">
                 <TF label="데이터 출처" name="dataSource" value={food.dataSource} wide />
                 <TextareaF label="출처 노트 (JSON 가능)" name="sourceNote" value={food.sourceNote} wide />
-                <TF label="이미지 URL" name="imageUrl" value={food.imageUrl} wide />
+                <label className="fm-field fm-wide">
+                  <span>이미지 업로드</span>
+                  <div className="fm-image-uploader">
+                    <div className="fm-image-preview-box">
+                      {imageUrl
+                        ? <img src={resolveImg(imageUrl)} alt="" />
+                        : <span>이미지 없음</span>
+                      }
+                    </div>
+                    <div className="fm-image-upload-controls">
+                      <input ref={imageInputRef} name="imageUpload" type="file" accept="image/*" onChange={e => handleImageUpload(e.target.files?.[0])} />
+                      <input name="imageUrlDisplay" type="text" value={imageUrl} readOnly placeholder="업로드하면 이미지 경로가 자동으로 들어갑니다." />
+                      <button type="button" className="fm-upload-btn" disabled={uploadingImage} onClick={() => imageInputRef.current?.click()}>
+                        <Upload size={15} /> {uploadingImage ? "업로드 중..." : "파일 선택"}
+                      </button>
+                    </div>
+                  </div>
+                </label>
                 <label className="fm-field">
                   <span>이미지 상태</span>
-                  <select name="imageStatus" defaultValue={food.imageStatus ?? "missing"}>
+                  <select name="imageStatus" value={imageStatus} onChange={e => setImageStatus(e.target.value)}>
                     <option value="missing">missing</option>
+                    <option value="uploaded">uploaded</option>
                     <option value="downloaded">downloaded</option>
                     <option value="download_failed">download_failed</option>
                     <option value="needs_real_download">needs_real_download</option>
@@ -427,7 +490,7 @@ function FoodForm({ food, onClose, onSaved }: { food: Partial<Food>; onClose: ()
           {error && <p className="fm-error">{error}</p>}
           <div className="fm-footer">
             <button type="button" onClick={onClose}><X size={15} /> 취소</button>
-            <button type="submit" className="primary" disabled={saving}>
+            <button type="submit" className="primary" disabled={saving || uploadingImage}>
               <Check size={15} /> {saving ? "저장 중..." : "저장"}
             </button>
           </div>
@@ -561,7 +624,14 @@ export function FoodsManager() {
                 const imgSrc = resolveImg(item.imageUrl);
                 const color = catColor(item.category);
                 return (
-                  <tr key={String(item._id)}>
+                  <tr
+                    key={String(item._id)}
+                    onDoubleClick={(event) => {
+                      const target = event.target as HTMLElement;
+                      if (target.closest("button, a, input, select, textarea")) return;
+                      setEditing(item);
+                    }}
+                  >
                     {/* Image */}
                     <td>
                       {imgSrc
@@ -630,10 +700,10 @@ export function FoodsManager() {
                     {/* Actions */}
                     <td>
                       <div className="row-btns">
-                        <button onClick={() => setEditing(item)} type="button" title="편집">
+                        <button onClick={() => setEditing(item)} type="button" title="편집" aria-label="편집">
                           <Pencil size={14} />
                         </button>
-                        <button onClick={() => remove(String(item._id))} type="button" title="삭제" className="danger-btn">
+                        <button onClick={() => remove(String(item._id))} type="button" title="삭제" aria-label="삭제" className="danger-btn">
                           <Trash2 size={14} />
                         </button>
                       </div>

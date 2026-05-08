@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="0dp"
+    app:cardBackgroundColor="@color/dark_4">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <!-- Icon and Consumption Section - Aligned Vertically -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="top">
+
+            <ImageView
+                android:id="@+id/imageViewDeviceIcon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_lightbulb"
+                android:tint="@color/white"
+                android:contentDescription="Device icon" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_marginStart="10dp"
+                android:gravity="top">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/textViewConsumption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="16.82"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/urbanist"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" kWh"
+                        android:textSize="9sp"
+                        android:fontFamily="@font/urbanist"
+                        android:textColor="@color/white"
+                        android:alpha="0.7" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/textViewCost"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="$2.52"
+                    android:textSize="9sp"
+                    android:fontFamily="@font/urbanist"
+                    android:textColor="@color/white"
+                    android:alpha="0.7"
+                    android:layout_marginTop="2dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Divider Line between consumption and name part -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:background="@color/dark_5" />
+
+        <!-- Device Name and Room -->
+        <TextView
+            android:id="@+id/textViewDeviceName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Smart Lamp"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/urbanist"
+            android:textColor="@color/white"
+            android:layout_marginTop="0dp" />
+
+        <TextView
+            android:id="@+id/textViewRoomName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Living Room"
+            android:textSize="10sp"
+            android:fontFamily="@font/urbanist"
+            android:textColor="@color/white"
+            android:alpha="0.7"
+            android:layout_marginTop="3dp" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

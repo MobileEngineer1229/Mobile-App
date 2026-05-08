@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dark_1">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="40dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="0dp"
+            android:paddingBottom="140dp">
+
+            <!-- Live Video Feed - 382dp x 300dp -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="382dp"
+                android:layout_height="300dp"
+                app:cardCornerRadius="12dp"
+                app:cardBackgroundColor="@color/dark_4"
+                app:cardElevation="0dp"
+                android:layout_marginBottom="0dp">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <!-- Live Video Feed Background - 382dp x 300dp -->
+
+                    <ImageView
+                        android:id="@+id/imageViewLiveFeed"
+                        android:layout_width="382dp"
+                        android:layout_height="300dp"
+                        android:background="@color/primary"
+                        android:scaleType="center"
+                        android:src="@drawable/ic_camera"
+                        android:tint="@color/white_alpha_70" />
+
+                    <LinearLayout
+                        android:id="@+id/layoutLiveIndicator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top|start"
+                        android:layout_margin="12dp"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:background="@drawable/bg_rounded_dark_4"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp">
+
+                        <View
+                            android:layout_width="8dp"
+                            android:layout_height="8dp"
+                            android:background="@drawable/bg_circle_error"
+                            android:layout_marginEnd="6dp" />
+
+                        <TextView
+                            android:id="@+id/textViewLiveIndicator"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Live"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/urbanist" />
+
+                    </LinearLayout>
+
+                    <!-- Stream Controls Overlay -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|end"
+                        android:layout_margin="12dp"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:background="@drawable/bg_rounded_dark_4"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:paddingTop="6dp"
+                        android:paddingBottom="6dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="HD"
+                            android:textSize="10sp"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/urbanist"
+                            android:paddingStart="6dp"
+                            android:paddingEnd="6dp"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp" />
+
+                        <ImageView
+                            android:id="@+id/imageViewAudio"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_speaker"
+                            android:tint="@color/white"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp" />
+
+                        <ImageView
+                            android:id="@+id/imageViewFullscreen"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_fullscreen"
+                            android:tint="@color/white" />
+
+                    </LinearLayout>
+
+                </FrameLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- Control Buttons Grid -->
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="4"
+                android:rowCount="2"
+                android:alignmentMode="alignMargins"
+                android:columnOrderPreserved="false"
+                android:useDefaultMargins="false"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="0dp">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonPlayback"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_columnSpan="1"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="Playback"
+                    android:textColor="@color/white"
+                    android:textAppearance="@style/TextAppearance.Urbanist.Medium.Medium"
+                    app:icon="@drawable/ic_play"
+                    app:iconTint="@color/white"
+                    app:iconGravity="top"
+                    android:gravity="center"
+                    android:padding="0dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonSnapshot"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_columnSpan="1"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="Snapshot"
+                    android:textColor="@color/white"
+                    android:textAppearance="@style/TextAppearance.Urbanist.Medium.Medium"
+                    app:icon="@drawable/ic_camera"
+                    app:iconTint="@color/white"
+                    app:iconGravity="top"
+                    android:gravity="center"
+                    android:padding="0dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonSpeak"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_columnSpan="1"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="Speak"
+                    android:textColor="@color/white"
+                    android:textAppearance="@style/TextAppearance.Urbanist.Medium.Medium"
+                    app:icon="@drawable/ic_mic"
+                    app:iconTint="@color/white"
+                    app:iconGravity="top"
+                    android:gravity="center"
+                    android:padding="0dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonRecord"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_columnSpan="1"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="Record"
+                    android:textColor="@color/white"
+                    android:textAppearance="@style/TextAppearance.Urbanist.Medium.Medium"
+                    app:icon="@drawable/ic_video"
+                    app:iconTint="@color/white"
+                    app:iconGravity="top"
+                    android:gravity="center"
+                    android:padding="0dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonGallery"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_columnSpan="1"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="Gallery"
+                    android:textColor="@color/white"
+                    android:textAppearance="@style/TextAppearance.Urbanist.Medium.Medium"
+                    app:icon="@drawable/ic_gallery"
+                    app:iconTint="@color/white"
+                    app:iconGravity="top"
+                    android:gravity="center"
+                    android:padding="0dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonPrivateMode"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_columnSpan="1"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="Private Mode"
+                    android:textColor="@color/white"
+                    android:textAppearance="@style/TextAppearance.Urbanist.Medium.Medium"
+                    app:icon="@drawable/ic_lock"
+                    app:iconTint="@color/white"
+                    app:iconGravity="top"
+                    android:gravity="center"
+                    android:padding="0dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonNightMode"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_columnSpan="1"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="Night Mode"
+                    android:textColor="@color/white"
+                    android:textAppearance="@style/TextAppearance.Urbanist.Medium.Medium"
+                    app:icon="@drawable/ic_moon"
+                    app:iconTint="@color/white"
+                    app:iconGravity="top"
+                    android:gravity="center"
+                    android:padding="0dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonMore"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_columnSpan="1"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="More"
+                    android:textColor="@color/white"
+                    android:textAppearance="@style/TextAppearance.Urbanist.Medium.Medium"
+                    app:icon="@drawable/more"
+                    app:iconTint="@color/white"
+                    app:iconGravity="top"
+                    android:gravity="center"
+                    android:padding="0dp" />
+
+            </GridLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Movement Controls - Fixed at bottom, 40dp from bottom -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="40dp"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <!-- Previous Button - 56dp x 56dp circle with symbol -->
+        <FrameLayout
+            android:id="@+id/buttonMoveLeft"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:background="@drawable/bg_circle_nav_button"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackgroundBorderless">
+            
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="‹"
+                android:textColor="@color/white"
+                android:textSize="28sp"
+                android:fontFamily="@font/urbanist" />
+                
+        </FrameLayout>
+
+        <!-- Pause Button - 76dp x 76dp circle -->
+        <FrameLayout
+            android:id="@+id/buttonMovePause"
+            android:layout_width="76dp"
+            android:layout_height="76dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/bg_circle_pause_button"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackgroundBorderless">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:src="@android:drawable/ic_media_pause"
+                android:tint="@color/white" />
+
+        </FrameLayout>
+
+        <!-- Next Button - 56dp x 56dp circle with symbol -->
+        <FrameLayout
+            android:id="@+id/buttonMoveRight"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:background="@drawable/bg_circle_nav_button"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackgroundBorderless">
+            
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="›"
+                android:textColor="@color/white"
+                android:textSize="28sp"
+                android:fontFamily="@font/urbanist" />
+                
+        </FrameLayout>
+
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

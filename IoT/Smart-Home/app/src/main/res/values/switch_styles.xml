@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Custom Switch Style - Matches Figma UI exactly -->
+    <!-- Track: 44dp x 24dp (rounded rectangle, pill shape) -->
+    <!-- Thumb: 20dp x 20dp (circle smaller than track height) -->
+    <!-- Checked (ON): Primary blue track, white circle on LEFT, fully contained -->
+    <!-- Unchecked (OFF): #35383F dark gray track, white circle on RIGHT, fully contained -->
+    <style name="Widget.SmartHome.Switch" parent="Widget.MaterialComponents.CompoundButton.Switch">
+        <item name="thumbTint">@android:color/transparent</item>
+        <item name="trackTint">@android:color/transparent</item>
+        <item name="thumbRadius">10dp</item>
+        <item name="android:minWidth">44dp</item>
+        <item name="android:minHeight">24dp</item>
+        <item name="android:switchMinWidth">44dp</item>
+        <item name="android:thumbTextPadding">2dp</item>
+        <item name="android:track">@drawable/switch_track_selector</item>
+        <item name="android:thumb">@drawable/switch_thumb</item>
+    </style>
+    
+    <!-- Custom SwitchMaterial Style - Matches Figma UI exactly -->
+    <!-- Note: Drawables are set in XML, but programmatic tinting in SwitchHelper ensures they display correctly -->
+    <style name="Widget.SmartHome.SwitchMaterial" parent="Widget.MaterialComponents.CompoundButton.Switch">
+        <!-- Disable default tinting to use custom drawables -->
+        <item name="thumbTint">@android:color/transparent</item>
+        <item name="trackTint">@android:color/transparent</item>
+        <!-- Thumb radius: 10dp (matches 20dp thumb size in drawable) -->
+        <!-- Material Components uses thumbRadius, but drawable size should constrain it -->
+        <!-- Track height is 24dp, thumb is 20dp (10dp radius) -->
+        <!-- 20dp thumb leaves 2dp padding on top/bottom within 24dp track -->
+        <item name="thumbRadius">10dp</item>
+        <!-- Track dimensions -->
+        <item name="android:minWidth">44dp</item>
+        <item name="android:minHeight">24dp</item>
+        <item name="android:switchMinWidth">44dp</item>
+        <item name="android:thumbTextPadding">2dp</item>
+        <!-- Custom drawables -->
+        <item name="android:track">@drawable/switch_track_selector</item>
+        <item name="android:thumb">@drawable/switch_thumb</item>
+    </style>
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Background Ring -->
+    <item android:drawable="@drawable/circular_progress_background_ring" />
+    <!-- Progress Ring -->
+    <item android:drawable="@drawable/circular_progress_foreground_ring" />
+</layer-list>

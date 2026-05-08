@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- US Flag simplified -->
+    <path
+        android:fillColor="#B22234"
+        android:pathData="M0,0h24v24H0z"/>
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M0,0h9.6v1.6H0zM0,3.2h9.6v1.6H0zM0,6.4h9.6v1.6H0zM0,9.6h9.6v1.6H0zM0,12.8h9.6v1.6H0zM0,16h9.6v1.6H0zM0,19.2h9.6v1.6H0zM0,22.4h24v1.6H0z"/>
+    <path
+        android:fillColor="#3C3B6E"
+        android:pathData="M0,0h9.6v9.6H0z"/>
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M1.2,1.2h1.6v1.6h-1.6zM4,1.2h1.6v1.6H4zM6.8,1.2h1.6v1.6H6.8zM2.6,3.2h1.6v1.6H2.6zM5.4,3.2h1.6v1.6H5.4zM1.2,5.2h1.6v1.6h-1.6zM4,5.2h1.6v1.6H4zM6.8,5.2h1.6v1.6H6.8zM2.6,7.2h1.6v1.6H2.6zM5.4,7.2h1.6v1.6H5.4z"/>
+</vector>

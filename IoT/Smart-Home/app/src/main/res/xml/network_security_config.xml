@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <!-- Base configuration: Allow cleartext (HTTP) traffic for all domains -->
+    <!-- This is needed for development/testing with HTTP backend servers -->
+    <base-config cleartextTrafficPermitted="true">
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+    
+    <!-- Specific domain configurations (optional, for better security in production) -->
+    <!-- Allow cleartext traffic for Android emulator (10.0.2.2 maps to localhost) -->
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">10.0.2.2</domain>
+    </domain-config>
+    
+    <!-- Allow cleartext traffic for localhost (for testing) -->
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">localhost</domain>
+    </domain-config>
+    
+    <!-- Allow cleartext traffic for 127.0.0.1 (for testing) -->
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">127.0.0.1</domain>
+    </domain-config>
+    
+    <!-- Allow cleartext traffic for remote backend server -->
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">172.86.88.76</domain>
+    </domain-config>
+</network-security-config>
+

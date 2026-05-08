@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<font-family xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!-- Urbanist Regular -->
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/urbanist_regular" />
+    
+    <!-- Urbanist Bold -->
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="700"
+        android:font="@font/urbanist_bold" />
+</font-family>
+

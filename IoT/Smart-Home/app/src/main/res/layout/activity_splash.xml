@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/splash_background">
+
+    <!-- Design: 430px x 932px -->
+    <!-- Logo: 160px x 160px, 135px from sides (centered), 306px from top -->
+    <!-- Logo width: 160/430 = 37.2% of screen width -->
+    <!-- Logo top: 306/932 = 32.8% of screen height -->
+    <!-- Logo side margins: 135/430 = 31.4% on each side -->
+
+    <!-- Guideline for logo top position: 306px from top = 306/932 = 32.8% -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/logoTopGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.328" />
+
+    <ImageView
+        android:id="@+id/imageViewLogo"
+        android:layout_width="132dp"
+        android:layout_height="132dp"
+        android:contentDescription="@string/app_name"
+        android:scaleType="fitCenter"
+        android:src="@drawable/logo"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/logoTopGuideline"
+        app:layout_constraintWidth_percent="0.372" />
+
+    <!-- App Name: Below logo, centered -->
+    <TextView
+        android:id="@+id/textViewAppName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Smartify"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:fontFamily="@font/urbanist"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/imageViewLogo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Loading: 90px x 90px, 80dp from bottom -->
+    <!-- Loading size: 90/430 = 20.9% of screen width -->
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:indeterminateTint="@color/white"
+        app:layout_constraintDimensionRatio="1:1"
+        android:layout_marginBottom="80dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

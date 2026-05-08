@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_today"
+        android:title="Today" />
+    
+    <item
+        android:id="@+id/menu_this_week"
+        android:title="This Week" />
+    
+    <item
+        android:id="@+id/menu_last_month"
+        android:title="Last month" />
+    
+    <item
+        android:id="@+id/menu_last_3_months"
+        android:title="Last 3 months" />
+    
+    <item
+        android:id="@+id/menu_last_6_months"
+        android:title="Last 6 months" />
+    
+    <item
+        android:id="@+id/menu_this_year"
+        android:title="This year" />
+    
+    <item
+        android:id="@+id/menu_last_year"
+        android:title="Last year" />
+    
+    <item
+        android:id="@+id/menu_all_time"
+        android:title="All time" />
+    
+    <item
+        android:id="@+id/menu_custom_range"
+        android:title="Custom range.." />
+</menu>

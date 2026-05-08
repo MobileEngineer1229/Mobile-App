@@ -2,7 +2,7 @@ import "dotenv/config";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { connectDatabase } from "./db.js";
-import { Food } from "./models/content.js";
+import { Food } from "./models/food.js";
 
 type Mapping = {
   chinese: string;

@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.SmartHome.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.SmartHome.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    
+    <!-- Custom MaterialButton style that disables automatic text capitalization -->
+    <style name="Widget.MaterialComponents.Button.NoCaps" parent="Widget.MaterialComponents.Button">
+        <item name="android:textAllCaps">false</item>
+    </style>
+    
+    <!-- Custom Tab Button Style - No stroke, no elevation, flat design -->
+    <style name="Widget.SmartHome.TabButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:elevation">0dp</item>
+        <item name="android:stateListAnimator">@null</item>
+        <item name="strokeWidth">0dp</item>
+        <item name="strokeColor">@android:color/transparent</item>
+        <item name="backgroundTint">@android:color/transparent</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:insetLeft">0dp</item>
+        <item name="android:insetRight">0dp</item>
+    </style>
+    
+    <style name="Widget.MaterialComponents.Button.TextButton.NoCaps" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textAllCaps">false</item>
+    </style>
+    
+    <style name="Widget.MaterialComponents.Button.OutlinedButton.NoCaps" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:textAllCaps">false</item>
+    </style>
+    
+    <style name="Widget.MaterialComponents.Button.UnelevatedButton.NoCaps" parent="Widget.MaterialComponents.Button.UnelevatedButton">
+        <item name="android:textAllCaps">false</item>
+    </style>
+    
+    <!-- Bottom Navigation Text Style (Unselected - Center Aligned) -->
+    <style name="BottomNavTextStyle" parent="TextAppearance.Urbanist.XSmall.Regular">
+        <item name="android:textSize">10sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:lineSpacingExtra">-6dp</item>
+        <item name="android:lineSpacingMultiplier">0.7</item>
+        <item name="android:paddingTop">-2dp</item>
+    </style>
+    
+    <!-- Bottom Navigation Text Style Active (Selected - Left Aligned) -->
+    <style name="BottomNavTextStyleActive" parent="TextAppearance.Urbanist.XSmall.Bold">
+        <item name="android:textSize">10sp</item>
+        <item name="android:gravity">start|center_vertical</item>
+        <item name="android:textAlignment">viewStart</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:lineSpacingExtra">-6dp</item>
+        <item name="android:lineSpacingMultiplier">0.7</item>
+        <item name="android:paddingTop">-2dp</item>
+    </style>
+    
+    <!-- Bottom Navigation Style -->
+    <style name="CustomBottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="android:layout_height">60dp</item>
+        <item name="itemIconSize">24dp</item>
+        <item name="itemRippleColor">@android:color/transparent</item>
+        <item name="itemBackground">@drawable/bottom_nav_item_background</item>
+        <item name="itemHorizontalTranslationEnabled">false</item>
+        <item name="itemPaddingTop">10dp</item>
+        <item name="itemPaddingBottom">8dp</item>
+        <item name="itemPadding">0dp</item>
+        <item name="android:minHeight">60dp</item>
+        <!-- Explicitly override any default primary color -->
+        <item name="itemIconTint">@null</item>
+        <item name="itemTextColor">@color/nav_item_color_selector</item>
+    </style>
+    
+    <!-- Custom AlertDialog Style -->
+    <style name="AlertDialogCustom" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+    </style>
+    
+    <!-- Typography System - Urbanist Font -->
+    <!-- Headings -->
+    <style name="TextAppearance.Urbanist.H1.Bold" parent="TextAppearance.AppCompat.Headline">
+        <item name="android:fontFamily">@font/urbanist</item>
+        <item name="android:textSize">48sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:lineSpacingMultiplier">1.6</item>
+    </style>
+    
+    <style name="TextAppearance.Urbanist.H1.Semibold" parent="TextAppearance.AppCompat.Headline">
+        <item name="android:fontFamily">@font/urbanist</item>
+        <item name="android:textSize">48sp</item>
+        <item name="android:lineSpacingMultiplier">1.6</item>
+    </style>
+    
+    <style name="TextAppearance.Urbanist.H1.Medium" parent="TextAppearance.AppCompat.Headline">
+        <item name="android:fontFamily">@font/urbanist</item>
+        <item name="android:textSize">48sp</item>
+        <item name="android:lineSpacingMultiplier">1.6</item>
+    </style>
+    
+    <style name="TextAppearance.Urbanist.H1.Regular" parent="TextAppearance.AppCompat.Headline">
+        <item name="android:fontFamily">@font/urbanist</item>
+        <item name="android:textSize">48sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:lineSpacingMultiplier">1.6</item>
+    </style>
+    
+    <style name="TextAppearance.Urbanist.H2.Bold" parent="TextAppearance.AppCompat.Headline">
+        <item name="android:fontFamily">@font/urbanist</item>
+        <item name="android:textSize">40sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:lineSpacingMultiplier">1.6</item>
+    </style>
+    
+    <style name="TextAppearance.Urbanist.H2.Regular" parent="TextAppearance.AppCompat.Headline">
+        <item name="android:fontFamily">@font/urbanist</item>
+        <item name="android:textSize">40sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:lineSpacingMultiplier">1.6</item>
+    </style>
+    
+    <style name="TextAppearance.Urbanist.H3.Bold" parent="TextAppearance.AppCompat.Headline">
+        <item name="android:fontFamily">@font/urbanist</item>
+        <item name="android:textSize">32sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:lineSpacingMultiplier">1.6</item>
+    </style>
+    
+    <style name="TextAppearance.Urbanist.H3.Regular" parent="TextAppearance.AppCompat.Headline">
+        <item name="android:fontFamily">@font/urbanist</item>
+        <item name="android:textSize">32sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:lineSpacingMultiplier">1.6</item>
+    </style>
+    
+    <style name="TextAppearance.Urbanist.H4.Bold" parent="TextAppearance.AppCompat.Headline">
+        <item name="android:fontFamily">@font/urbanist</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:lineSpacingMultiplier">1.6</item>
+    </style>
+    
+    <style name="TextAppearance.Urbanist.H4.Regular" parent="TextAppearance.AppCompat.Headline">
+        <item name="android:fontFamily">@font/urbanist</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:lineSpacingMultiplier">1.6</item>
+    </style>
+    
+    <style name="TextAppearance.Urbanist.H5.Bold" parent="TextAppearance.AppCompat.Headline">
+        <item name="android:fontFamily">@font/urbanist</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:lineSpacingMultiplier">1.6</item>
+    </style>
+    
+    <style name="TextAppearance.Urbanist.H5.Regular" parent="TextAppearance.AppCompat.Headline">
+        <item name="android:fontFamily">@font/urbanist</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:lineSpacingMultiplier">1.6</item>
+    </style>
+    
+    <style name="TextAppearance.Urbanist.H6.Bold" parent="TextAppearance.AppCompat.Headline">
+        <item name="android:fontFamily">@font/urbanist</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:lineSpacingMultiplier">1.6</item>
+    </style>
+    
+    <style name="TextAppearance.Urbanist.H6.Semibold" parent="TextAppearance.AppCompat.Headline">
+        <item name="android:fontFamily">@font/urbanist</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontWeight">600</item>
+        <item name="android:lineSpacingMultiplier">1.6</item>
+    </style>
+    
+    <style name="TextAppearance.Urbanist.H6.Regular" parent="TextAppearance.AppCompat.Headline">
+        <item name="android:fontFamily">@font/urbanist</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:lineSpacingMultiplier">1.6</item>
+    </style>
+    
+    <!-- Body Text -->
+    <style name="TextAppearance.Urbanist.XLarge.Bold" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:fontFamily">@font/urbanist</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:lineSpacingMultiplier">1.6</item>
+    </style>
+    
+    <style name="TextAppearance.Urbanist.XLarge.Regular" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:fontFamily">@font/urbanist</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:lineSpacingMultiplier">1.6</item>
+    </style>
+    
+    <style name="TextAppearance.Urbanist.Large.Bold" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:fontFamily">@font/urbanist</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:lineSpacingMultiplier">1.6</item>
+    </style>
+    
+    <style name="TextAppearance.Urbanist.Large.Regular" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:fontFamily">@font/urbanist</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:lineSpacingMultiplier">1.6</item>
+    </style>
+    
+    <style name="TextAppearance.Urbanist.Medium.Bold" parent="TextAppearance.AppCompat.Body2">
+        <item name="android:fontFamily">@font/urbanist</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:lineSpacingMultiplier">1.6</item>
+    </style>
+    
+    <style name="TextAppearance.Urbanist.Medium.Regular" parent="TextAppearance.AppCompat.Body2">
+        <item name="android:fontFamily">@font/urbanist</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:lineSpacingMultiplier">1.6</item>
+    </style>
+    
+    <style name="TextAppearance.Urbanist.Medium.Medium" parent="TextAppearance.AppCompat.Body2">
+        <item name="android:fontFamily">@font/urbanist</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:lineSpacingMultiplier">1.6</item>
+    </style>
+    
+    <style name="TextAppearance.Urbanist.Small.Bold" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:fontFamily">@font/urbanist</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:lineSpacingMultiplier">1.6</item>
+    </style>
+    
+    <style name="TextAppearance.Urbanist.Small.Regular" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:fontFamily">@font/urbanist</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:lineSpacingMultiplier">1.6</item>
+    </style>
+    
+    <style name="TextAppearance.Urbanist.XSmall.Bold" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:fontFamily">@font/urbanist</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:lineSpacingMultiplier">1.6</item>
+    </style>
+    
+    <style name="TextAppearance.Urbanist.XSmall.Regular" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:fontFamily">@font/urbanist</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:lineSpacingMultiplier">1.6</item>
+    </style>
+</resources>
+

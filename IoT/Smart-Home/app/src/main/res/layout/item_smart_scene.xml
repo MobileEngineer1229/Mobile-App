@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardViewScene"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="12dp"
+    app:cardBackgroundColor="@color/dark_4"
+    app:cardElevation="0dp"
+    android:layout_marginBottom="0dp"
+    android:layout_marginStart="0dp"
+    android:layout_marginEnd="0dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:clickable="false"
+        android:focusable="false">
+
+        <!-- Icon and Content -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="8dp"
+            android:clickable="false"
+            android:focusable="false">
+
+            <ImageView
+                android:id="@+id/imageViewSceneIcon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_sun"
+                android:scaleType="fitCenter"
+                android:layout_marginEnd="12dp"
+                android:clickable="false"
+                android:focusable="false" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:clickable="false"
+                android:focusable="false">
+
+                <TextView
+                    android:id="@+id/textViewTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Turn ON All the Lights"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/urbanist"
+                    android:layout_marginBottom="4dp" />
+
+                <TextView
+                    android:id="@+id/textViewTaskCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1 task"
+                    android:textColor="@color/white_alpha_70"
+                    android:textSize="12sp"
+                    android:fontFamily="@font/urbanist" />
+
+            </LinearLayout>
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/switchEnabled"
+                style="@style/Widget.SmartHome.SwitchMaterial"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_marginEnd="12dp" />
+
+            <ImageView
+                android:id="@+id/imageViewArrow"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_arrow_forward"
+                android:tint="@color/white"
+                android:alpha="0.7"
+                android:clickable="false"
+                android:focusable="false" />
+
+        </LinearLayout>
+
+        <!-- Flow Icons (Hidden for Tap-to-Run in grid view) -->
+        <LinearLayout
+            android:id="@+id/linearLayoutFlow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="8dp"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

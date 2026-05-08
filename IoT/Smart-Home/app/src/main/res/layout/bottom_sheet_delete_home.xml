@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/dark_1"
+    android:paddingTop="8dp">
+
+    <!-- Drag Handle -->
+    <View
+        android:layout_width="40dp"
+        android:layout_height="4dp"
+        android:layout_gravity="center"
+        android:background="@color/dark_5"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Title -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/delete_home"
+        android:textColor="@color/error"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:fontFamily="@font/urbanist"
+        android:layout_gravity="center"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Confirmation Message -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/delete_home_confirmation"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:fontFamily="@font/urbanist"
+        android:gravity="center"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Warning Message -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/delete_home_warning"
+        android:textColor="@color/white_alpha_70"
+        android:textSize="12sp"
+        android:fontFamily="@font/urbanist"
+        android:gravity="center"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="20dp" />
+
+    <!-- Action Buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:paddingBottom="16dp"
+        android:paddingTop="8dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonCancel"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_weight="1"
+            android:text="@string/cancel"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:fontFamily="@font/urbanist"
+            android:textStyle="bold"
+            android:backgroundTint="@color/dark_5"
+            app:cornerRadius="24dp"
+            android:layout_marginEnd="8dp"
+            style="@style/Widget.MaterialComponents.Button.NoCaps" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonDelete"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_weight="1"
+            android:text="@string/yes_delete_home"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:fontFamily="@font/urbanist"
+            android:textStyle="bold"
+            android:backgroundTint="@color/primary"
+            app:cornerRadius="24dp"
+            style="@style/Widget.MaterialComponents.Button.NoCaps" />
+
+    </LinearLayout>
+
+</LinearLayout>

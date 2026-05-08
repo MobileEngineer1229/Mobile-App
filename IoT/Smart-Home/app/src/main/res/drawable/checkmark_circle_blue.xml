@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="100dp"
+    android:height="100dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+    <!-- Blue Circle Background -->
+    <path
+        android:fillColor="@color/primary"
+        android:pathData="M50,50m-45,0a45,45 0,1 1,90 0a45,45 0,1 1,-90 0" />
+    <!-- White Checkmark -->
+    <path
+        android:fillColor="@color/white"
+        android:pathData="M30,50 L42,62 L70,34 L65,29 L42,52 L35,45 Z" />
+</vector>

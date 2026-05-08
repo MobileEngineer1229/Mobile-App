@@ -16,6 +16,21 @@ export type ResourceColumn = {
   kind?: "image" | "boolean" | "date";
 };
 
+type ApiEnvelope<T> = {
+  success?: boolean;
+  data?: T;
+  error?: {
+    code?: string;
+    message?: string;
+    details?: unknown;
+  };
+  meta?: Record<string, unknown>;
+};
+
+function isEnvelope<T>(value: unknown): value is ApiEnvelope<T> {
+  return Boolean(value && typeof value === "object" && "success" in value);
+}
+
 export async function apiFetch<T>(path: string, init?: RequestInit): Promise<T> {
   const response = await fetch(`${API_URL}${path}`, {
     ...init,
@@ -28,12 +43,20 @@ export async function apiFetch<T>(path: string, init?: RequestInit): Promise<T> 
 
   if (!response.ok) {
     const body = await response.json().catch(() => ({}));
-    throw new Error(body.message ?? `Request failed: ${response.status}`);
+    throw new Error(body.error?.message ?? body.message ?? `Request failed: ${response.status}`);
   }
 
   if (response.status === 204) {
     return undefined as T;
   }
 
-  return response.json() as Promise<T>;
+  const body = await response.json();
+  if (isEnvelope<T>(body)) {
+    if (body.success === false) {
+      throw new Error(body.error?.message ?? `Request failed: ${response.status}`);
+    }
+    return body.data as T;
+  }
+
+  return body as T;
 }

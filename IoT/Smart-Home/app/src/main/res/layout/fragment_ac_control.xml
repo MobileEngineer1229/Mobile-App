@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dark_1">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/dark_1">
+
+        <!-- Scrollable Content -->
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:fillViewport="true"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingStart="24dp"
+                android:paddingEnd="24dp"
+                android:paddingTop="0dp"
+                android:paddingBottom="0dp">
+
+            <!-- Mode Tabs -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="40dp"
+                android:padding="4dp"
+                android:background="@drawable/tab_container_background_new">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonCooling"
+                    style="@style/Widget.SmartHome.TabButton"
+                    android:layout_width="0dp"
+                    android:layout_height="42dp"
+                    android:layout_weight="1"
+                    android:minWidth="0dp"
+                    android:minHeight="42dp"
+                    android:background="@drawable/tab_unselected_background"
+                    android:textAppearance="@style/TextAppearance.Urbanist.Large.Bold"
+                    android:text="Cooling"
+                    android:textColor="@color/white"
+                    android:paddingStart="24dp"
+                    android:paddingEnd="24dp"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp"
+                    android:elevation="0dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonHeating"
+                    style="@style/Widget.SmartHome.TabButton"
+                    android:layout_width="0dp"
+                    android:layout_height="42dp"
+                    android:layout_weight="1"
+                    android:minWidth="0dp"
+                    android:minHeight="42dp"
+                    android:background="@drawable/tab_unselected_background"
+                    android:textAppearance="@style/TextAppearance.Urbanist.Large.Bold"
+                    android:text="Heating"
+                    android:textColor="@color/white"
+                    android:paddingStart="24dp"
+                    android:paddingEnd="24dp"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp"
+                    android:elevation="0dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonPurifying"
+                    style="@style/Widget.SmartHome.TabButton"
+                    android:layout_width="0dp"
+                    android:layout_height="42dp"
+                    android:layout_weight="1"
+                    android:minWidth="0dp"
+                    android:minHeight="42dp"
+                    android:background="@drawable/tab_unselected_background"
+                    android:textAppearance="@style/TextAppearance.Urbanist.Large.Bold"
+                    android:text="Purifying"
+                    android:textColor="@color/white"
+                    android:paddingStart="24dp"
+                    android:paddingEnd="24dp"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp"
+                    android:elevation="0dp" />
+
+            </LinearLayout>
+
+            <!-- Temperature Arc Control -->
+            <FrameLayout
+                android:layout_width="330dp"
+                android:layout_height="330dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="40dp"
+                android:gravity="center">
+
+                <!-- Temperature Arc -->
+                <com.smarthome.iot.ui.views.TemperatureArcView
+                    android:id="@+id/temperatureArcView"
+                    android:layout_width="330dp"
+                    android:layout_height="330dp"
+                    android:layout_gravity="center" />
+
+                <!-- Temperature Display in Center -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/textViewTemperature"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="20°C"
+                        android:textColor="@color/white"
+                        android:textSize="48sp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/urbanist" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Temperature"
+                        android:textColor="@color/white_alpha_70"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/urbanist"
+                        android:layout_marginTop="4dp" />
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+            <!-- Quick Control Buttons Grid -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="0dp">
+
+                <!-- First Row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginBottom="0dp">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/buttonMode"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                        android:layout_width="88dp"
+                        android:layout_height="70dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="Mode"
+                        android:textColor="@color/white"
+                        android:textAppearance="@style/TextAppearance.Urbanist.Medium.Medium"
+                        app:icon="@drawable/mode"
+                        app:iconTint="@color/white"
+                        app:iconGravity="top"
+                        android:gravity="center"
+                        android:padding="0dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/buttonWindSpeed"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                        android:layout_width="88dp"
+                        android:layout_height="70dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="Wind Speed"
+                        android:textColor="@color/white"
+                        android:textAppearance="@style/TextAppearance.Urbanist.Medium.Medium"
+                        app:icon="@drawable/wind"
+                        app:iconTint="@color/white"
+                        app:iconGravity="top"
+                        android:gravity="center"
+                        android:padding="0dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/buttonWindDirection"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                        android:layout_width="88dp"
+                        android:layout_height="70dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="Wind Directi..."
+                        android:textColor="@color/white"
+                        android:textAppearance="@style/TextAppearance.Urbanist.Medium.Medium"
+                        app:icon="@drawable/direction"
+                        app:iconTint="@color/white"
+                        app:iconGravity="top"
+                        android:gravity="center"
+                        android:padding="0dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/buttonPrecisionAir"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                        android:layout_width="88dp"
+                        android:layout_height="70dp"
+                        android:layout_marginTop="12dp"
+                        android:text="Precision Ai..."
+                        android:textColor="@color/white"
+                        android:textAppearance="@style/TextAppearance.Urbanist.Medium.Medium"
+                        app:icon="@drawable/precsion"
+                        app:iconTint="@color/white"
+                        app:iconGravity="top"
+                        android:gravity="center"
+                        android:padding="0dp" />
+
+                </LinearLayout>
+
+                <!-- Second Row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginTop="0dp">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/buttonEco"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                        android:layout_width="88dp"
+                        android:layout_height="70dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="Eco"
+                        android:textColor="@color/white"
+                        android:textAppearance="@style/TextAppearance.Urbanist.Medium.Medium"
+                        app:icon="@drawable/eco"
+                        app:iconTint="@color/white"
+                        app:iconGravity="top"
+                        android:gravity="center"
+                        android:padding="0dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/buttonSleep"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                        android:layout_width="88dp"
+                        android:layout_height="70dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="Sleep"
+                        android:textColor="@color/white"
+                        android:textAppearance="@style/TextAppearance.Urbanist.Medium.Medium"
+                        app:icon="@drawable/sleep"
+                        app:iconTint="@color/white"
+                        app:iconGravity="top"
+                        android:gravity="center"
+                        android:padding="0dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/buttonTimer"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                        android:layout_width="88dp"
+                        android:layout_height="70dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="Timer"
+                        android:textColor="@color/white"
+                        android:textAppearance="@style/TextAppearance.Urbanist.Medium.Medium"
+                        app:icon="@drawable/timer"
+                        app:iconTint="@color/white"
+                        app:iconGravity="top"
+                        android:gravity="center"
+                        android:padding="0dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/buttonMore"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                        android:layout_width="88dp"
+                        android:layout_height="70dp"
+                        android:layout_marginTop="12dp"
+                        android:text="More"
+                        android:textColor="@color/white"
+                        android:textAppearance="@style/TextAppearance.Urbanist.Medium.Medium"
+                        app:icon="@drawable/more"
+                        app:iconTint="@color/white"
+                        app:iconGravity="top"
+                        android:gravity="center"
+                        android:padding="0dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -2,7 +2,7 @@ import "dotenv/config";
 import { mkdir, writeFile } from "fs/promises";
 import path from "path";
 import { connectDatabase } from "./db.js";
-import { Food } from "./models/content.js";
+import { Food } from "./models/food.js";
 
 type FoodRecord = {
   _id: unknown;

@@ -1,0 +1,90 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'com.smarthome.iot'
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "com.smarthome.iot"
+        minSdk 24
+        targetSdk 33
+        versionCode 2
+        versionName "1.0.2"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        
+        vectorDrawables.useSupportLibrary = true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            // Keep debug build type for development
+        }
+    }
+
+    // Custom APK naming: Smartify_1.0.0.apk
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def versionName = variant.versionName
+            def outputFileName = "Smartify_${versionName}.apk"
+            output.outputFileName = outputFileName
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.9.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    
+    // Retrofit for REST API
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.squareup.okhttp3:okhttp:4.11.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.11.0'
+    implementation 'com.squareup.okhttp3:okhttp-sse:4.11.0'
+
+    // LocalBroadcastManager (for SSE/WebSocket device update broadcasts)
+    implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.1.0'
+
+    // Room Database
+    implementation 'androidx.room:room-runtime:2.5.0'
+    annotationProcessor 'androidx.room:room-compiler:2.5.0'
+    
+    // Gson for JSON parsing
+    implementation 'com.google.code.gson:gson:2.10.1'
+    
+    // Glide for image loading
+    implementation 'com.github.bumptech.glide:glide:4.15.1'
+    
+    // WorkManager
+    implementation 'androidx.work:work-runtime:2.8.1'
+    
+    // RecyclerView
+    implementation 'androidx.recyclerview:recyclerview:1.3.1'
+    
+    // CardView
+    implementation 'androidx.cardview:cardview:1.0.0'
+    
+    // ViewPager2
+    implementation 'androidx.viewpager2:viewpager2:1.0.0'
+    
+    // ZXing for QR code generation
+    implementation 'com.google.zxing:core:3.5.2'
+    implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
+    
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+}
+

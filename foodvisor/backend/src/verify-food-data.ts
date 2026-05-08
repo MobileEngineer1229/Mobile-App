@@ -10,7 +10,7 @@ import "dotenv/config";
 import { readFileSync } from "fs";
 import path from "path";
 import { connectDatabase } from "./db.js";
-import { Food } from "./models/content.js";
+import { Food } from "./models/food.js";
 
 const dataRoot = path.resolve(
   process.env.FOOD_MATERIAL_ROOT ||

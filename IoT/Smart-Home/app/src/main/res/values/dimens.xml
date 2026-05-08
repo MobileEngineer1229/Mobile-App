@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Design Ratio -->
+    <!-- Note: design_ratio must be hardcoded as "430:888" string in layouts (not a dimension resource) -->
+    <!-- Emulator dimensions: 430px x 932px at 240 DPI (hdpi) -->
+    <!-- Actual design area: 430px x 888px (excluding 44px top header) -->
+    <!-- DPI conversion: dp = px / 1.5 (for 240 DPI) -->
+    <dimen name="design_width">430dp</dimen>
+    <dimen name="design_height">888dp</dimen>
+    <dimen name="design_header_height">44dp</dimen>
+
+    <!-- Phone Container Dimensions -->
+    <dimen name="phone_container_margin_start">32dp</dimen>
+    <dimen name="phone_container_margin_top">60dp</dimen>
+    <dimen name="phone_container_margin_end">32dp</dimen>
+    <!-- Note: width_percent must be hardcoded as 0.85 (float value, not a dimension) -->
+
+    <!-- Common Spacing -->
+    <dimen name="spacing_4">4dp</dimen>
+    <dimen name="spacing_8">8dp</dimen>
+    <dimen name="spacing_12">12dp</dimen>
+    <dimen name="spacing_16">16dp</dimen>
+    <dimen name="spacing_20">20dp</dimen>
+    <dimen name="spacing_24">24dp</dimen>
+    <dimen name="spacing_32">32dp</dimen>
+    <dimen name="spacing_40">40dp</dimen>
+    <dimen name="spacing_48">48dp</dimen>
+
+    <!-- Icon Sizes -->
+    <dimen name="icon_size_small">20dp</dimen>
+    <dimen name="icon_size_medium">24dp</dimen>
+    <dimen name="icon_size_large">80dp</dimen>
+
+    <!-- Status Bar -->
+    <dimen name="status_bar_height">8dp</dimen>
+    <dimen name="status_dot_size">4dp</dimen>
+
+    <!-- Card Dimensions -->
+    <dimen name="card_corner_radius">12dp</dimen>
+    <dimen name="card_elevation">2dp</dimen>
+    <dimen name="card_padding">12dp</dimen>
+    <dimen name="card_padding_large">16dp</dimen>
+    <dimen name="card_margin_bottom">12dp</dimen>
+
+    <!-- Text Sizes -->
+    <dimen name="text_size_small">10sp</dimen>
+    <dimen name="text_size_medium">14sp</dimen>
+    <dimen name="text_size_normal">16sp</dimen>
+    <dimen name="text_size_large">18sp</dimen>
+    <dimen name="text_size_xlarge">20sp</dimen>
+    <dimen name="text_size_xxlarge">32sp</dimen>
+    <dimen name="text_size_xxxlarge">48sp</dimen>
+
+    <!-- Bar Chart Height -->
+    <dimen name="bar_chart_height">120dp</dimen>
+
+    <!-- Button Heights -->
+    <dimen name="button_height">58dp</dimen>
+    <dimen name="button_corner_radius">1000dp</dimen>
+    <dimen name="button_corner_radius_small">8dp</dimen>
+
+    <!-- Grid Spacing -->
+    <dimen name="grid_spacing">12dp</dimen>
+</resources>
+

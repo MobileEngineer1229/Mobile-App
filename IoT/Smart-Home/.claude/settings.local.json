@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(gradlew.bat assembleDebug:*)",
+      "Bash(cmd /c \"gradlew.bat assembleDebug\")",
+      "Bash(./gradlew assembleDebug)",
+      "Bash(ls:*)",
+      "Bash(powershell -Command \"Get-ChildItem ''C:\\\\Program Files\\\\Eclipse Adoptium\\\\'' -Directory\")",
+      "Bash(cmd.exe /c gradlew.bat assembleDebug)",
+      "Bash(export JAVA_HOME=\"C:/Program Files/Eclipse Adoptium/jdk-17.0.17.10-hotspot\")",
+      "Bash(./gradlew.bat assembleDebug:*)"
+    ]
+  }
+}

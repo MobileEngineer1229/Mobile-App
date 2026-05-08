@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dark_1">
+
+        <TextView
+            android:id="@+id/textViewLookingFor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/looking_for_nearby_devices"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/urbanist"
+            android:textColor="@color/white"
+            android:layout_marginTop="36dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Wi-Fi & Bluetooth Container -->
+        <LinearLayout
+            android:id="@+id/wifiBluetoothContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/wifi_bluetooth_container"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintTop_toBottomOf="@id/textViewLookingFor"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <!-- Wi-Fi Icon with Circular Background -->
+            <FrameLayout
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="12dp">
+                <View
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:background="@drawable/icon_circle_background" />
+                <ImageView
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_wifi"
+                    android:contentDescription="Wi-Fi"
+                    app:tint="@color/white" />
+            </FrameLayout>
+
+            <!-- Bluetooth Icon with Circular Background -->
+            <FrameLayout
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="12dp">
+                <View
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:background="@drawable/icon_circle_background" />
+                <ImageView
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_bluetooth"
+                    android:contentDescription="Bluetooth"
+                    app:tint="@color/white" />
+            </FrameLayout>
+
+            <!-- Instruction Text -->
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/turn_on_wifi_bluetooth"
+                android:textSize="14sp"
+                android:fontFamily="@font/urbanist"
+                android:textColor="@color/white"
+                android:maxLines="1"
+                android:ellipsize="none" />
+
+        </LinearLayout>
+
+        <!-- Scanning Animation Area -->
+        <FrameLayout
+            android:id="@+id/scanningContainer"
+            android:layout_width="404dp"
+            android:layout_height="404dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="36dp"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintTop_toBottomOf="@id/wifiBluetoothContainer"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/buttonConnectAll">
+
+            <!-- Scanning Circles Background -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/nearby_circle" />
+
+            <!-- Central Profile Picture -->
+            <ImageView
+                android:id="@+id/imageViewProfile"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:src="@drawable/bobo_mascot"
+                android:contentDescription="Scanning"
+                android:scaleType="centerCrop"
+                android:background="@drawable/circle_background" />
+
+            <!-- Device Icons Around (Positioned with even spacing matching Figma) -->
+            <!-- Top Center: Smart Light Bulb -->
+            <ImageView
+                android:id="@+id/deviceIcon1"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="top|center_horizontal"
+                android:layout_marginTop="40dp"
+                android:src="@drawable/lamp"
+                android:contentDescription="Smart Lamp"
+                android:scaleType="fitCenter"
+                android:visibility="gone"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <!-- Top Right: Security Camera -->
+            <ImageView
+                android:id="@+id/deviceIcon2"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="top|end"
+                android:layout_marginTop="50dp"
+                android:layout_marginEnd="50dp"
+                android:src="@drawable/cctv_v1"
+                android:contentDescription="Smart CCTV"
+                android:scaleType="fitCenter"
+                android:visibility="gone"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <!-- Bottom Right: Wi-Fi Router -->
+            <ImageView
+                android:id="@+id/deviceIcon3"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="bottom|end"
+                android:layout_marginBottom="50dp"
+                android:layout_marginEnd="50dp"
+                android:src="@drawable/router"
+                android:contentDescription="Wi-Fi Router"
+                android:scaleType="fitCenter"
+                android:visibility="gone"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <!-- Bottom Center: Air Conditioning -->
+            <ImageView
+                android:id="@+id/deviceIcon4"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="40dp"
+                android:src="@drawable/air_conditioner"
+                android:contentDescription="Air Conditioner"
+                android:scaleType="fitCenter"
+                android:visibility="gone"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <!-- Middle Left: Smart Speaker -->
+            <ImageView
+                android:id="@+id/deviceIcon5"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center_vertical|start"
+                android:layout_marginStart="50dp"
+                android:src="@drawable/compact"
+                android:contentDescription="Smart Speaker"
+                android:scaleType="fitCenter"
+                android:visibility="gone"
+                android:clickable="true"
+                android:focusable="true" />
+
+        </FrameLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonConnectAll"
+            android:layout_width="wrap_content"
+            android:layout_height="72dp"
+            android:text="@string/connect_to_all_devices"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/urbanist"
+            android:backgroundTint="@color/primary"
+            app:cornerRadius="100dp"
+            android:paddingStart="32dp"
+            android:paddingEnd="32dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:layout_marginTop="36dp"
+            app:layout_constraintTop_toBottomOf="@id/scanningContainer"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            style="@style/Widget.MaterialComponents.Button" />
+
+        <TextView
+            android:id="@+id/textViewCantFind"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Can't find your devices?"
+            android:textSize="16sp"
+            android:fontFamily="@font/urbanist"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:layout_marginTop="36dp"
+            app:layout_constraintTop_toBottomOf="@id/buttonConnectAll"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewLearnMore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Learn more"
+            android:textAppearance="@style/TextAppearance.Urbanist.Medium.Regular"
+            android:textSize="16sp"
+            android:textColor="@color/primary"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:layout_marginBottom="12dp"
+            app:layout_constraintTop_toBottomOf="@id/textViewCantFind"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

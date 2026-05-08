@@ -1,0 +1,38 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find:*)",
+      "Bash(npm install:*)",
+      "Bash(npx tsc:*)",
+      "Bash(dir /s /b \"E:\\\\Github\\\\Mobile\\\\IoT\\\\Smart-Home\\\\app\\\\src\\\\main\\\\java\")",
+      "Bash(findstr:*)",
+      "Bash(dir /b \"e:\\\\Github\\\\Mobile\\\\IoT\")",
+      "Bash(dir /s /b \"e:\\\\Github\\\\Mobile\\\\IoT\\\\*Smartify*\")",
+      "Bash(ls:*)",
+      "Bash(npm run build:*)",
+      "Bash(grep:*)",
+      "Bash(npm run dev:*)",
+      "Bash(curl:*)",
+      "Bash(PGPASSWORD=213515 psql:*)",
+      "Bash(TOKEN=\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjkyLCJlbWFpbCI6InRlc3RAc21hcnRpZnkuY29tIiwiaWF0IjoxNzcwMTE1NzgyLCJleHAiOjE3NzA3MjA1ODJ9.jFpbD33DArR7sf0NnIfXeNmIHlqhG8WXtMAX0zmDhKs\")",
+      "Bash(# Check EMQX version/API curl -s -u \"\"admin:public\"\" \"\"http://172.86.88.76:8081/api/v4/brokers\"\" || \\\\ curl -s -u \"\"admin:public\"\" \"\"http://172.86.88.76:8081/api/v5/nodes\"\" || \\\\ curl -s \"\"http://172.86.88.76:8081/\"\")",
+      "Bash(powershell -Command \"Invoke-RestMethod -Uri ''http://localhost:3003/api/v1/auth/login'' -Method POST -ContentType ''application/json'' -Body ''{\"\"email\"\":\"\"demo@smartify.com\"\",\"\"password\"\":\"\"demo123456\"\"}'' | ConvertTo-Json -Depth 10\")",
+      "Bash(powershell -Command \"Start-Sleep -Seconds 2; Invoke-RestMethod -Uri ''http://localhost:3003/api/v1/auth/login'' -Method POST -ContentType ''application/json'' -Body ''{\"\"email\"\":\"\"demo@smartify.com\"\",\"\"password\"\":\"\"demo123456\"\"}'' | ConvertTo-Json -Depth 10\")",
+      "Bash(powershell -Command \"Invoke-RestMethod -Uri ''http://localhost:3003/api/v1/users/login'' -Method POST -ContentType ''application/json'' -Body ''{\"\"email\"\":\"\"demo@smartify.com\"\",\"\"password\"\":\"\"demo123456\"\"}'' | ConvertTo-Json -Depth 10\")",
+      "Bash(powershell -Command \"Invoke-RestMethod -Uri ''http://localhost:3003/api/v1/users/register'' -Method POST -ContentType ''application/json'' -Body ''{\"\"email\"\":\"\"test@smartify.com\"\",\"\"password\"\":\"\"test123456\"\",\"\"name\"\":\"\"Test User\"\"}'' | ConvertTo-Json -Depth 10\")",
+      "Bash(powershell -Command \"Invoke-RestMethod -Uri ''http://localhost:3003/api/v1/users/signup'' -Method POST -ContentType ''application/json'' -Body ''{\"\"email\"\":\"\"test@smartify.com\"\",\"\"password\"\":\"\"test123456\"\",\"\"name\"\":\"\"Test User\"\"}'' | ConvertTo-Json -Depth 10\")",
+      "Bash(powershell -Command \"Invoke-RestMethod -Uri ''http://localhost:3003/api/v1/users/signup'' -Method POST -ContentType ''application/json'' -Body ''{\"\"email\"\":\"\"test@smartify.com\"\",\"\"password\"\":\"\"Test123456\"\",\"\"first_name\"\":\"\"Test\"\",\"\"last_name\"\":\"\"User\"\"}'' | ConvertTo-Json -Depth 10\")",
+      "Bash(powershell -Command \"Invoke-RestMethod -Uri ''http://localhost:3003/api/v1/users/signup'' -Method POST -ContentType ''application/json'' -Body ''{\"\"email\"\":\"\"test@smartify.com\"\",\"\"password\"\":\"\"Test123456\"\",\"\"firstName\"\":\"\"Test\"\",\"\"lastName\"\":\"\"User\"\"}'' | ConvertTo-Json -Depth 10\")",
+      "Bash(powershell -Command \"$response = Invoke-RestMethod -Uri ''http://localhost:3003/api/v1/users/login'' -Method POST -ContentType ''application/json'' -Body ''{\"\"email\"\":\"\"test@smartify.com\"\",\"\"password\"\":\"\"Test123456\"\"}''; $response | ConvertTo-Json -Depth 10\")",
+      "Bash(powershell -Command \"Start-Sleep -Seconds 5; Get-Content ''C:\\\\Users\\\\arthu\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\E--Github-Mobile-IoT\\\\tasks\\\\b628fea.output'' -Tail 50\")",
+      "Bash(powershell -Command:*)",
+      "Bash(TOKEN=\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjkzLCJlbWFpbCI6InRlc3RAZXhhbXBsZS5jb20iLCJpYXQiOjE3NzAxODk2NTEsImV4cCI6MTc3MDc5NDQ1MX0.BGFDkn2eGpckuj9NgHUajolzlDuPhb4Oc9iMvn4SK4w\")",
+      "Bash(__NEW_LINE_1ab93c56ac46ab6d__ echo \"=== Command History for Device 105 ===\")",
+      "Bash(python:*)",
+      "Bash(__NEW_LINE_4c494245e4aed1cb__ echo \"=== Test Device Registration API ===\")",
+      "Bash(__NEW_LINE_5f55d240bc0833a9__ echo \"=== Step 2: Provision IoT Device via FastBee MQTT ===\")",
+      "Bash(python3:*)",
+      "Bash(./gradlew assembleDebug:*)"
+    ]
+  }
+}

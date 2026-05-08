@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="64dp"
+    android:height="64dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- Google Assistant Icon - Four colored dots -->
+    <!-- Blue dot (top-left) at (8, 8) with radius 3 -->
+    <path
+        android:fillColor="#4285F4"
+        android:pathData="M 8,8 m -3,0 a 3,3 0 1,1 6,0 a 3,3 0 1,1 -6,0" />
+    <!-- Red dot (top-right) at (16, 8) with radius 3 -->
+    <path
+        android:fillColor="#EA4335"
+        android:pathData="M 16,8 m -3,0 a 3,3 0 1,1 6,0 a 3,3 0 1,1 -6,0" />
+    <!-- Yellow dot (bottom-left) at (8, 16) with radius 3 -->
+    <path
+        android:fillColor="#FBBC04"
+        android:pathData="M 8,16 m -3,0 a 3,3 0 1,1 6,0 a 3,3 0 1,1 -6,0" />
+    <!-- Green dot (bottom-right) at (16, 16) with radius 3 -->
+    <path
+        android:fillColor="#34A853"
+        android:pathData="M 16,16 m -3,0 a 3,3 0 1,1 6,0 a 3,3 0 1,1 -6,0" />
+</vector>

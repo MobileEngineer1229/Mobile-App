@@ -1,0 +1,146 @@
+package com.smarthome.iot.ui;
+
+import android.content.Intent;
+import android.os.Build;
+import android.os.Bundle;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.SeekBar;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+
+import com.google.android.material.button.MaterialButton;
+import com.smarthome.iot.R;
+import com.smarthome.iot.models.SceneCondition;
+import com.smarthome.iot.utils.ThemeHelper;
+
+public class WindSpeedConditionActivity extends AppCompatActivity {
+    private LinearLayout layoutLocation;
+    private TextView textViewLocation;
+    private MaterialButton buttonLessThan;
+    private MaterialButton buttonEquals;
+    private MaterialButton buttonGreaterThan;
+    private TextView textViewWindSpeed;
+    private SeekBar seekBarWindSpeed;
+    private MaterialButton buttonContinue;
+    
+    private String selectedOperator = ">";
+    private String selectedLocation = "New York City";
+    private int windSpeedValue = 45; // 0 to 62 m/s
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        ThemeHelper.applySavedTheme(this);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_wind_speed_condition);
+
+        setStatusBarColor();
+
+        initializeViews();
+        setupClickListeners();
+        updateWindSpeedDisplay();
+    }
+
+    private void setStatusBarColor() {
+        Window window = getWindow();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(ContextCompat.getColor(this, R.color.dark_1));
+        }
+    }
+
+    private void initializeViews() {
+        ImageButton buttonBack = findViewById(R.id.buttonBack);
+        layoutLocation = findViewById(R.id.layoutLocation);
+        textViewLocation = findViewById(R.id.textViewLocation);
+        buttonLessThan = findViewById(R.id.buttonLessThan);
+        buttonEquals = findViewById(R.id.buttonEquals);
+        buttonGreaterThan = findViewById(R.id.buttonGreaterThan);
+        textViewWindSpeed = findViewById(R.id.textViewWindSpeed);
+        seekBarWindSpeed = findViewById(R.id.seekBarWindSpeed);
+        buttonContinue = findViewById(R.id.buttonContinue);
+
+        buttonBack.setOnClickListener(v -> finish());
+        
+        seekBarWindSpeed.setProgress(45);
+        
+        seekBarWindSpeed.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                windSpeedValue = progress;
+                updateWindSpeedDisplay();
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {}
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {}
+        });
+    }
+
+    private void setupClickListeners() {
+        layoutLocation.setOnClickListener(v -> {
+            // TODO: Show location selector
+            Toast.makeText(this, "Location selector coming soon", Toast.LENGTH_SHORT).show();
+        });
+        
+        buttonLessThan.setOnClickListener(v -> {
+            selectedOperator = "<";
+            updateOperatorButtons();
+        });
+        
+        buttonEquals.setOnClickListener(v -> {
+            selectedOperator = "=";
+            updateOperatorButtons();
+        });
+        
+        buttonGreaterThan.setOnClickListener(v -> {
+            selectedOperator = ">";
+            updateOperatorButtons();
+        });
+        
+        buttonContinue.setOnClickListener(v -> {
+            // Create condition and return
+            SceneCondition condition = new SceneCondition();
+            condition.setType("wind_speed");
+            condition.setOperator(selectedOperator);
+            condition.setValue((double) windSpeedValue);
+            condition.setUnit("m/s");
+            condition.setLocation(selectedLocation);
+            
+            Intent resultIntent = new Intent();
+            resultIntent.putExtra("condition_type", "wind_speed");
+            resultIntent.putExtra("condition_data", condition);
+            setResult(RESULT_OK, resultIntent);
+            finish();
+        });
+    }
+
+    private void updateOperatorButtons() {
+        buttonLessThan.setBackgroundTintList(ContextCompat.getColorStateList(this, 
+            selectedOperator.equals("<") ? R.color.primary : R.color.dark_5));
+        buttonLessThan.setTextColor(ContextCompat.getColor(this, 
+            selectedOperator.equals("<") ? R.color.white : R.color.white_alpha_70));
+        
+        buttonEquals.setBackgroundTintList(ContextCompat.getColorStateList(this, 
+            selectedOperator.equals("=") ? R.color.primary : R.color.dark_5));
+        buttonEquals.setTextColor(ContextCompat.getColor(this, 
+            selectedOperator.equals("=") ? R.color.white : R.color.white_alpha_70));
+        
+        buttonGreaterThan.setBackgroundTintList(ContextCompat.getColorStateList(this, 
+            selectedOperator.equals(">") ? R.color.primary : R.color.dark_5));
+        buttonGreaterThan.setTextColor(ContextCompat.getColor(this, 
+            selectedOperator.equals(">") ? R.color.white : R.color.white_alpha_70));
+    }
+
+    private void updateWindSpeedDisplay() {
+        textViewWindSpeed.setText(windSpeedValue + " m/s");
+    }
+}

@@ -1,5 +1,10 @@
 import { Router } from "express";
-import { Activity, Food, MealLog, Recipe, User, WeightEntry } from "../models/content.js";
+import { Activity } from "../models/activity.js";
+import { Food } from "../models/food.js";
+import { MealLog } from "../models/meal-log.js";
+import { Recipe } from "../models/recipe.js";
+import { User } from "../models/user.js";
+import { WeightEntry } from "../models/weight-entry.js";
 
 export const dashboardRouter = Router();
 

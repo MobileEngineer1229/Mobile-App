@@ -1,0 +1,2132 @@
+{
+	"info": {
+		"_postman_id": "smart-home-backend-api",
+		"name": "Smart Home Backend API",
+		"description": "Complete API collection for Smart Home Backend - IoT Smart Home System\n\n## Setup Instructions:\n1. Import this collection into Postman\n2. Create an environment with the following variables:\n   - `base_url`: http://172.86.88.76:3003 or http://localhost:3003\n   - `api_version`: v1\n   - `token`: (will be auto-set after login)\n3. Start with the Authentication folder - Login or Signup first\n4. The token will be automatically saved after login\n\n## Features:\n- All endpoints with demo data\n- Automatic token management\n- Organized by resource type\n- Detailed descriptions and examples",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"description": "User authentication endpoints - Start here! Login or signup to get your JWT token.",
+			"item": [
+				{
+					"name": "Signup",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 201) {",
+									"    const response = pm.response.json();",
+									"    if (response.data && response.data.token) {",
+									"        pm.environment.set('token', response.data.token);",
+									"        pm.environment.set('user_id', response.data.user.id);",
+									"        console.log('Token saved:', response.data.token);",
+									"    }",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"john.doe@example.com\",\n    \"password\": \"SecurePass123!\",\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"phone\": \"+1234567890\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/{{api_version}}/users/signup",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"users",
+								"signup"
+							]
+						},
+						"description": "Register a new user account.\n\n**Demo Data:**\n- Email: john.doe@example.com\n- Password: SecurePass123!\n- First Name: John\n- Last Name: Doe\n- Phone: +1234567890\n\n**Response:** Returns user object and JWT token (automatically saved to environment)"
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    const response = pm.response.json();",
+									"    if (response.data && response.data.token) {",
+									"        pm.environment.set('token', response.data.token);",
+									"        pm.environment.set('user_id', response.data.user.id);",
+									"        console.log('Token saved:', response.data.token);",
+									"    }",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"john.doe@example.com\",\n    \"password\": \"SecurePass123!\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/{{api_version}}/users/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"users",
+								"login"
+							]
+						},
+						"description": "Login with email and password to get JWT token.\n\n**Demo Data:**\n- Email: john.doe@example.com\n- Password: SecurePass123!\n\n**Response:** Returns user object and JWT token (automatically saved to environment variable `token`)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Profile",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/{{api_version}}/users/profile",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"users",
+								"profile"
+							]
+						},
+						"description": "Get current authenticated user's profile information.\n\n**Requires:** Bearer token in Authorization header"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Profile",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"John\",\n    \"lastName\": \"Smith\",\n    \"phone\": \"+1987654321\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/{{api_version}}/users/profile",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"users",
+								"profile"
+							]
+						},
+						"description": "Update user profile information.\n\n**Demo Data:**\n- firstName: John\n- lastName: Smith\n- phone: +1987654321"
+					},
+					"response": []
+				},
+				{
+					"name": "Forgot Password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"john.doe@example.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/{{api_version}}/users/forgot-password",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"users",
+								"forgot-password"
+							]
+						},
+						"description": "Request password reset - sends OTP code to email.\n\n**Demo Data:**\n- email: john.doe@example.com"
+					},
+					"response": []
+				},
+				{
+					"name": "Verify OTP",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"john.doe@example.com\",\n    \"otpCode\": \"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/{{api_version}}/users/verify-otp",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"users",
+								"verify-otp"
+							]
+						},
+						"description": "Verify OTP code sent to email.\n\n**Demo Data:**\n- email: john.doe@example.com\n- otpCode: 123456 (6-digit code)"
+					},
+					"response": []
+				},
+				{
+					"name": "Reset Password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"john.doe@example.com\",\n    \"otpCode\": \"123456\",\n    \"newPassword\": \"NewSecurePass123!\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/{{api_version}}/users/reset-password",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"users",
+								"reset-password"
+							]
+						},
+						"description": "Reset password using verified OTP code.\n\n**Demo Data:**\n- email: john.doe@example.com\n- otpCode: 123456\n- newPassword: NewSecurePass123!"
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/{{api_version}}/users/logout",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"users",
+								"logout"
+							]
+						},
+						"description": "Logout user (client-side token removal in JWT system)."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Homes",
+			"description": "Home/Location management - Create and manage smart homes",
+			"item": [
+				{
+					"name": "Get All Homes",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/{{api_version}}/homes",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"homes"
+							]
+						},
+						"description": "Get all homes for the authenticated user."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Primary Home",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/{{api_version}}/homes/primary",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"homes",
+								"primary"
+							]
+						},
+						"description": "Get the primary home for the authenticated user."
+					},
+					"response": []
+				},
+				{
+					"name": "Create Home",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"My Smart Home\",\n    \"address\": \"123 Main Street, City, State 12345\",\n    \"latitude\": 40.7128,\n    \"longitude\": -74.0060,\n    \"country\": \"United States\",\n    \"isPrimary\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/{{api_version}}/homes",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"homes"
+							]
+						},
+						"description": "Create a new smart home.\n\n**Demo Data:**\n- name: My Smart Home\n- address: 123 Main Street, City, State 12345\n- latitude: 40.7128\n- longitude: -74.0060\n- country: United States\n- isPrimary: true"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Home by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/{{api_version}}/homes/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"homes",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "Home ID"
+								}
+							]
+						},
+						"description": "Get home details by ID.\n\n**Path Variable:**\n- id: Home ID (e.g., 1)"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Home",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Updated Smart Home\",\n    \"address\": \"456 New Street, City, State 54321\",\n    \"latitude\": 41.8781,\n    \"longitude\": -87.6298,\n    \"country\": \"United States\",\n    \"isPrimary\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/{{api_version}}/homes/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"homes",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "Home ID"
+								}
+							]
+						},
+						"description": "Update home information.\n\n**Path Variable:**\n- id: Home ID\n\n**Demo Data:**\n- name: Updated Smart Home\n- address: 456 New Street\n- latitude: 41.8781\n- longitude: -87.6298\n- country: United States\n- isPrimary: false"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Home",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/{{api_version}}/homes/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"homes",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "Home ID"
+								}
+							]
+						},
+						"description": "Delete a home.\n\n**Path Variable:**\n- id: Home ID"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Rooms",
+			"description": "Room management - Organize devices by rooms",
+			"item": [
+				{
+					"name": "Get All Rooms",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/{{api_version}}/rooms?homeId=1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"rooms"
+							],
+							"query": [
+								{
+									"key": "homeId",
+									"value": "1",
+									"description": "Filter by home ID (optional)"
+								}
+							]
+						},
+						"description": "Get all rooms for the authenticated user.\n\n**Query Parameters:**\n- homeId (optional): Filter rooms by home ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Room by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/{{api_version}}/rooms/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"rooms",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "Room ID"
+								}
+							]
+						},
+						"description": "Get room details by ID.\n\n**Path Variable:**\n- id: Room ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Room",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Living Room\",\n    \"homeId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/{{api_version}}/rooms",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"rooms"
+							]
+						},
+						"description": "Create a new room.\n\n**Demo Data:**\n- name: Living Room\n- homeId: 1"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Room",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Updated Living Room\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/{{api_version}}/rooms/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"rooms",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "Room ID"
+								}
+							]
+						},
+						"description": "Update room information.\n\n**Path Variable:**\n- id: Room ID\n\n**Demo Data:**\n- name: Updated Living Room"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Room",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/{{api_version}}/rooms/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"rooms",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "Room ID"
+								}
+							]
+						},
+						"description": "Delete a room.\n\n**Path Variable:**\n- id: Room ID"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Devices",
+			"description": "Device management - Add, update, and manage IoT devices",
+			"item": [
+				{
+					"name": "Get All Devices",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/{{api_version}}/devices?page=1&limit=10&type=sensor&status=online&search=smart&roomId=1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"devices"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"description": "Page number"
+								},
+								{
+									"key": "limit",
+									"value": "10",
+									"description": "Items per page"
+								},
+								{
+									"key": "type",
+									"value": "sensor",
+									"description": "Filter by type: sensor, actuator, controller"
+								},
+								{
+									"key": "status",
+									"value": "online",
+									"description": "Filter by status: online, offline, unknown"
+								},
+								{
+									"key": "search",
+									"value": "smart",
+									"description": "Search by name or MAC address"
+								},
+								{
+									"key": "roomId",
+									"value": "1",
+									"description": "Filter by room ID (null for devices without room)"
+								}
+							]
+						},
+						"description": "Get all devices with optional filters.\n\n**Query Parameters:**\n- page: Page number (default: 1)\n- limit: Items per page (default: 10)\n- type: Filter by device type (sensor, actuator, controller)\n- status: Filter by status (online, offline, unknown)\n- search: Search by name or MAC address\n- roomId: Filter by room ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Device by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/{{api_version}}/devices/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"devices",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "Device ID"
+								}
+							]
+						},
+						"description": "Get device details by ID.\n\n**Path Variable:**\n- id: Device ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Device",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Smart Light Bulb\",\n    \"type\": \"actuator\",\n    \"macAddress\": \"AA:BB:CC:DD:EE:FF\",\n    \"manufacturer\": \"Philips\",\n    \"model\": \"Hue White\",\n    \"roomId\": 1,\n    \"homeId\": 1,\n    \"metadata\": {\n        \"brightness\": 100,\n        \"color\": \"white\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/{{api_version}}/devices",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"devices"
+							]
+						},
+						"description": "Create a new device.\n\n**Demo Data:**\n- name: Smart Light Bulb\n- type: actuator (sensor, actuator, controller)\n- macAddress: AA:BB:CC:DD:EE:FF\n- manufacturer: Philips\n- model: Hue White\n- roomId: 1\n- homeId: 1\n- metadata: Additional device-specific data"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Device",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Updated Smart Light Bulb\",\n    \"roomId\": 2,\n    \"metadata\": {\n        \"brightness\": 75,\n        \"color\": \"warm white\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/{{api_version}}/devices/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"devices",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "Device ID"
+								}
+							]
+						},
+						"description": "Update device information.\n\n**Path Variable:**\n- id: Device ID\n\n**Demo Data:**\n- name: Updated Smart Light Bulb\n- roomId: 2\n- metadata: Updated device-specific data"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Device",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/{{api_version}}/devices/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"devices",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "Device ID"
+								}
+							]
+						},
+						"description": "Delete a device.\n\n**Path Variable:**\n- id: Device ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Devices by Category",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/{{api_version}}/devices/category/:category?roomId=1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"devices",
+								"category",
+								":category"
+							],
+							"query": [
+								{
+									"key": "roomId",
+									"value": "1",
+									"description": "Filter by room ID (optional)"
+								}
+							],
+							"variable": [
+								{
+									"key": "category",
+									"value": "lightning",
+									"description": "Category: lightning, cameras, electrical"
+								}
+							]
+						},
+						"description": "Get devices by category.\n\n**Path Variable:**\n- category: lightning, cameras, or electrical\n\n**Query Parameter:**\n- roomId (optional): Filter by room ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Discover Devices",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/{{api_version}}/devices/discover",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"devices",
+								"discover"
+							]
+						},
+						"description": "Discover devices on the local network.\n\n**Note:** In a real implementation, this would scan the network for devices. Currently returns mock data."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Device Types",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/{{api_version}}/devices/types",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"devices",
+								"types"
+							]
+						},
+						"description": "Get available device type templates for manual device addition.\n\n**Note:** No authentication required - returns public device type information."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Device Control",
+			"description": "Control IoT devices - Power, lights, cameras, speakers, AC, etc.",
+			"item": [
+				{
+					"name": "Control Power",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"power\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/{{api_version}}/devices/:id/control/power",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"devices",
+								":id",
+								"control",
+								"power"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "Device ID"
+								}
+							]
+						},
+						"description": "Control device power (on/off).\n\n**Path Variable:**\n- id: Device ID\n\n**Demo Data:**\n- power: true (turn on) or false (turn off)"
+					},
+					"response": []
+				},
+				{
+					"name": "Control Lamp",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"power\": true,\n    \"brightness\": 80,\n    \"color\": \"#FF5733\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/{{api_version}}/devices/:id/control/lamp",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"devices",
+								":id",
+								"control",
+								"lamp"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "Device ID"
+								}
+							]
+						},
+						"description": "Control smart lamp (brightness, color).\n\n**Path Variable:**\n- id: Device ID\n\n**Demo Data:**\n- power: true\n- brightness: 80 (0-100)\n- color: #FF5733 (hex color code)"
+					},
+					"response": []
+				},
+				{
+					"name": "Control Camera",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"power\": true,\n    \"recording\": true,\n    \"nightVision\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/{{api_version}}/devices/:id/control/camera",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"devices",
+								":id",
+								"control",
+								"camera"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "Device ID"
+								}
+							]
+						},
+						"description": "Control CCTV camera.\n\n**Path Variable:**\n- id: Device ID\n\n**Demo Data:**\n- power: true\n- recording: true\n- nightVision: false"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Camera Stream",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/{{api_version}}/devices/:id/control/camera/stream",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"devices",
+								":id",
+								"control",
+								"camera",
+								"stream"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "Device ID"
+								}
+							]
+						},
+						"description": "Get camera live stream URL.\n\n**Path Variable:**\n- id: Device ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Control Speaker",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"power\": true,\n    \"volume\": 50,\n    \"source\": \"bluetooth\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/{{api_version}}/devices/:id/control/speaker",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"devices",
+								":id",
+								"control",
+								"speaker"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "Device ID"
+								}
+							]
+						},
+						"description": "Control stereo speaker.\n\n**Path Variable:**\n- id: Device ID\n\n**Demo Data:**\n- power: true\n- volume: 50 (0-100)\n- source: bluetooth (bluetooth, aux, wifi)"
+					},
+					"response": []
+				},
+				{
+					"name": "Control AC",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"power\": true,\n    \"temperature\": 24,\n    \"mode\": \"cool\",\n    \"fanSpeed\": \"medium\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/{{api_version}}/devices/:id/control/ac",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"devices",
+								":id",
+								"control",
+								"ac"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "Device ID"
+								}
+							]
+						},
+						"description": "Control air conditioner.\n\n**Path Variable:**\n- id: Device ID\n\n**Demo Data:**\n- power: true\n- temperature: 24 (degrees)\n- mode: cool (cool, heat, fan, auto)\n- fanSpeed: medium (low, medium, high, auto)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Device State",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/{{api_version}}/devices/:id/control/state",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"devices",
+								":id",
+								"control",
+								"state"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "Device ID"
+								}
+							]
+						},
+						"description": "Get current device state.\n\n**Path Variable:**\n- id: Device ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Execute Command",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"command\": \"turn_on\",\n    \"parameters\": {\n        \"brightness\": 100\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/{{api_version}}/devices/:id/command",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"devices",
+								":id",
+								"command"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "Device ID"
+								}
+							]
+						},
+						"description": "Execute device command (unified command interface).\n\n**Path Variable:**\n- id: Device ID\n\n**Demo Data:**\n- command: turn_on (device-specific command)\n- parameters: Command-specific parameters"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Scenes",
+			"description": "Smart scenes and automation - Create and manage automation scenes",
+			"item": [
+				{
+					"name": "Get All Scenes",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/{{api_version}}/scenes?type=automation",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"scenes"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "automation",
+									"description": "Filter by type: automation, tap_to_run"
+								}
+							]
+						},
+						"description": "Get all scenes for the authenticated user.\n\n**Query Parameter:**\n- type (optional): Filter by scene type (automation, tap_to_run)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Scene by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/{{api_version}}/scenes/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"scenes",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "Scene ID"
+								}
+							]
+						},
+						"description": "Get scene details by ID.\n\n**Path Variable:**\n- id: Scene ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Scene",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Welcome Home Automation\",\n    \"type\": \"automation\",\n    \"enabled\": true,\n    \"triggers\": [\n        {\n            \"type\": \"time\",\n            \"value\": \"18:00\"\n        }\n    ],\n    \"actions\": [\n        {\n            \"deviceId\": 1,\n            \"command\": \"turn_on\",\n            \"parameters\": {\n                \"brightness\": 100\n            }\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/{{api_version}}/scenes",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"scenes"
+							]
+						},
+						"description": "Create a new scene.\n\n**Demo Data:**\n- name: Welcome Home Automation\n- type: automation (automation, tap_to_run)\n- enabled: true\n- triggers: Array of trigger conditions\n- actions: Array of device actions to execute"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Scene",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Updated Welcome Home\",\n    \"enabled\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/{{api_version}}/scenes/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"scenes",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "Scene ID"
+								}
+							]
+						},
+						"description": "Update scene information.\n\n**Path Variable:**\n- id: Scene ID\n\n**Demo Data:**\n- name: Updated Welcome Home\n- enabled: false"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Scene",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/{{api_version}}/scenes/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"scenes",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "Scene ID"
+								}
+							]
+						},
+						"description": "Delete a scene.\n\n**Path Variable:**\n- id: Scene ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Toggle Scene",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/{{api_version}}/scenes/:id/toggle",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"scenes",
+								":id",
+								"toggle"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "Scene ID"
+								}
+							]
+						},
+						"description": "Toggle scene enabled/disabled state.\n\n**Path Variable:**\n- id: Scene ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Execute Scene",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/{{api_version}}/scenes/:id/execute",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"scenes",
+								":id",
+								"execute"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "Scene ID"
+								}
+							]
+						},
+						"description": "Manually execute a scene.\n\n**Path Variable:**\n- id: Scene ID"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Notifications",
+			"description": "Notification management - Get and manage user notifications",
+			"item": [
+				{
+					"name": "Get All Notifications",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/{{api_version}}/notifications?page=1&limit=10&type=general&category=general&isRead=false",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"notifications"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"description": "Page number"
+								},
+								{
+									"key": "limit",
+									"value": "10",
+									"description": "Items per page"
+								},
+								{
+									"key": "type",
+									"value": "general",
+									"description": "Filter by type: general, security, system, feature, reminder, alert, info"
+								},
+								{
+									"key": "category",
+									"value": "general",
+									"description": "Filter by category: general, smart_home"
+								},
+								{
+									"key": "isRead",
+									"value": "false",
+									"description": "Filter by read status"
+								}
+							]
+						},
+						"description": "Get all notifications with optional filters.\n\n**Query Parameters:**\n- page: Page number\n- limit: Items per page\n- type: Filter by notification type\n- category: Filter by category (general, smart_home)\n- isRead: Filter by read status"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Notification Stats",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/{{api_version}}/notifications/stats",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"notifications",
+								"stats"
+							]
+						},
+						"description": "Get notification statistics (unread count, etc.)."
+					},
+					"response": []
+				},
+				{
+					"name": "Mark All as Read",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/{{api_version}}/notifications/read-all",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"notifications",
+								"read-all"
+							]
+						},
+						"description": "Mark all notifications as read."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Notification by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/{{api_version}}/notifications/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"notifications",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "Notification ID"
+								}
+							]
+						},
+						"description": "Get notification details by ID.\n\n**Path Variable:**\n- id: Notification ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Mark as Read",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/{{api_version}}/notifications/:id/read",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"notifications",
+								":id",
+								"read"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "Notification ID"
+								}
+							]
+						},
+						"description": "Mark a specific notification as read.\n\n**Path Variable:**\n- id: Notification ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Notification",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/{{api_version}}/notifications/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"notifications",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "Notification ID"
+								}
+							]
+						},
+						"description": "Delete a notification.\n\n**Path Variable:**\n- id: Notification ID"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Reports",
+			"description": "Reports and analytics - Energy consumption, statistics, etc.",
+			"item": [
+				{
+					"name": "Get Monthly Summary",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/{{api_version}}/reports/monthly-summary?year=2024&month=1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"reports",
+								"monthly-summary"
+							],
+							"query": [
+								{
+									"key": "year",
+									"value": "2024",
+									"description": "Year"
+								},
+								{
+									"key": "month",
+									"value": "1",
+									"description": "Month (1-12)"
+								}
+							]
+						},
+						"description": "Get monthly energy consumption summary.\n\n**Query Parameters:**\n- year: Year (e.g., 2024)\n- month: Month (1-12)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Statistics",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/{{api_version}}/reports/statistics",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"reports",
+								"statistics"
+							]
+						},
+						"description": "Get overall statistics and analytics."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Device Consumption",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/{{api_version}}/reports/devices?startDate=2024-01-01&endDate=2024-01-31",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"reports",
+								"devices"
+							],
+							"query": [
+								{
+									"key": "startDate",
+									"value": "2024-01-01",
+									"description": "Start date (YYYY-MM-DD)"
+								},
+								{
+									"key": "endDate",
+									"value": "2024-01-31",
+									"description": "End date (YYYY-MM-DD)"
+								}
+							]
+						},
+						"description": "Get device energy consumption data.\n\n**Query Parameters:**\n- startDate: Start date (YYYY-MM-DD)\n- endDate: End date (YYYY-MM-DD)"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Chatbot",
+			"description": "Chatbot/Assistant - AI-powered smart home assistant",
+			"item": [
+				{
+					"name": "Send Message",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"message\": \"Turn on the living room lights\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/{{api_version}}/chatbot/message",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"chatbot",
+								"message"
+							]
+						},
+						"description": "Send a message to the chatbot assistant.\n\n**Demo Data:**\n- message: Turn on the living room lights"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Chat History",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/{{api_version}}/chatbot/history",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"chatbot",
+								"history"
+							]
+						},
+						"description": "Get chatbot conversation history."
+					},
+					"response": []
+				},
+				{
+					"name": "Clear History",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/{{api_version}}/chatbot/history",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"chatbot",
+								"history"
+							]
+						},
+						"description": "Clear chatbot conversation history."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Health Check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/health",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"health"
+					]
+				},
+				"description": "Health check endpoint - No authentication required.\n\n**Use this to verify the server is running.**"
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://172.86.88.76:3003",
+			"type": "string"
+		},
+		{
+			"key": "api_version",
+			"value": "v1",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

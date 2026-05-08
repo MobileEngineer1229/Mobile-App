@@ -130,7 +130,7 @@ export function ResourceManager({ title, description, endpoint, columns, fields,
       }
       if (field.type === "textarea") {
         const text = String(raw ?? "").trim();
-        if ((field.name.endsWith("Steps") || field.name === "cookingSteps") && text.startsWith("[")) {
+        if (text.startsWith("[") || text.startsWith("{")) {
           try {
             value = JSON.parse(text);
           } catch {
