@@ -4,6 +4,12 @@ export const reviewFlag = {
   doctor_verified: { type: Boolean, default: false, index: true }
 };
 
+export const sourceTrace = {
+  dataSource: { type: String, trim: true, index: true },
+  sourceNote: { type: String, trim: true },
+  sourceRefs: [{ type: String, trim: true }]
+};
+
 export const macroSchema = new Schema(
   {
     protein: { type: Number, default: 0 },

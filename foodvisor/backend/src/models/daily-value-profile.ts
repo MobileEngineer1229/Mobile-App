@@ -1,5 +1,5 @@
 import mongoose, { Schema, type Model } from "mongoose";
-import { dailyValuePercentSchema, reviewFlag } from "./common.js";
+import { dailyValuePercentSchema, reviewFlag, sourceTrace } from "./common.js";
 
 const dailyValueProfileSchema = new Schema(
   {
@@ -10,6 +10,7 @@ const dailyValueProfileSchema = new Schema(
     gender: { type: String, enum: ["all", "male", "female"], default: "all" },
     purpose: { type: String, required: true, trim: true, index: true },
     notes: { type: String, trim: true },
+    ...sourceTrace,
     values: { type: dailyValuePercentSchema, default: {} },
     ...reviewFlag
   },

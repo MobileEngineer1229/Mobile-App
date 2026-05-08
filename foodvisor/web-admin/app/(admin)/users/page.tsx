@@ -14,6 +14,7 @@ export default function UsersPage() {
         { key: "currentWeightKg", label: "Weight" },
         { key: "targetWeightKg", label: "Target" },
         { key: "calorieGoal", label: "Calories" },
+        { key: "dataSource", label: "Source" },
         { key: "doctor_verified", label: "Doctor Verified", kind: "boolean" }
       ]}
       fields={[
@@ -29,6 +30,8 @@ export default function UsersPage() {
         { name: "dietaryRestrictions", label: "Dietary Restrictions", type: "tags" },
         { name: "medicalConditions", label: "Medical Conditions", type: "tags" },
         { name: "programStage", label: "Program Stage", type: "text" },
+        { name: "dataSource", label: "Data Source", type: "text" },
+        { name: "sourceNote", label: "Source Note", type: "textarea" },
         { name: "doctor_verified", label: "Doctor Verified", type: "boolean" }
       ]}
     />

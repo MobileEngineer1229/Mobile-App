@@ -13,6 +13,7 @@ const nutritionConstraintSchema = new Schema(
     caloriesPerGram: { type: Number, default: 0 },
     dataSource: { type: String, trim: true, index: true },
     sourceNote: { type: String, trim: true },
+    sourceRefs: [{ type: String, trim: true }],
     ...reviewFlag
   },
   { timestamps: true }

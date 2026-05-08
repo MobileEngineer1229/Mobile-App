@@ -19,6 +19,8 @@
 - [ ] 15. [Height Increase App](./15-height-increase-app.md)
 - [ ] 16. [Women Health Management App](./16-women-health-management-app.md)
 - [ ] 17. [AR/AI Hair Style App](./17-ar-ai-hair-style-app.md)
+- [ ] 18. [Workout App](./18-workout-app.md)
+- [ ] 19. [AI Assistant with DPRK Language (Generative AI from scratch)](./19-ai-assistant-dprk-language.md)
 
 
 3. 🍲 종합 영양+이미지 데이터셋 사용하기 (로컬 데이터베이스 구축)

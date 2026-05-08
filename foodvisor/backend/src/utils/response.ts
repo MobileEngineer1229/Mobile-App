@@ -16,14 +16,16 @@ export function sendError(
   code: string,
   message: string,
   statusCode = 500,
-  details?: unknown
+  details?: unknown,
+  reqId?: string
 ) {
   res.status(statusCode).json({
     success: false,
     error: {
       code,
       message,
-      ...(details ? { details } : {})
+      ...(details ? { details } : {}),
+      ...(reqId ? { reqId } : {})
     },
     meta: {
       timestamp: new Date().toISOString()

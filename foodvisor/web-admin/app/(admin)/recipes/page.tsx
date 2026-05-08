@@ -14,6 +14,7 @@ export default function RecipesPage() {
         { key: "cookingMethods", label: "Methods" },
         { key: "difficulty", label: "Difficulty" },
         { key: "calories", label: "Calories" },
+        { key: "dataSource", label: "Source" },
         { key: "prepTimeMinutes", label: "Prep" },
         { key: "cookTimeMinutes", label: "Cook" },
         { key: "doctor_verified", label: "Doctor Verified", kind: "boolean" }
@@ -50,6 +51,9 @@ export default function RecipesPage() {
         { name: "dietUseCases", label: "Diet Use Cases", type: "tags" },
         { name: "cautionGroups", label: "Caution Groups", type: "tags" },
         { name: "tags", label: "Tags", type: "tags" },
+        { name: "dataSource", label: "Data Source", type: "text" },
+        { name: "sourceNote", label: "Source Note", type: "textarea" },
+        { name: "sourceRefs", label: "Source Refs", type: "tags" },
         { name: "imageUrl", label: "Image URL", type: "text" },
         { name: "doctor_verified", label: "Doctor Verified", type: "boolean" }
       ]}

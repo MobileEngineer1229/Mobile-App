@@ -1,7 +1,14 @@
 {
   "permissions": {
     "allow": [
-      "PowerShell(git add *)"
+      "PowerShell(git add *)",
+      "PowerShell($tcp = Test-NetConnection -ComputerName 127.0.0.1 -Port 27017 -WarningAction SilentlyContinue; \"TCP test: $\\($tcp.TcpTestSucceeded\\)\")",
+      "Bash(curl -s 'http://127.0.0.1:4000/api/nutrient-intake-rules?nutrientKey=protein&gender=male&ageMin_gte=18&limit=8')",
+      "Bash(python -c ' *)",
+      "Bash(curl -s 'http://127.0.0.1:4000/api/reference-sources?doctor_verified=true&limit=1')",
+      "Bash(python -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\('total:',d.get\\('total'\\)\\)\")",
+      "Bash(curl -s 'http://127.0.0.1:4000/api/reference-sources?year=2018')",
+      "Bash(npm run *)"
     ]
   }
 }

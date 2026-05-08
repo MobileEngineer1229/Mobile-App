@@ -14,6 +14,7 @@ export default function MealLogsPage() {
         { key: "foodName", label: "Food" },
         { key: "calories", label: "Calories" },
         { key: "source", label: "Source" },
+        { key: "dataSource", label: "Data Source" },
         { key: "doctor_verified", label: "Doctor Verified", kind: "boolean" }
       ]}
       fields={[
@@ -28,6 +29,8 @@ export default function MealLogsPage() {
         { name: "macros.fiber", label: "Fiber", type: "number" },
         { name: "source", label: "Source", type: "select", options: ["photo", "barcode", "search", "voice", "favorite"] },
         { name: "photoUrl", label: "Photo URL", type: "text" },
+        { name: "dataSource", label: "Data Source", type: "text" },
+        { name: "sourceNote", label: "Source Note", type: "textarea" },
         { name: "doctor_verified", label: "Doctor Verified", type: "boolean" }
       ]}
     />

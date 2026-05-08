@@ -23,6 +23,8 @@ const humanTypeQASchema = new Schema(
     useForRecommendation: { type: Boolean, default: false, index: true },
     scoringNoteKo: { type: String, trim: true },
     analysisNoteKo: { type: String, trim: true },
+    dataSource: { type: String, trim: true, index: true },
+    sourceNote: { type: String, trim: true },
     sourceRefs: [{ type: String, trim: true }],
     ...reviewFlag
   },

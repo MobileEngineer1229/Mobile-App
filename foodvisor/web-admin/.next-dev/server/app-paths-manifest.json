@@ -1,0 +1,11 @@
+{
+  "/(admin)/nutrient-intake-rules/page": "app/(admin)/nutrient-intake-rules/page.js",
+  "/(admin)/condition-diet-rules/page": "app/(admin)/condition-diet-rules/page.js",
+  "/(admin)/recipe-ingredients/page": "app/(admin)/recipe-ingredients/page.js",
+  "/(admin)/nutrition-terminology/page": "app/(admin)/nutrition-terminology/page.js",
+  "/(admin)/foods/page": "app/(admin)/foods/page.js",
+  "/(admin)/data-validation-rules/page": "app/(admin)/data-validation-rules/page.js",
+  "/(admin)/reference-sources/page": "app/(admin)/reference-sources/page.js",
+  "/(admin)/recipes/page": "app/(admin)/recipes/page.js",
+  "/(admin)/activities/page": "app/(admin)/activities/page.js"
+}

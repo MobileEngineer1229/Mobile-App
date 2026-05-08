@@ -11,6 +11,8 @@ const mealLogSchema = new Schema(
     macros: { type: macroSchema, default: {} },
     source: { type: String, enum: ["photo", "barcode", "search", "voice", "favorite"], default: "search" },
     photoUrl: { type: String, trim: true },
+    dataSource: { type: String, default: "user_input", trim: true, index: true },
+    sourceNote: { type: String, trim: true },
     ...reviewFlag
   },
   { timestamps: true }

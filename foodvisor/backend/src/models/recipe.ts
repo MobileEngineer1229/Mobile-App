@@ -49,6 +49,9 @@ const recipeSchema = new Schema(
     dietUseCases: [{ type: String, trim: true }],
     cautionGroups: [{ type: String, trim: true }],
     tags: [{ type: String, trim: true }],
+    dataSource: { type: String, default: "web_admin", trim: true, index: true },
+    sourceNote: { type: String, trim: true },
+    sourceRefs: [{ type: String, trim: true }],
     imageUrl: { type: String, trim: true },
     ...reviewFlag
   },

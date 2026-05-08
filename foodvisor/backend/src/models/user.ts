@@ -15,6 +15,8 @@ const userSchema = new Schema(
     dietaryRestrictions: [{ type: String, trim: true }],
     medicalConditions: [{ type: String, trim: true }],
     programStage: { type: String, default: "onboarding" },
+    dataSource: { type: String, default: "user_input", trim: true, index: true },
+    sourceNote: { type: String, trim: true },
     ...reviewFlag
   },
   { timestamps: true }

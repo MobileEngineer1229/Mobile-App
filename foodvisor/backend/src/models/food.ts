@@ -51,6 +51,7 @@ const foodSchema = new Schema(
     dataSource: { type: String, trim: true },
     sourceNutrition: { type: Schema.Types.Mixed, default: {} },
     sourceNote: { type: String, trim: true },
+    sourceRefs: [{ type: String, trim: true }],
     tags: [{ type: String, trim: true }],
     barcode: { type: String, trim: true },
     imageUrl: { type: String, trim: true },

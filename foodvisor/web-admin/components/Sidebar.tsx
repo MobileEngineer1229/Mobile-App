@@ -3,9 +3,11 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { navItems } from "@/lib/navigation";
+import { useDashboardStats } from "@/lib/useDashboardStats";
 
 export default function Sidebar() {
   const pathname = usePathname();
+  const { unverified } = useDashboardStats();
   let lastGroup: string | null | undefined;
 
   return (
@@ -19,10 +21,11 @@ export default function Sidebar() {
       </div>
 
       <nav className="nav">
-        {navItems.map(({ group, href, label, icon: Icon }) => {
+        {navItems.map(({ group, href, label, icon: Icon, statKey }) => {
           const showGroup = group && group !== lastGroup;
           lastGroup = group;
           const active = pathname === href || (href !== "/" && pathname.startsWith(`${href}/`));
+          const badge = statKey ? unverified[statKey] ?? 0 : 0;
 
           return (
             <div key={href}>
@@ -30,6 +33,7 @@ export default function Sidebar() {
               <Link className={active ? "active" : ""} href={href}>
                 <Icon size={17} />
                 <span>{label}</span>
+                {badge > 0 ? <span className="nav-badge" aria-label={`${badge} unverified`}>{badge > 99 ? "99+" : badge}</span> : null}
               </Link>
             </div>
           );

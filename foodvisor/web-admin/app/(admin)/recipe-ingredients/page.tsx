@@ -17,6 +17,7 @@ export default function RecipeIngredientsPage() {
         { key: "unit", label: "Unit" },
         { key: "preparation", label: "Preparation" },
         { key: "optional", label: "Optional", kind: "boolean" },
+        { key: "dataSource", label: "Source" },
         { key: "doctor_verified", label: "Doctor Verified", kind: "boolean" }
       ]}
       fields={[
@@ -31,6 +32,9 @@ export default function RecipeIngredientsPage() {
         { name: "optional", label: "Optional", type: "boolean" },
         { name: "substitutes", label: "Substitutes", type: "tags" },
         { name: "notes", label: "Notes", type: "textarea" },
+        { name: "dataSource", label: "Data Source", type: "text" },
+        { name: "sourceNote", label: "Source Note", type: "textarea" },
+        { name: "sourceRefs", label: "Source Refs", type: "tags" },
         { name: "doctor_verified", label: "Doctor Verified", type: "boolean" }
       ]}
     />

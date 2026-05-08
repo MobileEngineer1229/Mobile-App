@@ -13,6 +13,7 @@ export default function ActivitiesPage() {
         { key: "category", label: "Category" },
         { key: "caloriesPerHour", label: "Cal/hour" },
         { key: "metValue", label: "MET" },
+        { key: "dataSource", label: "Source" },
         { key: "doctor_verified", label: "Doctor Verified", kind: "boolean" }
       ]}
       fields={[
@@ -22,6 +23,10 @@ export default function ActivitiesPage() {
         { name: "metValue", label: "MET Value", type: "number", required: true },
         { name: "icon", label: "Icon", type: "text" },
         { name: "description", label: "Description", type: "textarea" },
+        { name: "dataSource", label: "Data Source", type: "text" },
+        { name: "sourceCode", label: "Source Code", type: "text" },
+        { name: "sourceNote", label: "Source Note", type: "textarea" },
+        { name: "sourceRefs", label: "Source Refs", type: "tags" },
         { name: "doctor_verified", label: "Doctor Verified", type: "boolean" }
       ]}
     />

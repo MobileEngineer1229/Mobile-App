@@ -12,6 +12,7 @@ const activitySchema = new Schema(
     dataSource: { type: String, trim: true, index: true },
     sourceCode: { type: String, trim: true, index: true },
     sourceNote: { type: String, trim: true },
+    sourceRefs: [{ type: String, trim: true }],
     tags: [{ type: String, trim: true }],
     ...reviewFlag
   },

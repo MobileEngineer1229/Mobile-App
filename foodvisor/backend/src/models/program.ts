@@ -8,6 +8,9 @@ const programSchema = new Schema(
     focus: { type: String, required: true, trim: true },
     description: { type: String, required: true },
     cta: { type: String, default: "Next" },
+    dataSource: { type: String, default: "web_admin", trim: true, index: true },
+    sourceNote: { type: String, trim: true },
+    sourceRefs: [{ type: String, trim: true }],
     ...reviewFlag
   },
   { timestamps: true }

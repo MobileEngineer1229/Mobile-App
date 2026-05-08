@@ -14,6 +14,7 @@ export default function HumanTypeSurveysPage() {
         { key: "resultType", label: "Result" },
         { key: "resultLabelKo", label: "Label" },
         { key: "confidence", label: "Confidence" },
+        { key: "dataSource", label: "Source" },
         { key: "recommendationTags", label: "Recommend Tags" },
         { key: "cautionTags", label: "Caution Tags" },
         { key: "doctor_verified", label: "Doctor Verified", kind: "boolean" }
@@ -36,6 +37,8 @@ export default function HumanTypeSurveysPage() {
         { name: "cautionTags", label: "Caution Tags", type: "tags" },
         { name: "summaryKo", label: "Summary KO", type: "textarea" },
         { name: "notes", label: "Admin Notes", type: "textarea" },
+        { name: "dataSource", label: "Data Source", type: "text" },
+        { name: "sourceNote", label: "Source Note", type: "textarea" },
         { name: "doctor_verified", label: "Doctor Verified", type: "boolean" }
       ]}
     />

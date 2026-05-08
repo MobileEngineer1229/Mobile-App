@@ -20,6 +20,7 @@ export default function DailyValueProfilesPage() {
         { key: "ageMax", label: "Age Max" },
         { key: "gender", label: "Gender" },
         { key: "purpose", label: "Purpose" },
+        { key: "dataSource", label: "Source" },
         { key: "values.calories", label: "Calories" },
         { key: "values.protein", label: "Protein" },
         { key: "values.carbs", label: "Carbs" },
@@ -34,6 +35,9 @@ export default function DailyValueProfilesPage() {
         { name: "gender", label: "Gender", type: "select", options: ["all", "male", "female"] },
         { name: "purpose", label: "Purpose", type: "text", required: true },
         { name: "notes", label: "Notes", type: "textarea" },
+        { name: "dataSource", label: "Data Source", type: "text" },
+        { name: "sourceNote", label: "Source Note", type: "textarea" },
+        { name: "sourceRefs", label: "Source Refs", type: "tags" },
         ...valueFields.map((key) => ({
           name: `values.${key}`,
           label: `Daily Value ${key}`,

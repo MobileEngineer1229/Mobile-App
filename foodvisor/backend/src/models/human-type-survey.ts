@@ -28,6 +28,8 @@ const humanTypeSurveySchema = new Schema(
     cautionTags: [{ type: String, trim: true }],
     summaryKo: { type: String, trim: true },
     notes: { type: String, trim: true },
+    dataSource: { type: String, default: "user_input", trim: true, index: true },
+    sourceNote: { type: String, trim: true },
     ...reviewFlag
   },
   { timestamps: true, collection: "humanTypeSurvey" }

@@ -7,6 +7,8 @@ const weightEntrySchema = new Schema(
     date: { type: Date, required: true, index: true },
     weightKg: { type: Number, required: true, min: 20 },
     note: { type: String, trim: true },
+    dataSource: { type: String, default: "user_input", trim: true, index: true },
+    sourceNote: { type: String, trim: true },
     ...reviewFlag
   },
   { timestamps: true }

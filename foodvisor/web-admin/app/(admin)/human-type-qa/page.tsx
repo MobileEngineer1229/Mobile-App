@@ -14,6 +14,7 @@ export default function HumanTypeQAPage() {
         { key: "promptKo", label: "Question" },
         { key: "answerListKo", label: "Answers" },
         { key: "weight", label: "Weight" },
+        { key: "dataSource", label: "Source" },
         { key: "isCore", label: "Core", kind: "boolean" },
         { key: "useForRecommendation", label: "Recommend", kind: "boolean" },
         { key: "doctor_verified", label: "Doctor Verified", kind: "boolean" }
@@ -39,6 +40,8 @@ export default function HumanTypeQAPage() {
         { name: "useForRecommendation", label: "Use For Recommendation", type: "boolean" },
         { name: "scoringNoteKo", label: "Scoring Note KO", type: "textarea" },
         { name: "analysisNoteKo", label: "Analysis Note KO", type: "textarea" },
+        { name: "dataSource", label: "Data Source", type: "text" },
+        { name: "sourceNote", label: "Source Note", type: "textarea" },
         { name: "sourceRefs", label: "Source Refs", type: "tags" },
         { name: "doctor_verified", label: "Doctor Verified", type: "boolean" }
       ]}

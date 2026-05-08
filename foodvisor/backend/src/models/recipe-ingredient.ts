@@ -14,6 +14,9 @@ const recipeIngredientSchema = new Schema(
     optional: { type: Boolean, default: false },
     substitutes: [{ type: String, trim: true }],
     notes: { type: String, trim: true },
+    dataSource: { type: String, default: "web_admin", trim: true, index: true },
+    sourceNote: { type: String, trim: true },
+    sourceRefs: [{ type: String, trim: true }],
     ...reviewFlag
   },
   { timestamps: true }
