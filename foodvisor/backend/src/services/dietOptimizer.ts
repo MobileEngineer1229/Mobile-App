@@ -2,6 +2,7 @@ import { createRequire } from "module";
 import type { Model as LinearModel } from "javascript-lp-solver";
 import { Food } from "../models/food.js";
 import { NutritionConstraint } from "../models/nutrition-constraint.js";
+import { getDailyTargets, preferredGoal, type UserProfileForTargets } from "./dailyTargets.js";
 
 const require = createRequire(import.meta.url);
 const linearSolver = require("javascript-lp-solver") as { Solve: (model: LinearModel) => unknown };
@@ -18,6 +19,8 @@ type ConstraintInput = {
 
 type OptimizeDietInput = {
   profileKey?: string;
+  /** When provided, derives constraints from WST578 daily targets for this profile. */
+  targetProfile?: UserProfileForTargets;
   dataSource?: string;
   candidateLimit?: number;
   poolLimit?: number;
@@ -27,6 +30,38 @@ type OptimizeDietInput = {
   excludeCategories?: string[];
   excludeTerms?: string[];
   constraints?: ConstraintInput[];
+};
+
+/**
+ * Map our DRI nutrient keys (matching NutrientIntakeRule.nutrientKey) to the foodNutrient()
+ * keys used inside the LP variables. Nutrients without a mapping get filtered out — we can
+ * only constrain what we can compute from the Food collection.
+ */
+const DRI_KEY_TO_LP_KEY: Record<string, string> = {
+  energyKcal: "energyKcal",
+  protein: "proteinG",
+  fat: "totalFatG",
+  carbs: "carbohydrateG",
+  fiber: "dietaryFiberG",
+  saturatedFat: "saturatedFatG",
+  cholesterol: "cholesterolMg",
+  sodium: "sodiumMg",
+  potassium: "potassiumMg",
+  calcium: "calciumMg",
+  magnesium: "magnesiumMg",
+  iron: "ironMg",
+  zinc: "zincMg",
+  vitaminA: "vitaminAUg",
+  vitaminB1: "thiaminMg",
+  vitaminB2: "riboflavinMg",
+  niacin: "niacinMg",
+  vitaminB6: "vitaminB6Mg",
+  vitaminB12: "vitaminB12Ug",
+  vitaminC: "vitaminCMg",
+  vitaminD: "vitaminDMcg",
+  vitaminE: "vitaminEMg",
+  vitaminK: "vitaminKUg",
+  folate: "dietaryFolateUg"
 };
 
 type FoodCandidate = {
@@ -106,17 +141,47 @@ function foodNutrient(food: FoodCandidate, nutrientKey: string) {
   return fallbacks[nutrientKey] ?? 0;
 }
 
+async function constraintsFromTargetProfile(profile: UserProfileForTargets) {
+  const targets = await getDailyTargets(profile);
+  const constraints = [] as Array<ReturnType<typeof normalizeConstraint>>;
+  for (const target of targets) {
+    const lpKey = DRI_KEY_TO_LP_KEY[target.nutrientKey];
+    if (!lpKey) continue;   // skip nutrients we can't compute from the Food collection
+    const goal = preferredGoal(target);
+    const lowerBound = typeof goal === "number" ? goal : 0;
+    const upperBound = typeof target.UL === "number" ? target.UL : 0;
+    if (!lowerBound && !upperBound) continue;
+    constraints.push(normalizeConstraint({
+      nutrientKey: lpKey,
+      nutrientLabel: target.nutrientLabel,
+      unit: target.unit,
+      lowerBound,
+      upperBound
+    }));
+  }
+  return constraints;
+}
+
+function normalizeConstraint(constraint: ConstraintInput) {
+  return {
+    nutrientKey: constraint.nutrientKey,
+    nutrientLabel: constraint.nutrientLabel || constraint.nutrientKey,
+    unit: constraint.unit || "",
+    lowerBound: num(constraint.lowerBound),
+    upperBound: num(constraint.upperBound),
+    isPercentOfCalories: Boolean(constraint.isPercentOfCalories),
+    caloriesPerGram: num(constraint.caloriesPerGram)
+  };
+}
+
 async function loadConstraints(input: OptimizeDietInput) {
   if (Array.isArray(input.constraints) && input.constraints.length) {
-    return input.constraints.map((constraint) => ({
-      nutrientKey: constraint.nutrientKey,
-      nutrientLabel: constraint.nutrientLabel || constraint.nutrientKey,
-      unit: constraint.unit || "",
-      lowerBound: num(constraint.lowerBound),
-      upperBound: num(constraint.upperBound),
-      isPercentOfCalories: Boolean(constraint.isPercentOfCalories),
-      caloriesPerGram: num(constraint.caloriesPerGram)
-    }));
+    return input.constraints.map(normalizeConstraint);
+  }
+
+  if (input.targetProfile) {
+    const derived = await constraintsFromTargetProfile(input.targetProfile);
+    if (derived.length) return derived;
   }
 
   return NutritionConstraint.find({
@@ -125,15 +190,17 @@ async function loadConstraints(input: OptimizeDietInput) {
     .sort({ nutrientKey: 1 })
     .lean()
     .then((items) =>
-      items.map((constraint) => ({
-        nutrientKey: String(constraint.nutrientKey),
-        nutrientLabel: String(constraint.nutrientLabel),
-        unit: String(constraint.unit || ""),
-        lowerBound: num(constraint.lowerBound),
-        upperBound: num(constraint.upperBound),
-        isPercentOfCalories: Boolean(constraint.isPercentOfCalories),
-        caloriesPerGram: num(constraint.caloriesPerGram)
-      }))
+      items.map((constraint) =>
+        normalizeConstraint({
+          nutrientKey: String(constraint.nutrientKey),
+          nutrientLabel: String(constraint.nutrientLabel),
+          unit: String(constraint.unit || ""),
+          lowerBound: num(constraint.lowerBound),
+          upperBound: num(constraint.upperBound),
+          isPercentOfCalories: Boolean(constraint.isPercentOfCalories),
+          caloriesPerGram: num(constraint.caloriesPerGram)
+        })
+      )
     );
 }
 

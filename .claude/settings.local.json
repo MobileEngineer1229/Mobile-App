@@ -28,7 +28,9 @@
       "Read(//c/Program Files \\(x86\\)/Microsoft Visual Studio/2017/Enterprise/MSBuild/15.0/Bin/**)",
       "Bash(powershell -Command \"& 'C:\\\\\\\\Program Files \\(x86\\)\\\\\\\\Microsoft Visual Studio\\\\\\\\2017\\\\\\\\Enterprise\\\\\\\\MSBuild\\\\\\\\15.0\\\\\\\\Bin\\\\\\\\MSBuild.exe' 'e:\\\\\\\\Github\\\\\\\\Mobile\\\\\\\\Tech-Challenge\\\\\\\\Agar.io\\\\\\\\server\\\\\\\\windows\\\\\\\\AgarServer.vcxproj' /p:Configuration=Release /p:Platform=x64 /t:Build /m /nologo 2>&1\")",
       "Bash(powershell -Command \"Get-NetTCPConnection -LocalPort 3000 -ErrorAction SilentlyContinue | Select-Object -First 1 State,LocalPort\")",
-      "Bash(powershell -Command \"Get-NetTCPConnection -LocalPort 3000 -ErrorAction SilentlyContinue | Select-Object State,LocalPort,RemotePort\")"
+      "Bash(powershell -Command \"Get-NetTCPConnection -LocalPort 3000 -ErrorAction SilentlyContinue | Select-Object State,LocalPort,RemotePort\")",
+      "Bash(Get-ChildItem -Path \"E:\\\\Github\\\\Mobile\\\\Mobile-App\" -Directory)",
+      "Bash(Select-Object Name)"
     ],
     "additionalDirectories": [
       "e:\\Github\\Mobile\\Tech-Challenge\\Agar.io\\server"

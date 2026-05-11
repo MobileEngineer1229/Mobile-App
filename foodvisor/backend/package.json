@@ -20,6 +20,7 @@
     "import:opennutritracker-activities": "tsx src/scripts/import-opennutritracker-activities.ts",
     "import:human-type-qa": "tsx src/scripts/import-human-type-qa.ts",
     "import:reference-guidelines": "tsx src/scripts/import-reference-guidelines.ts",
+    "generate:daily-value-profiles": "tsx src/scripts/generate-daily-value-profiles.ts",
     "import:comprehensive": "tsx src/scripts/import-comprehensive-food-database.ts",
     "import:usda": "tsx src/scripts/import-usda-foods.ts",
     "backfill:data-sources": "tsx src/scripts/backfill-data-sources.ts",

@@ -22,6 +22,8 @@ import { User } from "../models/user.js";
 import { WeightEntry } from "../models/weight-entry.js";
 import { auditLog } from "../middleware/audit-log.js";
 import { createCrudRouter } from "./crud.js";
+import { dailyIntakeRouter } from "./daily-intake.js";
+import { dailyTargetsRouter } from "./daily-targets.js";
 import { dashboardRouter } from "./dashboard.js";
 import { dietOptimizerRouter } from "./diet-optimizer-routes.js";
 import { healthMetricsRouter } from "./health-metrics-routes.js";
@@ -36,6 +38,8 @@ apiRouter.get("/health", (_req, res) => {
 apiRouter.use("/dashboard", dashboardRouter);
 apiRouter.use("/health-metrics", healthMetricsRouter);
 apiRouter.use("/diet-optimizer", dietOptimizerRouter);
+apiRouter.use("/daily-targets", dailyTargetsRouter);
+apiRouter.use("/daily-intake", dailyIntakeRouter);
 
 const foodsRouter = createCrudRouter(
   Food,

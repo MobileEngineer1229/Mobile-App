@@ -16,6 +16,11 @@
       "static/chunks/main-app.js",
       "static/chunks/app/(admin)/page.js"
     ],
+    "/(admin)/reference-sources/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(admin)/reference-sources/page.js"
+    ],
     "/(admin)/foods/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
@@ -25,56 +30,6 @@
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/(admin)/daily-value-profiles/page.js"
-    ],
-    "/(admin)/nutrient-intake-rules/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(admin)/nutrient-intake-rules/page.js"
-    ],
-    "/(admin)/risk-assessment-rules/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(admin)/risk-assessment-rules/page.js"
-    ],
-    "/(admin)/reference-sources/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(admin)/reference-sources/page.js"
-    ],
-    "/(admin)/condition-diet-rules/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(admin)/condition-diet-rules/page.js"
-    ],
-    "/(admin)/data-validation-rules/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(admin)/data-validation-rules/page.js"
-    ],
-    "/(admin)/nutrition-terminology/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(admin)/nutrition-terminology/page.js"
-    ],
-    "/(admin)/nutrition-constraints/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(admin)/nutrition-constraints/page.js"
-    ],
-    "/(admin)/recipes/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(admin)/recipes/page.js"
-    ],
-    "/(admin)/recipe-ingredients/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(admin)/recipe-ingredients/page.js"
-    ],
-    "/(admin)/activities/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(admin)/activities/page.js"
     ]
   }
 }

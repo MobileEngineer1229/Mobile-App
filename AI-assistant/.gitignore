@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+*.egg-info/
+.pytest_cache/
+
+# Data — user-supplied + generated artifacts (sample/ stays tracked)
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+
+# Model artifacts
+checkpoints/*
+!checkpoints/.gitkeep
+*.pt
+*.bin
+*.ckpt
+
+# Tokenizer artifacts
+*.model
+*.vocab
+
+# TensorBoard
+runs/
+logs/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
