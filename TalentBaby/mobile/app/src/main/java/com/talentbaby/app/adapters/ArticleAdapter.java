@@ -45,21 +45,24 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
 
     class ViewHolder extends RecyclerView.ViewHolder {
         private final ImageView imageArticle;
+        private final TextView textCategory;
         private final TextView textTitle;
-        private final TextView textSummary;
         private final TextView textReadTime;
+        private final TextView textViewCount;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
             imageArticle = itemView.findViewById(R.id.imageArticle);
+            textCategory = itemView.findViewById(R.id.textArticleCategory);
             textTitle = itemView.findViewById(R.id.textArticleTitle);
-            textSummary = itemView.findViewById(R.id.textArticleSummary);
             textReadTime = itemView.findViewById(R.id.textArticleReadTime);
+            textViewCount = itemView.findViewById(R.id.textArticleViewCount);
         }
 
         void bind(Article article) {
-            textTitle.setText(article.getTitle());
-            textSummary.setText(article.getSummary() != null ? article.getSummary() : "");
+            textTitle.setText(article.getTitle() != null ? article.getTitle() : "");
+            textCategory.setText(formatCategory(article.getCategory()));
+            textViewCount.setText(article.getViewCount() > 0 ? String.valueOf(article.getViewCount()) : "");
 
             if (article.getReadTimeMinutes() > 0) {
                 textReadTime.setText(itemView.getContext().getString(R.string.min_read, article.getReadTimeMinutes()));
@@ -77,9 +80,25 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
                         .placeholder(R.drawable.rounded_image_background)
                         .centerCrop()
                         .into(imageArticle);
+            } else {
+                imageArticle.setImageResource(R.drawable.home_article_today);
             }
 
             itemView.setOnClickListener(v -> listener.onArticleClick(article));
+        }
+
+        private String formatCategory(String category) {
+            if (category == null || category.trim().isEmpty()) return "";
+            String trimmed = category.trim().replace('_', ' ');
+            String[] parts = trimmed.split("\\s+");
+            StringBuilder builder = new StringBuilder();
+            for (String part : parts) {
+                if (part.isEmpty()) continue;
+                if (builder.length() > 0) builder.append(' ');
+                builder.append(Character.toUpperCase(part.charAt(0)));
+                if (part.length() > 1) builder.append(part.substring(1).toLowerCase());
+            }
+            return builder.toString();
         }
     }
 }

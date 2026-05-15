@@ -3,9 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="12dp"
-    app:cardCornerRadius="12dp"
+    android:layout_marginBottom="18dp"
+    app:cardCornerRadius="8dp"
     app:cardElevation="1dp"
+    app:strokeColor="@color/design_gray"
+    app:strokeWidth="1dp"
     android:clickable="true"
     android:focusable="true">
 
@@ -17,7 +19,7 @@
         <ImageView
             android:id="@+id/imageRecipe"
             android:layout_width="match_parent"
-            android:layout_height="160dp"
+            android:layout_height="190dp"
             android:scaleType="centerCrop"
             android:contentDescription="@string/recipes_title" />
 
@@ -25,15 +27,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="12dp">
+            android:padding="16dp">
 
             <TextView
                 android:id="@+id/textRecipeTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
+                android:textSize="22sp"
                 android:textStyle="bold"
-                android:textColor="@color/text_primary"
+                android:textColor="@color/home_text_dark"
                 android:maxLines="2"
                 android:ellipsize="end" />
 
@@ -42,7 +44,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
-                android:textColor="@color/secondary"
+                android:textColor="@color/article_header"
                 android:layout_marginTop="4dp" />
 
             <LinearLayout

@@ -54,6 +54,32 @@
     <color name="category_social_bg">#FF9CBF93</color>
     <color name="category_creative_bg">#FF8B7BAE</color>
 
+    <!-- BabyG Home reference palette -->
+    <color name="home_sky_top">#FFC8EEF4</color>
+    <color name="home_sky_bottom">#FF58C4C5</color>
+    <color name="home_teal">#FF58B7BE</color>
+    <color name="article_header">#FF58B7BE</color>
+    <color name="app_header_start">#FFC8EEF4</color>
+    <color name="app_header_end">#FF58C4C5</color>
+    <color name="home_text_dark">#FF4F4F56</color>
+    <color name="home_text_muted">#FF7F8286</color>
+    <color name="home_card_surface">#FFF9FEFF</color>
+    <color name="home_date_selected">#FF807F7C</color>
+    <color name="design_cream">#FFFFFBF4</color>
+    <color name="design_line">#FFE2E2E2</color>
+    <color name="design_gray">#FF7C7E83</color>
+    <color name="design_blue">#FF4E72B7</color>
+    <color name="home_category_activities">#FFFFA6AF</color>
+    <color name="home_category_milestones">#FFFFA668</color>
+    <color name="home_category_weight">#FF70B4E7</color>
+    <color name="home_category_nutrition">#FFA8A8D7</color>
+    <color name="home_category_stories">#FF45CFA0</color>
+    <color name="home_category_articles">#FF6672C8</color>
+    <color name="milestone_physical">#FF45CFA0</color>
+    <color name="milestone_cognitive">#FFA8A8D7</color>
+    <color name="milestone_communication">#FFFFA668</color>
+    <color name="milestone_social">#FFFFA6AF</color>
+
     <!-- Tracker Colors -->
     <color name="tracker_feeding">#FFFFF3E0</color>
     <color name="tracker_sleep">#FFE3F2FD</color>

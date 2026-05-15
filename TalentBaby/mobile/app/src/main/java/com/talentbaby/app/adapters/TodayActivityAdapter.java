@@ -26,7 +26,7 @@ public class TodayActivityAdapter extends RecyclerView.Adapter<TodayActivityAdap
         void onActivityClick(Activity activity);
     }
 
-    private static final String[] CATEGORY_EMOJIS = {"🏃", "🧠", "💬", "👋"};
+    private static final String[] CATEGORY_MARKERS = {"o", "o", "o", "o"};
 
     public TodayActivityAdapter(List<DailyActivity> dailyActivities) {
         this.dailyActivities = dailyActivities;
@@ -61,10 +61,11 @@ public class TodayActivityAdapter extends RecyclerView.Adapter<TodayActivityAdap
         String subCat = activity.getSubCategory();
         if (subCat != null && !subCat.isEmpty()) {
             holder.textCategory.setText(subCat);
-            String emoji = position < CATEGORY_EMOJIS.length ? CATEGORY_EMOJIS[position] : "🎯";
-            holder.textSubCategoryIcon.setText(emoji);
+            String marker = position < CATEGORY_MARKERS.length ? CATEGORY_MARKERS[position] : "o";
+            holder.textSubCategoryIcon.setText(marker);
         } else if (activity.getCategory() != null) {
             holder.textCategory.setText(activity.getCategory());
+            holder.textSubCategoryIcon.setText("o");
         }
 
         if (activity.getDoneCount() > 0) {
@@ -83,14 +84,14 @@ public class TodayActivityAdapter extends RecyclerView.Adapter<TodayActivityAdap
             holder.textDuration.setVisibility(View.GONE);
         }
 
-        // Completed = check circle, not completed = lock
         if (daily.isCompleted()) {
-            holder.iconStatus.setImageResource(R.drawable.ic_check_circle);
+            holder.iconBookmark.setVisibility(View.VISIBLE);
+            holder.iconStatus.setImageResource(R.drawable.ic_activity_check);
         } else {
-            holder.iconStatus.setImageResource(R.drawable.ic_lock);
+            holder.iconBookmark.setVisibility(View.GONE);
+            holder.iconStatus.setImageResource(R.drawable.ic_activity_lock);
         }
 
-        // Load image
         if (activity.getImageUrl() != null && !activity.getImageUrl().isEmpty()) {
             String url = activity.getImageUrl().startsWith("/")
                     ? ApiClient.getBaseUrl() + activity.getImageUrl().substring(1)
@@ -100,6 +101,13 @@ public class TodayActivityAdapter extends RecyclerView.Adapter<TodayActivityAdap
                     .placeholder(R.drawable.rounded_image_background)
                     .centerCrop()
                     .into(holder.imageActivity);
+        } else {
+            int fallbackImage = fallbackImageForTitle(activity.getTitle(), position);
+            if (fallbackImage != 0) {
+                holder.imageActivity.setImageResource(fallbackImage);
+            } else {
+                holder.imageActivity.setImageResource(R.drawable.rounded_image_background);
+            }
         }
 
         holder.itemView.setOnClickListener(v -> {
@@ -112,8 +120,48 @@ public class TodayActivityAdapter extends RecyclerView.Adapter<TodayActivityAdap
         return dailyActivities != null ? dailyActivities.size() : 0;
     }
 
+    private int fallbackImageForTitle(String title, int position) {
+        if (title == null) return fallbackImageForPosition(position);
+        switch (title) {
+            case "Balancing":
+                return R.drawable.activity_balancing;
+            case "Bath Time Fun":
+                return R.drawable.activity_bath_time_fun;
+            case "Bedtime Kisses":
+                return R.drawable.activity_bedtime_kisses;
+            case "Bedtime Stories":
+                return R.drawable.activity_bedtime_stories;
+            case "Eye Movement":
+                return R.drawable.activity_eye_movement;
+            case "Recognizing Hands":
+                return R.drawable.activity_recognizing_hands;
+            case "Cycle Movement":
+                return R.drawable.activity_cycle_movement;
+            case "Stand-Up On Legs":
+                return R.drawable.activity_stand_up_on_legs;
+            case "Hand Games":
+                return R.drawable.activity_hand_games;
+            default:
+                return fallbackImageForPosition(position);
+        }
+    }
+
+    private int fallbackImageForPosition(int position) {
+        switch (position % 4) {
+            case 0:
+                return R.drawable.activity_balancing;
+            case 1:
+                return R.drawable.activity_bath_time_fun;
+            case 2:
+                return R.drawable.activity_bedtime_kisses;
+            default:
+                return R.drawable.activity_bedtime_stories;
+        }
+    }
+
     static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imageActivity;
+        ImageView iconBookmark;
         TextView textName;
         TextView textSubCategoryIcon;
         TextView textCategory;
@@ -124,6 +172,7 @@ public class TodayActivityAdapter extends RecyclerView.Adapter<TodayActivityAdap
         ViewHolder(@NonNull View itemView) {
             super(itemView);
             imageActivity = itemView.findViewById(R.id.imageActivity);
+            iconBookmark = itemView.findViewById(R.id.iconBookmark);
             textName = itemView.findViewById(R.id.textActivityName);
             textSubCategoryIcon = itemView.findViewById(R.id.textSubCategoryIcon);
             textCategory = itemView.findViewById(R.id.textActivityCategory);

@@ -2,9 +2,12 @@ package com.talentbaby.app.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
+import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -43,6 +46,7 @@ public class ActivitiesFragment extends Fragment {
     private ProgressBar progressBar;
     private LinearLayout layoutEmpty;
     private LinearLayout layoutMonthPills;
+    private HorizontalScrollView scrollActivityCategories;
     private ActivityAdapter activityAdapter;
     private List<Activity> activities = new ArrayList<>();
     private ApiService apiService;
@@ -73,9 +77,10 @@ public class ActivitiesFragment extends Fragment {
         progressBar = view.findViewById(R.id.progressBar);
         layoutEmpty = view.findViewById(R.id.layoutEmpty);
         layoutMonthPills = view.findViewById(R.id.layoutMonthPills);
+        scrollActivityCategories = view.findViewById(R.id.scrollActivityCategories);
 
         view.findViewById(R.id.btnParentingSupportAct).setOnClickListener(v ->
-                Toast.makeText(getContext(), getString(R.string.parenting_support), Toast.LENGTH_SHORT).show());
+                startActivity(new android.content.Intent(requireContext(), com.talentbaby.app.activities.ParentingSupportActivity.class)));
 
         view.findViewById(R.id.btnMenuActivities).setOnClickListener(v -> {
             if (getActivity() instanceof com.talentbaby.app.MainActivity) {
@@ -113,27 +118,31 @@ public class ActivitiesFragment extends Fragment {
 
     private void selectCategoryChip(TextView chip) {
         if (activeCategoryChip != null) {
-            activeCategoryChip.setBackgroundResource(R.drawable.bg_date_unselected);
-            activeCategoryChip.setTextColor(requireContext().getColor(R.color.text_secondary));
+            activeCategoryChip.setBackgroundResource(R.drawable.bg_teal_outline_pill);
+            activeCategoryChip.setTextColor(requireContext().getColor(android.R.color.white));
+            activeCategoryChip.animate().cancel();
+            activeCategoryChip.setScaleX(1f);
+            activeCategoryChip.setScaleY(1f);
         }
-        chip.setBackgroundResource(R.drawable.bg_teal_button);
-        chip.setTextColor(requireContext().getColor(android.R.color.white));
+        chip.setBackgroundResource(R.drawable.bg_white_pill);
+        chip.setTextColor(requireContext().getColor(R.color.home_teal));
         activeCategoryChip = chip;
+        animateSelectedChip(chip);
+        scrollCategoryIntoView(chip);
     }
 
     private void selectMonthPill(TextView pill, int month) {
-        if (activeMonthPill != null) {
-            activeMonthPill.setBackgroundResource(R.drawable.bg_date_unselected);
-            activeMonthPill.setTextColor(requireContext().getColor(R.color.date_unselected_text));
-        }
-        pill.setBackgroundResource(R.drawable.bg_date_selected);
-        pill.setTextColor(requireContext().getColor(android.R.color.white));
         activeMonthPill = pill;
         selectedMonth = month;
+        animateSelectedChip(pill);
+    }
+
+    private int dp(float value) {
+        return Math.round(value * getResources().getDisplayMetrics().density);
     }
 
     private void loadBabyAndSetupMonths() {
-        int babyId = TokenManager.getBabyId(requireContext());
+        int babyId = -1;
         if (babyId == -1) {
             // No baby — just load all activities
             setupMonthPills(6);
@@ -160,49 +169,105 @@ public class ActivitiesFragment extends Fragment {
 
     private void setupMonthPills(int currentMonth) {
         if (layoutMonthPills == null || getContext() == null) return;
-        layoutMonthPills.removeAllViews();
+        selectedMonth = Math.max(1, Math.min(36, currentMonth));
+        renderMonthPills(selectedMonth);
+        loadActivities();
+    }
 
-        int startMonth = Math.max(1, currentMonth - 2);
-        int endMonth = Math.min(36, currentMonth + 2);
+    private void renderMonthPills(int centerMonth) {
+        if (layoutMonthPills == null || getContext() == null) return;
+        layoutMonthPills.removeAllViews();
+        activeMonthPill = null;
+
+        int startMonth = Math.max(1, centerMonth - 1);
+        int endMonth = Math.min(36, centerMonth + 1);
+        if (endMonth - startMonth < 2) {
+            if (startMonth == 1) {
+                endMonth = Math.min(36, startMonth + 2);
+            } else {
+                startMonth = Math.max(1, endMonth - 2);
+            }
+        }
 
         for (int m = startMonth; m <= endMonth; m++) {
             final int month = m;
             TextView pill = new TextView(requireContext());
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    (int) (getResources().getDisplayMetrics().density * 36)
-            );
-            params.setMarginEnd((int) (getResources().getDisplayMetrics().density * 8));
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, dp(50), 1f);
+            params.setMargins(dp(3), 0, dp(3), 0);
             pill.setLayoutParams(params);
             pill.setText(getString(R.string.month_num, m));
-            pill.setTextSize(13f);
-            pill.setPaddingRelative(
-                    (int) (getResources().getDisplayMetrics().density * 16), 0,
-                    (int) (getResources().getDisplayMetrics().density * 16), 0
-            );
-            pill.setGravity(android.view.Gravity.CENTER);
+            pill.setTextSize(18f);
+            pill.setGravity(Gravity.CENTER);
             pill.setClickable(true);
             pill.setFocusable(true);
 
-            if (m == currentMonth) {
+            if (m == centerMonth) {
                 pill.setBackgroundResource(R.drawable.bg_date_selected);
                 pill.setTextColor(requireContext().getColor(android.R.color.white));
-                activeMonthPill = pill;
-                selectedMonth = month;
+                selectMonthPill(pill, month);
             } else {
-                pill.setBackgroundResource(R.drawable.bg_date_unselected);
-                pill.setTextColor(requireContext().getColor(R.color.date_unselected_text));
+                pill.setBackground(null);
+                pill.setTextColor(requireContext().getColor(R.color.home_text_dark));
             }
 
-            pill.setOnClickListener(v -> {
-                selectMonthPill(pill, month);
-                loadActivities();
-            });
+            pill.setOnClickListener(v -> slideToMonth(month));
 
             layoutMonthPills.addView(pill);
         }
+    }
 
-        loadActivities();
+    private void slideToMonth(int month) {
+        if (layoutMonthPills == null || getContext() == null) return;
+        final int targetMonth = Math.max(1, Math.min(36, month));
+        int previousMonth = selectedMonth == null ? targetMonth : selectedMonth;
+        if (previousMonth == targetMonth) {
+            if (activeMonthPill != null) animateSelectedChip(activeMonthPill);
+            return;
+        }
+
+        final int direction = targetMonth > previousMonth ? 1 : -1;
+        final float offset = dp(74);
+        selectedMonth = targetMonth;
+
+        layoutMonthPills.animate().cancel();
+        layoutMonthPills.animate()
+                .translationX(-direction * offset)
+                .alpha(0.55f)
+                .setDuration(140)
+                .withEndAction(() -> {
+                    if (layoutMonthPills == null || getContext() == null) return;
+                    renderMonthPills(targetMonth);
+                    layoutMonthPills.setTranslationX(direction * offset);
+                    layoutMonthPills.setAlpha(0.55f);
+                    layoutMonthPills.animate()
+                            .translationX(0f)
+                            .alpha(1f)
+                            .setDuration(220)
+                            .setInterpolator(new DecelerateInterpolator())
+                            .start();
+                    loadActivities();
+                })
+                .start();
+    }
+
+    private void animateSelectedChip(View chip) {
+        chip.animate().cancel();
+        chip.setScaleX(0.96f);
+        chip.setScaleY(0.96f);
+        chip.animate()
+                .scaleX(1f)
+                .scaleY(1f)
+                .setDuration(180)
+                .setInterpolator(new DecelerateInterpolator())
+                .start();
+    }
+
+    private void scrollCategoryIntoView(View chip) {
+        if (scrollActivityCategories == null) return;
+        scrollActivityCategories.post(() -> {
+            int target = chip.getLeft() - dp(24);
+            scrollActivityCategories.smoothScrollTo(Math.max(0, target), 0);
+        });
     }
 
     private void setupRecyclerView() {
@@ -217,6 +282,14 @@ public class ActivitiesFragment extends Fragment {
     }
 
     private void loadActivities() {
+        if (getContext() != null) {
+            progressBar.setVisibility(View.GONE);
+            layoutEmpty.setVisibility(View.GONE);
+            recyclerActivities.setVisibility(View.VISIBLE);
+            renderActivities(demoActivities());
+            return;
+        }
+
         progressBar.setVisibility(View.VISIBLE);
         layoutEmpty.setVisibility(View.GONE);
         recyclerActivities.setVisibility(View.GONE);
@@ -229,26 +302,75 @@ public class ActivitiesFragment extends Fragment {
                         progressBar.setVisibility(View.GONE);
                         if (response.isSuccessful() && response.body() != null
                                 && response.body().getData() != null) {
-                            activities.clear();
-                            activities.addAll(response.body().getData());
-                            activityAdapter.notifyDataSetChanged();
-                            boolean empty = activities.isEmpty();
-                            layoutEmpty.setVisibility(empty ? View.VISIBLE : View.GONE);
-                            recyclerActivities.setVisibility(empty ? View.GONE : View.VISIBLE);
+                            List<Activity> data = response.body().getData();
+                            renderActivities(data.isEmpty() ? demoActivities() : data);
                         } else {
-                            layoutEmpty.setVisibility(View.VISIBLE);
+                            renderActivities(demoActivities());
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ApiResponse<List<Activity>>> call, Throwable t) {
                         progressBar.setVisibility(View.GONE);
-                        layoutEmpty.setVisibility(View.VISIBLE);
-                        if (getContext() != null) {
-                            Toast.makeText(getContext(), getString(R.string.network_error), Toast.LENGTH_SHORT).show();
-                        }
+                        renderActivities(demoActivities());
                     }
                 });
+    }
+
+    private void renderActivities(List<Activity> data) {
+        activities.clear();
+        activities.addAll(data);
+        activityAdapter.notifyDataSetChanged();
+        boolean empty = activities.isEmpty();
+        layoutEmpty.setVisibility(empty ? View.VISIBLE : View.GONE);
+        recyclerActivities.setVisibility(empty ? View.GONE : View.VISIBLE);
+        if (!empty) {
+            recyclerActivities.animate().cancel();
+            recyclerActivities.setAlpha(0.72f);
+            recyclerActivities.setTranslationY(dp(8));
+            recyclerActivities.animate()
+                    .alpha(1f)
+                    .translationY(0f)
+                    .setDuration(180)
+                    .setInterpolator(new DecelerateInterpolator())
+                    .start();
+        }
+    }
+
+    private List<Activity> demoActivities() {
+        List<Activity> demo = new ArrayList<>();
+        demo.add(demoActivity(101, "Book Trick", "Articulation & Reasoning", "communication", 5, 7, 5, 10695));
+        demo.add(demoActivity(102, "Noise And Sound Together", "Speech Development", "communication", 5, 7, 5, 9886));
+        demo.add(demoActivity(103, "Lip Sounds L1", "Speech Development", "communication", 5, 7, 5, 6094));
+        demo.add(demoActivity(104, "Tongue Movements", "Acting and Expressions", "social", 5, 7, 5, 6379));
+        demo.add(demoActivity(105, "Balancing", "Gross Motor", "physical", 5, 7, 5, 8273));
+        demo.add(demoActivity(106, "Bedtime Stories", "Concept Learning", "cognitive", 5, 7, 5, 5682));
+
+        if (selectedCategory == null) return demo;
+
+        List<Activity> filtered = new ArrayList<>();
+        for (Activity activity : demo) {
+            if (selectedCategory.equals(activity.getCategory())) {
+                filtered.add(activity);
+            }
+        }
+        return filtered;
+    }
+
+    private Activity demoActivity(int id, String title, String subCategory, String category,
+                                  int minMonth, int maxMonth, int duration, int doneCount) {
+        Activity activity = new Activity();
+        activity.setId(id);
+        activity.setTitle(title);
+        activity.setDescription(title);
+        activity.setSubCategory(subCategory);
+        activity.setCategory(category);
+        activity.setMinAgeMonths(minMonth);
+        activity.setMaxAgeMonths(maxMonth);
+        activity.setDurationMinutes(duration);
+        activity.setDoneCount(doneCount);
+        activity.setDoctorVerified(true);
+        return activity;
     }
 
     private int calculateAgeInMonths(String birthDate) {

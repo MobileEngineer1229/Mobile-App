@@ -2,6 +2,7 @@ const standardsRoot = "reference/1711103428637300/营养标准汇编20231205";
 const dietGuideDataSource = "Chinese national food therapy and diet guidelines";
 const assessmentDataSource = "Chinese WS/T health assessment standards";
 const terminologyDataSource = "Chinese WS/T nutrition terminology and food composition standards";
+const whoGrowthDataSource = "WHO Growth Reference 2007";
 
 export const referenceSources = [
   {
@@ -183,6 +184,19 @@ export const referenceSources = [
     dataSource: assessmentDataSource,
     sourceNote: "Child and adolescent height development grade assessment standard.",
     tags: ["child", "height", "growth"]
+  },
+  {
+    sourceKey: "who-2007-child-weight-for-age-5-10",
+    title: "WHO Growth Reference 2007 - Weight-for-age 5 to 10 years",
+    standardCode: "WHO-2007-WFA-5-10",
+    year: 2007,
+    category: "assessment",
+    topic: "child_weight_growth",
+    filePath: "https://www.who.int/toolkits/growth-reference-data-for-5to19-years/indicators/weight-for-age-5to10-years",
+    language: "en",
+    dataSource: whoGrowthDataSource,
+    sourceNote: "WHO 2007 weight-for-age reference for children 5-10 years.",
+    tags: ["child", "weight", "growth", "WHO"]
   },
   {
     sourceKey: "wst801-2022-pregnancy-weight-gain",
@@ -402,6 +416,35 @@ export const conditionDietRules = [
   doctor_verified: true
 }));
 
+const conditionDietConditionMap = new Map<string, {
+  conditionKey: string;
+  conditionLabel: string;
+  sortOrder: number;
+  sourceRefs: string[];
+}>();
+
+conditionDietRules.forEach((rule, index) => {
+  const conditionKey = String(rule.conditionKey);
+  if (!conditionDietConditionMap.has(conditionKey)) {
+    conditionDietConditionMap.set(conditionKey, {
+      conditionKey,
+      conditionLabel: String(rule.conditionLabel),
+      sortOrder: index + 1,
+      sourceRefs: rule.sourceRefs
+    });
+  }
+});
+
+export const conditionDietConditions = [...conditionDietConditionMap.values()].map((condition) => ({
+  ...condition,
+  category: "condition_diet",
+  descriptionKo: `${condition.conditionLabel}에 대한 식사 제한, 권장 음식, 영양소 기준을 묶는 병명 자료입니다.`,
+  dataSource: dietGuideDataSource,
+  sourceNote: "Condition catalog used by Foodvisor disease-specific diet rules.",
+  tags: [condition.conditionKey, "condition_diet"],
+  doctor_verified: true
+}));
+
 const childBmiScreeningThresholds = [
   [6.0, 16.4, 17.7, 16.2, 17.5], [6.5, 16.7, 18.1, 16.5, 18.0],
   [7.0, 17.0, 18.7, 16.8, 18.5], [7.5, 17.4, 19.2, 17.2, 19.0],
@@ -450,6 +493,22 @@ const childHeightGrowthThresholds = {
   ]
 };
 
+const childWeightForAgeThresholds = {
+  male: [
+    [5, 14.4, 16.3, 18.5, 21.1, 24.2], [6, 15.9, 18.0, 20.5, 23.5, 27.1],
+    [7, 17.7, 20.0, 22.9, 26.4, 30.7], [8, 19.5, 22.1, 25.4, 29.5, 34.7],
+    [9, 21.3, 24.3, 28.1, 33.0, 39.4], [10, 23.2, 26.7, 31.2, 37.0, 45.0]
+  ],
+  female: [
+    [5, 14.0, 15.9, 18.3, 21.2, 24.8], [6, 15.3, 17.5, 20.2, 23.5, 27.8],
+    [7, 16.8, 19.3, 22.4, 26.3, 31.4], [8, 18.6, 21.4, 25.0, 29.7, 35.8],
+    [9, 20.8, 24.0, 28.2, 33.6, 41.0], [10, 23.3, 27.0, 31.9, 38.2, 46.9]
+  ],
+  unit: "kg",
+  bands: ["-2 표준편차", "-1 표준편차", "가운데값", "+1 표준편차", "+2 표준편차"],
+  note: "WHO weight-for-age data are available for 5-10 years only; BMI-for-age is preferred after age 10."
+};
+
 const pregnancyWeightGainThresholds = [
   { bmiCategory: "underweight", bmiMax: 18.5, totalGainMinKg: 11.0, totalGainMaxKg: 16.0, firstTrimesterMinKg: 0, firstTrimesterMaxKg: 2.0, weeklyGainKg: 0.46, weeklyGainMinKg: 0.37, weeklyGainMaxKg: 0.56 },
   { bmiCategory: "normal", bmiMin: 18.5, bmiMax: 24.0, totalGainMinKg: 8.0, totalGainMaxKg: 14.0, firstTrimesterMinKg: 0, firstTrimesterMaxKg: 2.0, weeklyGainKg: 0.37, weeklyGainMinKg: 0.26, weeklyGainMaxKg: 0.48 },
@@ -495,6 +554,22 @@ export const riskAssessmentRules = [
     doctor_verified: true
   },
   {
+    ruleKey: "who-2007-child-weight-for-age",
+    standardCode: "WHO-2007-WFA-5-10",
+    metricKey: "weight_kg",
+    metricLabel: "Child weight-for-age",
+    populationGroup: "child_adolescent",
+    ageMin: 5,
+    ageMax: 10,
+    gender: "all",
+    thresholds: childWeightForAgeThresholds,
+    interpretationKo: "WHO 2007 체중-for-age 기준으로 5-10세 아동의 나이별·성별 몸무게를 선별 평가합니다. 10세 이후에는 몸무게-for-age가 키와 체질량을 구분하기 어려우므로 BMI-for-age를 우선 사용합니다.",
+    dataSource: whoGrowthDataSource,
+    sourceRefs: [referenceSources.find((source) => source.sourceKey === "who-2007-child-weight-for-age-5-10")?.filePath || ""],
+    tags: ["child", "weight", "growth", "WHO"],
+    doctor_verified: true
+  },
+  {
     ruleKey: "wst611-child-waist-screening",
     standardCode: "WST611-2018",
     metricKey: "waist_cm",
@@ -520,10 +595,37 @@ export const riskAssessmentRules = [
     ageMax: 18,
     gender: "all",
     thresholds: childHeightGrowthThresholds,
-    interpretationKo: "7-18세 키 발달은 나이와 성별별 WST612 -2SD, -1SD, 중위수, +1SD, +2SD 기준값으로 평가합니다.",
+    interpretationKo: "7-18세 키 발달은 나이와 성별별 WST612 -2 표준편차, -1 표준편차, 가운데값, +1 표준편차, +2 표준편차 기준값으로 평가합니다.",
     dataSource: assessmentDataSource,
     sourceRefs: [referenceSources.find((source) => source.sourceKey === "wst612-2018-child-height")?.filePath || ""],
     tags: ["child", "height", "growth"],
+    doctor_verified: true
+  },
+  {
+    ruleKey: "wst428-height-weight-bmi-index",
+    standardCode: "WST428-2013",
+    metricKey: "height_weight_bmi",
+    metricLabel: "Height-weight BMI index",
+    populationGroup: "adult",
+    ageMin: 18,
+    gender: "all",
+    thresholds: {
+      formula: "BMI = weightKg / (heightCm / 100)^2",
+      chineseWst428: [
+        { label: "underweight", comparator: "lt", bmiMax: 18.5 },
+        { label: "normal", comparator: "range", bmiMin: 18.5, bmiMax: 23.9 },
+        { label: "overweight", comparator: "range", bmiMin: 24.0, bmiMax: 27.9 },
+        { label: "obesity", comparator: "gte", bmiMin: 28.0 }
+      ],
+      healthyWeightKgFormula: {
+        min: "18.5 * (heightCm / 100)^2",
+        max: "23.9 * (heightCm / 100)^2"
+      }
+    },
+    interpretationKo: "성인의 키 대 몸무게 영양 선별은 BMI와 키에서 계산한 적정 체중 범위를 함께 봅니다. 이 값은 선별 지표이며 의학적 진단이 아닙니다.",
+    dataSource: assessmentDataSource,
+    sourceRefs: [referenceSources.find((source) => source.sourceKey === "wst428-2013-adult-weight")?.filePath || ""],
+    tags: ["BMI", "height", "weight", "adult_weight"],
     doctor_verified: true
   },
   {

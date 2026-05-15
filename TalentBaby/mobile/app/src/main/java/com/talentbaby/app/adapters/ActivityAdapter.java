@@ -36,7 +36,7 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Activity activity = activities.get(position);
-        holder.bind(activity);
+        holder.bind(activity, position);
     }
 
     @Override
@@ -64,12 +64,20 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.ViewHo
             textDoneByCount = itemView.findViewById(R.id.textDoneByCount);
         }
 
-        void bind(Activity activity) {
+        void bind(Activity activity, int position) {
             textTitle.setText(activity.getTitle());
             String sub = activity.getSubCategory();
             textCategory.setText(sub != null && !sub.isEmpty() ? sub : (activity.getCategory() != null ? activity.getCategory() : ""));
             if (iconStatus != null) {
-                iconStatus.setImageResource(R.drawable.ic_lock);
+                if (position == 0) {
+                    iconStatus.setBackgroundResource(R.drawable.circle_outline_teal);
+                    iconStatus.setImageResource(R.drawable.ic_bookmark_outline);
+                    iconStatus.setPadding(8, 8, 8, 8);
+                } else {
+                    iconStatus.setBackground(null);
+                    iconStatus.setImageResource(R.drawable.ic_activity_lock);
+                    iconStatus.setPadding(0, 0, 0, 0);
+                }
                 iconStatus.setVisibility(View.VISIBLE);
             }
             if (textDoneByCount != null) {
@@ -106,9 +114,54 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.ViewHo
                         .placeholder(R.drawable.rounded_image_background)
                         .centerCrop()
                         .into(imageActivity);
+            } else {
+                imageActivity.setImageResource(fallbackImageForTitle(activity.getTitle(), position));
             }
 
             itemView.setOnClickListener(v -> listener.onActivityClick(activity));
+        }
+
+        private int fallbackImageForTitle(String title, int position) {
+            if (title != null) {
+                switch (title) {
+                    case "Balancing":
+                        return R.drawable.activity_balancing;
+                    case "Bath Time Fun":
+                        return R.drawable.activity_bath_time_fun;
+                    case "Bedtime Kisses":
+                        return R.drawable.activity_bedtime_kisses;
+                    case "Bedtime Stories":
+                        return R.drawable.activity_bedtime_stories;
+                    case "Book Trick":
+                        return R.drawable.activity_book_trick;
+                    case "Noise And Sound Together":
+                        return R.drawable.activity_noise_and_sound_together;
+                    case "Lip Sounds L1":
+                        return R.drawable.activity_lip_sounds_l1;
+                    case "Tongue Movements":
+                        return R.drawable.activity_tongue_movements;
+                    case "Eye Movement":
+                        return R.drawable.activity_eye_movement;
+                    case "Recognizing Hands":
+                        return R.drawable.activity_recognizing_hands;
+                    case "Cycle Movement":
+                        return R.drawable.activity_cycle_movement;
+                    default:
+                        break;
+                }
+            }
+
+            int safePosition = position == RecyclerView.NO_POSITION ? 0 : position;
+            switch (safePosition % 4) {
+                case 0:
+                    return R.drawable.activity_balancing;
+                case 1:
+                    return R.drawable.activity_bath_time_fun;
+                case 2:
+                    return R.drawable.activity_bedtime_kisses;
+                default:
+                    return R.drawable.activity_bedtime_stories;
+            }
         }
     }
 }

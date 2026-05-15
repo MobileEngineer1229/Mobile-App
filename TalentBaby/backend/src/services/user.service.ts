@@ -34,6 +34,7 @@ export class UserService {
       'birthdate',
       'profile_picture_url',
       'language_preference',
+      'relation_to_baby',
     ];
 
     const filteredUpdates: any = {};

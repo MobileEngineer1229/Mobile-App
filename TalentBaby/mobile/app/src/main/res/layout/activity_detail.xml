@@ -4,48 +4,46 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background">
+    android:background="@color/white">
 
-    <!-- Collapsing app bar with illustration -->
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarDetail"
         android:layout_width="match_parent"
-        android:layout_height="220dp"
+        android:layout_height="320dp"
         android:background="@color/primary_container"
         app:elevation="0dp">
 
-        <com.google.android.material.appbar.CollapsingToolbarLayout
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:contentScrim="@color/background">
+            android:layout_height="match_parent">
 
-            <!-- Baby illustration / activity image -->
             <ImageView
                 android:id="@+id/imageDetail"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="centerCrop"
                 android:background="@color/primary_container"
-                app:layout_collapseMode="parallax"
-                android:contentDescription="@string/activity_details" />
+                android:contentDescription="@string/activity_details"
+                android:scaleType="centerCrop" />
 
-            <!-- Back button toolbar -->
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@android:color/transparent"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_gravity="start|top"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="44dp"
+                android:background="@drawable/circle_gray_button"
+                app:contentInsetStartWithNavigation="0dp"
+                app:layout_collapseMode="pin"
                 app:navigationIcon="@drawable/ic_back"
-                app:navigationIconTint="@color/text_primary"
-                app:layout_collapseMode="pin" />
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
+                app:navigationIconTint="@color/white" />
+        </FrameLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <!-- Scrollable detail content -->
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
@@ -54,244 +52,240 @@
             android:orientation="vertical"
             android:paddingBottom="32dp">
 
-            <!-- Star rating + social proof -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_height="100dp"
                 android:gravity="center_vertical"
-                android:paddingHorizontal="20dp"
-                android:paddingTop="16dp"
-                android:paddingBottom="8dp">
+                android:orientation="horizontal"
+                android:paddingStart="34dp"
+                android:paddingEnd="30dp">
 
-                <!-- Stars -->
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_star_filled" android:contentDescription="star" />
-                    <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_star_filled" android:contentDescription="star" android:layout_marginStart="2dp" />
-                    <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_star_filled" android:contentDescription="star" android:layout_marginStart="2dp" />
-                    <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_star_filled" android:contentDescription="star" android:layout_marginStart="2dp" />
-                    <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_star_filled" android:contentDescription="star" android:layout_marginStart="2dp" />
-                </LinearLayout>
-
-                <!-- Done by babies count -->
-                <TextView
-                    android:id="@+id/textDoneByBabies"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Done by 10,328 Babies"
-                    android:textSize="12sp"
-                    android:textColor="@color/text_secondary"
-                    android:layout_marginStart="10dp" />
+                    android:orientation="horizontal">
 
-                <!-- Doctor verified badge -->
-                <LinearLayout
-                    android:id="@+id/layoutVerified"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:visibility="gone">
-                    <ImageView android:layout_width="16dp" android:layout_height="16dp" android:src="@drawable/ic_doctor_verified" android:contentDescription="verified" />
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/doctor_verified" android:textSize="11sp" android:textColor="@color/primary" android:layout_marginStart="4dp" />
+                    <ImageView android:layout_width="30dp" android:layout_height="30dp" android:src="@drawable/ic_star_outline_teal" android:contentDescription="star" />
+                    <ImageView android:layout_width="30dp" android:layout_height="30dp" android:layout_marginStart="4dp" android:src="@drawable/ic_star_outline_teal" android:contentDescription="star" />
+                    <ImageView android:layout_width="30dp" android:layout_height="30dp" android:layout_marginStart="4dp" android:src="@drawable/ic_star_outline_teal" android:contentDescription="star" />
+                    <ImageView android:layout_width="30dp" android:layout_height="30dp" android:layout_marginStart="4dp" android:src="@drawable/ic_star_outline_teal" android:contentDescription="star" />
+                    <ImageView android:layout_width="30dp" android:layout_height="30dp" android:layout_marginStart="4dp" android:src="@drawable/ic_star_outline_teal" android:contentDescription="star" />
                 </LinearLayout>
+
+                <ImageView
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:layout_marginEnd="28dp"
+                    android:contentDescription="Bookmark"
+                    android:src="@drawable/ic_bookmark_outline" />
+
+                <ImageView
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:contentDescription="Share"
+                    android:src="@drawable/ic_share_outline_teal" />
             </LinearLayout>
 
-            <!-- Difficulty buttons -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="70dp"
+                android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:gravity="center"
-                android:paddingHorizontal="20dp"
-                android:paddingBottom="16dp">
+                android:paddingStart="28dp"
+                android:paddingEnd="28dp">
+
+                <TextView
+                    android:id="@+id/textDoneByBabies"
+                    android:layout_width="112dp"
+                    android:layout_height="wrap_content"
+                    android:text="Done by 10328 Babies"
+                    android:textColor="@color/home_text_muted"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="58dp"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginEnd="18dp"
+                    android:background="@color/home_text_muted" />
 
                 <TextView
                     android:id="@+id/btnTooEasy"
                     android:layout_width="0dp"
-                    android:layout_height="40dp"
+                    android:layout_height="46dp"
+                    android:layout_marginEnd="12dp"
                     android:layout_weight="1"
-                    android:text="@string/too_easy"
-                    android:textSize="13sp"
-                    android:textColor="@color/text_secondary"
-                    android:background="@drawable/bg_difficulty_button"
-                    android:gravity="center"
-                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/bg_teal_outline_pill"
                     android:clickable="true"
-                    android:focusable="true" />
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:text="@string/too_easy"
+                    android:textColor="@color/home_teal"
+                    android:textSize="17sp" />
 
                 <TextView
                     android:id="@+id/btnTooHard"
                     android:layout_width="0dp"
-                    android:layout_height="40dp"
+                    android:layout_height="46dp"
                     android:layout_weight="1"
-                    android:text="@string/too_hard"
-                    android:textSize="13sp"
-                    android:textColor="@color/text_secondary"
-                    android:background="@drawable/bg_difficulty_button"
-                    android:gravity="center"
+                    android:background="@drawable/bg_teal_outline_pill"
                     android:clickable="true"
-                    android:focusable="true" />
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:text="@string/too_hard"
+                    android:textColor="@color/home_teal"
+                    android:textSize="17sp" />
             </LinearLayout>
 
-            <!-- Section label: category (pink) -->
             <LinearLayout
+                android:id="@+id/layoutVerified"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:orientation="horizontal"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/layoutFrequency"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:visibility="gone">
+                <TextView
+                    android:id="@+id/textFrequency"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textSectionCategory"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:background="@drawable/bg_section_header_pink"
-                android:paddingHorizontal="20dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginBottom="6dp">
+                android:paddingStart="32dp"
+                android:paddingTop="22dp"
+                android:paddingEnd="32dp"
+                android:text="Memory and Attention"
+                android:textColor="#FF8179"
+                android:textSize="16sp" />
 
-                <TextView
-                    android:id="@+id/textSectionCategory"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Infancy and Attention"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:textColor="#FFAD1457"
-                    android:padding="8dp" />
-            </LinearLayout>
-
-            <!-- Section label: activity title (teal) -->
-            <LinearLayout
+            <TextView
+                android:id="@+id/textTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:background="@drawable/bg_section_header_teal"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginBottom="12dp">
+                android:paddingStart="32dp"
+                android:paddingTop="18dp"
+                android:paddingEnd="32dp"
+                android:textColor="#6B8FCD"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/textTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="17sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/primary"
-                    android:padding="12dp" />
-            </LinearLayout>
-
-            <!-- Description -->
             <TextView
                 android:id="@+id/textDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:textColor="@color/text_primary"
-                android:lineSpacingMultiplier="1.6"
-                android:paddingHorizontal="20dp"
-                android:paddingBottom="12dp" />
+                android:lineSpacingMultiplier="1.18"
+                android:paddingStart="32dp"
+                android:paddingTop="12dp"
+                android:paddingEnd="32dp"
+                android:textColor="@color/home_text_muted"
+                android:textSize="20sp" />
 
-            <!-- Frequency badge -->
-            <LinearLayout
-                android:id="@+id/layoutFrequency"
-                android:layout_width="wrap_content"
+            <TextView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:background="@drawable/bg_teal_button"
-                android:paddingHorizontal="16dp"
-                android:paddingTop="6dp"
-                android:paddingBottom="6dp"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginBottom="16dp"
-                android:visibility="gone">
+                android:paddingStart="32dp"
+                android:paddingTop="16dp"
+                android:paddingEnd="32dp"
+                android:text="@string/frequency"
+                android:textColor="@color/home_text_dark"
+                android:textSize="19sp"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/textFrequency"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/once_a_day"
-                    android:textSize="12sp"
-                    android:textColor="@color/white" />
-            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="32dp"
+                android:paddingTop="12dp"
+                android:paddingEnd="32dp"
+                android:text="@string/once_a_day"
+                android:textColor="@color/home_text_muted"
+                android:textSize="19sp" />
 
-            <!-- Benefits section -->
             <TextView
                 android:id="@+id/labelBenefits"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingStart="32dp"
+                android:paddingTop="16dp"
+                android:paddingEnd="32dp"
                 android:text="@string/benefits_label"
-                android:textSize="16sp"
+                android:textColor="@color/home_text_dark"
+                android:textSize="19sp"
                 android:textStyle="bold"
-                android:textColor="@color/text_primary"
-                android:paddingHorizontal="20dp"
-                android:paddingBottom="8dp"
                 android:visibility="gone" />
 
             <TextView
                 android:id="@+id/textBenefits"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:textColor="@color/text_primary"
-                android:lineSpacingMultiplier="1.5"
-                android:paddingHorizontal="20dp"
-                android:paddingBottom="16dp"
+                android:lineSpacingMultiplier="1.35"
+                android:paddingStart="32dp"
+                android:paddingTop="12dp"
+                android:paddingEnd="32dp"
+                android:textColor="@color/home_text_muted"
+                android:textSize="19sp"
                 android:visibility="gone" />
 
-            <!-- Divider -->
-            <View android:layout_width="match_parent" android:layout_height="1dp"
-                android:background="@color/divider" android:layout_marginHorizontal="20dp"
-                android:layout_marginBottom="16dp"
+            <View
                 android:id="@+id/dividerMaterials"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:visibility="gone" />
 
-            <!-- Materials section -->
             <TextView
                 android:id="@+id/labelMaterials"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingStart="32dp"
+                android:paddingTop="18dp"
+                android:paddingEnd="32dp"
                 android:text="@string/materials_label"
-                android:textSize="16sp"
+                android:textColor="@color/home_text_dark"
+                android:textSize="19sp"
                 android:textStyle="bold"
-                android:textColor="@color/text_primary"
-                android:paddingHorizontal="20dp"
-                android:paddingBottom="8dp"
                 android:visibility="gone" />
 
             <TextView
                 android:id="@+id/textMaterials"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:textColor="@color/text_primary"
-                android:lineSpacingMultiplier="1.5"
-                android:paddingHorizontal="20dp"
-                android:paddingBottom="24dp"
+                android:lineSpacingMultiplier="1.35"
+                android:paddingStart="32dp"
+                android:paddingTop="12dp"
+                android:paddingEnd="32dp"
+                android:textColor="@color/home_text_muted"
+                android:textSize="19sp"
                 android:visibility="gone" />
 
-            <!-- Mark as done button -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/buttonComplete"
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="32dp"
+                android:backgroundTint="@color/home_teal"
                 android:text="@string/mark_done"
-                android:textSize="15sp"
-                android:backgroundTint="@color/primary"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="8dp" />
-
+                android:textColor="@color/white"
+                android:textSize="15sp" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <!-- Loading overlay -->
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:indeterminateTint="@color/primary"
+        android:indeterminateTint="@color/home_teal"
         android:visibility="gone" />
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

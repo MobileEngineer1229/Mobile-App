@@ -24,11 +24,20 @@ public class Article {
     @SerializedName("author")
     private String author;
 
-    @SerializedName("read_time_minutes")
+    @SerializedName(value = "read_time_minutes", alternate = {"reading_time_minutes"})
     private int readTimeMinutes;
 
     @SerializedName("is_premium")
     private boolean isPremium;
+
+    @SerializedName("view_count")
+    private int viewCount;
+
+    @SerializedName("doctor_name")
+    private String doctorName;
+
+    @SerializedName("doctor_credentials")
+    private String doctorCredentials;
 
     @SerializedName("created_at")
     private String createdAt;
@@ -51,6 +60,12 @@ public class Article {
     public void setReadTimeMinutes(int readTimeMinutes) { this.readTimeMinutes = readTimeMinutes; }
     public boolean isPremium() { return isPremium; }
     public void setPremium(boolean premium) { isPremium = premium; }
+    public int getViewCount() { return viewCount; }
+    public void setViewCount(int viewCount) { this.viewCount = viewCount; }
+    public String getDoctorName() { return doctorName; }
+    public void setDoctorName(String doctorName) { this.doctorName = doctorName; }
+    public String getDoctorCredentials() { return doctorCredentials; }
+    public void setDoctorCredentials(String doctorCredentials) { this.doctorCredentials = doctorCredentials; }
     public String getCreatedAt() { return createdAt; }
     public void setCreatedAt(String createdAt) { this.createdAt = createdAt; }
 }

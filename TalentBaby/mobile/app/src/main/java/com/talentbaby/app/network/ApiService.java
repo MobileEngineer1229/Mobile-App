@@ -14,6 +14,7 @@ import com.talentbaby.app.models.GrowthRecord;
 import com.talentbaby.app.models.MilestoneDefinition;
 import com.talentbaby.app.models.Recipe;
 import com.talentbaby.app.models.SleepSession;
+import com.talentbaby.app.models.Story;
 import com.talentbaby.app.models.User;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -218,7 +219,8 @@ public interface ApiService {
     // Articles
     @GET("articles")
     Call<ApiResponse<List<Article>>> getArticles(
-            @Query("category") String category
+            @Query("category") String category,
+            @Query("month") Integer month
     );
 
     @GET("articles/{id}")
@@ -235,4 +237,23 @@ public interface ApiService {
 
     @DELETE("articles/{id}/bookmark")
     Call<ApiResponse<Object>> unbookmarkArticle(@Path("id") int id);
+
+    // Stories
+    @GET("stories")
+    Call<ApiResponse<List<Story>>> getStories(
+            @Query("age_months") Integer ageMonths,
+            @Query("search") String search
+    );
+
+    @GET("stories/{id}")
+    Call<ApiResponse<Story>> getStory(@Path("id") int id);
+
+    @GET("stories/bookmarked")
+    Call<ApiResponse<List<Story>>> getBookmarkedStories();
+
+    @POST("stories/{id}/bookmark")
+    Call<ApiResponse<Object>> bookmarkStory(@Path("id") int id);
+
+    @DELETE("stories/{id}/bookmark")
+    Call<ApiResponse<Object>> unbookmarkStory(@Path("id") int id);
 }

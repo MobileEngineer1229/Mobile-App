@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#FDF6EE">
+    android:background="@color/white">
 
-    <!-- ══ HEADER: peach→coral gradient ══ -->
+    <!-- Header follows the shared light/night app header colors. -->
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -70,7 +70,7 @@
                     android:text="@string/weight"
                     android:textSize="14sp"
                     android:textStyle="bold"
-                    android:textColor="#D96E4B"
+                    android:textColor="@color/article_header"
                     android:background="@drawable/bg_tab_white_pill"
                     android:gravity="center"
                     android:clickable="true"
@@ -107,7 +107,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="#FDF6EE"
+        android:background="@color/white"
         android:overScrollMode="never">
 
         <LinearLayout
@@ -230,7 +230,7 @@
                             android:layout_height="32dp"
                             android:src="@drawable/ic_chevron_left"
                             android:background="?attr/selectableItemBackgroundBorderless"
-                            android:tint="#D96E4B"
+                            android:tint="@color/article_header"
                             android:contentDescription="Previous" />
 
                         <TextView
@@ -239,7 +239,7 @@
                             android:layout_height="wrap_content"
                             android:text="0 Month - 6 Month"
                             android:textSize="13sp"
-                            android:textColor="#D96E4B"
+                            android:textColor="@color/article_header"
                             android:paddingStart="12dp"
                             android:paddingEnd="12dp"
                             android:textStyle="bold" />
@@ -250,7 +250,7 @@
                             android:layout_height="32dp"
                             android:src="@drawable/ic_chevron_right"
                             android:background="?attr/selectableItemBackgroundBorderless"
-                            android:tint="#D96E4B"
+                            android:tint="@color/article_header"
                             android:contentDescription="Next" />
                     </LinearLayout>
                 </LinearLayout>
@@ -265,14 +265,30 @@
                 app:cardElevation="3dp"
                 app:cardBackgroundColor="#FFFFFF">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/your_data_here"
-                    android:textSize="14sp"
-                    android:textColor="#9A8A80"
-                    android:gravity="center"
-                    android:padding="30dp" />
+                    android:minHeight="170dp"
+                    android:orientation="vertical"
+                    android:padding="24dp">
+
+                    <TextView
+                        android:id="@+id/textYourDataTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/your_data_here"
+                        android:textColor="#6D6E73"
+                        android:textSize="22sp" />
+
+                    <LinearLayout
+                        android:id="@+id/layoutGrowthRecords"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="18dp"
+                        android:orientation="vertical"
+                        android:visibility="gone" />
+                </LinearLayout>
             </androidx.cardview.widget.CardView>
 
             <!-- Add Data button -->

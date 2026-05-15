@@ -22,6 +22,40 @@
 - [ ] 18. [Workout App](./18-workout-app.md)
 - [ ] 19. [AI Assistant with DPRK Language (Generative AI from scratch)](./19-ai-assistant-dprk-language.md)
 
+---
+
+### 20. World Cuisines App
+
+**Overview:** A comprehensive mobile app that takes users on a global culinary journey — exploring authentic recipes, cooking traditions, cultural stories, and ingredients from every corner of the world. Built for food lovers, home cooks, travelers, and culture enthusiasts who want to discover, learn, and recreate the world's most beloved dishes at home.
+
+**Target Audience:** Home cooks, food enthusiasts, travelers, culinary students, expats reconnecting with home cuisine.
+
+**Core Features:**
+
+1. **World Cuisine Explorer** — Browse 195+ countries by continent/region with curated cuisine profiles, cultural background, history, and seasonal/festival food highlights.
+2. **Recipe Discovery & Search** — 100,000+ authentic recipes with advanced filters: cuisine, dietary type (Vegan, Halal, Gluten-Free, etc.), cooking time, difficulty, available ingredients, and calorie range.
+3. **Step-by-Step Cooking Mode** — Fullscreen hands-free mode with voice-guided instructions, per-step timers, ingredient checklist, embedded technique video clips, and Chef's Notes for regional authenticity.
+4. **Cultural Food Stories** — Deep-dive articles, chef spotlights, short food documentary videos, dish origin facts, and traditional festival food guides.
+5. **Ingredient Encyclopedia** — 5,000+ global ingredients with origin, flavor profile, substitutions, allergen info, and AR camera mode to identify fresh produce and spices.
+6. **Meal Planning & Shopping List** — Weekly drag-and-drop planner, auto-generated shopping lists grouped by category, pantry tracker, budget estimator, and list sharing via WhatsApp/SMS.
+7. **AI-Powered Recommendations** — Personalized recipe feed, "What to cook tonight?" AI assistant based on available ingredients and time, AI Flavor Pairing across global cuisines, and nutritional optimization suggestions.
+8. **Nutritional Information** — Full macro/micro breakdown per recipe, daily intake comparison, healthier swap suggestions, and integration with Apple Health / Google Fit.
+9. **Community & Social** — User-submitted recipes, dish photo sharing, ratings/reviews, "Cooked It" tracker, weekly cuisine challenges, and following favorite cooks/chefs.
+10. **Offline Mode** — Download up to 50 recipes with full offline access; sync when back online.
+11. **Language & Localization** — App UI in 20+ languages, original + translated dish names, pronunciation audio guide, and metric/imperial/traditional unit toggle.
+12. **Cooking Classes & Tutorials** — Short-form video lessons by cuisine, beginner skill tracks, technique library, and live cooking events with guest chefs.
+13. **Restaurant & Travel Integration** — "Eat Like a Local" city guides, nearby restaurant finder by cuisine, menu item scanner to find the home recipe, and travel food diary with location tags.
+14. **Gamification & Achievements** — Cuisine Passport (stamps per country cooked), achievement badges, weekly streak system, friend leaderboard, and leveling system from Culinary Novice → World Chef.
+
+**Tech Stack:** Flutter (mobile) · Node.js/NestJS (backend) · PostgreSQL + MongoDB · Elasticsearch (recipe search) · Python FastAPI (AI/ML) · AWS S3 (media) · Firebase Auth · Google ML Kit / ARCore (AR)
+
+**Monetization:** Freemium (5,000 free recipes) + Premium subscription ($4.99/mo) + Cuisine packs ($2.99 one-time) + Affiliate ingredient links
+
+**MVP Scope:** 30 countries, 500+ recipes, cooking mode, basic search/filters, favorites, shopping list, auth, nutritional info, offline download.
+
+- [ ] 20. [World Cuisines App](./20-world-cuisines-app.md)
+
+---
 
 3. 🍲 종합 영양+이미지 데이터셋 사용하기 (로컬 데이터베이스 구축)
 API 호출이 아니라, 미리 구축된 종합 데이터베이스를 통째로 다운로드하여 사용하는 방법입니다.

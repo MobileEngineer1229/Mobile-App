@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.talentbaby.app.R;
 import com.talentbaby.app.activities.AddBabyActivity;
+import com.talentbaby.app.activities.BabyProfileActivity;
 import com.talentbaby.app.activities.LoginActivity;
 import com.talentbaby.app.adapters.BabyAdapter;
 import com.talentbaby.app.models.ApiResponse;
@@ -70,6 +71,12 @@ public class ProfileFragment extends Fragment {
         buttonAddBaby = view.findViewById(R.id.buttonAddBaby);
         progressBar = view.findViewById(R.id.progressBar);
 
+        view.findViewById(R.id.btnMenuProfile).setOnClickListener(v -> {
+            if (getActivity() instanceof com.talentbaby.app.MainActivity) {
+                ((com.talentbaby.app.MainActivity) getActivity()).openDrawer();
+            }
+        });
+
         buttonAddBaby.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), AddBabyActivity.class);
             startActivity(intent);
@@ -80,7 +87,7 @@ public class ProfileFragment extends Fragment {
 
     private void setupRecyclerView() {
         babyAdapter = new BabyAdapter(babies, baby -> {
-            Intent intent = new Intent(getActivity(), AddBabyActivity.class);
+            Intent intent = new Intent(getActivity(), BabyProfileActivity.class);
             intent.putExtra("baby_id", baby.getId());
             intent.putExtra("baby_name", baby.getName());
             intent.putExtra("baby_birth_date", baby.getBirthDate());

@@ -10,7 +10,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
-import com.google.android.material.appbar.MaterialToolbar;
 import com.talentbaby.app.R;
 import com.talentbaby.app.models.ApiResponse;
 import com.talentbaby.app.models.Article;
@@ -24,9 +23,11 @@ import retrofit2.Response;
 public class ArticleDetailActivity extends AppCompatActivity {
 
     private ImageView imageArticle;
+    private TextView textCategory;
     private TextView textTitle;
     private TextView textAuthor;
     private TextView textReadTime;
+    private TextView textViewCount;
     private TextView textContent;
     private ProgressBar progressBar;
     private ApiService apiService;
@@ -36,15 +37,16 @@ public class ArticleDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_detail);
 
-        MaterialToolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setNavigationOnClickListener(v -> onBackPressed());
+        findViewById(R.id.btnBackArticle).setOnClickListener(v -> finish());
 
         apiService = ApiClient.getClient().create(ApiService.class);
 
         imageArticle = findViewById(R.id.imageArticle);
+        textCategory = findViewById(R.id.textCategory);
         textTitle = findViewById(R.id.textTitle);
         textAuthor = findViewById(R.id.textAuthor);
         textReadTime = findViewById(R.id.textReadTime);
+        textViewCount = findViewById(R.id.textViewCount);
         textContent = findViewById(R.id.textContent);
         progressBar = findViewById(R.id.progressBar);
 
@@ -78,13 +80,24 @@ public class ArticleDetailActivity extends AppCompatActivity {
 
     private void bindArticle(Article article) {
         textTitle.setText(article.getTitle() != null ? article.getTitle() : "");
+        textCategory.setText(formatCategory(article.getCategory()));
+        textViewCount.setText(article.getViewCount() > 0 ? String.valueOf(article.getViewCount()) : "");
 
-        if (article.getAuthor() != null && !article.getAuthor().isEmpty()) {
+        String doctor = article.getDoctorName();
+        String credentials = article.getDoctorCredentials();
+        if (doctor != null && !doctor.isEmpty()) {
+            String suffix = credentials != null && !credentials.isEmpty() ? ", " + credentials : "";
+            textAuthor.setText(getString(R.string.article_vetted_by, doctor, suffix));
+        } else if (article.getAuthor() != null && !article.getAuthor().isEmpty()) {
             textAuthor.setText(article.getAuthor());
+        } else {
+            textAuthor.setText("");
         }
 
         if (article.getReadTimeMinutes() > 0) {
-            textReadTime.setText(getString(R.string.minutes, article.getReadTimeMinutes()));
+            textReadTime.setText(getString(R.string.min_read, article.getReadTimeMinutes()));
+        } else {
+            textReadTime.setText("");
         }
 
         String body = article.getContent() != null ? article.getContent()
@@ -95,7 +108,27 @@ public class ArticleDetailActivity extends AppCompatActivity {
             String url = article.getImageUrl().startsWith("/")
                     ? ApiClient.getBaseUrl() + article.getImageUrl().substring(1)
                     : article.getImageUrl();
-            Glide.with(this).load(url).centerCrop().into(imageArticle);
+            Glide.with(this)
+                    .load(url)
+                    .placeholder(R.drawable.home_article_today)
+                    .centerCrop()
+                    .into(imageArticle);
+        } else {
+            imageArticle.setImageResource(R.drawable.home_article_today);
         }
+    }
+
+    private String formatCategory(String category) {
+        if (category == null || category.trim().isEmpty()) return "";
+        String trimmed = category.trim().replace('_', ' ');
+        String[] parts = trimmed.split("\\s+");
+        StringBuilder builder = new StringBuilder();
+        for (String part : parts) {
+            if (part.isEmpty()) continue;
+            if (builder.length() > 0) builder.append(' ');
+            builder.append(Character.toUpperCase(part.charAt(0)));
+            if (part.length() > 1) builder.append(part.substring(1).toLowerCase());
+        }
+        return builder.toString();
     }
 }

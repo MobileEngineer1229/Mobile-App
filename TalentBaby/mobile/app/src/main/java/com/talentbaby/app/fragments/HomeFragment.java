@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.OvershootInterpolator;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +20,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.card.MaterialCardView;
 import com.talentbaby.app.R;
 import com.talentbaby.app.activities.ActivityDetailActivity;
+import com.talentbaby.app.activities.NutritionRecipesActivity;
+import com.talentbaby.app.activities.StoryDetailActivity;
+import com.talentbaby.app.activities.StoryTimeActivity;
 import com.talentbaby.app.adapters.TodayActivityAdapter;
 import com.talentbaby.app.models.DailyActivity;
 import com.talentbaby.app.network.ApiService;
@@ -51,6 +56,7 @@ public class HomeFragment extends Fragment {
 
     private TextView tabPhysical, tabCognitive, tabSpeech, tabSocial;
     private TextView activeTab;
+    private int lastDateAnimationDirection = 0;
 
     @Nullable
     @Override
@@ -97,7 +103,7 @@ public class HomeFragment extends Fragment {
 
         // Parenting support (LinearLayout pill)
         view.findViewById(R.id.btnParentingSupport).setOnClickListener(v ->
-                Toast.makeText(getContext(), getString(R.string.parenting_support), Toast.LENGTH_SHORT).show());
+                startActivity(new Intent(requireContext(), com.talentbaby.app.activities.ParentingSupportActivity.class)));
 
         // Menu → sidebar
         view.findViewById(R.id.btnMenu).setOnClickListener(v -> {
@@ -128,11 +134,9 @@ public class HomeFragment extends Fragment {
                 startActivity(new Intent(getActivity(),
                         com.talentbaby.app.activities.GrowthTrackerActivity.class)));
         view.findViewById(R.id.cardCatNutrition).setOnClickListener(v ->
-                Toast.makeText(getContext(), getString(R.string.category_nutrition), Toast.LENGTH_SHORT).show());
-        view.findViewById(R.id.cardCatStories).setOnClickListener(v ->
-                Toast.makeText(getContext(), getString(R.string.category_stories), Toast.LENGTH_SHORT).show());
-        view.findViewById(R.id.cardCatArticles).setOnClickListener(v ->
-                Toast.makeText(getContext(), getString(R.string.category_articles), Toast.LENGTH_SHORT).show());
+                startActivity(new Intent(requireContext(), NutritionRecipesActivity.class)));
+        view.findViewById(R.id.cardCatStories).setOnClickListener(v -> openStoriesPart());
+        view.findViewById(R.id.cardCatArticles).setOnClickListener(v -> openArticlesPart());
 
         // Tracker
         view.findViewById(R.id.cardFeeding).setOnClickListener(v ->
@@ -147,6 +151,25 @@ public class HomeFragment extends Fragment {
         // Milestone achieved
         view.findViewById(R.id.btnMilestoneAchieved).setOnClickListener(v ->
                 Toast.makeText(getContext(), getString(R.string.milestone_achieved), Toast.LENGTH_SHORT).show());
+
+        view.findViewById(R.id.textStorySeeMore).setOnClickListener(v -> openStoriesPart());
+        view.findViewById(R.id.cardStoryToday).setOnClickListener(v -> openStoryDetail(1));
+        view.findViewById(R.id.textArticleSeeMore).setOnClickListener(v -> openArticlesPart());
+        view.findViewById(R.id.cardArticleToday).setOnClickListener(v -> openArticlesPart());
+    }
+
+    private void openStoriesPart() {
+        startActivity(new Intent(requireContext(), StoryTimeActivity.class));
+    }
+
+    private void openStoryDetail(int storyId) {
+        Intent intent = new Intent(requireContext(), StoryDetailActivity.class);
+        intent.putExtra("story_id", storyId);
+        startActivity(intent);
+    }
+
+    private void openArticlesPart() {
+        startActivity(new Intent(requireContext(), com.talentbaby.app.activities.WisdomInsightsActivity.class));
     }
 
     private void setupRecyclerView() {
@@ -166,13 +189,17 @@ public class HomeFragment extends Fragment {
 
         layoutDatePrev.setOnClickListener(v -> {
             selectedDayOffset--;
+            lastDateAnimationDirection = -1;
             refreshDateSelector();
+            animateDateSelector(-1);
             onSelectedDateChanged();
         });
-        layoutDateCenter.setOnClickListener(v -> { /* already selected */ });
+        layoutDateCenter.setOnClickListener(v -> animateSelectedDatePulse());
         layoutDateNext.setOnClickListener(v -> {
             selectedDayOffset++;
+            lastDateAnimationDirection = 1;
             refreshDateSelector();
+            animateDateSelector(1);
             onSelectedDateChanged();
         });
     }
@@ -237,9 +264,17 @@ public class HomeFragment extends Fragment {
         if (activeTab == tab) return;
         activeTab.setBackgroundResource(R.drawable.bg_tab_unselected);
         activeTab.setTextColor(0xFF5C4A42);
-        tab.setBackgroundResource(R.drawable.bg_coral_tab);
+        tab.setBackgroundResource(backgroundForMilestoneTab(tab));
         tab.setTextColor(0xFFFFFFFF);
         activeTab = tab;
+    }
+
+    private int backgroundForMilestoneTab(TextView tab) {
+        if (tab == tabPhysical) return R.drawable.bg_tab_physical;
+        if (tab == tabCognitive) return R.drawable.bg_tab_cognitive;
+        if (tab == tabSpeech) return R.drawable.bg_tab_communication;
+        if (tab == tabSocial) return R.drawable.bg_tab_social;
+        return R.drawable.bg_tab_physical;
     }
 
     private void observeViewModel() {
@@ -255,6 +290,7 @@ public class HomeFragment extends Fragment {
                 boolean isEmpty = dailyList.isEmpty();
                 cardEmptyActivities.setVisibility(isEmpty ? View.VISIBLE : View.GONE);
                 recyclerTodayActivities.setVisibility(isEmpty ? View.GONE : View.VISIBLE);
+                animateActivitiesForDateChange(isEmpty ? cardEmptyActivities : recyclerTodayActivities);
             }
         });
 
@@ -268,8 +304,83 @@ public class HomeFragment extends Fragment {
     private void showSampleTip() {
         if (progressTips == null || textTipsContent == null) return;
         progressTips.setVisibility(View.GONE);
-        textTipsContent.setText("Tummy time helps strengthen your baby's neck, shoulder, and arm muscles. " +
-                "Try 2–3 short sessions of 3–5 minutes each day.");
+        textTipsContent.setText(R.string.tips_health_growth_text);
         textTipsContent.setVisibility(View.VISIBLE);
+    }
+
+    // Visual-only date picker motion: slide the three date labels as a horizontal strip
+    // while preserving the existing selectedDayOffset and activity-loading logic.
+    private void animateDateSelector(int direction) {
+        int slide = dp(104) * direction;
+
+        layoutDateCenter.animate().cancel();
+        layoutDatePrev.animate().cancel();
+        layoutDateNext.animate().cancel();
+
+        layoutDatePrev.setTranslationX(slide);
+        layoutDateCenter.setTranslationX(slide);
+        layoutDateNext.setTranslationX(slide);
+
+        layoutDatePrev.setAlpha(0.35f);
+        layoutDateCenter.setAlpha(0.45f);
+        layoutDateNext.setAlpha(0.35f);
+
+        layoutDatePrev.animate()
+                .translationX(0f)
+                .alpha(1f)
+                .setDuration(300)
+                .setInterpolator(new DecelerateInterpolator())
+                .start();
+
+        layoutDateCenter.setScaleX(0.96f);
+        layoutDateCenter.setScaleY(0.96f);
+        layoutDateCenter.animate()
+                .translationX(0f)
+                .scaleX(1f)
+                .scaleY(1f)
+                .alpha(1f)
+                .setDuration(320)
+                .setInterpolator(new DecelerateInterpolator())
+                .start();
+
+        layoutDateNext.animate()
+                .translationX(0f)
+                .alpha(1f)
+                .setDuration(300)
+                .setInterpolator(new DecelerateInterpolator())
+                .start();
+    }
+
+    private void animateSelectedDatePulse() {
+        layoutDateCenter.animate().cancel();
+        layoutDateCenter.setScaleX(0.9f);
+        layoutDateCenter.setScaleY(0.9f);
+        layoutDateCenter.setAlpha(0.86f);
+        layoutDateCenter.animate()
+                .scaleX(1f)
+                .scaleY(1f)
+                .alpha(1f)
+                .setDuration(320)
+                .setInterpolator(new OvershootInterpolator(1.25f))
+                .start();
+    }
+
+    private void animateActivitiesForDateChange(View content) {
+        if (lastDateAnimationDirection == 0 || content == null) return;
+        content.animate().cancel();
+        content.setAlpha(0f);
+        content.setTranslationX(dp(22) * lastDateAnimationDirection);
+        content.animate()
+                .alpha(1f)
+                .translationX(0f)
+                .setStartDelay(60)
+                .setDuration(260)
+                .setInterpolator(new DecelerateInterpolator())
+                .start();
+        lastDateAnimationDirection = 0;
+    }
+
+    private int dp(int value) {
+        return Math.round(value * getResources().getDisplayMetrics().density);
     }
 }

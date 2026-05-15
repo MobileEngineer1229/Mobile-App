@@ -42,7 +42,7 @@ public class TokenManager {
                .remove(KEY_TOKEN)
                .remove(KEY_USER_ID)
                .remove(KEY_BABY_ID)
-               .apply();
+               .commit();
     }
 
     public static void saveUserId(Context context, int userId) {

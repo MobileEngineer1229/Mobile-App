@@ -62,6 +62,34 @@
     <string name="servings">%d servings</string>
     <string name="nutrition_info">Nutrition Info</string>
     <string name="no_recipes">No recipes available</string>
+    <string name="nutrition_recipes_title">Nutrition &amp; Recipes</string>
+    <string name="nutrition_month_0_6">Month 0-6</string>
+    <string name="nutrition_month_7_11">Month 7-11</string>
+    <string name="nutrition_month_12_17">Month 12-17</string>
+    <string name="nutrition_month_18_24">Month 18-24</string>
+    <string name="nutrition_month_25_30">Month 25-30</string>
+    <string name="nutrition_month_31_36">Month 31-36</string>
+    <string name="lactation_guide">Lactation Guide</string>
+    <string name="moms_nutrition_plan">Mom\'s Nutrition Plan</string>
+    <string name="recipes_for_baby">Recipes For Baby</string>
+    <string name="nutrition_and_benefits">Nutrition and Benefits</string>
+    <string name="veg">Veg</string>
+    <string name="breakfast">Breakfast</string>
+    <string name="lunch">Lunch</string>
+    <string name="dinner">Dinner</string>
+    <string name="snacks">Snacks</string>
+    <string name="unlock_with_premium">Unlock with\nPremium</string>
+    <string name="benefits">Benefits</string>
+    <string name="breastfeeding_tips_title">Tips For Breastfeeding Moms</string>
+    <string name="breastfeeding_tips_body">Breastfeeding offers a special bond and nourishment for your baby, providing essential nutrients and immune protection. While breastfeeding is a personal choice, remember that there are various ways to support your baby\'s well-being. Here are some helpful nutrition tips and facts around breastfeed, along with galactogogues to enhance your breastfeeding journey:</string>
+    <string name="breastfeeding_fact_1">1\n\nBreastfeeding has been associated with higher IQ scores and improved cognitive development in children.</string>
+    <string name="breastfeeding_fact_2">2\n\nBreastfeeding lowers the risk of allergies, respiratory infections, digestive issues, dental problems, obesity, and chronic diseases in children.</string>
+    <string name="cereals">Cereals</string>
+    <string name="milk_products">Milk Products</string>
+    <plurals name="recipe_serving_count">
+        <item quantity="one">%d Serving</item>
+        <item quantity="other">%d Servings</item>
+    </plurals>
     <string name="calories">%d cal</string>
 
     <!-- Articles -->
@@ -81,6 +109,7 @@
     <string name="no">No</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="baby_name">Baby Name</string>
+    <string name="baby_first_name">Baby\'s First Name</string>
     <string name="birth_date">Birth Date</string>
     <string name="gender">Gender</string>
     <string name="boy">Boy</string>
@@ -97,6 +126,33 @@
     <string name="poop_pee">Poop &amp; Pee</string>
     <string name="view_analysis">Click to View Analysis</string>
     <string name="tips_for_today">Tips For Today</string>
+    <string name="story_for_today">Story For Today</string>
+    <string name="article_for_today">Article For Today</string>
+    <string name="doras_new_friends">Dora\'s New Friends</string>
+    <string name="story_view_count">5223</string>
+    <string name="story_time_title">Story Time</string>
+    <string name="search">Search</string>
+    <string name="story_month_0_11">Month 0-11</string>
+    <string name="story_month_12_24">Month 12-24</string>
+    <string name="story_month_25_36">Month 25-36</string>
+    <string name="story_search_hint">e.g. color recognition</string>
+    <string name="the_hungry_sparrow">The Hungry Sparrow</string>
+    <string name="iras_hat">Ira\'s Hat</string>
+    <string name="baby_hanas_pet">Baby Hana\'s Pet</string>
+    <string name="story_author_line">Written by Fatema Arsiwala,\nNarrated by Jewlz Villegas</string>
+    <string name="story_author_format">Written by %1$s,\nNarrated by %2$s</string>
+    <string name="story_views">32079</string>
+    <string name="story_audio">Audio</string>
+    <string name="other_stories">Other Stories</string>
+    <string name="hungry_sparrow_body">flying high in the sky. “Chi chi chi!” she chirped happily. Soon she was hungry and started searching for food. After a long flight, she finally found something! It was a big, red apple!\n\n“Yum yum yum!” The sparrow said and flew for the apple. But when she reached closer, she found that the apple was too big for her. The little sparrow tried to pick the apple up but she couldn’t.\n\nThe little sparrow became sad. Then, she got an idea! She started pecking at the apple. “Peck peck peck,” she went and began to eat small bites of the tasty red apple. “Nom nom nom,” she pecked on. Soon, her tummy was full and the sparrow was happy. She said “Yay yay yay” and flew away.</string>
+    <string name="health_growth">Health &amp; Growth</string>
+    <string name="tips_health_growth_text">Baby\'s eyesight improves substantially this month, probably in the range of 20/40 to 20/50. Boost it further with vision tracking exercises.</string>
+    <string name="baby_health">Baby Health</string>
+    <string name="baby_massage_title">Baby Massage: Boost Parental Bond and Muscles Together</string>
+    <string name="wisdom_month_0_5">Month 0-5</string>
+    <string name="wisdom_month_6_11">Month 6-11</string>
+    <string name="wisdom_fun_memories">Fun &amp; Memories</string>
+    <string name="article_vetted_by">Vetted by %1$s%2$s</string>
     <string name="tab_physical">Physical</string>
     <string name="tab_cognitive">Cognitive</string>
     <string name="tab_speech">Speech</string>
@@ -117,7 +173,7 @@
     <string name="category_nutrition">Nutrition</string>
     <string name="category_stories">Stories</string>
     <string name="category_articles">Articles</string>
-    <string name="done_by_babies">Done by %,d Babies</string>
+    <string name="done_by_babies">Done by: %d Babies</string>
     <string name="too_easy">Too Easy</string>
     <string name="too_hard">Too Hard</string>
     <string name="frequency">Frequency</string>
@@ -143,7 +199,7 @@
     <string name="confirm_logout">Are you sure you want to logout?</string>
 
     <!-- Get Started / Onboarding -->
-    <string name="award_winning">Award-Winning Development App</string>
+    <string name="award_winning">Award-Winning\nDevelopment App</string>
     <string name="google_play_2022">Google Play 2022</string>
     <string name="welcome_headline">Raise a Curious &amp;\nHappy Baby!</string>
     <string name="lets_get_started">Let\'s Get Started</string>
@@ -154,8 +210,8 @@
     <string name="info_block_2">Key to unlock curiosity is the right stimulation at the right time</string>
     <string name="info_block_3">Playtime activities stimulate baby\'s growth and maximise their potential</string>
     <string name="set_parenting_goals">Set Parenting Goals</string>
-    <string name="goals_title">Set your parenting goals…</string>
-    <string name="goals_subtitle">We\'ll personalise the program based on it.</string>
+    <string name="goals_title">Set your parenting goals...</string>
+    <string name="goals_subtitle">we\'ll personalise the program based on it.</string>
     <string name="goal_1">Boost Development with Activities</string>
     <string name="goal_2">Measure Progress with Milestones</string>
     <string name="goal_3">Spark Imagination with Stories</string>
@@ -169,6 +225,8 @@
     <string name="loved_by_parents">Loved by 500k+ Parents</string>
     <!-- Login / Signup redesign -->
     <string name="login_with_email">Login with email</string>
+    <string name="send_otp">Send OTP</string>
+    <string name="valid_email_required">Please enter a valid email</string>
     <string name="remember_me">Remember me</string>
     <string name="forgot_password">Forgot Password?</string>
     <string name="confirm_password">Confirm Password</string>
@@ -183,18 +241,36 @@
 
     <!-- Baby Create -->
     <string name="personalise_plan_title">Let\'s personalise your plan</string>
+    <string name="personalise_baby_plan_title">Let\'s personalise your baby\'s plan!</string>
     <string name="baby_dob">Baby\'s DOB</string>
     <string name="is_premature">Is the baby premature?</string>
     <string name="scheduled_dob">Scheduled DOB</string>
     <string name="premature_hint">For premature babies, the program will use the scheduled DOB.</string>
     <string name="your_name">Your Name</string>
+    <string name="country">Country</string>
+    <string name="united_states">United States</string>
+    <string name="update">Update</string>
     <string name="relationship_with_baby">Relationship with Baby</string>
+    <string name="i_am_childs">I am the child\'s</string>
     <string name="rel_father">Father</string>
     <string name="rel_mother">Mother</string>
     <string name="rel_grandfather">Grandfather</string>
     <string name="rel_grandmother">Grandmother</string>
     <string name="rel_babysitter">Babysitter</string>
+    <string name="rel_aunt">Aunt</string>
+    <string name="rel_uncle">Uncle</string>
+    <string name="rel_development_professional">Development Professional</string>
     <string name="rel_other">Other</string>
+    <string name="support_title">Parenting Support</string>
+    <string name="support_subtitle">Ask for help with feeding, sleep, routines, milestones, and everyday parenting questions.</string>
+    <string name="support_message_hint">Describe what you need help with</string>
+    <string name="support_send">Send Request</string>
+    <string name="support_sent">Support request ready to send</string>
+    <string name="support_common_topics">Common Topics</string>
+    <string name="support_topic_sleep">Sleep routines</string>
+    <string name="support_topic_feeding">Feeding help</string>
+    <string name="support_topic_milestones">Milestones</string>
+    <string name="support_topic_growth">Growth tracking</string>
 
     <!-- Category subtitles -->
     <string name="cat_activities_sub">Boost your baby\'s growth</string>
@@ -222,6 +298,7 @@
     <string name="milestone_no">No</string>
     <string name="milestone_almost">Almost</string>
     <string name="related_activities">Related Activities</string>
+    <string name="create_report">Create Report</string>
 
     <!-- Tips -->
     <string name="tips_tab_tip">Tips</string>
@@ -238,7 +315,8 @@
     <string name="today">Today</string>
     <string name="tomorrow">Tomorrow</string>
     <string name="tracker_count">%d entries</string>
-    <string name="tracker_sleep_summary">%dh %dm</string>
+    <string name="tracker_sleep_summary">%1$dh %2$dm</string>
+    <string name="log_entry">Log Entry</string>
     <string name="logged_success">Logged successfully</string>
     <string name="no_records_today">No records</string>
     <string name="duration_minutes_hint">Duration in minutes</string>

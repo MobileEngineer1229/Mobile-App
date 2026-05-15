@@ -3,6 +3,7 @@ import { mkdir, writeFile } from "fs/promises";
 import path from "path";
 import crypto from "crypto";
 import { Activity } from "../models/activity.js";
+import { ConditionDietCondition } from "../models/condition-diet-condition.js";
 import { ConditionDietRule } from "../models/condition-diet-rule.js";
 import { DailyValueProfile } from "../models/daily-value-profile.js";
 import { DataValidationRule } from "../models/data-validation-rule.js";
@@ -111,6 +112,13 @@ apiRouter.use("/condition-diet-rules", auditLog("condition-diet-rules"), createC
   ["ruleKey", "conditionKey", "conditionLabel", "ruleType", "nutrientKey", "recommendationKo", "dataSource"],
   ["conditionKey", "ruleType", "comparator", "nutrientKey", "dataSource", "doctor_verified"],
   { sortableFields: ["conditionKey", "ruleType", "priority", "createdAt"], bulkActions: true }
+));
+
+apiRouter.use("/condition-diet-conditions", auditLog("condition-diet-conditions"), createCrudRouter(
+  ConditionDietCondition,
+  ["conditionKey", "conditionLabel", "category", "descriptionKo", "dataSource", "tags"],
+  ["conditionKey", "category", "doctor_verified", "dataSource"],
+  { sortableFields: ["sortOrder", "conditionLabel", "conditionKey", "createdAt"], bulkActions: true }
 ));
 
 apiRouter.use("/risk-assessment-rules", auditLog("risk-assessment-rules"), createCrudRouter(

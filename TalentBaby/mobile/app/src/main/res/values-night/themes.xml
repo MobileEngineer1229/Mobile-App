@@ -10,14 +10,17 @@
         <item name="colorOnSurface">@color/text_primary</item>
         <item name="android:colorBackground">@color/background</item>
         <item name="android:windowBackground">@color/background</item>
+        <item name="android:windowAnimationStyle">@style/Animation.TalentBaby.None</item>
+        <item name="android:forceDarkAllowed">false</item>
         <!-- Dark mode: dark status bar -->
-        <item name="android:statusBarColor">@color/background</item>
+        <item name="android:statusBarColor">@color/article_header</item>
         <item name="android:windowLightStatusBar">false</item>
         <item name="elevationOverlayEnabled">true</item>
     </style>
 
     <style name="Theme.TalentBaby.Splash" parent="Theme.TalentBaby">
-        <item name="android:statusBarColor">@color/background</item>
+        <item name="android:windowDisablePreview">true</item>
+        <item name="android:statusBarColor">@color/article_header</item>
         <item name="android:windowLightStatusBar">false</item>
     </style>
 </resources>

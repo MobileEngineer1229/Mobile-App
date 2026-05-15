@@ -24,7 +24,10 @@ export default function Sidebar() {
         {navItems.map(({ group, href, label, icon: Icon, statKey }) => {
           const showGroup = group && group !== lastGroup;
           lastGroup = group;
-          const active = pathname === href || (href !== "/" && pathname.startsWith(`${href}/`));
+          const dailyNutritionRoutes = ["/daily-value-profiles", "/nutrient-intake-rules", "/nutrition-constraints"];
+          const active = pathname === href
+            || (href !== "/" && pathname.startsWith(`${href}/`))
+            || (href === "/daily-nutrition" && dailyNutritionRoutes.some((route) => pathname === route || pathname.startsWith(`${route}/`)));
           const badge = statKey ? unverified[statKey] ?? 0 : 0;
 
           return (

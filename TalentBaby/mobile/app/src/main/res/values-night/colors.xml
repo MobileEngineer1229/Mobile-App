@@ -22,6 +22,9 @@
     <color name="primary_dark">#FF0FA88B</color>
     <color name="primary_light">#FF0D4038</color>
     <color name="primary_container">#FF0D3530</color>
+    <color name="article_header">#FF18C6A4</color>
+    <color name="app_header_start">#FF18C6A4</color>
+    <color name="app_header_end">#FF18C6A4</color>
 
     <!-- Date Selector (dark) -->
     <color name="date_selected_bg">#FF18C6A4</color>

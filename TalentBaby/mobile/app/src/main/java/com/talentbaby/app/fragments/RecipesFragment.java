@@ -62,6 +62,12 @@ public class RecipesFragment extends Fragment {
         layoutEmpty = view.findViewById(R.id.layoutEmpty);
         chipGroupCategories = view.findViewById(R.id.chipGroupCategories);
 
+        view.findViewById(R.id.btnMenuRecipes).setOnClickListener(v -> {
+            if (getActivity() instanceof com.talentbaby.app.MainActivity) {
+                ((com.talentbaby.app.MainActivity) getActivity()).openDrawer();
+            }
+        });
+
         chipGroupCategories.setOnCheckedStateChangeListener((group, checkedIds) -> {
             if (checkedIds.isEmpty()) {
                 selectedCategory = null;

@@ -11,25 +11,80 @@
       "static/chunks/main-app.js",
       "static/chunks/app/(admin)/layout.js"
     ],
-    "/(admin)/page": [
+    "/(admin)/condition-diet-rules/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(admin)/page.js"
+      "static/chunks/app/(admin)/condition-diet-rules/page.js"
+    ],
+    "/(admin)/activities/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(admin)/activities/page.js"
+    ],
+    "/(admin)/meal-logs/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(admin)/meal-logs/page.js"
+    ],
+    "/(admin)/risk-assessment-rules/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(admin)/risk-assessment-rules/page.js"
+    ],
+    "/(admin)/human-type-qa/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(admin)/human-type-qa/page.js"
+    ],
+    "/(admin)/users/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(admin)/users/page.js"
+    ],
+    "/(admin)/nutrition-terminology/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(admin)/nutrition-terminology/page.js"
+    ],
+    "/(admin)/nutrition-constraints/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(admin)/nutrition-constraints/page.js"
+    ],
+    "/(admin)/nutrient-intake-rules/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(admin)/nutrient-intake-rules/page.js"
+    ],
+    "/(admin)/daily-value-profiles/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(admin)/daily-value-profiles/page.js"
     ],
     "/(admin)/reference-sources/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/(admin)/reference-sources/page.js"
     ],
-    "/(admin)/foods/page": [
+    "/(admin)/data-validation-rules/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(admin)/foods/page.js"
+      "static/chunks/app/(admin)/data-validation-rules/page.js"
     ],
-    "/(admin)/daily-value-profiles/page": [
+    "/(admin)/daily-nutrition/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(admin)/daily-value-profiles/page.js"
+      "static/chunks/app/(admin)/daily-nutrition/page.js"
+    ],
+    "/(admin)/recipe-ingredients/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(admin)/recipe-ingredients/page.js"
+    ],
+    "/(admin)/recipes/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(admin)/recipes/page.js"
     ]
   }
 }

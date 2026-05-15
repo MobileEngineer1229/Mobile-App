@@ -1,6 +1,7 @@
 export type HealthFormulaGender = "male" | "female" | "non_binary";
 export type ActivityLevel = "sedentary" | "low_active" | "active" | "very_active";
 export type WeightGoal = "lose_weight" | "maintain_weight" | "gain_weight";
+type GrowthReferenceGender = "male" | "female";
 
 export type MacroRatios = {
   carbs?: number;
@@ -46,6 +47,59 @@ const goalAdjustment: Record<WeightGoal, number> = {
   gain_weight: 500
 };
 
+const adultBmiThresholds = {
+  who: { underweightMax: 18.5, normalMax: 24.9, overweightMax: 29.9 },
+  chineseWst428: { underweightMax: 18.5, normalMax: 23.9, overweightMax: 27.9 }
+} as const;
+
+const childHeightForAgeReference: Record<GrowthReferenceGender, Array<[number, number, number, number, number, number]>> = {
+  male: [
+    [7, 113.51, 119.49, 125.48, 131.47, 137.46], [8, 118.35, 124.53, 130.72, 136.90, 143.08],
+    [9, 122.74, 129.27, 135.81, 142.35, 148.88], [10, 126.79, 133.77, 140.76, 147.75, 154.74],
+    [11, 130.39, 138.20, 146.01, 153.82, 161.64], [12, 134.48, 143.33, 152.18, 161.03, 169.89],
+    [13, 143.01, 151.60, 160.19, 168.78, 177.38], [14, 150.22, 157.93, 165.63, 173.34, 181.05],
+    [15, 155.25, 162.14, 169.02, 175.91, 182.79], [16, 157.72, 164.15, 170.58, 177.01, 183.44],
+    [17, 158.76, 165.07, 171.39, 177.70, 184.01], [18, 158.81, 165.12, 171.42, 177.73, 184.03]
+  ],
+  female: [
+    [7, 112.29, 118.21, 124.13, 130.05, 135.97], [8, 116.83, 123.09, 129.34, 135.59, 141.84],
+    [9, 121.31, 128.11, 134.91, 141.71, 148.51], [10, 126.38, 133.78, 141.18, 148.57, 155.97],
+    [11, 132.09, 139.72, 147.36, 154.99, 162.63], [12, 138.11, 145.26, 152.41, 159.56, 166.71],
+    [13, 143.75, 149.91, 156.07, 162.23, 168.39], [14, 146.18, 151.98, 157.78, 163.58, 169.38],
+    [15, 147.02, 152.74, 158.47, 164.19, 169.91], [16, 147.59, 153.26, 158.93, 164.60, 170.27],
+    [17, 147.82, 153.50, 159.18, 164.86, 170.54], [18, 148.54, 154.28, 160.01, 165.74, 171.48]
+  ]
+};
+
+const childWeightForAgeReference: Record<GrowthReferenceGender, Array<[number, number, number, number, number, number]>> = {
+  male: [
+    [5, 14.4, 16.3, 18.5, 21.1, 24.2], [6, 15.9, 18.0, 20.5, 23.5, 27.1],
+    [7, 17.7, 20.0, 22.9, 26.4, 30.7], [8, 19.5, 22.1, 25.4, 29.5, 34.7],
+    [9, 21.3, 24.3, 28.1, 33.0, 39.4], [10, 23.2, 26.7, 31.2, 37.0, 45.0]
+  ],
+  female: [
+    [5, 14.0, 15.9, 18.3, 21.2, 24.8], [6, 15.3, 17.5, 20.2, 23.5, 27.8],
+    [7, 16.8, 19.3, 22.4, 26.3, 31.4], [8, 18.6, 21.4, 25.0, 29.7, 35.8],
+    [9, 20.8, 24.0, 28.2, 33.6, 41.0], [10, 23.3, 27.0, 31.9, 38.2, 46.9]
+  ]
+};
+
+const childBmiScreeningReference = [
+  [6.0, 16.4, 17.7, 16.2, 17.5], [6.5, 16.7, 18.1, 16.5, 18.0],
+  [7.0, 17.0, 18.7, 16.8, 18.5], [7.5, 17.4, 19.2, 17.2, 19.0],
+  [8.0, 17.8, 19.7, 17.6, 19.4], [8.5, 18.1, 20.3, 18.1, 19.9],
+  [9.0, 18.5, 20.8, 18.5, 20.4], [9.5, 18.9, 21.4, 19.0, 21.0],
+  [10.0, 19.2, 21.9, 19.5, 21.5], [10.5, 19.6, 22.5, 20.0, 22.1],
+  [11.0, 19.9, 23.0, 20.5, 22.7], [11.5, 20.3, 23.6, 21.1, 23.3],
+  [12.0, 20.7, 24.1, 21.5, 23.9], [12.5, 21.0, 24.7, 21.9, 24.5],
+  [13.0, 21.4, 25.2, 22.2, 25.0], [13.5, 21.9, 25.7, 22.6, 25.6],
+  [14.0, 22.3, 26.1, 22.8, 25.9], [14.5, 22.6, 26.4, 23.0, 26.3],
+  [15.0, 22.9, 26.6, 23.2, 26.6], [15.5, 23.1, 26.9, 23.4, 26.9],
+  [16.0, 23.3, 27.1, 23.6, 27.1], [16.5, 23.5, 27.4, 23.7, 27.4],
+  [17.0, 23.7, 27.6, 23.8, 27.6], [17.5, 23.8, 27.8, 23.9, 27.8],
+  [18.0, 24.0, 28.0, 24.0, 28.0]
+] as const;
+
 function round(value: number, decimals = 1) {
   return Number(value.toFixed(decimals));
 }
@@ -63,6 +117,23 @@ function gendered(gender: HealthFormulaGender, male: number, female: number) {
   // 조선말: 성별공식을 하나로 정하기 어려운 경우에는 남/녀 공식의 평균값을 씁니다.
   // English: When a binary formula cannot be selected, use the average of male and female estimates.
   return (male + female) / 2;
+}
+
+function growthGender(gender: HealthFormulaGender): GrowthReferenceGender | null {
+  if (gender === "male" || gender === "female") return gender;
+  return null;
+}
+
+function nearestByAge<T extends readonly [number, ...number[]]>(rows: readonly T[], age: number) {
+  return rows.reduce((best, row) => Math.abs(row[0] - age) < Math.abs(best[0] - age) ? row : best, rows[0]);
+}
+
+function classifySdBand(value: number, minus2Sd: number, minus1Sd: number, median: number, plus1Sd: number, plus2Sd: number) {
+  if (value < minus2Sd) return "below_minus_2sd";
+  if (value < minus1Sd) return "minus_2_to_minus_1sd";
+  if (value <= plus1Sd) return value < median ? "minus_1sd_to_median" : "median_to_plus_1sd";
+  if (value <= plus2Sd) return "plus_1_to_plus_2sd";
+  return "above_plus_2sd";
 }
 
 export function calculateBmi(weightKg: number, heightCm: number) {
@@ -85,6 +156,93 @@ export function calculateBmi(weightKg: number, heightCm: number) {
     value: round(bmi),
     category
   };
+}
+
+export function calculateHeightWeightIndex(weightKg: number, heightCm: number, age?: number) {
+  const bmi = calculateBmi(weightKg, heightCm);
+  const heightM2 = (heightCm / 100) ** 2;
+  const adultReferenceApplicable = age === undefined || age >= 18;
+
+  return {
+    bmi,
+    adultReferenceApplicable,
+    healthyWeightRangeKg: adultReferenceApplicable ? {
+      whoAdult: {
+        min: round(adultBmiThresholds.who.underweightMax * heightM2),
+        max: round(adultBmiThresholds.who.normalMax * heightM2)
+      },
+      chineseWst428Adult: {
+        min: round(adultBmiThresholds.chineseWst428.underweightMax * heightM2),
+        max: round(adultBmiThresholds.chineseWst428.normalMax * heightM2)
+      }
+    } : null,
+    formulas: {
+      bmi: "weightKg / (heightCm / 100)^2",
+      healthyWeightRange: "bmiMin * heightM^2 to bmiMax * heightM^2"
+    },
+    interpretation: adultReferenceApplicable
+      ? "Adult height-weight screening uses BMI and a height-derived healthy weight range."
+      : "For children and adolescents, use age- and sex-specific growth references instead of adult BMI ranges."
+  };
+}
+
+export function calculateChildGrowthIndicators(input: Pick<HealthMetricsInput, "gender" | "age" | "heightCm" | "weightKg">) {
+  const referenceGender = growthGender(input.gender);
+  if (!referenceGender) {
+    return {
+      applicable: false,
+      reason: "Sex-specific child growth references require male or female."
+    };
+  }
+
+  const result: Record<string, unknown> = {
+    applicable: input.age >= 5 && input.age <= 18,
+    referenceGender,
+    age: input.age,
+    notes: [
+      "Weight-for-age is available for ages 5-10 only; after age 10, BMI-for-age is preferred because weight-for-age does not distinguish height from body mass.",
+      "These are screening references, not a medical diagnosis."
+    ]
+  };
+
+  if (input.age >= 7 && input.age <= 18) {
+    const [age, minus2Sd, minus1Sd, median, plus1Sd, plus2Sd] = nearestByAge(childHeightForAgeReference[referenceGender], input.age);
+    result.heightForAge = {
+      standardCode: "WST612-2018",
+      nearestAge: age,
+      valueCm: round(input.heightCm),
+      referenceCm: { minus2Sd, minus1Sd, median, plus1Sd, plus2Sd },
+      category: classifySdBand(input.heightCm, minus2Sd, minus1Sd, median, plus1Sd, plus2Sd)
+    };
+  }
+
+  if (input.age >= 5 && input.age <= 10) {
+    const [age, minus2Sd, minus1Sd, median, plus1Sd, plus2Sd] = nearestByAge(childWeightForAgeReference[referenceGender], input.age);
+    result.weightForAge = {
+      standardCode: "WHO-2007-WFA-5-10",
+      nearestAge: age,
+      valueKg: round(input.weightKg),
+      referenceKg: { minus2Sd, minus1Sd, median, plus1Sd, plus2Sd },
+      category: classifySdBand(input.weightKg, minus2Sd, minus1Sd, median, plus1Sd, plus2Sd)
+    };
+  }
+
+  if (input.age >= 6 && input.age <= 18) {
+    const [age, maleOverweight, maleObesity, femaleOverweight, femaleObesity] = nearestByAge(childBmiScreeningReference, input.age);
+    const overweight = referenceGender === "male" ? maleOverweight : femaleOverweight;
+    const obesity = referenceGender === "male" ? maleObesity : femaleObesity;
+    const bmi = calculateBmi(input.weightKg, input.heightCm).value;
+    result.bmiForAge = {
+      standardCode: "WST586-2018",
+      nearestAge: age,
+      value: bmi,
+      overweight,
+      obesity,
+      category: bmi >= obesity ? "obesity" : bmi >= overweight ? "overweight" : "below_overweight_cutoff"
+    };
+  }
+
+  return result;
 }
 
 export function calculateBmr(gender: HealthFormulaGender, age: number, heightCm: number, weightKg: number) {
@@ -273,6 +431,8 @@ export function calculateHealthMetrics(input: HealthMetricsInput) {
 
   return {
     bmi: calculateBmi(input.weightKg, input.heightCm),
+    heightWeightIndex: calculateHeightWeightIndex(input.weightKg, input.heightCm, input.age),
+    childGrowth: calculateChildGrowthIndicators(input),
     bmr: calculateBmr(input.gender, input.age, input.heightCm, input.weightKg),
     tdee,
     calorieGoal,

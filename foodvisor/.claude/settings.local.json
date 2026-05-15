@@ -8,7 +8,8 @@
       "Bash(curl -s 'http://127.0.0.1:4000/api/reference-sources?doctor_verified=true&limit=1')",
       "Bash(python -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\('total:',d.get\\('total'\\)\\)\")",
       "Bash(curl -s 'http://127.0.0.1:4000/api/reference-sources?year=2018')",
-      "Bash(npm run *)"
+      "Bash(npm run *)",
+      "Bash(JAVA_HOME=\"C:/Program Files/Eclipse Adoptium/jdk-17.0.17.10-hotspot\" ./gradlew assembleDebug)"
     ]
   }
 }

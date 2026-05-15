@@ -30,7 +30,9 @@
       "Bash(powershell -Command \"Get-NetTCPConnection -LocalPort 3000 -ErrorAction SilentlyContinue | Select-Object -First 1 State,LocalPort\")",
       "Bash(powershell -Command \"Get-NetTCPConnection -LocalPort 3000 -ErrorAction SilentlyContinue | Select-Object State,LocalPort,RemotePort\")",
       "Bash(Get-ChildItem -Path \"E:\\\\Github\\\\Mobile\\\\Mobile-App\" -Directory)",
-      "Bash(Select-Object Name)"
+      "Bash(Select-Object Name)",
+      "Bash(Get-ChildItem -Path \"E:\\\\Github\\\\Mobile\\\\Mobile-App\" -Filter \"*.md\" -Recurse -Depth 3)",
+      "Bash(Select-Object FullName)"
     ],
     "additionalDirectories": [
       "e:\\Github\\Mobile\\Tech-Challenge\\Agar.io\\server"

@@ -1,128 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/bg_onboarding">
+    android:background="@drawable/bg_login_design">
 
-    <!-- Back button -->
     <ImageButton
         android:id="@+id/btnBack"
-        android:layout_width="44dp"
-        android:layout_height="44dp"
-        android:src="@drawable/ic_back"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="190dp"
         android:background="?attr/selectableItemBackgroundBorderless"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="12dp"
-        android:padding="10dp"
-        android:contentDescription="Back" />
+        android:contentDescription="Back"
+        android:padding="8dp"
+        android:src="@drawable/ic_arrow_back"
+        android:tint="@color/black" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:gravity="center"
-        android:paddingHorizontal="28dp">
+        android:paddingStart="58dp"
+        android:paddingTop="390dp"
+        android:paddingEnd="58dp"
+        android:paddingBottom="106dp">
 
-        <!-- Headline -->
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/create_account_title"
-            android:textSize="28sp"
-            android:textStyle="bold"
-            android:textColor="@color/headline_blue"
-            android:gravity="center" />
+            android:textColor="@color/design_blue"
+            android:textSize="36sp"
+            android:textStyle="bold" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
             android:text="@string/save_progress_subtitle"
-            android:textSize="15sp"
-            android:textColor="@color/text_secondary"
-            android:layout_marginTop="6dp"
-            android:layout_marginBottom="40dp"
-            android:gravity="center" />
+            android:textColor="@color/design_blue"
+            android:textSize="22sp" />
 
-        <!-- Continue with Google -->
         <LinearLayout
             android:id="@+id/btnGoogle"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:orientation="horizontal"
-            android:gravity="center"
+            android:layout_height="70dp"
+            android:layout_marginTop="92dp"
             android:background="@drawable/bg_auth_option_button"
-            android:layout_marginBottom="14dp"
             android:clickable="true"
-            android:focusable="true">
+            android:focusable="true"
+            android:gravity="center"
+            android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="22dp"
-                android:layout_height="22dp"
-                android:src="@drawable/ic_google"
-                android:contentDescription="Google" />
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:contentDescription="Google"
+                android:src="@drawable/ic_google" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="38dp"
                 android:text="@string/continue_google"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:textColor="@color/text_primary"
-                android:layout_marginStart="10dp" />
+                android:textColor="@color/design_gray"
+                android:textSize="23sp" />
         </LinearLayout>
 
-        <!-- Continue with Email -->
         <LinearLayout
             android:id="@+id/btnEmail"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:orientation="horizontal"
-            android:gravity="center"
+            android:layout_height="70dp"
+            android:layout_marginTop="64dp"
             android:background="@drawable/bg_auth_option_button"
-            android:layout_marginBottom="40dp"
             android:clickable="true"
-            android:focusable="true">
+            android:focusable="true"
+            android:gravity="center"
+            android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="22dp"
-                android:layout_height="22dp"
-                android:src="@drawable/ic_email"
-                android:contentDescription="Email" />
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:contentDescription="Email"
+                android:src="@drawable/ic_email" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="38dp"
                 android:text="@string/continue_email"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:textColor="@color/text_primary"
-                android:layout_marginStart="10dp" />
+                android:textColor="@color/design_gray"
+                android:textSize="23sp" />
         </LinearLayout>
 
-        <!-- Star rating + social proof -->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginBottom="6dp">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
-            <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_star_filled" android:contentDescription="star" />
-            <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_star_filled" android:contentDescription="star" android:layout_marginStart="2dp" />
-            <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_star_filled" android:contentDescription="star" android:layout_marginStart="2dp" />
-            <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_star_filled" android:contentDescription="star" android:layout_marginStart="2dp" />
-            <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_star_filled" android:contentDescription="star" android:layout_marginStart="2dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView style="@style/AuthStar" android:src="@drawable/ic_star_filled" />
+            <ImageView style="@style/AuthStar" android:src="@drawable/ic_star_filled" />
+            <ImageView style="@style/AuthStar" android:src="@drawable/ic_star_filled" />
+            <ImageView style="@style/AuthStar" android:src="@drawable/ic_star_filled" />
+            <ImageView style="@style/AuthStar" android:src="@drawable/ic_star_filled" />
         </LinearLayout>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:gravity="center"
             android:text="@string/loved_by_parents"
-            android:textSize="13sp"
-            android:textColor="@color/text_secondary" />
+            android:textColor="@color/design_gray"
+            android:textSize="25sp" />
     </LinearLayout>
-
-</LinearLayout>
+</FrameLayout>

@@ -1,129 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="10dp"
-    app:cardCornerRadius="14dp"
-    app:cardElevation="2dp"
-    app:cardBackgroundColor="@color/card_background"
-    app:strokeWidth="0dp"
+    android:background="@color/white"
     android:clickable="true"
-    android:focusable="true">
+    android:focusable="true"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_height="128dp"
         android:gravity="center_vertical"
-        android:padding="14dp">
+        android:orientation="horizontal">
 
-        <!-- Activity image / placeholder -->
         <com.google.android.material.card.MaterialCardView
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            app:cardCornerRadius="12dp"
+            android:layout_width="120dp"
+            android:layout_height="112dp"
+            android:layout_marginStart="0dp"
+            app:cardBackgroundColor="@color/primary_container"
+            app:cardCornerRadius="7dp"
             app:cardElevation="0dp"
-            app:cardBackgroundColor="@color/primary_container">
+            app:strokeWidth="0dp">
 
             <ImageView
                 android:id="@+id/imageActivity"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:contentDescription="@string/activities_title" />
+                android:contentDescription="@string/activities_title"
+                android:scaleType="centerCrop" />
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Info -->
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:layout_marginStart="12dp">
+            android:gravity="center_vertical"
+            android:orientation="vertical">
 
-            <!-- Category label -->
-            <TextView
-                android:id="@+id/textActivityCategory"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="11sp"
-                android:textColor="@color/primary"
-                android:textAllCaps="true"
-                android:letterSpacing="0.05"
-                android:layout_marginBottom="3dp" />
-
-            <!-- Title -->
             <TextView
                 android:id="@+id/textActivityTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:textColor="@color/text_primary"
-                android:maxLines="2"
-                android:ellipsize="end" />
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/home_text_dark"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-            <!-- Done by count -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:gravity="center"
+                    android:text="o"
+                    android:textColor="#73BDF4"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textActivityCategory"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="@color/home_text_muted"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
             <TextView
                 android:id="@+id/textDoneByCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="27dp"
+                android:textColor="@color/home_text_muted"
                 android:textSize="12sp"
-                android:textColor="@color/text_secondary"
-                android:layout_marginTop="3dp"
                 android:visibility="gone" />
 
-            <!-- Duration + age row -->
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:orientation="horizontal"
-                android:layout_marginTop="3dp">
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/textActivityDuration"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="12sp"
-                    android:textColor="@color/text_secondary" />
+                    android:layout_height="wrap_content" />
 
                 <TextView
                     android:id="@+id/textActivityAge"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="12sp"
-                    android:textColor="@color/text_secondary"
-                    android:layout_marginStart="10dp" />
+                    android:layout_height="wrap_content" />
             </LinearLayout>
         </LinearLayout>
 
-        <!-- Right side: duration + lock -->
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:layout_width="42dp"
+            android:layout_height="match_parent"
             android:gravity="center"
-            android:layout_marginStart="8dp">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/textActivityDurationRight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="11sp"
-                android:textColor="@color/text_secondary"
-                android:layout_marginBottom="4dp"
+                android:layout_marginBottom="20dp"
+                android:textColor="@color/home_text_muted"
+                android:textSize="12sp"
                 android:visibility="gone" />
 
             <ImageView
                 android:id="@+id/iconVerified"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_lock"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:contentDescription="@string/doctor_verified"
+                android:src="@drawable/ic_activity_lock"
                 android:visibility="visible" />
         </LinearLayout>
-
     </LinearLayout>
-</com.google.android.material.card.MaterialCardView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp"
+        android:background="#998A8A8A" />
+</LinearLayout>

@@ -28,13 +28,15 @@
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_navigation"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="@color/surface"
+            android:layout_height="62dp"
+            android:background="@android:color/white"
             app:menu="@menu/bottom_navigation"
             app:itemIconTint="@color/bottom_nav_color"
             app:itemTextColor="@color/bottom_nav_color"
+            app:itemBackground="@android:color/white"
+            app:itemIconSize="26dp"
             app:labelVisibilityMode="labeled"
-            app:itemRippleColor="@color/primary_container"
+            app:itemRippleColor="@color/home_card_surface"
             app:elevation="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -45,13 +47,16 @@
     <!-- Navigation Drawer (sidebar) — gravity=start means left side -->
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigationView"
-        android:layout_width="300dp"
+        android:layout_width="304dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="@color/surface"
         app:headerLayout="@layout/nav_header_sidebar"
         app:menu="@menu/sidebar_menu"
-        app:itemTextColor="@color/text_primary"
-        app:itemIconTint="@color/primary" />
+        app:itemTextColor="@color/home_text_dark"
+        app:itemIconTint="@color/home_text_dark"
+        app:itemTextAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+        app:itemHorizontalPadding="18dp"
+        app:itemIconPadding="18dp" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

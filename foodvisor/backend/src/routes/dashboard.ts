@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { Activity } from "../models/activity.js";
+import { ConditionDietCondition } from "../models/condition-diet-condition.js";
 import { ConditionDietRule } from "../models/condition-diet-rule.js";
 import { DataValidationRule } from "../models/data-validation-rule.js";
 import { Food } from "../models/food.js";
@@ -25,6 +26,7 @@ const RESOURCES = [
   { key: "programs", model: Program, labelField: "title" },
   { key: "referenceSources", model: ReferenceSource, labelField: "title" },
   { key: "nutrientIntakeRules", model: NutrientIntakeRule, labelField: "ruleKey" },
+  { key: "conditionDietConditions", model: ConditionDietCondition, labelField: "conditionLabel" },
   { key: "conditionDietRules", model: ConditionDietRule, labelField: "ruleKey" },
   { key: "riskAssessmentRules", model: RiskAssessmentRule, labelField: "metricLabel" },
   { key: "nutritionTerminology", model: NutritionTerminology, labelField: "chineseTerm" },

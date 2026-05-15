@@ -52,9 +52,20 @@
             android:parentActivityName=".MainActivity" />
 
         <activity android:name=".activities.ArticleDetailActivity" android:exported="false" />
+        <activity android:name=".activities.WisdomInsightsActivity" android:exported="false" />
+        <activity android:name=".activities.ParentingSupportActivity" android:exported="false" />
+        <activity android:name=".activities.StoryTimeActivity" android:exported="false" />
+        <activity android:name=".activities.StoryDetailActivity" android:exported="false" />
+        <activity android:name=".activities.NutritionRecipesActivity" android:exported="false" />
         <activity android:name=".activities.RecipeDetailActivity" android:exported="false" />
         <activity android:name=".activities.AddBabyActivity" android:exported="false" />
+        <activity android:name=".activities.BabyProfileActivity" android:exported="false" />
         <activity android:name=".activities.GrowthTrackerActivity" android:exported="false" />
+
+        <service
+            android:name=".services.GlobalBackgroundService"
+            android:enabled="true"
+            android:exported="false" />
 
     </application>
 

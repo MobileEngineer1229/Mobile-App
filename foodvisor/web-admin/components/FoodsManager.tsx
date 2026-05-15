@@ -685,7 +685,7 @@ export function FoodsManager() {
                     <td>
                       {item.allergens?.length
                         ? <div className="allergen-chips">
-                            {item.allergens.slice(0, 3).map(a => <span key={a} className="allergen-chip">{a}</span>)}
+                            {item.allergens.slice(0, 3).map((a, index) => <span key={`${a}-${index}`} className="allergen-chip">{a}</span>)}
                             {item.allergens.length > 3 && <span className="allergen-chip more">+{item.allergens.length - 3}</span>}
                           </div>
                         : <span className="muted-text">없음</span>

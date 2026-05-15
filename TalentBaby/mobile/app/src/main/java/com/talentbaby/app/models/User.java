@@ -27,6 +27,9 @@ public class User {
     @SerializedName("language_preference")
     private String languagePreference;
 
+    @SerializedName("relation_to_baby")
+    private String relationToBaby;
+
     public User() {
     }
 
@@ -92,5 +95,13 @@ public class User {
 
     public void setLanguagePreference(String languagePreference) {
         this.languagePreference = languagePreference;
+    }
+
+    public String getRelationToBaby() {
+        return relationToBaby;
+    }
+
+    public void setRelationToBaby(String relationToBaby) {
+        this.relationToBaby = relationToBaby;
     }
 }

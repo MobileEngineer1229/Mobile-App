@@ -53,6 +53,12 @@ public class ArticlesFragment extends Fragment {
         recyclerArticles = view.findViewById(R.id.recyclerArticles);
         progressBar = view.findViewById(R.id.progressBar);
         layoutEmpty = view.findViewById(R.id.layoutEmpty);
+
+        view.findViewById(R.id.btnMenuArticles).setOnClickListener(v -> {
+            if (getActivity() instanceof com.talentbaby.app.MainActivity) {
+                ((com.talentbaby.app.MainActivity) getActivity()).openDrawer();
+            }
+        });
     }
 
     private void setupRecyclerView() {
@@ -69,7 +75,7 @@ public class ArticlesFragment extends Fragment {
         progressBar.setVisibility(View.VISIBLE);
         layoutEmpty.setVisibility(View.GONE);
 
-        apiService.getArticles(null).enqueue(new Callback<ApiResponse<List<Article>>>() {
+        apiService.getArticles(null, null).enqueue(new Callback<ApiResponse<List<Article>>>() {
             @Override
             public void onResponse(Call<ApiResponse<List<Article>>> call, Response<ApiResponse<List<Article>>> response) {
                 progressBar.setVisibility(View.GONE);

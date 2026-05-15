@@ -15,10 +15,15 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.talentbaby.app.activities.AddBabyActivity;
+import com.talentbaby.app.activities.BabyProfileActivity;
+import com.talentbaby.app.activities.GlobalActivity;
 import com.talentbaby.app.activities.LoginActivity;
+import com.talentbaby.app.activities.ParentingSupportActivity;
 import com.talentbaby.app.fragments.ActivitiesFragment;
 import com.talentbaby.app.fragments.HomeFragment;
 import com.talentbaby.app.models.ApiResponse;
+import com.talentbaby.app.models.Baby;
 import com.talentbaby.app.models.User;
 import com.talentbaby.app.network.ApiService;
 import com.talentbaby.app.ui.knowledge.KnowledgeFragment;
@@ -30,7 +35,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends GlobalActivity {
 
     private DrawerLayout drawerLayout;
     private BottomNavigationView bottomNavigation;
@@ -54,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
         setupBottomNavigation();
         setupSidebar();
         loadSidebarUserInfo();
+        loadSidebarBabyInfo();
 
         if (savedInstanceState == null) {
             bottomNavigation.setSelectedItemId(R.id.nav_home);
@@ -97,12 +103,14 @@ public class MainActivity extends AppCompatActivity {
                 confirmDeleteAccount();
             } else if (id == R.id.menu_upgrade) {
                 Toast.makeText(this, getString(R.string.sidebar_upgrade), Toast.LENGTH_SHORT).show();
+            } else if (id == R.id.menu_add_baby) {
+                startActivity(new Intent(this, AddBabyActivity.class));
             } else if (id == R.id.menu_add_partner) {
                 Toast.makeText(this, getString(R.string.sidebar_add_partner), Toast.LENGTH_SHORT).show();
             } else if (id == R.id.menu_invite) {
                 Toast.makeText(this, getString(R.string.sidebar_invite), Toast.LENGTH_SHORT).show();
             } else if (id == R.id.menu_parenting_support) {
-                Toast.makeText(this, getString(R.string.parenting_support), Toast.LENGTH_SHORT).show();
+                openParentingSupport();
             } else if (id == R.id.menu_rate_us) {
                 Toast.makeText(this, getString(R.string.sidebar_rate_us), Toast.LENGTH_SHORT).show();
             } else if (id == R.id.menu_terms) {
@@ -115,12 +123,28 @@ public class MainActivity extends AppCompatActivity {
             return false;
         });
 
-        // Header: Add Baby click
+        // Header: active baby edit and add baby actions
         View headerView = navigationView.getHeaderView(0);
+        headerView.findViewById(R.id.layoutSidebarBaby).setOnClickListener(v -> {
+            drawerLayout.closeDrawer(GravityCompat.START);
+            openActiveBabyProfile();
+        });
+        headerView.findViewById(R.id.btnEditActiveBaby).setOnClickListener(v -> {
+            drawerLayout.closeDrawer(GravityCompat.START);
+            openActiveBabyProfile();
+        });
         headerView.findViewById(R.id.textAddBaby).setOnClickListener(v -> {
             drawerLayout.closeDrawer(GravityCompat.START);
-            Toast.makeText(this, getString(R.string.add_baby), Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, AddBabyActivity.class));
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (navigationView != null) {
+            loadSidebarBabyInfo();
+        }
     }
 
     private void loadSidebarUserInfo() {
@@ -140,12 +164,37 @@ public class MainActivity extends AppCompatActivity {
                     if (textInitials != null && user.getFullName() != null && !user.getFullName().isEmpty()) {
                         textInitials.setText(user.getFullName().substring(0, 1).toUpperCase());
                     }
+                    loadSidebarBabyInfo();
                 }
             }
 
             @Override
             public void onFailure(Call<ApiResponse<User>> call, Throwable t) {
                 // sidebar will show defaults
+            }
+        });
+    }
+
+    private void loadSidebarBabyInfo() {
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        apiService.getActiveBaby().enqueue(new Callback<ApiResponse<Baby>>() {
+            @Override
+            public void onResponse(Call<ApiResponse<Baby>> call, Response<ApiResponse<Baby>> response) {
+                if (!response.isSuccessful() || response.body() == null || response.body().getData() == null) return;
+                Baby baby = response.body().getData();
+                TokenManager.saveBabyId(MainActivity.this, baby.getId());
+                View header = navigationView.getHeaderView(0);
+                TextView babyName = header.findViewById(R.id.textBabyName);
+                TextView initials = header.findViewById(R.id.textAvatarInitials);
+                if (babyName != null && baby.getName() != null) babyName.setText(baby.getName());
+                if (initials != null && baby.getName() != null && !baby.getName().isEmpty()) {
+                    initials.setText(baby.getName().substring(0, 1).toUpperCase());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ApiResponse<Baby>> call, Throwable t) {
+                // Sidebar keeps defaults.
             }
         });
     }
@@ -158,6 +207,19 @@ public class MainActivity extends AppCompatActivity {
 
     public void switchToTab(int tabId) {
         bottomNavigation.setSelectedItemId(tabId);
+    }
+
+    public void openParentingSupport() {
+        startActivity(new Intent(this, ParentingSupportActivity.class));
+    }
+
+    private void openActiveBabyProfile() {
+        Intent intent = new Intent(this, BabyProfileActivity.class);
+        int activeBabyId = TokenManager.getBabyId(this);
+        if (activeBabyId != -1) {
+            intent.putExtra("baby_id", activeBabyId);
+        }
+        startActivity(intent);
     }
 
     // --- Back press: close drawer if open ---

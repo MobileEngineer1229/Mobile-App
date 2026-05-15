@@ -5,15 +5,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.talentbaby.app.MainActivity;
 import com.talentbaby.app.R;
 import com.talentbaby.app.activities.GetStartedWelcomeActivity;
-import com.talentbaby.app.activities.LoginActivity;
+import com.talentbaby.app.activities.GlobalActivity;
 import com.talentbaby.app.utils.TokenManager;
 
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends GlobalActivity {
 
     private static final long SPLASH_DURATION_MS = 2000;
 
@@ -29,8 +27,8 @@ public class SplashActivity extends AppCompatActivity {
             } else {
                 intent = new Intent(this, GetStartedWelcomeActivity.class);
             }
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
+            overridePendingTransition(0, 0);
             finish();
         }, SPLASH_DURATION_MS);
     }

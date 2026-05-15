@@ -83,7 +83,7 @@ public class TrackerFragment extends Fragment {
             }
         });
         view.findViewById(R.id.btnParentingSupportTracker).setOnClickListener(v ->
-                Toast.makeText(getContext(), getString(R.string.parenting_support), Toast.LENGTH_SHORT).show());
+                startActivity(new android.content.Intent(requireContext(), com.talentbaby.app.activities.ParentingSupportActivity.class)));
 
         btnDateYesterday.setOnClickListener(v -> selectDate(-1));
         btnDateToday.setOnClickListener(v -> selectDate(0));

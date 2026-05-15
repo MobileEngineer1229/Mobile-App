@@ -79,6 +79,10 @@ Talent-Baby/
 - **Database**: Room 2.5.0
 - **UI**: Material Design Components
 
+## Mobile UI Notes
+
+- Home screen date selector animation: tapping the left or right date in Today's Development Plan keeps the existing date-selection logic, but visually slides the three date labels as a horizontal strip. The activities list then fades/slides in after the selected date refreshes.
+
 ## 🚀 Quick Start
 
 ### Backend Setup

@@ -45,6 +45,8 @@ public class Recipe {
     @SerializedName("nutrition_info")
     private String nutritionInfo;
 
+    private transient int localImageResId;
+
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
     public String getTitle() { return title; }
@@ -73,4 +75,6 @@ public class Recipe {
     public void setCalories(int calories) { this.calories = calories; }
     public String getNutritionInfo() { return nutritionInfo; }
     public void setNutritionInfo(String nutritionInfo) { this.nutritionInfo = nutritionInfo; }
+    public int getLocalImageResId() { return localImageResId; }
+    public void setLocalImageResId(int localImageResId) { this.localImageResId = localImageResId; }
 }

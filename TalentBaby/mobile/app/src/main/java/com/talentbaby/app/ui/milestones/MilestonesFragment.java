@@ -1,9 +1,14 @@
 package com.talentbaby.app.ui.milestones;
 
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -44,10 +49,11 @@ public class MilestonesFragment extends Fragment {
     private ProgressBar progressBar;
     private LinearLayout layoutEmpty;
     private LinearLayout layoutMonthPills;
+    private TextView btnCreateReport;
     private MilestoneAdapter milestoneAdapter;
     private ApiService apiService;
 
-    private int selectedMonth = 2;
+    private int selectedMonth = 4;
     private int babyId = -1;
     private TextView activeMonthPill = null;
 
@@ -77,6 +83,10 @@ public class MilestonesFragment extends Fragment {
         progressBar        = view.findViewById(R.id.progressBarMilestones);
         layoutEmpty        = view.findViewById(R.id.layoutMilestonesEmpty);
         layoutMonthPills   = view.findViewById(R.id.layoutMonthPillsMilestones);
+        btnCreateReport    = view.findViewById(R.id.btnCreateReport);
+        TextView subtitle  = view.findViewById(R.id.textMilestoneSubtitle);
+        applySubtitleStyle(subtitle);
+        updateCreateReportButton();
 
         view.findViewById(R.id.btnMenuMilestones).setOnClickListener(v -> {
             if (getActivity() instanceof com.talentbaby.app.MainActivity) {
@@ -85,7 +95,9 @@ public class MilestonesFragment extends Fragment {
         });
 
         view.findViewById(R.id.btnParentingSupportMs).setOnClickListener(v ->
-                Toast.makeText(getContext(), getString(R.string.parenting_support), Toast.LENGTH_SHORT).show());
+                startActivity(new android.content.Intent(requireContext(), com.talentbaby.app.activities.ParentingSupportActivity.class)));
+
+        btnCreateReport.setOnClickListener(v -> createMilestoneReport());
     }
 
     private void setupRecyclerView() {
@@ -97,6 +109,7 @@ public class MilestonesFragment extends Fragment {
                 statusMap.put(definitionId, status);
             }
             milestoneAdapter.updateStatus(definitionId, status);
+            updateCreateReportButton();
 
             // Persist to API
             if (babyId != -1 && status != null && !status.isEmpty()) {
@@ -109,9 +122,9 @@ public class MilestonesFragment extends Fragment {
     }
 
     private void loadBabyAndSetupMonths() {
-        babyId = TokenManager.getBabyId(requireContext());
+        babyId = -1;
         if (babyId == -1) {
-            setupMonthPills(2);
+            setupMonthPills(4);
             return;
         }
 
@@ -119,7 +132,7 @@ public class MilestonesFragment extends Fragment {
             @Override
             public void onResponse(@NonNull Call<ApiResponse<Baby>> call,
                                    @NonNull Response<ApiResponse<Baby>> response) {
-                int ageMonths = 2;
+                int ageMonths = 4;
                 if (response.isSuccessful() && response.body() != null
                         && response.body().getData() != null) {
                     ageMonths = calculateAgeInMonths(response.body().getData().getBirthDate());
@@ -129,68 +142,141 @@ public class MilestonesFragment extends Fragment {
 
             @Override
             public void onFailure(@NonNull Call<ApiResponse<Baby>> call, @NonNull Throwable t) {
-                setupMonthPills(2);
+                setupMonthPills(4);
             }
         });
     }
 
+    private void applySubtitleStyle(TextView subtitle) {
+        if (subtitle == null || getContext() == null) return;
+        String count = "38464";
+        String text = "Gain insights into your baby's progress by benchmarking\nwith data of " + count + " babies";
+        SpannableString styled = new SpannableString(text);
+        int start = text.indexOf(count);
+        if (start >= 0) {
+            styled.setSpan(
+                    new ForegroundColorSpan(requireContext().getColor(R.color.article_header)),
+                    start,
+                    start + count.length(),
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+            );
+        }
+        subtitle.setText(styled);
+    }
+
     private void setupMonthPills(int currentMonth) {
         if (layoutMonthPills == null || getContext() == null) return;
-        layoutMonthPills.removeAllViews();
+        selectedMonth = Math.max(1, Math.min(36, currentMonth));
+        renderMonthPills(selectedMonth);
+        loadMilestonesForMonth(selectedMonth);
+    }
 
-        int startMonth = Math.max(1, currentMonth - 2);
-        int endMonth   = Math.min(36, currentMonth + 2);
+    private void renderMonthPills(int centerMonth) {
+        if (layoutMonthPills == null || getContext() == null) return;
+        layoutMonthPills.removeAllViews();
+        activeMonthPill = null;
+
+        int startMonth = Math.max(1, centerMonth - 1);
+        int endMonth   = Math.min(36, centerMonth + 1);
+        if (endMonth - startMonth < 2) {
+            if (startMonth == 1) {
+                endMonth = Math.min(36, startMonth + 2);
+            } else {
+                startMonth = Math.max(1, endMonth - 2);
+            }
+        }
 
         for (int m = startMonth; m <= endMonth; m++) {
             final int month = m;
             TextView pill = new TextView(requireContext());
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    (int) (getResources().getDisplayMetrics().density * 36)
-            );
-            params.setMarginEnd((int) (getResources().getDisplayMetrics().density * 8));
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, dp(50), 1f);
+            params.setMargins(dp(3), 0, dp(3), 0);
             pill.setLayoutParams(params);
             pill.setText(getString(R.string.month_num, m));
-            pill.setTextSize(13f);
-            pill.setPaddingRelative(
-                    (int) (getResources().getDisplayMetrics().density * 16), 0,
-                    (int) (getResources().getDisplayMetrics().density * 16), 0);
-            pill.setGravity(android.view.Gravity.CENTER);
+            pill.setTextSize(18f);
+            pill.setGravity(Gravity.CENTER);
             pill.setClickable(true);
             pill.setFocusable(true);
 
-            if (m == currentMonth) {
+            if (m == centerMonth) {
                 pill.setBackgroundResource(R.drawable.bg_date_selected);
                 pill.setTextColor(requireContext().getColor(android.R.color.white));
-                activeMonthPill = pill;
-                selectedMonth = month;
+                selectMonthPill(pill, month);
             } else {
-                pill.setBackgroundResource(R.drawable.bg_date_unselected);
-                pill.setTextColor(requireContext().getColor(R.color.date_unselected_text));
+                pill.setBackground(null);
+                pill.setTextColor(requireContext().getColor(R.color.home_text_dark));
             }
 
-            pill.setOnClickListener(v -> {
-                selectMonthPill(pill, month);
-                loadMilestonesForMonth(month);
-            });
+            pill.setOnClickListener(v -> slideToMonth(month));
             layoutMonthPills.addView(pill);
         }
-
-        loadMilestonesForMonth(currentMonth);
     }
 
     private void selectMonthPill(TextView pill, int month) {
-        if (activeMonthPill != null) {
-            activeMonthPill.setBackgroundResource(R.drawable.bg_date_unselected);
-            activeMonthPill.setTextColor(requireContext().getColor(R.color.date_unselected_text));
-        }
-        pill.setBackgroundResource(R.drawable.bg_date_selected);
-        pill.setTextColor(requireContext().getColor(android.R.color.white));
         activeMonthPill = pill;
         selectedMonth = month;
+        animateSelectedChip(pill);
+    }
+
+    private void slideToMonth(int month) {
+        if (layoutMonthPills == null || getContext() == null) return;
+        final int targetMonth = Math.max(1, Math.min(36, month));
+        int previousMonth = selectedMonth;
+        if (previousMonth == targetMonth) {
+            if (activeMonthPill != null) animateSelectedChip(activeMonthPill);
+            return;
+        }
+
+        final int direction = targetMonth > previousMonth ? 1 : -1;
+        final float offset = dp(74);
+        selectedMonth = targetMonth;
+
+        layoutMonthPills.animate().cancel();
+        layoutMonthPills.animate()
+                .translationX(-direction * offset)
+                .alpha(0.55f)
+                .setDuration(140)
+                .withEndAction(() -> {
+                    if (layoutMonthPills == null || getContext() == null) return;
+                    renderMonthPills(targetMonth);
+                    layoutMonthPills.setTranslationX(direction * offset);
+                    layoutMonthPills.setAlpha(0.55f);
+                    layoutMonthPills.animate()
+                            .translationX(0f)
+                            .alpha(1f)
+                            .setDuration(220)
+                            .setInterpolator(new DecelerateInterpolator())
+                            .start();
+                    loadMilestonesForMonth(targetMonth);
+                })
+                .start();
+    }
+
+    private void animateSelectedChip(View chip) {
+        chip.animate().cancel();
+        chip.setScaleX(0.96f);
+        chip.setScaleY(0.96f);
+        chip.animate()
+                .scaleX(1f)
+                .scaleY(1f)
+                .setDuration(180)
+                .setInterpolator(new DecelerateInterpolator())
+                .start();
+    }
+
+    private int dp(float value) {
+        return Math.round(value * getResources().getDisplayMetrics().density);
     }
 
     private void loadMilestonesForMonth(int month) {
+        if (getContext() != null) {
+            showLoading(false);
+            groupedDefinitions = mockDefinitions(month);
+            statusMap.clear();
+            renderList();
+            return;
+        }
+
         showLoading(true);
         groupedDefinitions.clear();
         statusMap.clear();
@@ -202,7 +288,8 @@ public class MilestonesFragment extends Fragment {
                     public void onResponse(@NonNull Call<ApiResponse<Map<String, List<MilestoneDefinition>>>> call,
                                            @NonNull Response<ApiResponse<Map<String, List<MilestoneDefinition>>>> response) {
                         if (response.isSuccessful() && response.body() != null
-                                && response.body().getData() != null) {
+                                && response.body().getData() != null
+                                && !response.body().getData().isEmpty()) {
                             groupedDefinitions = response.body().getData();
                         } else {
                             groupedDefinitions = mockDefinitions(month);
@@ -259,6 +346,55 @@ public class MilestonesFragment extends Fragment {
             recyclerMilestones.setVisibility(View.VISIBLE);
             milestoneAdapter.setData(groupedDefinitions, statusMap);
         }
+        updateCreateReportButton();
+    }
+
+    private boolean areAllMilestonesAnswered() {
+        int totalQuestions = 0;
+        for (List<MilestoneDefinition> definitions : groupedDefinitions.values()) {
+            if (definitions == null) continue;
+            for (MilestoneDefinition definition : definitions) {
+                if (definition == null) continue;
+                totalQuestions++;
+                String status = statusMap.get(definition.getId());
+                if (status == null || status.isEmpty()) {
+                    return false;
+                }
+            }
+        }
+        return totalQuestions > 0;
+    }
+
+    private void updateCreateReportButton() {
+        if (btnCreateReport == null) return;
+        boolean enabled = areAllMilestonesAnswered();
+        btnCreateReport.setEnabled(enabled);
+        btnCreateReport.setAlpha(enabled ? 1f : 0.45f);
+    }
+
+    private void createMilestoneReport() {
+        if (!areAllMilestonesAnswered()) return;
+        if (babyId == -1) {
+            Toast.makeText(getContext(), "Report is ready", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        apiService.getMilestoneReport(babyId, selectedMonth).enqueue(new Callback<ApiResponse<Map<String, Object>>>() {
+            @Override
+            public void onResponse(@NonNull Call<ApiResponse<Map<String, Object>>> call,
+                                   @NonNull Response<ApiResponse<Map<String, Object>>> response) {
+                if (getContext() != null) {
+                    Toast.makeText(getContext(), "Report is ready", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ApiResponse<Map<String, Object>>> call, @NonNull Throwable t) {
+                if (getContext() != null) {
+                    Toast.makeText(getContext(), getString(R.string.network_error), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     private void upsertMilestoneStatus(int definitionId, String status) {
@@ -297,28 +433,28 @@ public class MilestonesFragment extends Fragment {
         Map<String, List<MilestoneDefinition>> map = new HashMap<>();
 
         String[][] physical = {
-                {"Perceives light intensity and tries to follow its movement.", null},
-                {"Makes eye contact and observe facial expressions", null},
-                {"Lifts head briefly when on tummy", null},
-                {"Moves arms and legs symmetrically", null},
+                {"Begins to take weight on hands during tummy time for a few seconds.", "Eye Movement, Cycle Movement"},
+                {"Looks closely at objects and tries to grab them if held close to their face and hand.", "Recognizing Hands"},
+                {"Lifts head briefly when on tummy.", "Tummy Time"},
+                {"Moves arms and legs symmetrically.", "Cycle Movement"},
         };
         String[][] cognitive = {
-                {"Responds to sudden sounds by startling", null},
-                {"Follows moving objects with eyes briefly", null},
-                {"Prefers looking at high-contrast patterns", null},
-                {"Shows preference for faces over objects", null},
+                {"Responds to sudden sounds by startling.", "Sound Explorer"},
+                {"Follows moving objects with eyes briefly.", "Eye Movement"},
+                {"Prefers looking at high-contrast patterns.", "Contrast Cards"},
+                {"Shows preference for faces over objects.", "Face Talk"},
         };
         String[][] communication = {
-                {"Differentiates between high and low-pitched voices", null},
-                {"Makes small throaty sounds", null},
-                {"Cries differently for hunger vs discomfort", null},
-                {"Responds to soothing sounds and music", null},
+                {"Differentiates between high and low-pitched voices.", "Sound Explorer"},
+                {"Makes small throaty sounds.", "Smile Talk"},
+                {"Cries differently for hunger vs discomfort.", "Care Cue Practice"},
+                {"Responds to soothing sounds and music.", "Lullaby Time"},
         };
         String[][] social = {
-                {"Calms when picked up or held", null},
-                {"Responds positively to caregiver's face and voice", null},
-                {"Shows excitement with arm/leg movement when spoken to", null},
-                {"Recognises primary caregiver's voice", null},
+                {"Calms when picked up or held.", "Cuddle Pause"},
+                {"Responds positively to caregiver's face and voice.", "Face Talk"},
+                {"Shows excitement with arm/leg movement when spoken to.", "Smile Talk"},
+                {"Recognises primary caregiver's voice.", "Voice Bonding"},
         };
 
         map.put("physical",         buildMockList(1, physical));

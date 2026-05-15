@@ -4,149 +4,127 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_onboarding">
+    android:background="@color/design_cream">
 
-    <!-- Award badge -->
     <LinearLayout
         android:id="@+id/layoutAward"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
+        android:gravity="center"
         android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:background="@drawable/bg_date_unselected"
-        android:paddingHorizontal="14dp"
-        android:paddingVertical="8dp"
+        android:paddingStart="66dp"
+        android:paddingEnd="66dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="52dp">
+        android:layout_marginTop="248dp">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="🏆"
-            android:textSize="18sp" />
+            android:layout_width="72dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:rotation="-18"
+            android:text="))))"
+            android:textColor="@color/award_gold"
+            android:textSize="34sp" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginStart="8dp">
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text="@string/award_winning"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:textColor="@color/text_primary" />
+                android:textColor="@color/design_gray"
+                android:textSize="20sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:gravity="center"
                 android:text="@string/google_play_2022"
-                android:textSize="11sp"
-                android:textColor="@color/text_secondary" />
+                android:textColor="@color/design_gray"
+                android:textSize="20sp" />
         </LinearLayout>
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="🏅"
-            android:textSize="18sp"
-            android:layout_marginStart="8dp" />
+            android:layout_width="72dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:rotation="18"
+            android:text="(((("
+            android:textColor="@color/award_gold"
+            android:textSize="34sp" />
     </LinearLayout>
 
-    <!-- Hero headline -->
     <TextView
         android:id="@+id/textWelcomeHeadline"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/welcome_headline"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        android:textColor="@color/headline_blue"
         android:gravity="center"
-        android:lineSpacingMultiplier="1.2"
-        app:layout_constraintTop_toBottomOf="@+id/layoutAward"
+        android:lineSpacingMultiplier="1.12"
+        android:text="@string/welcome_headline"
+        android:textColor="@color/design_blue"
+        android:textSize="48sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/layoutAward"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="24dp"
-        android:paddingHorizontal="32dp" />
+        android:layout_marginTop="104dp"
+        android:paddingStart="28dp"
+        android:paddingEnd="28dp" />
 
-    <!-- Hero image placeholder (mother + baby) -->
-    <com.google.android.material.card.MaterialCardView
+    <ImageView
         android:id="@+id/cardHeroImage"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:cardCornerRadius="24dp"
-        app:cardElevation="4dp"
-        app:cardBackgroundColor="@color/primary_container"
-        android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@+id/textWelcomeHeadline"
+        android:adjustViewBounds="false"
+        android:contentDescription="@string/welcome_headline"
+        android:scaleType="centerCrop"
+        android:src="@drawable/onboarding_mom_baby"
+        app:layout_constraintTop_toBottomOf="@id/textWelcomeHeadline"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/btnGetStarted"
-        app:layout_constraintHeight_percent="0.35">
+        android:layout_marginTop="26dp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="center">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="👩‍👦"
-                android:textSize="72sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Every moment matters"
-                android:textSize="14sp"
-                android:textColor="@color/primary"
-                android:textStyle="italic"
-                android:layout_marginTop="8dp" />
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
-
-    <!-- Get Started button -->
     <TextView
         android:id="@+id/btnGetStarted"
         android:layout_width="0dp"
-        android:layout_height="56dp"
-        android:text="@string/lets_get_started"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:textColor="@color/white"
+        android:layout_height="66dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="66dp"
         android:background="@drawable/bg_teal_button_large"
-        android:gravity="center"
-        android:layout_marginHorizontal="32dp"
-        android:layout_marginBottom="16dp"
         android:clickable="true"
         android:focusable="true"
-        app:layout_constraintBottom_toTopOf="@+id/textAlreadyUser"
+        android:gravity="center"
+        android:text="@string/lets_get_started"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@id/textAlreadyUser"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Already a user link -->
     <TextView
         android:id="@+id/textAlreadyUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/already_a_user"
-        android:textSize="14sp"
-        android:textColor="@color/primary"
-        android:textStyle="bold"
-        android:padding="12dp"
+        android:layout_marginBottom="26dp"
         android:clickable="true"
         android:focusable="true"
+        android:gravity="center"
+        android:padding="8dp"
+        android:text="@string/already_a_user"
+        android:textColor="@color/white"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="16dp" />
-
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

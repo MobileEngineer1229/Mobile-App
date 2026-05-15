@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:orientation="horizontal"
-            android:paddingStart="8dp"
+            android:paddingStart="16dp"
             android:paddingEnd="16dp"
             android:gravity="center_vertical">
 
@@ -26,10 +26,11 @@
                 android:id="@+id/btnMenuTips"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@android:drawable/ic_menu_sort_by_size"
+                android:src="@drawable/ic_menu_hamburger"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="Menu"
-                android:padding="6dp" />
+                android:padding="6dp"
+                android:tint="@color/home_text_dark" />
 
             <TextView
                 android:layout_width="0dp"
@@ -69,8 +70,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:gap="8dp">
+                android:gravity="center_vertical">
 
                 <TextView
                     android:id="@+id/tabAll"
@@ -155,8 +155,7 @@
                 android:id="@+id/layoutTipsList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gap="12dp" />
+                android:orientation="vertical" />
 
             <!-- Empty state -->
             <LinearLayout

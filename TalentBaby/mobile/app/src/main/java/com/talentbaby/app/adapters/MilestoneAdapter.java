@@ -1,5 +1,6 @@
 package com.talentbaby.app.adapters;
 
+import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,6 +66,9 @@ public class MilestoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     public MilestoneAdapter(OnStatusChangedListener listener) {
         this.listener = listener;
+        for (String category : CATEGORY_ORDER) {
+            collapsedSections.add(category);
+        }
     }
 
     /**
@@ -187,7 +191,11 @@ public class MilestoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         void bind(String category, boolean collapsed) {
             textTitle.setText(labelForCategory(category));
-            iconChevron.setRotation(collapsed ? -90f : 0f);
+            iconChevron.setRotation(0f);
+            GradientDrawable bg = new GradientDrawable();
+            bg.setColor(colorForCategory(category));
+            bg.setCornerRadius(itemView.getResources().getDisplayMetrics().density * 16f);
+            itemView.setBackground(bg);
         }
 
         private String labelForCategory(String cat) {
@@ -198,6 +206,22 @@ public class MilestoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 case "communication":    return "Communication";
                 case "social_emotional": return "Social & Emotional";
                 default:                 return cat;
+            }
+        }
+
+        private int colorForCategory(String cat) {
+            if (cat == null) return itemView.getContext().getColor(R.color.milestone_physical);
+            switch (cat) {
+                case "physical":
+                    return itemView.getContext().getColor(R.color.milestone_physical);
+                case "cognitive":
+                    return itemView.getContext().getColor(R.color.milestone_cognitive);
+                case "communication":
+                    return itemView.getContext().getColor(R.color.milestone_communication);
+                case "social_emotional":
+                    return itemView.getContext().getColor(R.color.milestone_social);
+                default:
+                    return itemView.getContext().getColor(R.color.milestone_physical);
             }
         }
     }
@@ -256,12 +280,12 @@ public class MilestoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 rowRelated.setVisibility(View.VISIBLE);
                 textRelatedActivity.setText(related);
                 layoutRelatedContent.setVisibility(View.GONE);
-                iconChevron.setRotation(-90f);
+                iconChevron.setRotation(0f);
 
                 rowRelated.setOnClickListener(v -> {
                     boolean expanded = layoutRelatedContent.getVisibility() == View.VISIBLE;
                     layoutRelatedContent.setVisibility(expanded ? View.GONE : View.VISIBLE);
-                    iconChevron.setRotation(expanded ? -90f : 0f);
+                    iconChevron.setRotation(expanded ? 0f : 180f);
                 });
             } else {
                 rowRelated.setVisibility(View.GONE);

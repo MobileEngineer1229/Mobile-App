@@ -1,6 +1,7 @@
 import "dotenv/config";
 import mongoose from "mongoose";
 import { connectDatabase } from "../db.js";
+import { ConditionDietCondition } from "../models/condition-diet-condition.js";
 import { ConditionDietRule } from "../models/condition-diet-rule.js";
 import { DataValidationRule } from "../models/data-validation-rule.js";
 import { NutrientIntakeRule } from "../models/nutrient-intake-rule.js";
@@ -8,6 +9,7 @@ import { NutritionTerminology } from "../models/nutrition-terminology.js";
 import { ReferenceSource } from "../models/reference-source.js";
 import { RiskAssessmentRule } from "../models/risk-assessment-rule.js";
 import {
+  conditionDietConditions,
   conditionDietRules,
   dataValidationRules,
   nutritionTerminology,
@@ -109,7 +111,8 @@ await replaceMany(
         "Chinese Dietary Reference Intakes WST578",
         "Chinese national food therapy and diet guidelines",
         "Chinese WS/T health assessment standards",
-        "Chinese WS/T nutrition terminology and food composition standards"
+        "Chinese WS/T nutrition terminology and food composition standards",
+        "WHO Growth Reference 2007"
       ]
     }
   },
@@ -129,6 +132,13 @@ await replaceMany(
 );
 
 await replaceMany(
+  ConditionDietCondition,
+  { dataSource: "Chinese national food therapy and diet guidelines" },
+  conditionDietConditions,
+  "conditionDietConditions"
+);
+
+await replaceMany(
   ConditionDietRule,
   { dataSource: "Chinese national food therapy and diet guidelines" },
   conditionDietRules,
@@ -137,7 +147,7 @@ await replaceMany(
 
 await replaceMany(
   RiskAssessmentRule,
-  { dataSource: "Chinese WS/T health assessment standards" },
+  { dataSource: { $in: ["Chinese WS/T health assessment standards", "WHO Growth Reference 2007"] } },
   riskAssessmentRules,
   "riskAssessmentRules"
 );

@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.talentbaby.app.models.ApiResponse;
+import com.talentbaby.app.models.Activity;
 import com.talentbaby.app.models.Baby;
 import com.talentbaby.app.models.DailyActivity;
 import com.talentbaby.app.models.User;
@@ -14,6 +15,7 @@ import com.talentbaby.app.network.ApiService;
 import com.talentbaby.app.utils.TokenManager;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
@@ -59,6 +61,12 @@ public class HomeViewModel extends ViewModel {
 
     public void loadBabies() {
         isLoadingLiveData.setValue(true);
+        if (apiService != null) {
+            isLoadingLiveData.setValue(false);
+            activitiesLiveData.setValue(demoDailyActivities());
+            return;
+        }
+
         apiService.getBabies().enqueue(new Callback<ApiResponse<List<Baby>>>() {
             @Override
             public void onResponse(Call<ApiResponse<List<Baby>>> call, Response<ApiResponse<List<Baby>>> response) {
@@ -73,15 +81,18 @@ public class HomeViewModel extends ViewModel {
                         loadDailyActivities(first.getId());
                     } else {
                         isLoadingLiveData.setValue(false);
+                        activitiesLiveData.setValue(demoDailyActivities());
                     }
                 } else {
                     isLoadingLiveData.setValue(false);
+                    activitiesLiveData.setValue(demoDailyActivities());
                 }
             }
             @Override
             public void onFailure(Call<ApiResponse<List<Baby>>> call, Throwable t) {
                 isLoadingLiveData.setValue(false);
                 errorLiveData.setValue(t.getMessage());
+                activitiesLiveData.setValue(demoDailyActivities());
             }
         });
     }
@@ -89,7 +100,10 @@ public class HomeViewModel extends ViewModel {
     /** Called by the date selector when the user picks a different day. */
     public void loadActivitiesForDate(Calendar date) {
         int babyId = appContext != null ? TokenManager.getBabyId(appContext) : -1;
-        if (babyId == -1) return;
+        if (babyId == -1) {
+            activitiesLiveData.setValue(demoDailyActivities());
+            return;
+        }
 
         // Format date as yyyy-MM-dd for the API (falls back to today's activities if API unsupported)
         String dateStr = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(date.getTime());
@@ -101,12 +115,16 @@ public class HomeViewModel extends ViewModel {
                                    Response<ApiResponse<List<DailyActivity>>> response) {
                 isLoadingLiveData.setValue(false);
                 if (response.isSuccessful() && response.body() != null && response.body().getData() != null) {
-                    activitiesLiveData.setValue(response.body().getData());
+                    List<DailyActivity> data = response.body().getData();
+                    activitiesLiveData.setValue(data.isEmpty() ? demoDailyActivities() : data);
+                } else {
+                    activitiesLiveData.setValue(demoDailyActivities());
                 }
             }
             @Override
             public void onFailure(Call<ApiResponse<List<DailyActivity>>> call, Throwable t) {
                 isLoadingLiveData.setValue(false);
+                activitiesLiveData.setValue(demoDailyActivities());
             }
         });
     }
@@ -118,14 +136,48 @@ public class HomeViewModel extends ViewModel {
                                    Response<ApiResponse<List<DailyActivity>>> response) {
                 isLoadingLiveData.setValue(false);
                 if (response.isSuccessful() && response.body() != null && response.body().getData() != null) {
-                    activitiesLiveData.setValue(response.body().getData());
+                    List<DailyActivity> data = response.body().getData();
+                    activitiesLiveData.setValue(data.isEmpty() ? demoDailyActivities() : data);
+                } else {
+                    activitiesLiveData.setValue(demoDailyActivities());
                 }
             }
             @Override
             public void onFailure(Call<ApiResponse<List<DailyActivity>>> call, Throwable t) {
                 isLoadingLiveData.setValue(false);
                 errorLiveData.setValue(t.getMessage());
+                activitiesLiveData.setValue(demoDailyActivities());
             }
         });
+    }
+
+    private List<DailyActivity> demoDailyActivities() {
+        List<DailyActivity> items = new ArrayList<>();
+        items.add(demoDailyActivity(1, "Eye Movement", "Hand-Eye-Spatial", "cognitive", 5, 6245, true));
+        items.add(demoDailyActivity(2, "Recognizing Hands", "Self Awareness", "cognitive", 0, 3820, false));
+        items.add(demoDailyActivity(3, "Cycle Movement", "Muscle development", "physical", 0, 5140, false));
+        items.add(demoDailyActivity(4, "Stand-Up On Legs", "Gross Motor", "physical", 0, 2994, false));
+        items.add(demoDailyActivity(5, "Hand Games", "Bonding", "social", 0, 2575, false));
+        return items;
+    }
+
+    private DailyActivity demoDailyActivity(int slot, String title, String subCategory, String category,
+                                            int duration, int doneCount, boolean completed) {
+        Activity activity = new Activity();
+        activity.setId(100 + slot);
+        activity.setTitle(title);
+        activity.setSubCategory(subCategory);
+        activity.setCategory(category);
+        activity.setDurationMinutes(duration);
+        activity.setMinAgeMonths(3);
+        activity.setMaxAgeMonths(6);
+        activity.setDoneCount(doneCount);
+
+        DailyActivity dailyActivity = new DailyActivity();
+        dailyActivity.setDailyId(1000 + slot);
+        dailyActivity.setSlot(slot);
+        dailyActivity.setCompleted(completed);
+        dailyActivity.setActivity(activity);
+        return dailyActivity;
     }
 }

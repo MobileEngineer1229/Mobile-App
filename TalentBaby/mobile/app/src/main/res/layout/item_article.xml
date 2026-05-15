@@ -3,61 +3,99 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="12dp"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="1dp"
+    android:layout_marginBottom="20dp"
     android:clickable="true"
-    android:focusable="true">
+    android:focusable="true"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="5dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="12dp"
-        android:gravity="center_vertical">
+        android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/imageArticle"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:scaleType="centerCrop"
-            android:background="@drawable/rounded_image_background"
-            android:contentDescription="@string/articles_title" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="250dp">
+
+            <ImageView
+                android:id="@+id/imageArticle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:background="@drawable/rounded_image_background"
+                android:contentDescription="@string/articles_title" />
+
+            <ImageView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_gravity="top|end"
+                android:layout_marginTop="22dp"
+                android:layout_marginEnd="22dp"
+                android:contentDescription=""
+                android:src="@drawable/ic_share_outline_teal" />
+        </FrameLayout>
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:orientation="vertical"
-            android:layout_marginStart="12dp">
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="14dp"
+            android:paddingBottom="18dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textArticleCategory"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/article_header" />
+
+                <TextView
+                    android:id="@+id/textArticleViewCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textColor="@color/home_text_muted" />
+
+                <ImageView
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_marginStart="8dp"
+                    android:contentDescription=""
+                    android:src="@drawable/ic_eye_gray" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/textArticleTitle"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
+                android:textSize="22sp"
                 android:textStyle="bold"
-                android:textColor="@color/text_primary"
-                android:maxLines="2"
-                android:ellipsize="end" />
-
-            <TextView
-                android:id="@+id/textArticleSummary"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="13sp"
-                android:textColor="@color/text_secondary"
+                android:textColor="@color/home_text_dark"
                 android:maxLines="2"
                 android:ellipsize="end"
                 android:layout_marginTop="4dp" />
 
             <TextView
                 android:id="@+id/textArticleReadTime"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:textColor="@color/primary"
-                android:layout_marginTop="4dp" />
+                android:textSize="14sp"
+                android:textColor="@color/home_text_muted"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:layout_marginTop="8dp" />
         </LinearLayout>
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

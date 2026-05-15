@@ -3,6 +3,7 @@
 
     <group android:id="@+id/group_main" android:checkableBehavior="none">
         <item android:id="@+id/menu_upgrade" android:title="@string/sidebar_upgrade" android:icon="@android:drawable/star_on" />
+        <item android:id="@+id/menu_add_baby" android:title="@string/sidebar_add_baby" android:icon="@android:drawable/ic_menu_add" />
         <item android:id="@+id/menu_add_partner" android:title="@string/sidebar_add_partner" android:icon="@android:drawable/ic_menu_add" />
         <item android:id="@+id/menu_invite" android:title="@string/sidebar_invite" android:icon="@android:drawable/ic_menu_share" />
         <item android:id="@+id/menu_parenting_support" android:title="@string/sidebar_parenting_support" android:icon="@android:drawable/ic_menu_help" />

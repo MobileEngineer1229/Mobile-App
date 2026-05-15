@@ -1,57 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:background="@drawable/splash_background"
-    android:paddingHorizontal="48dp">
+    android:background="@drawable/splash_background">
 
-    <!-- Logo circle with shadow card -->
-    <com.google.android.material.card.MaterialCardView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="140dp"
-        android:layout_height="140dp"
-        app:cardCornerRadius="70dp"
-        app:cardElevation="8dp"
-        app:cardBackgroundColor="@color/white">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:paddingHorizontal="48dp">
 
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="176dp"
+            android:layout_height="132dp"
             android:src="@drawable/ic_app_logo"
-            android:padding="12dp"
-            android:scaleType="fitCenter"
+            android:alpha="0.85"
             android:contentDescription="@string/app_name" />
 
-    </com.google.android.material.card.MaterialCardView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="BabyG"
+            android:textSize="58sp"
+            android:textStyle="bold"
+            android:textColor="#4E72B7"
+            android:layout_marginTop="12dp" />
+    </LinearLayout>
 
-    <!-- App name -->
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/app_name"
-        android:textSize="32sp"
-        android:textStyle="bold"
-        android:textColor="@color/primary"
-        android:letterSpacing="0.02"
-        android:layout_marginTop="32dp" />
-
-    <!-- Tagline -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/splash_tagline"
-        android:textSize="15sp"
-        android:textColor="@color/text_secondary"
+        android:layout_gravity="bottom"
         android:gravity="center"
-        android:layout_marginTop="8dp" />
+        android:orientation="vertical"
+        android:paddingBottom="120dp">
 
-    <!-- Loading dots indicator -->
-    <ProgressBar
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:indeterminateTint="@color/primary"
-        android:layout_marginTop="60dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/google_play_2022"
+            android:textSize="24sp"
+            android:textColor="@color/home_text_dark" />
 
-</LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="BEST OF 2022"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="@color/home_text_dark"
+            android:layout_marginTop="8dp" />
+    </LinearLayout>
+</FrameLayout>

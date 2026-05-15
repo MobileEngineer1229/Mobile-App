@@ -71,7 +71,7 @@ public class TipsFragment extends Fragment {
             }
         });
         view.findViewById(R.id.btnParentingSupportTips).setOnClickListener(v ->
-                Toast.makeText(getContext(), getString(R.string.parenting_support), Toast.LENGTH_SHORT).show());
+                startActivity(new android.content.Intent(requireContext(), com.talentbaby.app.activities.ParentingSupportActivity.class)));
 
         tabAll.setOnClickListener(v -> selectTab(null));
         tabTip.setOnClickListener(v -> selectTab("tip"));
