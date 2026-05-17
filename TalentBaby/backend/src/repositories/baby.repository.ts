@@ -1,4 +1,4 @@
-import { database } from '../config/database';
+import { prisma } from '../config/prisma';
 
 export interface Baby {
   id: number;
@@ -16,31 +16,28 @@ export interface Baby {
 
 export class BabyRepository {
   async findByUserId(userId: number): Promise<Baby[]> {
-    const result = await database.query(
-      'SELECT * FROM babies WHERE user_id = $1 ORDER BY created_at DESC',
-      [userId]
-    );
-    return result.rows;
+    const babies = await prisma.babies.findMany({
+      where: { user_id: userId },
+      orderBy: { created_at: 'desc' },
+    });
+    return babies as unknown as Baby[];
   }
 
   async findAll(): Promise<Baby[]> {
-    const result = await database.query(
-      'SELECT * FROM babies ORDER BY created_at DESC'
-    );
-    return result.rows;
+    const babies = await prisma.babies.findMany({
+      orderBy: { created_at: 'desc' },
+    });
+    return babies as unknown as Baby[];
   }
 
   async findById(id: number, userId?: number): Promise<Baby | null> {
-    let query = 'SELECT * FROM babies WHERE id = $1';
-    const params: any[] = [id];
-
-    if (userId) {
-      query += ' AND user_id = $2';
-      params.push(userId);
-    }
-
-    const result = await database.query(query, params);
-    return result.rows[0] || null;
+    const baby = await prisma.babies.findFirst({
+      where: {
+        id,
+        ...(userId ? { user_id: userId } : {}),
+      },
+    });
+    return baby as unknown as Baby | null;
   }
 
   async create(babyData: {
@@ -53,29 +50,22 @@ export class BabyRepository {
     profile_picture_url?: string;
     avatar_url?: string;
   }): Promise<Baby> {
-    const result = await database.query(
-      `INSERT INTO babies (user_id, name, birth_date, gender, birth_weight_kg, birth_height_cm, profile_picture_url, avatar_url)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
-       RETURNING *`,
-      [
-        babyData.user_id,
-        babyData.name,
-        babyData.birth_date,
-        babyData.gender || null,
-        babyData.birth_weight_kg || null,
-        babyData.birth_height_cm || null,
-        babyData.profile_picture_url || null,
-        babyData.avatar_url || null,
-      ]
-    );
-    return result.rows[0];
+    const baby = await prisma.babies.create({
+      data: {
+        user_id: babyData.user_id,
+        name: babyData.name,
+        birth_date: babyData.birth_date,
+        gender: babyData.gender ?? null,
+        birth_weight_kg: babyData.birth_weight_kg ?? null,
+        birth_height_cm: babyData.birth_height_cm ?? null,
+        profile_picture_url: babyData.profile_picture_url ?? null,
+        avatar_url: babyData.avatar_url ?? null,
+      },
+    });
+    return baby as unknown as Baby;
   }
 
   async update(id: number, userId: number, updates: Partial<Baby>): Promise<Baby> {
-    const fields: string[] = [];
-    const values: any[] = [];
-    let paramIndex = 1;
-
     const allowedFields = [
       'name',
       'birth_date',
@@ -84,44 +74,40 @@ export class BabyRepository {
       'birth_height_cm',
       'profile_picture_url',
       'avatar_url',
-    ];
+    ] as const;
 
-    Object.keys(updates).forEach((key) => {
-      if (allowedFields.includes(key)) {
-        fields.push(`${key} = $${paramIndex}`);
-        values.push(updates[key as keyof Baby]);
-        paramIndex++;
+    type AllowedField = typeof allowedFields[number];
+
+    const filteredData: Partial<Pick<Baby, AllowedField>> = {};
+    for (const key of allowedFields) {
+      if (key in updates) {
+        (filteredData as any)[key] = updates[key];
       }
-    });
+    }
 
-    if (fields.length === 0) {
+    if (Object.keys(filteredData).length === 0) {
       const baby = await this.findById(id, userId);
       if (!baby) throw new Error('Baby not found');
       return baby;
     }
 
-    fields.push('updated_at = CURRENT_TIMESTAMP');
-    values.push(id, userId);
+    // Verify the baby exists and belongs to the user before updating
+    const existing = await prisma.babies.findFirst({ where: { id, user_id: userId } });
+    if (!existing) throw new Error('Baby not found');
 
-    const result = await database.query(
-      `UPDATE babies SET ${fields.join(', ')} WHERE id = $${paramIndex} AND user_id = $${paramIndex + 1} RETURNING *`,
-      values
-    );
-
-    if (result.rows.length === 0) {
-      throw new Error('Baby not found');
-    }
-
-    return result.rows[0];
+    const baby = await prisma.babies.update({
+      where: { id },
+      data: { ...filteredData, updated_at: new Date() },
+    });
+    return baby as unknown as Baby;
   }
 
   async delete(id: number, userId: number): Promise<void> {
-    const result = await database.query(
-      'DELETE FROM babies WHERE id = $1 AND user_id = $2',
-      [id, userId]
-    );
+    const result = await prisma.babies.deleteMany({
+      where: { id, user_id: userId },
+    });
 
-    if (result.rowCount === 0) {
+    if (result.count === 0) {
       throw new Error('Baby not found');
     }
   }

@@ -1,4 +1,4 @@
-import { database } from '../config/database';
+import { prisma } from '../config/prisma';
 
 export interface PregnancyWeek {
   id: number;
@@ -17,46 +17,43 @@ export interface PregnancyWeek {
 
 export class PregnancyWeekRepository {
   async findByWeek(weekNumber: number): Promise<PregnancyWeek | null> {
-    const result = await database.query(
-      'SELECT * FROM pregnancy_weeks WHERE week_number = $1',
-      [weekNumber]
-    );
-    return result.rows[0] || null;
+    const row = await prisma.pregnancy_weeks.findUnique({
+      where: { week_number: weekNumber },
+    });
+    return row as unknown as PregnancyWeek | null;
   }
 
   async findAll(): Promise<PregnancyWeek[]> {
-    const result = await database.query(
-      'SELECT * FROM pregnancy_weeks ORDER BY week_number ASC'
-    );
-    return result.rows;
+    const rows = await prisma.pregnancy_weeks.findMany({
+      orderBy: { week_number: 'asc' },
+    });
+    return rows as unknown as PregnancyWeek[];
   }
 
   async findByWeekRange(startWeek: number, endWeek: number): Promise<PregnancyWeek[]> {
-    const result = await database.query(
-      'SELECT * FROM pregnancy_weeks WHERE week_number >= $1 AND week_number <= $2 ORDER BY week_number ASC',
-      [startWeek, endWeek]
-    );
-    return result.rows;
+    const rows = await prisma.pregnancy_weeks.findMany({
+      where: {
+        week_number: { gte: startWeek, lte: endWeek },
+      },
+      orderBy: { week_number: 'asc' },
+    });
+    return rows as unknown as PregnancyWeek[];
   }
 
   async create(weekData: Partial<PregnancyWeek>): Promise<PregnancyWeek> {
-    const result = await database.query(
-      `INSERT INTO pregnancy_weeks 
-       (week_number, title, fetal_development, baby_size, baby_weight, body_changes, symptoms, tips, image_url)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
-       RETURNING *`,
-      [
-        weekData.week_number,
-        weekData.title,
-        weekData.fetal_development,
-        weekData.baby_size,
-        weekData.baby_weight,
-        weekData.body_changes,
-        weekData.symptoms || [],
-        weekData.tips || [],
-        weekData.image_url || null,
-      ]
-    );
-    return result.rows[0];
+    const row = await prisma.pregnancy_weeks.create({
+      data: {
+        week_number: weekData.week_number!,
+        title: weekData.title!,
+        fetal_development: weekData.fetal_development ?? null,
+        baby_size: weekData.baby_size ?? null,
+        baby_weight: weekData.baby_weight ?? null,
+        body_changes: weekData.body_changes ?? null,
+        symptoms: weekData.symptoms ?? [],
+        tips: weekData.tips ?? [],
+        image_url: weekData.image_url ?? null,
+      },
+    });
+    return row as unknown as PregnancyWeek;
   }
 }

@@ -1,4 +1,5 @@
-import { database } from '../config/database';
+import { prisma } from '../config/prisma';
+import { Prisma } from '../generated/prisma/client';
 
 export interface Reminder {
   id: number;
@@ -18,66 +19,52 @@ export interface Reminder {
 
 export class ReminderRepository {
   async findByUserId(userId: number, isActive?: boolean): Promise<Reminder[]> {
-    let query = 'SELECT * FROM reminders WHERE user_id = $1';
-    const params: any[] = [userId];
-    let paramIndex = 2;
-
+    const where: Prisma.remindersWhereInput = { user_id: userId };
     if (isActive !== undefined) {
-      query += ` AND is_active = $${paramIndex}`;
-      params.push(isActive);
-      paramIndex++;
+      where.is_active = isActive;
     }
 
-    query += ' ORDER BY reminder_time ASC';
-
-    const result = await database.query(query, params);
-    return result.rows;
+    const rows = await prisma.reminders.findMany({
+      where,
+      orderBy: { reminder_time: 'asc' },
+    });
+    return rows as unknown as Reminder[];
   }
 
   async findByBabyId(babyId: number): Promise<Reminder[]> {
-    const result = await database.query(
-      'SELECT * FROM reminders WHERE baby_id = $1 AND is_active = true ORDER BY reminder_time ASC',
-      [babyId]
-    );
-    return result.rows;
+    const rows = await prisma.reminders.findMany({
+      where: { baby_id: babyId, is_active: true },
+      orderBy: { reminder_time: 'asc' },
+    });
+    return rows as unknown as Reminder[];
   }
 
   async findById(id: number, userId: number): Promise<Reminder | null> {
-    const result = await database.query(
-      'SELECT * FROM reminders WHERE id = $1 AND user_id = $2',
-      [id, userId]
-    );
-    return result.rows[0] || null;
+    const row = await prisma.reminders.findFirst({
+      where: { id, user_id: userId },
+    });
+    return row as unknown as Reminder | null;
   }
 
   async create(reminderData: Partial<Reminder>): Promise<Reminder> {
-    const result = await database.query(
-      `INSERT INTO reminders 
-       (user_id, baby_id, reminder_type, title, description, reminder_time, reminder_date, 
-        is_recurring, recurrence_pattern, is_active)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
-       RETURNING *`,
-      [
-        reminderData.user_id,
-        reminderData.baby_id || null,
-        reminderData.reminder_type,
-        reminderData.title,
-        reminderData.description || null,
-        reminderData.reminder_time,
-        reminderData.reminder_date || null,
-        reminderData.is_recurring || false,
-        reminderData.recurrence_pattern || null,
-        reminderData.is_active !== undefined ? reminderData.is_active : true,
-      ]
-    );
-    return result.rows[0];
+    const row = await prisma.reminders.create({
+      data: {
+        user_id: reminderData.user_id!,
+        baby_id: reminderData.baby_id ?? null,
+        reminder_type: reminderData.reminder_type!,
+        title: reminderData.title!,
+        description: reminderData.description ?? null,
+        reminder_time: reminderData.reminder_time!,
+        reminder_date: reminderData.reminder_date ?? null,
+        is_recurring: reminderData.is_recurring ?? false,
+        recurrence_pattern: reminderData.recurrence_pattern ?? null,
+        is_active: reminderData.is_active !== undefined ? reminderData.is_active : true,
+      },
+    });
+    return row as unknown as Reminder;
   }
 
   async update(id: number, userId: number, updates: Partial<Reminder>): Promise<Reminder> {
-    const fields: string[] = [];
-    const values: any[] = [];
-    let paramIndex = 1;
-
     const allowedFields = [
       'reminder_type',
       'title',
@@ -88,52 +75,55 @@ export class ReminderRepository {
       'recurrence_pattern',
       'is_active',
     ];
+    const data: Record<string, any> = { updated_at: new Date() };
 
-    Object.keys(updates).forEach((key) => {
-      if (allowedFields.includes(key)) {
-        fields.push(`${key} = $${paramIndex}`);
-        values.push(updates[key as keyof Reminder]);
-        paramIndex++;
+    for (const key of allowedFields) {
+      if (key in updates) {
+        data[key] = (updates as any)[key];
       }
-    });
+    }
 
-    if (fields.length === 0) {
+    if (Object.keys(data).length === 1) {
+      // Only updated_at — no real changes
       const reminder = await this.findById(id, userId);
       if (!reminder) throw new Error('Reminder not found');
       return reminder;
     }
 
-    fields.push('updated_at = CURRENT_TIMESTAMP');
-    values.push(id, userId);
+    const result = await prisma.reminders.updateMany({
+      where: { id, user_id: userId },
+      data,
+    });
 
-    const result = await database.query(
-      `UPDATE reminders SET ${fields.join(', ')} WHERE id = $${paramIndex} AND user_id = $${paramIndex + 1} RETURNING *`,
-      values
-    );
+    if (result.count === 0) throw new Error('Reminder not found');
 
-    return result.rows[0];
+    const updated = await this.findById(id, userId);
+    return updated!;
   }
 
   async delete(id: number, userId: number): Promise<void> {
-    const result = await database.query(
-      'DELETE FROM reminders WHERE id = $1 AND user_id = $2',
-      [id, userId]
-    );
-    if (result.rowCount === 0) {
+    const result = await prisma.reminders.deleteMany({
+      where: { id, user_id: userId },
+    });
+    if (result.count === 0) {
       throw new Error('Reminder not found');
     }
   }
 
   async getUpcomingReminders(userId: number, limit: number = 10): Promise<Reminder[]> {
-    const result = await database.query(
-      `SELECT * FROM reminders 
-       WHERE user_id = $1 AND is_active = true 
-       AND (reminder_date IS NULL OR reminder_date <= CURRENT_DATE)
-       AND reminder_time >= CURRENT_TIME
-       ORDER BY reminder_time ASC
-       LIMIT $2`,
-      [userId, limit]
-    );
-    return result.rows;
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+    const rows = await prisma.reminders.findMany({
+      where: {
+        user_id: userId,
+        is_active: true,
+        OR: [{ reminder_date: null }, { reminder_date: { lte: today } }],
+        reminder_time: { gte: now },
+      },
+      orderBy: { reminder_time: 'asc' },
+      take: limit,
+    });
+    return rows as unknown as Reminder[];
   }
 }

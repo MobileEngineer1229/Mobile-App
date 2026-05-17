@@ -1,4 +1,5 @@
-import { database } from '../config/database';
+import { prisma } from '../config/prisma';
+import { Prisma } from '../generated/prisma/client';
 
 export interface User {
   id: number;
@@ -32,18 +33,13 @@ export interface UserWithBabies extends Omit<User, 'password_hash'> {
 
 export class UserRepository {
   async findByEmail(email: string): Promise<User | null> {
-    const result = await database.query(
-      'SELECT * FROM users WHERE email = $1',
-      [email]
-    );
-    return result.rows[0] || null;
+    const user = await prisma.users.findUnique({ where: { email } });
+    return user as User | null;
   }
 
   async findById(id: number): Promise<User | null> {
-    const result = await database.query('SELECT * FROM users WHERE id = $1', [
-      id,
-    ]);
-    return result.rows[0] || null;
+    const user = await prisma.users.findUnique({ where: { id } });
+    return user as User | null;
   }
 
   async create(userData: {
@@ -51,13 +47,14 @@ export class UserRepository {
     password_hash: string;
     full_name?: string;
   }): Promise<User> {
-    const result = await database.query(
-      `INSERT INTO users (email, password_hash, full_name)
-       VALUES ($1, $2, $3)
-       RETURNING *`,
-      [userData.email, userData.password_hash, userData.full_name || null]
-    );
-    return result.rows[0];
+    const user = await prisma.users.create({
+      data: {
+        email: userData.email,
+        password_hash: userData.password_hash,
+        full_name: userData.full_name ?? null,
+      },
+    });
+    return user as User;
   }
 
   async createAdmin(userData: {
@@ -68,54 +65,38 @@ export class UserRepository {
     is_premium?: boolean;
     relation_to_baby?: string;
   }): Promise<User> {
-    const result = await database.query(
-      `INSERT INTO users (email, password_hash, full_name, role, is_premium, relation_to_baby)
-       VALUES ($1, $2, $3, $4, $5, $6)
-       RETURNING *`,
-      [
-        userData.email,
-        userData.password_hash,
-        userData.full_name || null,
-        userData.role || 'user',
-        userData.is_premium ?? false,
-        userData.relation_to_baby || null,
-      ]
-    );
-    return result.rows[0];
+    const user = await prisma.users.create({
+      data: {
+        email: userData.email,
+        password_hash: userData.password_hash,
+        full_name: userData.full_name ?? null,
+        role: userData.role ?? 'user',
+        is_premium: userData.is_premium ?? false,
+        relation_to_baby: userData.relation_to_baby ?? null,
+      },
+    });
+    return user as User;
   }
 
   async update(id: number, updates: Partial<User>): Promise<User> {
-    const fields: string[] = [];
-    const values: any[] = [];
-    let paramIndex = 1;
+    // Strip fields that must not be passed to Prisma update
+    const { id: _id, created_at: _created_at, password_hash: _password_hash, ...rest } = updates;
 
-    Object.keys(updates).forEach((key) => {
-      if (key !== 'id' && key !== 'created_at') {
-        fields.push(`${key} = $${paramIndex}`);
-        values.push(updates[key as keyof User]);
-        paramIndex++;
-      }
-    });
-
-    if (fields.length === 0) {
+    if (Object.keys(rest).length === 0) {
       const user = await this.findById(id);
       if (!user) throw new Error('User not found');
       return user;
     }
 
-    fields.push(`updated_at = CURRENT_TIMESTAMP`);
-    values.push(id);
-
-    const result = await database.query(
-      `UPDATE users SET ${fields.join(', ')} WHERE id = $${paramIndex} RETURNING *`,
-      values
-    );
-
-    return result.rows[0];
+    const user = await prisma.users.update({
+      where: { id },
+      data: { ...rest, updated_at: new Date() },
+    });
+    return user as User;
   }
 
   async findAll(): Promise<UserWithBabies[]> {
-    const result = await database.query(`
+    const rows = await prisma.$queryRaw<UserWithBabies[]>(Prisma.sql`
       SELECT
         u.id, u.email, u.full_name, u.phone_number, u.gender,
         u.birthdate, u.profile_picture_url, u.language_preference,
@@ -140,22 +121,17 @@ export class UserRepository {
       GROUP BY u.id
       ORDER BY u.created_at DESC
     `);
-    return result.rows;
+    return rows;
   }
 
   async setActiveBaby(userId: number, babyId: number | null): Promise<void> {
-    await database.query(
-      'UPDATE users SET active_baby_id = $1, updated_at = CURRENT_TIMESTAMP WHERE id = $2',
-      [babyId, userId]
-    );
+    await prisma.users.update({
+      where: { id: userId },
+      data: { active_baby_id: babyId, updated_at: new Date() },
+    });
   }
 
   async createNotificationPreferences(userId: number): Promise<void> {
-    await database.query(
-      `INSERT INTO user_notification_preferences (user_id)
-       VALUES ($1)
-       ON CONFLICT (user_id) DO NOTHING`,
-      [userId]
-    );
+    await prisma.$executeRaw`INSERT INTO user_notification_preferences (user_id) VALUES (${userId}) ON CONFLICT (user_id) DO NOTHING`;
   }
 }

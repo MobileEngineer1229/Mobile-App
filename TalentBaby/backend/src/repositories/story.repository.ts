@@ -1,86 +1,77 @@
-import { Pool } from 'pg';
-import { database } from '../config/database';
+import { prisma } from '../config/prisma';
+import { Prisma } from '../generated/prisma/client';
 
 export class StoryRepository {
-  private pool: Pool;
-
-  constructor() {
-    this.pool = database.getPool();
-  }
-
   async getStories(filters?: { category?: string; ageMonths?: number; search?: string }) {
-    let query = 'SELECT * FROM bedtime_stories WHERE 1=1';
-    const params: any[] = [];
-    let paramIndex = 1;
+    const where: Prisma.bedtime_storiesWhereInput = {
+      ...(filters?.category ? { category: filters.category } : {}),
+      ...(filters?.ageMonths !== undefined
+        ? {
+            AND: [
+              { OR: [{ age_min_months: null }, { age_min_months: { lte: filters.ageMonths } }] },
+              { OR: [{ age_max_months: null }, { age_max_months: { gte: filters.ageMonths } }] },
+            ],
+          }
+        : {}),
+      ...(filters?.search
+        ? {
+            OR: [
+              { title: { contains: filters.search, mode: 'insensitive' } },
+              { description: { contains: filters.search, mode: 'insensitive' } },
+              { content: { contains: filters.search, mode: 'insensitive' } },
+            ],
+          }
+        : {}),
+    };
 
-    if (filters?.category) {
-      query += ` AND category = $${paramIndex}`;
-      params.push(filters.category);
-      paramIndex++;
-    }
-
-    if (filters?.ageMonths) {
-      query += ` AND (age_min_months IS NULL OR age_min_months <= $${paramIndex})
-                 AND (age_max_months IS NULL OR age_max_months >= $${paramIndex})`;
-      params.push(filters.ageMonths);
-      paramIndex++;
-    }
-
-    if (filters?.search) {
-      query += ` AND (title ILIKE $${paramIndex} OR description ILIKE $${paramIndex} OR content ILIKE $${paramIndex})`;
-      const searchTerm = `%${filters.search}%`;
-      params.push(searchTerm, searchTerm, searchTerm);
-      paramIndex += 3;
-    }
-
-    query += ' ORDER BY created_at DESC';
-
-    const result = await this.pool.query(query, params);
-    return result.rows;
+    return prisma.bedtime_stories.findMany({
+      where,
+      orderBy: { created_at: 'desc' },
+    });
   }
 
-  async getStoryById(id: number) {
-    const query = 'SELECT * FROM bedtime_stories WHERE id = $1';
-    const result = await this.pool.query(query, [id]);
-    return result.rows[0] || null;
+  async getStoryById(id: number): Promise<any | null> {
+    const row = await prisma.bedtime_stories.findUnique({ where: { id } });
+    return row || null;
   }
 
   async getStoryCategories() {
-    const query = 'SELECT * FROM story_categories ORDER BY name ASC';
-    const result = await this.pool.query(query);
-    return result.rows;
+    return prisma.story_categories.findMany({
+      orderBy: { name: 'asc' },
+    });
   }
 
   async addStoryToFavorites(userId: number, storyId: number) {
-    const query = `
-      INSERT INTO story_favorites (user_id, story_id)
-      VALUES ($1, $2)
-      ON CONFLICT (user_id, story_id) DO NOTHING
-      RETURNING *
-    `;
-    const result = await this.pool.query(query, [userId, storyId]);
-    return result.rows[0] || null;
+    try {
+      const row = await prisma.story_favorites.create({
+        data: { user_id: userId, story_id: storyId },
+      });
+      return row;
+    } catch {
+      // ON CONFLICT DO NOTHING — unique constraint violation means already favorited
+      return null;
+    }
   }
 
   async removeStoryFromFavorites(userId: number, storyId: number) {
-    const query = 'DELETE FROM story_favorites WHERE user_id = $1 AND story_id = $2';
-    await this.pool.query(query, [userId, storyId]);
+    await prisma.story_favorites.deleteMany({
+      where: { user_id: userId, story_id: storyId },
+    });
   }
 
   async getFavoriteStories(userId: number) {
-    const query = `
-      SELECT s.* FROM bedtime_stories s
-      INNER JOIN story_favorites sf ON s.id = sf.story_id
-      WHERE sf.user_id = $1
-      ORDER BY sf.created_at DESC
-    `;
-    const result = await this.pool.query(query, [userId]);
-    return result.rows;
+    return prisma.$queryRaw(
+      Prisma.sql`SELECT s.* FROM bedtime_stories s
+                 INNER JOIN story_favorites sf ON s.id = sf.story_id
+                 WHERE sf.user_id = ${userId}
+                 ORDER BY sf.created_at DESC`
+    );
   }
 
   async isStoryFavorite(userId: number, storyId: number): Promise<boolean> {
-    const query = 'SELECT 1 FROM story_favorites WHERE user_id = $1 AND story_id = $2';
-    const result = await this.pool.query(query, [userId, storyId]);
-    return result.rows.length > 0;
+    const row = await prisma.story_favorites.findUnique({
+      where: { user_id_story_id: { user_id: userId, story_id: storyId } },
+    });
+    return row !== null;
   }
 }

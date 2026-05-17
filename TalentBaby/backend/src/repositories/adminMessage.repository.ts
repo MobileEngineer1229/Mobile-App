@@ -1,4 +1,5 @@
-import { database } from '../config/database';
+import { prisma } from '../config/prisma';
+import { Prisma } from '../generated/prisma/client';
 
 export interface AdminMessage {
   id: number;
@@ -15,86 +16,81 @@ export interface AdminMessage {
 
 export class AdminMessageRepository {
   async findAll() {
-    const result = await database.query(
-      `SELECT * FROM admin_messages ORDER BY created_at DESC`
-    );
-    return result.rows as AdminMessage[];
+    const rows = await prisma.admin_messages.findMany({
+      orderBy: { created_at: 'desc' },
+    });
+    return rows as unknown as AdminMessage[];
   }
 
   async findPublished(role?: string) {
-    const result = await database.query(
-      `SELECT * FROM admin_messages
-       WHERE is_published = true
-         AND (target_role = 'all' OR target_role = $1)
-       ORDER BY published_at DESC`,
-      [role ?? 'user']
-    );
-    return result.rows as AdminMessage[];
+    const targetRole = role ?? 'user';
+    const rows = await prisma.$queryRaw<AdminMessage[]>(Prisma.sql`
+      SELECT * FROM admin_messages
+      WHERE is_published = true
+        AND (target_role = 'all' OR target_role = ${targetRole})
+      ORDER BY published_at DESC
+    `);
+    return rows;
   }
 
   async findById(id: number) {
-    const result = await database.query(
-      `SELECT * FROM admin_messages WHERE id = $1`,
-      [id]
-    );
-    return result.rows[0] as AdminMessage | undefined;
+    const row = await prisma.admin_messages.findUnique({ where: { id } });
+    return (row as unknown as AdminMessage) ?? undefined;
   }
 
   async create(data: Omit<AdminMessage, 'id' | 'created_at' | 'updated_at'>) {
-    const result = await database.query(
-      `INSERT INTO admin_messages (title, body, type, priority, target_role, is_published, published_at)
-       VALUES ($1, $2, $3, $4, $5, $6, $7)
-       RETURNING *`,
-      [
-        data.title,
-        data.body,
-        data.type,
-        data.priority,
-        data.target_role,
-        data.is_published,
-        data.is_published ? (data.published_at ?? new Date().toISOString()) : null,
-      ]
-    );
-    return result.rows[0] as AdminMessage;
+    const publishedAt = data.is_published
+      ? (data.published_at ? new Date(data.published_at) : new Date())
+      : null;
+
+    const row = await prisma.admin_messages.create({
+      data: {
+        title: data.title,
+        body: data.body,
+        type: data.type,
+        priority: data.priority,
+        target_role: data.target_role,
+        is_published: data.is_published,
+        published_at: publishedAt,
+      },
+    });
+    return row as unknown as AdminMessage;
   }
 
   async update(id: number, data: Partial<Omit<AdminMessage, 'id' | 'created_at' | 'updated_at'>>) {
-    const fields: string[] = [];
-    const params: unknown[] = [];
-    let i = 1;
+    const updateData: Prisma.admin_messagesUpdateInput = { updated_at: new Date() };
 
-    if (data.title       !== undefined) { fields.push(`title = $${i++}`);       params.push(data.title); }
-    if (data.body        !== undefined) { fields.push(`body = $${i++}`);        params.push(data.body); }
-    if (data.type        !== undefined) { fields.push(`type = $${i++}`);        params.push(data.type); }
-    if (data.priority    !== undefined) { fields.push(`priority = $${i++}`);    params.push(data.priority); }
-    if (data.target_role !== undefined) { fields.push(`target_role = $${i++}`); params.push(data.target_role); }
+    if (data.title       !== undefined) updateData.title       = data.title;
+    if (data.body        !== undefined) updateData.body        = data.body;
+    if (data.type        !== undefined) updateData.type        = data.type;
+    if (data.priority    !== undefined) updateData.priority    = data.priority;
+    if (data.target_role !== undefined) updateData.target_role = data.target_role;
+
     if (data.is_published !== undefined) {
-      fields.push(`is_published = $${i++}`);
-      params.push(data.is_published);
+      updateData.is_published = data.is_published;
       if (data.is_published && !data.published_at) {
-        fields.push(`published_at = CURRENT_TIMESTAMP`);
+        updateData.published_at = new Date();
       } else if (!data.is_published) {
-        fields.push(`published_at = NULL`);
+        updateData.published_at = null;
       }
     }
-    if (data.published_at !== undefined) { fields.push(`published_at = $${i++}`); params.push(data.published_at); }
+    if (data.published_at !== undefined) {
+      updateData.published_at = data.published_at ? new Date(data.published_at) : null;
+    }
 
-    if (!fields.length) return null;
-    fields.push(`updated_at = CURRENT_TIMESTAMP`);
-    params.push(id);
+    // Return null if nothing meaningful was requested
+    const keys = Object.keys(updateData).filter(k => k !== 'updated_at');
+    if (!keys.length) return null;
 
-    const result = await database.query(
-      `UPDATE admin_messages SET ${fields.join(', ')} WHERE id = $${i} RETURNING *`,
-      params
-    );
-    return result.rows[0] as AdminMessage | undefined;
+    const row = await prisma.admin_messages.update({
+      where: { id },
+      data: updateData,
+    });
+    return (row as unknown as AdminMessage) ?? undefined;
   }
 
   async delete(id: number) {
-    const result = await database.query(
-      `DELETE FROM admin_messages WHERE id = $1 RETURNING id`,
-      [id]
-    );
-    return (result.rowCount ?? 0) > 0;
+    const result = await prisma.admin_messages.deleteMany({ where: { id } });
+    return result.count > 0;
   }
 }

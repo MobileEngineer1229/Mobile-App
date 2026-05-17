@@ -1,4 +1,4 @@
-import { database } from '../config/database';
+import { prisma } from '../config/prisma';
 
 export interface Workout {
   id: number;
@@ -18,43 +18,40 @@ export interface Workout {
 
 export class WorkoutRepository {
   async findByTrimester(trimester: number): Promise<Workout[]> {
-    const result = await database.query(
-      'SELECT * FROM pregnancy_workouts WHERE trimester = $1 ORDER BY title ASC',
-      [trimester]
-    );
-    return result.rows;
+    const rows = await prisma.pregnancy_workouts.findMany({
+      where: { trimester },
+      orderBy: { title: 'asc' },
+    });
+    return rows as unknown as Workout[];
   }
 
   async findAll(): Promise<Workout[]> {
-    const result = await database.query('SELECT * FROM pregnancy_workouts ORDER BY trimester ASC, title ASC');
-    return result.rows;
+    const rows = await prisma.pregnancy_workouts.findMany({
+      orderBy: [{ trimester: 'asc' }, { title: 'asc' }],
+    });
+    return rows as unknown as Workout[];
   }
 
   async findById(id: number): Promise<Workout | null> {
-    const result = await database.query('SELECT * FROM pregnancy_workouts WHERE id = $1', [id]);
-    return result.rows[0] || null;
+    const row = await prisma.pregnancy_workouts.findUnique({ where: { id } });
+    return row as unknown as Workout | null;
   }
 
   async create(workoutData: Partial<Workout>): Promise<Workout> {
-    const result = await database.query(
-      `INSERT INTO pregnancy_workouts 
-       (title, description, trimester, duration_minutes, difficulty_level, video_url, 
-        thumbnail_url, instructions, benefits, precautions)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
-       RETURNING *`,
-      [
-        workoutData.title,
-        workoutData.description,
-        workoutData.trimester,
-        workoutData.duration_minutes,
-        workoutData.difficulty_level,
-        workoutData.video_url || null,
-        workoutData.thumbnail_url || null,
-        workoutData.instructions,
-        workoutData.benefits || [],
-        workoutData.precautions || [],
-      ]
-    );
-    return result.rows[0];
+    const row = await prisma.pregnancy_workouts.create({
+      data: {
+        title: workoutData.title!,
+        description: workoutData.description ?? null,
+        trimester: workoutData.trimester!,
+        duration_minutes: workoutData.duration_minutes ?? null,
+        difficulty_level: workoutData.difficulty_level ?? null,
+        video_url: workoutData.video_url ?? null,
+        thumbnail_url: workoutData.thumbnail_url ?? null,
+        instructions: workoutData.instructions ?? null,
+        benefits: workoutData.benefits ?? [],
+        precautions: workoutData.precautions ?? [],
+      },
+    });
+    return row as unknown as Workout;
   }
 }

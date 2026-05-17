@@ -1,4 +1,5 @@
-import { database } from '../config/database';
+import { prisma } from '../config/prisma';
+import { Prisma } from '../generated/prisma/client';
 
 export interface GrowthRecord {
   id: number;
@@ -19,31 +20,26 @@ export interface GrowthRecord {
 
 export class GrowthRepository {
   async findByBabyId(babyId: number, startDate?: Date, endDate?: Date): Promise<GrowthRecord[]> {
-    let query = 'SELECT * FROM growth_records WHERE baby_id = $1';
-    const params: any[] = [babyId];
-    let paramIndex = 2;
+    const where: Prisma.growth_recordsWhereInput = { baby_id: babyId };
 
-    if (startDate) {
-      query += ` AND record_date >= $${paramIndex}`;
-      params.push(startDate);
-      paramIndex++;
+    if (startDate || endDate) {
+      where.record_date = {
+        ...(startDate ? { gte: startDate } : {}),
+        ...(endDate ? { lte: endDate } : {}),
+      };
     }
 
-    if (endDate) {
-      query += ` AND record_date <= $${paramIndex}`;
-      params.push(endDate);
-      paramIndex++;
-    }
+    const rows = await prisma.growth_records.findMany({
+      where,
+      orderBy: [{ record_date: 'asc' }],
+    });
 
-    query += ' ORDER BY record_date ASC';
-
-    const result = await database.query(query, params);
-    return result.rows;
+    return rows as unknown as GrowthRecord[];
   }
 
   async findById(id: number): Promise<GrowthRecord | null> {
-    const result = await database.query('SELECT * FROM growth_records WHERE id = $1', [id]);
-    return result.rows[0] || null;
+    const row = await prisma.growth_records.findUnique({ where: { id } });
+    return row as unknown as GrowthRecord | null;
   }
 
   async create(growthData: {
@@ -65,44 +61,37 @@ export class GrowthRepository {
       bmi = growthData.weight_kg / (heightInMeters * heightInMeters);
     }
 
-    const result = await database.query(
-      `INSERT INTO growth_records 
-       (baby_id, record_date, age_in_days, weight_kg, height_cm, head_circumference_cm, bmi, 
-        percentile_weight, percentile_height, percentile_head_circumference, notes)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
-       RETURNING *`,
-      [
-        growthData.baby_id,
-        growthData.record_date,
-        growthData.age_in_days,
-        growthData.weight_kg || null,
-        growthData.height_cm || null,
-        growthData.head_circumference_cm || null,
-        bmi,
-        growthData.percentile_weight || null,
-        growthData.percentile_height || null,
-        growthData.percentile_head_circumference || null,
-        growthData.notes || null,
-      ]
-    );
-    return result.rows[0];
+    const row = await prisma.growth_records.create({
+      data: {
+        baby_id: growthData.baby_id,
+        record_date: growthData.record_date,
+        age_in_days: growthData.age_in_days,
+        weight_kg: growthData.weight_kg ?? null,
+        height_cm: growthData.height_cm ?? null,
+        head_circumference_cm: growthData.head_circumference_cm ?? null,
+        bmi: bmi,
+        percentile_weight: growthData.percentile_weight ?? null,
+        percentile_height: growthData.percentile_height ?? null,
+        percentile_head_circumference: growthData.percentile_head_circumference ?? null,
+        notes: growthData.notes ?? null,
+      },
+    });
+
+    return row as unknown as GrowthRecord;
   }
 
   async update(id: number, updates: Partial<GrowthRecord>): Promise<GrowthRecord> {
-    const fields: string[] = [];
-    const values: any[] = [];
-    let paramIndex = 1;
+    const data: Record<string, unknown> = { updated_at: new Date() };
 
-    Object.keys(updates).forEach((key) => {
+    // Copy all allowed fields (everything except id, created_at, baby_id)
+    for (const key of Object.keys(updates) as Array<keyof GrowthRecord>) {
       if (key !== 'id' && key !== 'created_at' && key !== 'baby_id') {
-        fields.push(`${key} = $${paramIndex}`);
-        values.push(updates[key as keyof GrowthRecord]);
-        paramIndex++;
+        data[key] = updates[key] ?? null;
       }
-    });
+    }
 
     // Recalculate BMI if weight or height changed
-    if (updates.weight_kg || updates.height_cm) {
+    if (updates.weight_kg !== undefined || updates.height_cm !== undefined) {
       const existing = await this.findById(id);
       if (existing) {
         const weight = updates.weight_kg ?? existing.weight_kg;
@@ -110,42 +99,38 @@ export class GrowthRepository {
         if (weight && height) {
           const heightInMeters = height / 100;
           const bmi = weight / (heightInMeters * heightInMeters);
-          fields.push(`bmi = $${paramIndex}`);
-          values.push(bmi);
-          paramIndex++;
+          data['bmi'] = bmi;
         }
       }
     }
 
-    if (fields.length === 0) {
+    if (Object.keys(data).length === 1) {
+      // only updated_at — no real update fields
       const record = await this.findById(id);
       if (!record) throw new Error('Growth record not found');
       return record;
     }
 
-    fields.push('updated_at = CURRENT_TIMESTAMP');
-    values.push(id);
+    const row = await prisma.growth_records.update({
+      where: { id },
+      data,
+    });
 
-    const result = await database.query(
-      `UPDATE growth_records SET ${fields.join(', ')} WHERE id = $${paramIndex} RETURNING *`,
-      values
-    );
-
-    return result.rows[0];
+    return row as unknown as GrowthRecord;
   }
 
   async delete(id: number): Promise<void> {
-    const result = await database.query('DELETE FROM growth_records WHERE id = $1', [id]);
-    if (result.rowCount === 0) {
+    const result = await prisma.growth_records.deleteMany({ where: { id } });
+    if (result.count === 0) {
       throw new Error('Growth record not found');
     }
   }
 
   async verifyBabyOwnership(babyId: number, userId: number): Promise<boolean> {
-    const result = await database.query(
-      'SELECT id FROM babies WHERE id = $1 AND user_id = $2',
-      [babyId, userId]
-    );
-    return result.rows.length > 0;
+    const row = await prisma.babies.findFirst({
+      where: { id: babyId, user_id: userId },
+      select: { id: true },
+    });
+    return row !== null;
   }
 }

@@ -1,4 +1,5 @@
-import { database } from '../config/database';
+import { prisma } from '../config/prisma';
+import { Prisma } from '../generated/prisma/client';
 
 export interface BirthClub {
   id: number;
@@ -37,145 +38,140 @@ export interface PostComment {
 export class CommunityRepository {
   // Birth Clubs
   async findOrCreateBirthClub(birthMonth: number, birthYear: number): Promise<BirthClub> {
-    let result = await database.query(
-      'SELECT * FROM birth_clubs WHERE birth_month = $1 AND birth_year = $2',
-      [birthMonth, birthYear]
-    );
+    let club = await prisma.birth_clubs.findFirst({
+      where: { birth_month: birthMonth, birth_year: birthYear },
+    });
 
-    if (result.rows.length === 0) {
-      result = await database.query(
-        `INSERT INTO birth_clubs (birth_month, birth_year, club_name, member_count)
-         VALUES ($1, $2, $3, 0)
-         RETURNING *`,
-        [birthMonth, birthYear, `Birth Club ${birthMonth}/${birthYear}`]
-      );
+    if (!club) {
+      club = await prisma.birth_clubs.create({
+        data: {
+          birth_month: birthMonth,
+          birth_year: birthYear,
+          club_name: `Birth Club ${birthMonth}/${birthYear}`,
+          member_count: 0,
+        },
+      });
     }
 
-    return result.rows[0];
+    return club as unknown as BirthClub;
   }
 
   async joinBirthClub(userId: number, birthClubId: number): Promise<void> {
-    await database.query(
-      `INSERT INTO birth_club_memberships (user_id, birth_club_id)
-       VALUES ($1, $2)
-       ON CONFLICT (user_id, birth_club_id) DO NOTHING`,
-      [userId, birthClubId]
-    );
+    // Upsert membership — ON CONFLICT DO NOTHING equivalent
+    await prisma.$executeRaw`
+      INSERT INTO birth_club_memberships (user_id, birth_club_id)
+      VALUES (${userId}, ${birthClubId})
+      ON CONFLICT (user_id, birth_club_id) DO NOTHING
+    `;
 
     // Update member count
-    await database.query(
-      'UPDATE birth_clubs SET member_count = (SELECT COUNT(*) FROM birth_club_memberships WHERE birth_club_id = $1) WHERE id = $1',
-      [birthClubId]
-    );
+    const memberCount = await prisma.birth_club_memberships.count({
+      where: { birth_club_id: birthClubId },
+    });
+
+    await prisma.birth_clubs.update({
+      where: { id: birthClubId },
+      data: { member_count: memberCount },
+    });
   }
 
   async getUserBirthClubs(userId: number): Promise<BirthClub[]> {
-    const result = await database.query(
-      `SELECT bc.* FROM birth_clubs bc
-       JOIN birth_club_memberships bcm ON bc.id = bcm.birth_club_id
-       WHERE bcm.user_id = $1`,
-      [userId]
-    );
-    return result.rows;
+    const rows = await prisma.$queryRaw<BirthClub[]>(Prisma.sql`
+      SELECT bc.*
+      FROM birth_clubs bc
+      JOIN birth_club_memberships bcm ON bc.id = bcm.birth_club_id
+      WHERE bcm.user_id = ${userId}
+    `);
+    return rows;
   }
 
   // Community Posts
   async createPost(postData: Partial<CommunityPost>): Promise<CommunityPost> {
-    const result = await database.query(
-      `INSERT INTO community_posts 
-       (user_id, birth_club_id, post_type, title, content, image_url)
-       VALUES ($1, $2, $3, $4, $5, $6)
-       RETURNING *`,
-      [
-        postData.user_id,
-        postData.birth_club_id || null,
-        postData.post_type || 'discussion',
-        postData.title,
-        postData.content,
-        postData.image_url || null,
-      ]
-    );
-    return result.rows[0];
+    const post = await prisma.community_posts.create({
+      data: {
+        user_id: postData.user_id!,
+        birth_club_id: postData.birth_club_id ?? null,
+        post_type: postData.post_type ?? 'discussion',
+        title: postData.title!,
+        content: postData.content!,
+        image_url: postData.image_url ?? null,
+      },
+    });
+    return post as unknown as CommunityPost;
   }
 
   async getPosts(birthClubId?: number, postType?: string, limit: number = 20, offset: number = 0): Promise<CommunityPost[]> {
-    let query = 'SELECT * FROM community_posts WHERE 1=1';
-    const params: any[] = [];
-    let paramIndex = 1;
+    const where: Prisma.community_postsWhereInput = {};
+    if (birthClubId) where.birth_club_id = birthClubId;
+    if (postType) where.post_type = postType;
 
-    if (birthClubId) {
-      query += ` AND birth_club_id = $${paramIndex}`;
-      params.push(birthClubId);
-      paramIndex++;
-    }
-
-    if (postType) {
-      query += ` AND post_type = $${paramIndex}`;
-      params.push(postType);
-      paramIndex++;
-    }
-
-    query += ' ORDER BY is_pinned DESC, created_at DESC';
-    query += ` LIMIT $${paramIndex} OFFSET $${paramIndex + 1}`;
-    params.push(limit, offset);
-
-    const result = await database.query(query, params);
-    return result.rows;
+    const posts = await prisma.community_posts.findMany({
+      where,
+      orderBy: [{ is_pinned: 'desc' }, { created_at: 'desc' }],
+      take: limit,
+      skip: offset,
+    });
+    return posts as unknown as CommunityPost[];
   }
 
   async getPostById(id: number): Promise<CommunityPost | null> {
-    const result = await database.query('SELECT * FROM community_posts WHERE id = $1', [id]);
-    return result.rows[0] || null;
+    const post = await prisma.community_posts.findUnique({ where: { id } });
+    return (post as unknown as CommunityPost) ?? null;
   }
 
   async likePost(userId: number, postId: number): Promise<void> {
-    await database.query(
-      `INSERT INTO post_likes (post_id, user_id)
-       VALUES ($1, $2)
-       ON CONFLICT (post_id, user_id) DO NOTHING`,
-      [postId, userId]
-    );
+    // ON CONFLICT DO NOTHING equivalent
+    await prisma.$executeRaw`
+      INSERT INTO post_likes (post_id, user_id)
+      VALUES (${postId}, ${userId})
+      ON CONFLICT (post_id, user_id) DO NOTHING
+    `;
 
-    // Update like count
-    await database.query(
-      'UPDATE community_posts SET like_count = (SELECT COUNT(*) FROM post_likes WHERE post_id = $1) WHERE id = $1',
-      [postId]
-    );
+    const likeCount = await prisma.post_likes.count({ where: { post_id: postId } });
+    await prisma.community_posts.update({
+      where: { id: postId },
+      data: { like_count: likeCount, updated_at: new Date() },
+    });
   }
 
   async unlikePost(userId: number, postId: number): Promise<void> {
-    await database.query('DELETE FROM post_likes WHERE post_id = $1 AND user_id = $2', [postId, userId]);
+    await prisma.post_likes.deleteMany({
+      where: { post_id: postId, user_id: userId },
+    });
 
-    // Update like count
-    await database.query(
-      'UPDATE community_posts SET like_count = (SELECT COUNT(*) FROM post_likes WHERE post_id = $1) WHERE id = $1',
-      [postId]
-    );
+    const likeCount = await prisma.post_likes.count({ where: { post_id: postId } });
+    await prisma.community_posts.update({
+      where: { id: postId },
+      data: { like_count: likeCount, updated_at: new Date() },
+    });
   }
 
   // Comments
   async createComment(commentData: Partial<PostComment>): Promise<PostComment> {
-    const result = await database.query(
-      `INSERT INTO post_comments (post_id, user_id, content)
-       VALUES ($1, $2, $3)
-       RETURNING *`,
-      [commentData.post_id, commentData.user_id, commentData.content]
-    );
+    const comment = await prisma.post_comments.create({
+      data: {
+        post_id: commentData.post_id!,
+        user_id: commentData.user_id!,
+        content: commentData.content!,
+      },
+    });
 
-    // Update comment count
-    await database.query(
-      'UPDATE community_posts SET comment_count = (SELECT COUNT(*) FROM post_comments WHERE post_id = $1) WHERE id = $1',
-      [commentData.post_id]
-    );
+    const commentCount = await prisma.post_comments.count({
+      where: { post_id: commentData.post_id },
+    });
+    await prisma.community_posts.update({
+      where: { id: commentData.post_id },
+      data: { comment_count: commentCount, updated_at: new Date() },
+    });
 
-    return result.rows[0];
+    return comment as unknown as PostComment;
   }
 
   async getComments(postId: number): Promise<PostComment[]> {
-    const result = await database.query(
-      'SELECT * FROM post_comments WHERE post_id = $1 ORDER BY created_at ASC',
-      [postId]
-    );
-    return result.rows;
+    const comments = await prisma.post_comments.findMany({
+      where: { post_id: postId },
+      orderBy: { created_at: 'asc' },
+    });
+    return comments as unknown as PostComment[];
   }
 }

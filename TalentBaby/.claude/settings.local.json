@@ -7,7 +7,15 @@
       "Bash(PGPASSWORD=213515 \"/c/Program Files/PostgreSQL/18/bin/psql\" -U postgres -h localhost -d talent_baby_db -f \"E:/Github/Mobile/Talent-Baby/backend/database/migrations/024_milestone_definitions.sql\" 2>&1)",
       "Bash(grep -E \"\\\\.\\(java|xml\\)$\")",
       "Bash(xargs grep *)",
-      "Bash(echo \"Backend starting PID: $!\")"
+      "Bash(echo \"Backend starting PID: $!\")",
+      "Bash(python -c ' *)",
+      "Bash(findstr \":5000 \")",
+      "Bash(npx prisma *)",
+      "Bash(npx ts-node -e ' *)",
+      "Bash(npx ts-node --transpile-only -e ' *)",
+      "Bash(Select-String -Path \"E:\\\\Github\\\\Mobile\\\\Mobile-App\\\\TalentBaby\\\\backend\\\\prisma\\\\schema.prisma\" -Pattern \"^model \")",
+      "Bash(Measure-Object)",
+      "Bash(Select-Object -ExpandProperty Count)"
     ]
   }
 }

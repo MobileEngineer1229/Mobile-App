@@ -1160,7 +1160,7 @@
   {
     "month": 6,
     "milestone_type": "cognitive",
-    "display_order": 8,
+    "display_order": 7,
     "question": "Begin to coordinate both hands together and holds things with them",
     "sources": [
       "6\\Screenshot_20260411-120829.png",
@@ -1626,6 +1626,16 @@
     "question": "Tries to imitate sound made by the objects like drums, toys, etc as the baby explore them",
     "sources": [
       "8\\Screenshot_20260411-121608.png",
+      "8\\Screenshot_20260411-121608.png",
+      "8\\Screenshot_20260411-121608.png"
+    ]
+  },
+  {
+    "month": 8,
+    "milestone_type": "communication",
+    "display_order": 2,
+    "question": "Starts to understand that 'No' is a prohibitive word and hesitates to proceed when you say",
+    "sources": [
       "8\\Screenshot_20260411-121608.png",
       "8\\Screenshot_20260411-121608.png"
     ]
@@ -2225,7 +2235,7 @@
   {
     "month": 10,
     "milestone_type": "physical",
-    "display_order": 0,
+    "display_order": 1,
     "question": "Aklc++urr n #tirla Kacc nfhcarahaclc",
     "sources": [
       "10\\Screenshot_20260411-193913.png",
@@ -2238,7 +2248,7 @@
   {
     "month": 10,
     "milestone_type": "physical",
-    "display_order": 1,
+    "display_order": 2,
     "question": "Can sit down from a standing position without support",
     "sources": [
       "10\\Screenshot_20260411-193840.png",
@@ -2248,7 +2258,7 @@
   {
     "month": 10,
     "milestone_type": "physical",
-    "display_order": 2,
+    "display_order": 3,
     "question": "Able to pick and drop tiny objects into a box",
     "sources": [
       "10\\Screenshot_20260411-193840.png"
@@ -2257,7 +2267,7 @@
   {
     "month": 10,
     "milestone_type": "physical",
-    "display_order": 3,
+    "display_order": 4,
     "question": "Baby can sit on a chair and come to a standing position by holding a supporting object or hand",
     "sources": [
       "10\\Screenshot_20260411-193856.png",
@@ -2269,7 +2279,7 @@
   {
     "month": 10,
     "milestone_type": "physical",
-    "display_order": 4,
+    "display_order": 5,
     "question": "Starts to take walking steps while holding hands",
     "sources": [
       "10\\Screenshot_20260411-193851.png",
@@ -2279,7 +2289,7 @@
   {
     "month": 10,
     "milestone_type": "physical",
-    "display_order": 5,
+    "display_order": 6,
     "question": "Baby can crawl down a single step without support",
     "sources": [
       "10\\Screenshot_20260411-193856.png",
@@ -2289,7 +2299,7 @@
   {
     "month": 10,
     "milestone_type": "physical",
-    "display_order": 6,
+    "display_order": 7,
     "question": "Can take apart pieces of toys like lego blocks from stacking games, etc",
     "sources": [
       "10\\Screenshot_20260411-193908.png",
@@ -2299,7 +2309,7 @@
   {
     "month": 10,
     "milestone_type": "physical",
-    "display_order": 7,
+    "display_order": 8,
     "question": "Finger dexterity has improved and baby can hold a container with one hand and take out small items with another hand",
     "sources": [
       "10\\Screenshot_20260411-193908.png",
@@ -2310,7 +2320,7 @@
   {
     "month": 10,
     "milestone_type": "physical",
-    "display_order": 8,
+    "display_order": 9,
     "question": "Able to stand up against a wall with the support of a wall",
     "sources": [
       "10\\Screenshot_20260411-193920.png",
@@ -2320,7 +2330,7 @@
   {
     "month": 10,
     "milestone_type": "physical",
-    "display_order": 9,
+    "display_order": 10,
     "question": "Able to turn multiple pages of board books",
     "sources": [
       "10\\Screenshot_20260411-193920.png"
@@ -2382,7 +2392,7 @@
   {
     "month": 10,
     "milestone_type": "social_emotional",
-    "display_order": 7,
+    "display_order": 6,
     "question": "Pushes back with hands when do not want to be moved or disturbed",
     "sources": [
       "10\\Screenshot_20260411-194027.png",
@@ -2507,7 +2517,7 @@
   {
     "month": 11,
     "milestone_type": "physical",
-    "display_order": 0,
+    "display_order": 1,
     "question": "Cali Dalalice lIE DoUY WILT aHT ODjecl IaTU while standing without support",
     "sources": [
       "11\\Screenshot_20260411-194159.png",
@@ -2518,7 +2528,7 @@
   {
     "month": 11,
     "milestone_type": "physical",
-    "display_order": 1,
+    "display_order": 2,
     "question": "Able to walk steadily by holding parent's fingers in both hands across the house",
     "sources": [
       "11\\Screenshot_20260411-194128.png",
@@ -2528,7 +2538,7 @@
   {
     "month": 11,
     "milestone_type": "physical",
-    "display_order": 2,
+    "display_order": 3,
     "question": "Baby can climb up and down single stair steps with hands and without help",
     "sources": [
       "11\\Screenshot_20260411-194140.png",
@@ -2539,7 +2549,7 @@
   {
     "month": 11,
     "milestone_type": "physical",
-    "display_order": 3,
+    "display_order": 4,
     "question": "Can balance the body with an object in hand while standing without support",
     "sources": [
       "11\\Screenshot_20260411-194140.png",
@@ -2549,7 +2559,7 @@
   {
     "month": 11,
     "milestone_type": "physical",
-    "display_order": 4,
+    "display_order": 5,
     "question": "Can throw and release a small ball downwards while sitting on a higher surface",
     "sources": [
       "11\\Screenshot_20260411-194152.png",
@@ -2560,7 +2570,7 @@
   {
     "month": 11,
     "milestone_type": "physical",
-    "display_order": 5,
+    "display_order": 6,
     "question": "Can balance in a standing position without holding an object for some time",
     "sources": [
       "11\\Screenshot_20260411-194159.png",
@@ -2570,7 +2580,7 @@
   {
     "month": 11,
     "milestone_type": "physical",
-    "display_order": 6,
+    "display_order": 7,
     "question": "Has more control over using a 'pinch' to pick up tiny objects",
     "sources": [
       "11\\Screenshot_20260411-194206.png",
@@ -2580,7 +2590,7 @@
   {
     "month": 11,
     "milestone_type": "physical",
-    "display_order": 7,
+    "display_order": 8,
     "question": "Can take out rings from a ring stacking and attempts to place them back",
     "sources": [
       "11\\Screenshot_20260411-194216.png",
@@ -2590,7 +2600,7 @@
   {
     "month": 11,
     "milestone_type": "physical",
-    "display_order": 8,
+    "display_order": 9,
     "question": "Baby starts to bend from a standing position by holding a supporting object to pick up an item from the ground",
     "sources": [
       "11\\Screenshot_20260411-194216.png",
@@ -2601,7 +2611,7 @@
   {
     "month": 11,
     "milestone_type": "physical",
-    "display_order": 9,
+    "display_order": 10,
     "question": "Starts to walk a few steps by holding objects like a sofa or a table",
     "sources": [
       "11\\Screenshot_20260411-194230.png",
@@ -2611,7 +2621,7 @@
   {
     "month": 11,
     "milestone_type": "physical",
-    "display_order": 10,
+    "display_order": 11,
     "question": "Can stand up by holding objects without parent's help",
     "sources": [
       "11\\Screenshot_20260411-194230.png",
@@ -2621,7 +2631,7 @@
   {
     "month": 11,
     "milestone_type": "physical",
-    "display_order": 11,
+    "display_order": 12,
     "question": "Can climb a stair-step without any help using own hand support",
     "sources": [
       "11\\Screenshot_20260411-194242.png",
@@ -2631,7 +2641,7 @@
   {
     "month": 11,
     "milestone_type": "physical",
-    "display_order": 12,
+    "display_order": 13,
     "question": "Can pick up tiny objects using index finger and thumbwith good accuracy",
     "sources": [
       "11\\Screenshot_20260411-194253.png",
@@ -5977,18 +5987,6 @@
     "month": 25,
     "milestone_type": "cognitive",
     "display_order": 6,
-    "question": "Tries to count 2-3 objects, although understanding of counting is still loose Al^ Ima-t",
-    "sources": [
-      "25\\Screenshot_20260413-203612.png",
-      "25\\Screenshot_20260413-203612.png",
-      "25\\Screenshot_20260413-203612.png",
-      "25\\Screenshot_20260413-203612.png"
-    ]
-  },
-  {
-    "month": 25,
-    "milestone_type": "cognitive",
-    "display_order": 7,
     "question": "Understands directional words like up/down but doesn't understand right/left",
     "sources": [
       "25\\Screenshot_20260413-203625.png",
@@ -5998,7 +5996,7 @@
   {
     "month": 25,
     "milestone_type": "cognitive",
-    "display_order": 8,
+    "display_order": 7,
     "question": "Builds an understanding of 2-3 spatial concepts like in front; behind, above; below under; etc and tries to find objects when directed with spatial words",
     "sources": [
       "25\\Screenshot_20260413-203625.png",
@@ -6692,18 +6690,6 @@
     "month": 27,
     "milestone_type": "physical",
     "display_order": 9,
-    "question": "Dances independently on favorite music but may lack understanding of beats Al^ Ima-t",
-    "sources": [
-      "27\\Screenshot_20260413-204208.png",
-      "27\\Screenshot_20260413-204208.png",
-      "27\\Screenshot_20260413-204208.png",
-      "27\\Screenshot_20260413-204208.png"
-    ]
-  },
-  {
-    "month": 27,
-    "milestone_type": "physical",
-    "display_order": 10,
     "question": "Pasting stickers using glue, maybe with little help",
     "sources": [
       "27\\Screenshot_20260413-204220.png",
@@ -6756,7 +6742,7 @@
   {
     "month": 27,
     "milestone_type": "social_emotional",
-    "display_order": 6,
+    "display_order": 5,
     "question": "Requests or asks for permission when they want anything or do any activities",
     "sources": [
       "27\\Screenshot_20260413-221911.png",
@@ -6766,7 +6752,7 @@
   {
     "month": 27,
     "milestone_type": "social_emotional",
-    "display_order": 7,
+    "display_order": 6,
     "question": "Uses negative words for eg leave the phone no phone, don't do it, etc",
     "sources": [
       "27\\Screenshot_20260413-221911.png",
@@ -7572,7 +7558,7 @@
   {
     "month": 31,
     "milestone_type": "communication",
-    "display_order": 5,
+    "display_order": 3,
     "question": "Talks to the toys andengages with them as real people during playtime can play with them alone",
     "sources": [
       "31\\Screenshot_20260413-235632.png",
@@ -7583,7 +7569,7 @@
   {
     "month": 31,
     "milestone_type": "communication",
-    "display_order": 6,
+    "display_order": 4,
     "question": "Knows where things usually belong in the house and put things back in their place",
     "sources": [
       "31\\Screenshot_20260413-235632.png",
@@ -8327,21 +8313,6 @@
       "35\\Screenshot_20260414-002543.png",
       "35\\Screenshot_20260414-002543.png",
       "35\\Screenshot_20260414-002543.png"
-    ]
-  },
-  {
-    "month": 35,
-    "milestone_type": "social_emotional",
-    "display_order": 9,
-    "question": "InAce+-rac V2' 'ir^ 75a K ^ 'Al",
-    "sources": [
-      "35\\Screenshot_20260414-002538.png",
-      "35\\Screenshot_20260414-002538.png",
-      "35\\Screenshot_20260414-002538.png",
-      "35\\Screenshot_20260414-002538.png",
-      "35\\Screenshot_20260414-002538.png",
-      "35\\Screenshot_20260414-002538.png",
-      "35\\Screenshot_20260414-002538.png"
     ]
   },
   {

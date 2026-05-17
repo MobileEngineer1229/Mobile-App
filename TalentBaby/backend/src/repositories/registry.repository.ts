@@ -1,4 +1,5 @@
-import { database } from '../config/database';
+import { prisma } from '../config/prisma';
+import { Prisma } from '../generated/prisma/client';
 
 export interface Registry {
   id: number;
@@ -26,149 +27,117 @@ export interface RegistryItem {
 
 export class RegistryRepository {
   async findByUserId(userId: number): Promise<Registry[]> {
-    const result = await database.query(
-      'SELECT * FROM registries WHERE user_id = $1 ORDER BY created_at DESC',
-      [userId]
-    );
-    return result.rows;
+    const results = await prisma.registries.findMany({
+      where: { user_id: userId },
+      orderBy: { created_at: 'desc' },
+    });
+    return results as unknown as Registry[];
   }
 
   async findById(id: number, userId: number): Promise<Registry | null> {
-    const result = await database.query(
-      'SELECT * FROM registries WHERE id = $1 AND user_id = $2',
-      [id, userId]
-    );
-    return result.rows[0] || null;
+    const result = await prisma.registries.findFirst({
+      where: { id, user_id: userId },
+    });
+    return result as unknown as Registry | null;
   }
 
   async findByShareCode(shareCode: string): Promise<Registry | null> {
-    const result = await database.query(
-      'SELECT * FROM registries WHERE share_code = $1 AND is_public = true',
-      [shareCode]
-    );
-    return result.rows[0] || null;
+    const result = await prisma.registries.findFirst({
+      where: { share_code: shareCode, is_public: true },
+    });
+    return result as unknown as Registry | null;
   }
 
   async create(registryData: Partial<Registry>): Promise<Registry> {
-    // Generate share code
     const shareCode = this.generateShareCode();
 
-    const result = await database.query(
-      `INSERT INTO registries (user_id, baby_id, registry_name, is_public, share_code)
-       VALUES ($1, $2, $3, $4, $5)
-       RETURNING *`,
-      [
-        registryData.user_id,
-        registryData.baby_id || null,
-        registryData.registry_name,
-        registryData.is_public || false,
-        shareCode,
-      ]
-    );
-    return result.rows[0];
+    const result = await prisma.registries.create({
+      data: {
+        user_id: registryData.user_id!,
+        baby_id: registryData.baby_id || null,
+        registry_name: registryData.registry_name!,
+        is_public: registryData.is_public || false,
+        share_code: shareCode,
+      },
+    });
+    return result as unknown as Registry;
   }
 
   async update(id: number, userId: number, updates: Partial<Registry>): Promise<Registry> {
-    const fields: string[] = [];
-    const values: any[] = [];
-    let paramIndex = 1;
+    const data: Prisma.registriesUpdateInput = { updated_at: new Date() };
+    if (updates.registry_name !== undefined) data.registry_name = updates.registry_name;
+    if (updates.is_public !== undefined) data.is_public = updates.is_public;
 
-    const allowedFields = ['registry_name', 'is_public'];
-
-    Object.keys(updates).forEach((key) => {
-      if (allowedFields.includes(key)) {
-        fields.push(`${key} = $${paramIndex}`);
-        values.push(updates[key as keyof Registry]);
-        paramIndex++;
-      }
-    });
-
-    if (fields.length === 0) {
+    if (Object.keys(data).length === 1) {
       const registry = await this.findById(id, userId);
       if (!registry) throw new Error('Registry not found');
       return registry;
     }
 
-    fields.push('updated_at = CURRENT_TIMESTAMP');
-    values.push(id, userId);
+    const result = await prisma.registries.updateMany({
+      where: { id, user_id: userId },
+      data,
+    });
 
-    const result = await database.query(
-      `UPDATE registries SET ${fields.join(', ')} WHERE id = $${paramIndex} AND user_id = $${paramIndex + 1} RETURNING *`,
-      values
-    );
+    if (result.count === 0) throw new Error('Registry not found');
 
-    return result.rows[0];
+    const updated = await this.findById(id, userId);
+    return updated!;
   }
 
   async delete(id: number, userId: number): Promise<void> {
-    const result = await database.query(
-      'DELETE FROM registries WHERE id = $1 AND user_id = $2',
-      [id, userId]
-    );
-    if (result.rowCount === 0) {
+    const result = await prisma.registries.deleteMany({
+      where: { id, user_id: userId },
+    });
+    if (result.count === 0) {
       throw new Error('Registry not found');
     }
   }
 
   // Registry Items
   async getRegistryItems(registryId: number): Promise<RegistryItem[]> {
-    const result = await database.query(
-      'SELECT * FROM registry_items WHERE registry_id = $1 ORDER BY created_at DESC',
-      [registryId]
-    );
-    return result.rows;
+    const results = await prisma.registry_items.findMany({
+      where: { registry_id: registryId },
+      orderBy: { created_at: 'desc' },
+    });
+    return results as unknown as RegistryItem[];
   }
 
   async addRegistryItem(itemData: Partial<RegistryItem>): Promise<RegistryItem> {
-    const result = await database.query(
-      `INSERT INTO registry_items 
-       (registry_id, material_id, custom_item_name, custom_item_description, quantity)
-       VALUES ($1, $2, $3, $4, $5)
-       RETURNING *`,
-      [
-        itemData.registry_id,
-        itemData.material_id || null,
-        itemData.custom_item_name || null,
-        itemData.custom_item_description || null,
-        itemData.quantity || 1,
-      ]
-    );
-    return result.rows[0];
+    const result = await prisma.registry_items.create({
+      data: {
+        registry_id: itemData.registry_id!,
+        material_id: itemData.material_id || null,
+        custom_item_name: itemData.custom_item_name || null,
+        custom_item_description: itemData.custom_item_description || null,
+        quantity: itemData.quantity || 1,
+      },
+    });
+    return result as unknown as RegistryItem;
   }
 
   async updateRegistryItem(itemId: number, updates: Partial<RegistryItem>): Promise<RegistryItem> {
-    const fields: string[] = [];
-    const values: any[] = [];
-    let paramIndex = 1;
+    const data: Prisma.registry_itemsUpdateInput = { updated_at: new Date() };
+    if (updates.quantity !== undefined) data.quantity = updates.quantity;
+    if (updates.purchased !== undefined) data.purchased = updates.purchased;
+    if (updates.purchased_by !== undefined) data.purchased_by = updates.purchased_by;
 
-    const allowedFields = ['quantity', 'purchased', 'purchased_by'];
-
-    Object.keys(updates).forEach((key) => {
-      if (allowedFields.includes(key)) {
-        fields.push(`${key} = $${paramIndex}`);
-        values.push(updates[key as keyof RegistryItem]);
-        paramIndex++;
-      }
-    });
-
-    if (fields.length === 0) {
+    if (Object.keys(data).length === 1) {
       throw new Error('No valid fields to update');
     }
 
-    fields.push('updated_at = CURRENT_TIMESTAMP');
-    values.push(itemId);
-
-    const result = await database.query(
-      `UPDATE registry_items SET ${fields.join(', ')} WHERE id = $${paramIndex} RETURNING *`,
-      values
-    );
-
-    return result.rows[0];
+    const result = await prisma.registry_items.update({
+      where: { id: itemId },
+      data,
+    });
+    return result as unknown as RegistryItem;
   }
 
   async deleteRegistryItem(itemId: number): Promise<void> {
-    const result = await database.query('DELETE FROM registry_items WHERE id = $1', [itemId]);
-    if (result.rowCount === 0) {
+    const result = await prisma.registry_items.deleteMany({
+      where: { id: itemId },
+    });
+    if (result.count === 0) {
       throw new Error('Registry item not found');
     }
   }

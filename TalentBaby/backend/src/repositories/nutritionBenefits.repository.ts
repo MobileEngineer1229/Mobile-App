@@ -1,4 +1,5 @@
-import { database } from '../config/database';
+import { prisma } from '../config/prisma';
+import { Prisma } from '../generated/prisma/client';
 
 export interface NutritionCategory {
   id: number;
@@ -27,119 +28,125 @@ export interface NutritionCategoryWithFoods extends NutritionCategory {
 export class NutritionBenefitsRepository {
 
   async getAllCategories(lang?: string): Promise<NutritionCategory[]> {
-    const query = lang
-      ? 'SELECT * FROM nutrition_categories WHERE language = $1 ORDER BY sort_order ASC'
-      : 'SELECT * FROM nutrition_categories ORDER BY sort_order ASC';
-    const result = await database.query(query, lang ? [lang] : []);
-    return result.rows;
+    const rows = await prisma.nutrition_categories.findMany({
+      where: lang ? { language: lang } : undefined,
+      orderBy: { sort_order: 'asc' },
+    });
+    return rows as unknown as NutritionCategory[];
   }
 
   async getCategoryById(id: number): Promise<NutritionCategory | null> {
-    const result = await database.query(
-      'SELECT * FROM nutrition_categories WHERE id = $1', [id]
-    );
-    return result.rows[0] || null;
+    const row = await prisma.nutrition_categories.findUnique({ where: { id } });
+    return (row as unknown as NutritionCategory) ?? null;
   }
 
-  async getFoodsByCategory(categoryId: number, filters?: { ageGroup?: string; vegetarianOnly?: boolean; lang?: string }): Promise<NutritionFood[]> {
-    const lang = filters?.lang || null;
-    let query = `SELECT nf.*, nc.name AS category_name
-                 FROM nutrition_foods nf
-                 JOIN nutrition_categories nc ON nc.id = nf.category_id
-                 WHERE nf.category_id = $1`;
-    const params: any[] = [categoryId];
-    let i = 2;
-    if (lang) { query += ` AND nf.language = $${i}`; params.push(lang); i++; }
+  async getFoodsByCategory(
+    categoryId: number,
+    filters?: { ageGroup?: string; vegetarianOnly?: boolean; lang?: string },
+  ): Promise<NutritionFood[]> {
+    const where: Prisma.nutrition_foodsWhereInput = { category_id: categoryId };
 
+    if (filters?.lang) where.language = filters.lang;
+    if (filters?.vegetarianOnly) where.is_vegetarian = true;
     if (filters?.ageGroup) {
-      query += ` AND (nf.age_groups IS NULL OR nf.age_groups LIKE $${i})`;
-      params.push(`%${filters.ageGroup}%`);
-      i++;
-    }
-    if (filters?.vegetarianOnly) {
-      query += ` AND nf.is_vegetarian = TRUE`;
+      where.OR = [
+        { age_groups: null },
+        { age_groups: { contains: filters.ageGroup } },
+      ];
     }
 
-    query += ' ORDER BY nf.sort_order ASC';
-    const result = await database.query(query, params);
-    return result.rows;
+    const rows = await prisma.nutrition_foods.findMany({
+      where,
+      orderBy: { sort_order: 'asc' },
+      include: { nutrition_categories: true },
+    });
+
+    return rows.map((r) => ({
+      ...r,
+      category_name: r.nutrition_categories.name,
+    })) as unknown as NutritionFood[];
   }
 
-  async getAllCategoriesWithFoods(filters?: { ageGroup?: string; vegetarianOnly?: boolean; lang?: string }): Promise<NutritionCategoryWithFoods[]> {
-    const lang = filters?.lang || null;
-    let foodQuery = `
-      SELECT nf.*, nc.name AS category_name
-      FROM nutrition_foods nf
-      JOIN nutrition_categories nc ON nc.id = nf.category_id
-      WHERE 1=1
-    `;
-    const params: any[] = [];
-    let i = 1;
+  async getAllCategoriesWithFoods(
+    filters?: { ageGroup?: string; vegetarianOnly?: boolean; lang?: string },
+  ): Promise<NutritionCategoryWithFoods[]> {
+    const foodWhere: Prisma.nutrition_foodsWhereInput = {};
 
-    if (lang) { foodQuery += ` AND nf.language = $${i}`; params.push(lang); i++; }
+    if (filters?.lang) foodWhere.language = filters.lang;
+    if (filters?.vegetarianOnly) foodWhere.is_vegetarian = true;
     if (filters?.ageGroup) {
-      foodQuery += ` AND (nf.age_groups IS NULL OR nf.age_groups LIKE $${i})`;
-      params.push(`%${filters.ageGroup}%`);
-      i++;
+      foodWhere.OR = [
+        { age_groups: null },
+        { age_groups: { contains: filters.ageGroup } },
+      ];
     }
-    if (filters?.vegetarianOnly) {
-      foodQuery += ` AND nf.is_vegetarian = TRUE`;
-    }
-    foodQuery += ' ORDER BY nf.category_id ASC, nf.sort_order ASC';
 
-    const catQuery = lang
-      ? 'SELECT * FROM nutrition_categories WHERE language = $1 ORDER BY sort_order ASC'
-      : 'SELECT * FROM nutrition_categories ORDER BY sort_order ASC';
-    const [catResult, foodResult] = await Promise.all([
-      database.query(catQuery, lang ? [lang] : []),
-      database.query(foodQuery, params),
+    const [cats, allFoods] = await Promise.all([
+      prisma.nutrition_categories.findMany({
+        where: filters?.lang ? { language: filters.lang } : undefined,
+        orderBy: { sort_order: 'asc' },
+      }),
+      prisma.nutrition_foods.findMany({
+        where: foodWhere,
+        orderBy: [{ category_id: 'asc' }, { sort_order: 'asc' }],
+        include: { nutrition_categories: true },
+      }),
     ]);
 
     const foodsByCategory: Record<number, NutritionFood[]> = {};
-    for (const food of foodResult.rows) {
+    for (const food of allFoods) {
+      const f: NutritionFood = {
+        ...(food as unknown as NutritionFood),
+        category_name: food.nutrition_categories.name,
+      };
       if (!foodsByCategory[food.category_id]) foodsByCategory[food.category_id] = [];
-      foodsByCategory[food.category_id].push(food);
+      foodsByCategory[food.category_id].push(f);
     }
 
-    return catResult.rows.map((cat: NutritionCategory) => ({
-      ...cat,
+    return cats.map((cat) => ({
+      ...(cat as unknown as NutritionCategory),
       foods: foodsByCategory[cat.id] ?? [],
     }));
   }
 
   async getFoodById(id: number): Promise<NutritionFood | null> {
-    const result = await database.query(
-      `SELECT nf.*, nc.name AS category_name
-       FROM nutrition_foods nf
-       JOIN nutrition_categories nc ON nc.id = nf.category_id
-       WHERE nf.id = $1`,
-      [id]
-    );
-    return result.rows[0] || null;
+    const row = await prisma.nutrition_foods.findUnique({
+      where: { id },
+      include: { nutrition_categories: true },
+    });
+    if (!row) return null;
+    return {
+      ...(row as unknown as NutritionFood),
+      category_name: row.nutrition_categories.name,
+    };
   }
 
-  async searchFoods(query: string, filters?: { ageGroup?: string; vegetarianOnly?: boolean }): Promise<NutritionFood[]> {
-    let sql = `
-      SELECT nf.*, nc.name AS category_name
-      FROM nutrition_foods nf
-      JOIN nutrition_categories nc ON nc.id = nf.category_id
-      WHERE nf.name ILIKE $1
-    `;
-    const params: any[] = [`%${query}%`];
-    let i = 2;
+  async searchFoods(
+    query: string,
+    filters?: { ageGroup?: string; vegetarianOnly?: boolean },
+  ): Promise<NutritionFood[]> {
+    const where: Prisma.nutrition_foodsWhereInput = {
+      name: { contains: query, mode: 'insensitive' },
+    };
 
+    if (filters?.vegetarianOnly) where.is_vegetarian = true;
     if (filters?.ageGroup) {
-      sql += ` AND (nf.age_groups IS NULL OR nf.age_groups LIKE $${i})`;
-      params.push(`%${filters.ageGroup}%`);
-      i++;
-    }
-    if (filters?.vegetarianOnly) {
-      sql += ` AND nf.is_vegetarian = TRUE`;
+      where.OR = [
+        { age_groups: null },
+        { age_groups: { contains: filters.ageGroup } },
+      ];
     }
 
-    sql += ' ORDER BY nf.name ASC';
-    const result = await database.query(sql, params);
-    return result.rows;
+    const rows = await prisma.nutrition_foods.findMany({
+      where,
+      orderBy: { name: 'asc' },
+      include: { nutrition_categories: true },
+    });
+
+    return rows.map((r) => ({
+      ...(r as unknown as NutritionFood),
+      category_name: r.nutrition_categories.name,
+    }));
   }
 
   // ─── Admin CRUD ────────────────────────────────────────────────────────────
@@ -148,44 +155,51 @@ export class NutritionBenefitsRepository {
     category_id: number; name: string; description?: string;
     image_url?: string; is_vegetarian?: boolean; age_groups?: string; sort_order?: number; language?: string;
   }): Promise<NutritionFood> {
-    const result = await database.query(
-      `INSERT INTO nutrition_foods (category_id, name, description, image_url, is_vegetarian, age_groups, sort_order, language)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`,
-      [
-        data.category_id, data.name, data.description ?? null, data.image_url ?? null,
-        data.is_vegetarian ?? false, data.age_groups ?? null, data.sort_order ?? 99,
-        data.language ?? 'en',
-      ]
-    );
-    return result.rows[0];
+    const row = await prisma.nutrition_foods.create({
+      data: {
+        category_id: data.category_id,
+        name: data.name,
+        description: data.description ?? null,
+        image_url: data.image_url ?? null,
+        is_vegetarian: data.is_vegetarian ?? false,
+        age_groups: data.age_groups ?? null,
+        sort_order: data.sort_order ?? 99,
+        language: data.language ?? 'en',
+      },
+    });
+    return row as unknown as NutritionFood;
   }
 
-  async updateFood(id: number, data: Partial<{
-    category_id: number; name: string; description: string;
-    image_url: string; is_vegetarian: boolean; age_groups: string; sort_order: number;
-  }>): Promise<NutritionFood | null> {
-    const sets: string[] = [];
-    const params: any[] = [];
-    let i = 1;
-    const fields: Record<string, any> = {
-      category_id: data.category_id, name: data.name, description: data.description,
-      image_url: data.image_url, is_vegetarian: data.is_vegetarian,
-      age_groups: data.age_groups, sort_order: data.sort_order,
-    };
-    for (const [key, val] of Object.entries(fields)) {
-      if (val !== undefined) { sets.push(`${key} = $${i++}`); params.push(val); }
+  async updateFood(
+    id: number,
+    data: Partial<{
+      category_id: number; name: string; description: string;
+      image_url: string; is_vegetarian: boolean; age_groups: string; sort_order: number;
+    }>,
+  ): Promise<NutritionFood | null> {
+    const updateData: Prisma.nutrition_foodsUpdateInput = {};
+
+    if (data.category_id !== undefined) {
+      updateData.nutrition_categories = { connect: { id: data.category_id } };
     }
-    if (!sets.length) return this.getFoodById(id);
-    params.push(id);
-    const result = await database.query(
-      `UPDATE nutrition_foods SET ${sets.join(', ')} WHERE id = $${i} RETURNING *`,
-      params
-    );
-    return result.rows[0] || null;
+    if (data.name !== undefined) updateData.name = data.name;
+    if (data.description !== undefined) updateData.description = data.description;
+    if (data.image_url !== undefined) updateData.image_url = data.image_url;
+    if (data.is_vegetarian !== undefined) updateData.is_vegetarian = data.is_vegetarian;
+    if (data.age_groups !== undefined) updateData.age_groups = data.age_groups;
+    if (data.sort_order !== undefined) updateData.sort_order = data.sort_order;
+
+    if (Object.keys(updateData).length === 0) return this.getFoodById(id);
+
+    const existing = await prisma.nutrition_foods.findUnique({ where: { id } });
+    if (!existing) return null;
+
+    const row = await prisma.nutrition_foods.update({ where: { id }, data: updateData });
+    return row as unknown as NutritionFood;
   }
 
   async deleteFood(id: number): Promise<boolean> {
-    const result = await database.query('DELETE FROM nutrition_foods WHERE id = $1', [id]);
-    return (result.rowCount ?? 0) > 0;
+    const result = await prisma.nutrition_foods.deleteMany({ where: { id } });
+    return result.count > 0;
   }
 }

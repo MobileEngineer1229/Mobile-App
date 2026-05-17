@@ -1,4 +1,5 @@
-import { database } from '../config/database';
+import { prisma } from '../config/prisma';
+import { Prisma } from '../generated/prisma/client';
 
 export interface ExpertClass {
   id: number;
@@ -18,65 +19,57 @@ export interface ExpertClass {
 
 export class ExpertClassRepository {
   async findAll(classType?: string, category?: string, isPremium?: boolean): Promise<ExpertClass[]> {
-    let query = 'SELECT * FROM expert_classes WHERE 1=1';
-    const params: any[] = [];
-    let paramIndex = 1;
+    const where: Prisma.expert_classesWhereInput = {};
+    if (classType) where.class_type = classType;
+    if (category) where.category = category;
+    if (isPremium !== undefined) where.is_premium = isPremium;
 
-    if (classType) {
-      query += ` AND class_type = $${paramIndex}`;
-      params.push(classType);
-      paramIndex++;
-    }
-
-    if (category) {
-      query += ` AND category = $${paramIndex}`;
-      params.push(category);
-      paramIndex++;
-    }
-
-    if (isPremium !== undefined) {
-      query += ` AND is_premium = $${paramIndex}`;
-      params.push(isPremium);
-      paramIndex++;
-    }
-
-    query += ' ORDER BY scheduled_time DESC, created_at DESC';
-
-    const result = await database.query(query, params);
-    return result.rows;
+    const results = await prisma.expert_classes.findMany({
+      where,
+      orderBy: [
+        { scheduled_time: 'desc' },
+        { created_at: 'desc' },
+      ],
+    });
+    return results as unknown as ExpertClass[];
   }
 
   async findById(id: number): Promise<ExpertClass | null> {
-    const result = await database.query('SELECT * FROM expert_classes WHERE id = $1', [id]);
-    return result.rows[0] || null;
+    const result = await prisma.expert_classes.findUnique({
+      where: { id },
+    });
+    return result as unknown as ExpertClass | null;
   }
 
   async enrollUser(userId: number, classId: number): Promise<void> {
-    await database.query(
-      `INSERT INTO class_enrollments (user_id, class_id)
-       VALUES ($1, $2)
-       ON CONFLICT (user_id, class_id) DO NOTHING`,
-      [userId, classId]
-    );
+    // ON CONFLICT (user_id, class_id) DO NOTHING — use executeRaw
+    await prisma.$executeRaw`
+      INSERT INTO class_enrollments (user_id, class_id)
+      VALUES (${userId}, ${classId})
+      ON CONFLICT (user_id, class_id) DO NOTHING
+    `;
   }
 
   async getEnrolledClasses(userId: number): Promise<ExpertClass[]> {
-    const result = await database.query(
-      `SELECT ec.* FROM expert_classes ec
-       JOIN class_enrollments ce ON ec.id = ce.class_id
-       WHERE ce.user_id = $1
-       ORDER BY ce.enrolled_at DESC`,
-      [userId]
-    );
-    return result.rows;
+    // JOIN query — use $queryRaw
+    const results = await prisma.$queryRaw<ExpertClass[]>(Prisma.sql`
+      SELECT ec.* FROM expert_classes ec
+      JOIN class_enrollments ce ON ec.id = ce.class_id
+      WHERE ce.user_id = ${userId}
+      ORDER BY ce.enrolled_at DESC
+    `);
+    return results;
   }
 
   async markCompleted(userId: number, classId: number): Promise<void> {
-    await database.query(
-      `UPDATE class_enrollments 
-       SET completed_at = CURRENT_TIMESTAMP 
-       WHERE user_id = $1 AND class_id = $2`,
-      [userId, classId]
-    );
+    await prisma.class_enrollments.updateMany({
+      where: {
+        user_id: userId,
+        class_id: classId,
+      },
+      data: {
+        completed_at: new Date(),
+      },
+    });
   }
 }

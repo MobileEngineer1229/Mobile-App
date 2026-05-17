@@ -1,96 +1,87 @@
-import { Pool } from 'pg';
-import { database } from '../config/database';
+import { prisma } from '../config/prisma';
+import { Prisma } from '../generated/prisma/client';
 
 export class ContentTopicRepository {
-  private pool: Pool;
-
-  constructor() {
-    this.pool = database.getPool();
-  }
-
   async getAllTopics() {
-    const query = 'SELECT * FROM content_topics ORDER BY name ASC';
-    const result = await this.pool.query(query);
-    return result.rows;
+    const results = await prisma.content_topics.findMany({
+      orderBy: { name: 'asc' },
+    });
+    return results;
   }
 
   async getTopicById(id: number) {
-    const query = 'SELECT * FROM content_topics WHERE id = $1';
-    const result = await this.pool.query(query, [id]);
-    return result.rows[0] || null;
+    const result = await prisma.content_topics.findUnique({
+      where: { id },
+    });
+    return result || null;
   }
 
   async getContentByTopic(topicId: number, contentType?: string) {
-    let query = `
-      SELECT 
-        cta.content_type,
-        cta.content_id,
-        cta.created_at
-      FROM content_topic_associations cta
-      WHERE cta.topic_id = $1
-    `;
-    const params: any[] = [topicId];
+    const where: Prisma.content_topic_associationsWhereInput = { topic_id: topicId };
+    if (contentType) where.content_type = contentType;
 
-    if (contentType) {
-      query += ' AND cta.content_type = $2';
-      params.push(contentType);
-    }
-
-    query += ' ORDER BY cta.created_at DESC';
-
-    const result = await this.pool.query(query, params);
-    return result.rows;
+    const results = await prisma.content_topic_associations.findMany({
+      where,
+      select: {
+        content_type: true,
+        content_id: true,
+        created_at: true,
+      },
+      orderBy: { created_at: 'desc' },
+    });
+    return results;
   }
 
   async searchContent(searchTerm: string, contentType?: string) {
-    let query = '';
-    const params: any[] = [];
     const searchPattern = `%${searchTerm}%`;
 
-    // Search across articles, stories, activities, recipes
+    // Search across articles, stories, activities, recipes — UNION ALL requires $queryRaw
     const contentTypes = contentType ? [contentType] : ['article', 'story', 'activity', 'recipe'];
-    
-    const queries: string[] = [];
+
+    const queries: Prisma.Sql[] = [];
 
     if (contentTypes.includes('article')) {
-      queries.push(`
+      queries.push(Prisma.sql`
         SELECT 'article' as content_type, id as content_id, title, description
         FROM articles
-        WHERE title ILIKE $1 OR description ILIKE $1 OR content ILIKE $1
+        WHERE title ILIKE ${searchPattern} OR description ILIKE ${searchPattern} OR content ILIKE ${searchPattern}
       `);
-      params.push(searchPattern);
     }
 
     if (contentTypes.includes('story')) {
-      queries.push(`
+      queries.push(Prisma.sql`
         SELECT 'story' as content_type, id as content_id, title, description
         FROM bedtime_stories
-        WHERE title ILIKE $${params.length + 1} OR description ILIKE $${params.length + 1} OR content ILIKE $${params.length + 1}
+        WHERE title ILIKE ${searchPattern} OR description ILIKE ${searchPattern} OR content ILIKE ${searchPattern}
       `);
-      params.push(searchPattern, searchPattern, searchPattern);
     }
 
     if (contentTypes.includes('activity')) {
-      queries.push(`
+      queries.push(Prisma.sql`
         SELECT 'activity' as content_type, id as content_id, title, description
         FROM activities
-        WHERE title ILIKE $${params.length + 1} OR description ILIKE $${params.length + 1}
+        WHERE title ILIKE ${searchPattern} OR description ILIKE ${searchPattern}
       `);
-      params.push(searchPattern, searchPattern);
     }
 
     if (contentTypes.includes('recipe')) {
-      queries.push(`
+      queries.push(Prisma.sql`
         SELECT 'recipe' as content_type, id as content_id, title, description
         FROM recipes
-        WHERE title ILIKE $${params.length + 1} OR description ILIKE $${params.length + 1}
+        WHERE title ILIKE ${searchPattern} OR description ILIKE ${searchPattern}
       `);
-      params.push(searchPattern, searchPattern);
     }
 
-    query = queries.join(' UNION ALL ') + ' ORDER BY content_type, content_id';
+    if (queries.length === 0) return [];
 
-    const result = await this.pool.query(query, params);
-    return result.rows;
+    // Build UNION ALL query
+    let unionSql = queries[0];
+    for (let i = 1; i < queries.length; i++) {
+      unionSql = Prisma.sql`${unionSql} UNION ALL ${queries[i]}`;
+    }
+    unionSql = Prisma.sql`${unionSql} ORDER BY content_type, content_id`;
+
+    const results = await prisma.$queryRaw<any[]>(unionSql);
+    return results;
   }
 }

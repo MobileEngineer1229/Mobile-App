@@ -1,4 +1,5 @@
-import { database } from '../config/database';
+import { prisma } from '../config/prisma';
+import { Prisma } from '../generated/prisma/client';
 
 export interface Contraction {
   id: number;
@@ -12,46 +13,42 @@ export interface Contraction {
 
 export class ContractionRepository {
   async findByPregnancyId(pregnancyId: number): Promise<Contraction[]> {
-    const result = await database.query(
-      'SELECT * FROM contractions WHERE pregnancy_id = $1 ORDER BY contraction_time DESC',
-      [pregnancyId]
-    );
-    return result.rows;
+    const rows = await prisma.contractions.findMany({
+      where: { pregnancy_id: pregnancyId },
+      orderBy: { contraction_time: 'desc' },
+    });
+    return rows as unknown as Contraction[];
   }
 
   async create(contractionData: Partial<Contraction>): Promise<Contraction> {
-    const result = await database.query(
-      `INSERT INTO contractions (pregnancy_id, contraction_time, duration_seconds, intensity, notes)
-       VALUES ($1, $2, $3, $4, $5)
-       RETURNING *`,
-      [
-        contractionData.pregnancy_id,
-        contractionData.contraction_time,
-        contractionData.duration_seconds,
-        contractionData.intensity || 1,
-        contractionData.notes || null,
-      ]
-    );
-    return result.rows[0];
+    const row = await prisma.contractions.create({
+      data: {
+        pregnancy_id: contractionData.pregnancy_id!,
+        contraction_time: contractionData.contraction_time!,
+        duration_seconds: contractionData.duration_seconds ?? null,
+        intensity: contractionData.intensity ?? 1,
+        notes: contractionData.notes ?? null,
+      },
+    });
+    return row as unknown as Contraction;
   }
 
   async getContractionPatterns(pregnancyId: number): Promise<any> {
-    // Get last 10 contractions
-    const result = await database.query(
-      `SELECT 
+    // Uses LAG window function — requires raw SQL
+    const rows = await prisma.$queryRaw<any[]>(Prisma.sql`
+      SELECT
         contraction_time,
         duration_seconds,
         intensity,
         LAG(contraction_time) OVER (ORDER BY contraction_time) as previous_contraction_time
-       FROM contractions
-       WHERE pregnancy_id = $1
-       ORDER BY contraction_time DESC
-       LIMIT 10`,
-      [pregnancyId]
-    );
+      FROM contractions
+      WHERE pregnancy_id = ${pregnancyId}
+      ORDER BY contraction_time DESC
+      LIMIT 10
+    `);
 
     // Calculate time between contractions
-    const contractions = result.rows.map((row: any) => {
+    const contractions = rows.map((row: any) => {
       let timeBetween = null;
       if (row.previous_contraction_time) {
         const current = new Date(row.contraction_time);
@@ -68,8 +65,8 @@ export class ContractionRepository {
   }
 
   async delete(id: number): Promise<void> {
-    const result = await database.query('DELETE FROM contractions WHERE id = $1', [id]);
-    if (result.rowCount === 0) {
+    const result = await prisma.contractions.deleteMany({ where: { id } });
+    if (result.count === 0) {
       throw new Error('Contraction not found');
     }
   }

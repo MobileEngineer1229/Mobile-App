@@ -1,4 +1,5 @@
-import { database } from '../config/database';
+import { prisma } from '../config/prisma';
+import { Prisma } from '../generated/prisma/client';
 
 export interface Recipe {
   id: number;
@@ -49,115 +50,95 @@ export class RecipeRepository {
   // ─── Existing ─────────────────────────────────────────────────────────────
 
   async findByAge(ageInMonths: number): Promise<Recipe[]> {
-    const result = await database.query(
-      `SELECT * FROM recipes
-       WHERE age_range_min_months <= $1 AND age_range_max_months >= $1
-       ORDER BY RANDOM()`,
-      [ageInMonths]
+    const rows = await prisma.$queryRaw<Recipe[]>(
+      Prisma.sql`SELECT * FROM recipes WHERE age_range_min_months <= ${ageInMonths} AND age_range_max_months >= ${ageInMonths} ORDER BY RANDOM()`
     );
-    return result.rows;
+    return rows;
   }
 
   async findByType(recipeType: string, ageInMonths?: number): Promise<Recipe[]> {
-    let query = 'SELECT * FROM recipes WHERE recipe_type = $1';
-    const params: any[] = [recipeType];
-    if (ageInMonths) {
-      query += ' AND age_range_min_months <= $2 AND age_range_max_months >= $2';
-      params.push(ageInMonths);
-    }
-    query += ' ORDER BY title ASC';
-    const result = await database.query(query, params);
-    return result.rows;
+    const rows = await prisma.recipes.findMany({
+      where: {
+        recipe_type: recipeType,
+        ...(ageInMonths
+          ? {
+              age_range_min_months: { lte: ageInMonths },
+              age_range_max_months: { gte: ageInMonths },
+            }
+          : {}),
+      },
+      orderBy: { title: 'asc' },
+    });
+    return rows as unknown as Recipe[];
   }
 
   async findById(id: number): Promise<Recipe | null> {
-    const result = await database.query('SELECT * FROM recipes WHERE id = $1', [id]);
-    return result.rows[0] || null;
+    const row = await prisma.recipes.findUnique({ where: { id } });
+    return row as unknown as Recipe | null;
   }
 
   async getDailyRecipeTip(ageInMonths: number): Promise<Recipe | null> {
-    const result = await database.query(
-      `SELECT * FROM recipes
-       WHERE age_range_min_months <= $1 AND age_range_max_months >= $1
-       ORDER BY RANDOM() LIMIT 1`,
-      [ageInMonths]
+    const rows = await prisma.$queryRaw<Recipe[]>(
+      Prisma.sql`SELECT * FROM recipes WHERE age_range_min_months <= ${ageInMonths} AND age_range_max_months >= ${ageInMonths} ORDER BY RANDOM() LIMIT 1`
     );
-    return result.rows[0] || null;
+    return rows[0] || null;
   }
 
   async findAll(filters?: { age_months?: number; category?: string; target?: string; lang?: string }): Promise<Recipe[]> {
-    const lang = filters?.lang || null;
-    let query = 'SELECT * FROM recipes WHERE 1=1';
-    const params: any[] = [];
-    let i = 1;
-
-    if (lang) {
-      query += ` AND language = $${i}`;
-      params.push(lang); i++;
-    }
-    if (filters?.age_months) {
-      query += ` AND age_range_min_months <= $${i} AND age_range_max_months >= $${i}`;
-      params.push(filters.age_months); i++;
-    }
-    if (filters?.category) {
-      query += ` AND recipe_type = $${i}`;
-      params.push(filters.category); i++;
-    }
-    if (filters?.target) {
-      query += ` AND target = $${i}`;
-      params.push(filters.target); i++;
-    }
-
-    query += ' ORDER BY title ASC';
-    const result = await database.query(query, params);
-    return result.rows;
+    const rows = await prisma.recipes.findMany({
+      where: {
+        ...(filters?.lang ? { language: filters.lang } : {}),
+        ...(filters?.age_months
+          ? {
+              age_range_min_months: { lte: filters.age_months },
+              age_range_max_months: { gte: filters.age_months },
+            }
+          : {}),
+        ...(filters?.category ? { recipe_type: filters.category } : {}),
+        ...(filters?.target ? { target: filters.target } : {}),
+      },
+      orderBy: { title: 'asc' },
+    });
+    return rows as unknown as Recipe[];
   }
 
   async addToFavorites(userId: number, recipeId: number): Promise<void> {
-    await database.query(
-      `INSERT INTO recipe_favorites (user_id, recipe_id)
-       VALUES ($1, $2) ON CONFLICT (user_id, recipe_id) DO NOTHING`,
-      [userId, recipeId]
-    );
+    await prisma.$executeRaw`INSERT INTO recipe_favorites (user_id, recipe_id) VALUES (${userId}, ${recipeId}) ON CONFLICT (user_id, recipe_id) DO NOTHING`;
   }
 
   async removeFromFavorites(userId: number, recipeId: number): Promise<void> {
-    await database.query(
-      'DELETE FROM recipe_favorites WHERE user_id = $1 AND recipe_id = $2',
-      [userId, recipeId]
-    );
+    await prisma.recipe_favorites.deleteMany({
+      where: { user_id: userId, recipe_id: recipeId },
+    });
   }
 
   async getFavorites(userId: number): Promise<Recipe[]> {
-    const result = await database.query(
-      `SELECT r.* FROM recipes r
-       INNER JOIN recipe_favorites rf ON r.id = rf.recipe_id
-       WHERE rf.user_id = $1
-       ORDER BY rf.created_at DESC`,
-      [userId]
+    const rows = await prisma.$queryRaw<Recipe[]>(
+      Prisma.sql`SELECT r.* FROM recipes r INNER JOIN recipe_favorites rf ON r.id = rf.recipe_id WHERE rf.user_id = ${userId} ORDER BY rf.created_at DESC`
     );
-    return result.rows;
+    return rows;
   }
 
   async isFavorite(userId: number, recipeId: number): Promise<boolean> {
-    const result = await database.query(
-      'SELECT 1 FROM recipe_favorites WHERE user_id = $1 AND recipe_id = $2',
-      [userId, recipeId]
-    );
-    return result.rows.length > 0;
+    const row = await prisma.recipe_favorites.findUnique({
+      where: { user_id_recipe_id: { user_id: userId, recipe_id: recipeId } },
+    });
+    return row !== null;
   }
 
   // ─── Baby recipes ──────────────────────────────────────────────────────────
 
   async findBabyByAgeGroup(ageGroup: string, mealSlot?: string, lang?: string): Promise<Recipe[]> {
-    let query = `SELECT * FROM recipes WHERE target = 'baby' AND baby_age_group = $1`;
-    const params: any[] = [ageGroup];
-    let i = 2;
-    if (lang) { query += ` AND language = $${i}`; params.push(lang); i++; }
-    if (mealSlot) { query += ` AND meal_slot = $${i}`; params.push(mealSlot); }
-    query += ' ORDER BY title ASC';
-    const result = await database.query(query, params);
-    return result.rows;
+    const rows = await prisma.recipes.findMany({
+      where: {
+        target: 'baby',
+        baby_age_group: ageGroup,
+        ...(lang ? { language: lang } : {}),
+        ...(mealSlot ? { meal_slot: mealSlot } : {}),
+      },
+      orderBy: { title: 'asc' },
+    });
+    return rows as unknown as Recipe[];
   }
 
   async findBabyByAgeMonths(ageInMonths: number, mealSlot?: string): Promise<Recipe[]> {
@@ -169,34 +150,46 @@ export class RecipeRepository {
   // ─── Mum recipes ───────────────────────────────────────────────────────────
 
   async findMumRecipes(mealSlot?: string, lang?: string): Promise<Recipe[]> {
-    let query = `SELECT * FROM recipes WHERE target = 'mum'`;
-    const params: any[] = [];
-    let i = 1;
-    if (lang) { query += ` AND language = $${i}`; params.push(lang); i++; }
-    if (mealSlot) { query += ` AND meal_slot = $${i}`; params.push(mealSlot); }
-    query += ' ORDER BY title ASC';
-    const result = await database.query(query, params);
-    return result.rows;
+    const rows = await prisma.recipes.findMany({
+      where: {
+        target: 'mum',
+        ...(lang ? { language: lang } : {}),
+        ...(mealSlot ? { meal_slot: mealSlot } : {}),
+      },
+      orderBy: { title: 'asc' },
+    });
+    return rows as unknown as Recipe[];
   }
 
   // ─── Daily meal plan ───────────────────────────────────────────────────────
 
   async getDailyPlan(userId: number, planType: 'baby' | 'mum', planDate: string, babyId?: number): Promise<DailyMealPlan[]> {
-    const result = await database.query(
-      `SELECT dmp.*, r.title as recipe_title, r.description as recipe_description,
-              r.image_url, r.prep_time_minutes, r.cooking_time_minutes,
-              r.ingredients, r.instructions, r.nutrition_info,
-              r.meal_slot as recipe_meal_slot, r.target, r.baby_age_group
-       FROM daily_meal_plans dmp
-       LEFT JOIN recipes r ON r.id = dmp.recipe_id
-       WHERE dmp.user_id = $1
-         AND dmp.plan_type = $2
-         AND dmp.plan_date = $3
-         ${babyId ? 'AND dmp.baby_id = $4' : 'AND dmp.baby_id IS NULL'}
-       ORDER BY dmp.meal_slot`,
-      babyId ? [userId, planType, planDate, babyId] : [userId, planType, planDate]
+    const rows = await prisma.$queryRaw<DailyMealPlan[]>(
+      babyId
+        ? Prisma.sql`SELECT dmp.*, r.title as recipe_title, r.description as recipe_description,
+                            r.image_url, r.prep_time_minutes, r.cooking_time_minutes,
+                            r.ingredients, r.instructions, r.nutrition_info,
+                            r.meal_slot as recipe_meal_slot, r.target, r.baby_age_group
+                     FROM daily_meal_plans dmp
+                     LEFT JOIN recipes r ON r.id = dmp.recipe_id
+                     WHERE dmp.user_id = ${userId}
+                       AND dmp.plan_type = ${planType}
+                       AND dmp.plan_date = ${planDate}::date
+                       AND dmp.baby_id = ${babyId}
+                     ORDER BY dmp.meal_slot`
+        : Prisma.sql`SELECT dmp.*, r.title as recipe_title, r.description as recipe_description,
+                            r.image_url, r.prep_time_minutes, r.cooking_time_minutes,
+                            r.ingredients, r.instructions, r.nutrition_info,
+                            r.meal_slot as recipe_meal_slot, r.target, r.baby_age_group
+                     FROM daily_meal_plans dmp
+                     LEFT JOIN recipes r ON r.id = dmp.recipe_id
+                     WHERE dmp.user_id = ${userId}
+                       AND dmp.plan_type = ${planType}
+                       AND dmp.plan_date = ${planDate}::date
+                       AND dmp.baby_id IS NULL
+                     ORDER BY dmp.meal_slot`
     );
-    return result.rows;
+    return rows;
   }
 
   async upsertPlanSlot(data: {
@@ -208,15 +201,14 @@ export class RecipeRepository {
     recipeId?: number;
     notes?: string;
   }): Promise<DailyMealPlan> {
-    const result = await database.query(
-      `INSERT INTO daily_meal_plans (user_id, baby_id, plan_type, plan_date, meal_slot, recipe_id, notes)
-       VALUES ($1, $2, $3, $4, $5, $6, $7)
-       ON CONFLICT (user_id, COALESCE(baby_id, -1), plan_type, plan_date, meal_slot)
-       DO UPDATE SET recipe_id = EXCLUDED.recipe_id, notes = EXCLUDED.notes
-       RETURNING *`,
-      [data.userId, data.babyId ?? null, data.planType, data.planDate, data.mealSlot, data.recipeId ?? null, data.notes ?? null]
+    const rows = await prisma.$queryRaw<DailyMealPlan[]>(
+      Prisma.sql`INSERT INTO daily_meal_plans (user_id, baby_id, plan_type, plan_date, meal_slot, recipe_id, notes)
+                 VALUES (${data.userId}, ${data.babyId ?? null}, ${data.planType}, ${data.planDate}::date, ${data.mealSlot}, ${data.recipeId ?? null}, ${data.notes ?? null})
+                 ON CONFLICT (user_id, COALESCE(baby_id, -1), plan_type, plan_date, meal_slot)
+                 DO UPDATE SET recipe_id = EXCLUDED.recipe_id, notes = EXCLUDED.notes
+                 RETURNING *`
     );
-    return result.rows[0];
+    return rows[0];
   }
 
   async generateBabyDailyPlan(userId: number, babyId: number, ageGroup: string, planDate: string): Promise<DailyMealPlan[]> {
@@ -257,25 +249,26 @@ export class RecipeRepository {
     nutrition_info?: any; prep_time_minutes?: number; cooking_time_minutes?: number;
     image_url?: string; language?: string;
   }): Promise<Recipe> {
-    const result = await database.query(
-      `INSERT INTO recipes
-         (title, description, target, meal_slot, baby_age_group,
-          age_range_min_months, age_range_max_months, recipe_type,
-          ingredients, instructions, nutrition_info,
-          prep_time_minutes, cooking_time_minutes, image_url, language)
-       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15)
-       RETURNING *`,
-      [
-        data.title, data.description ?? null, data.target, data.meal_slot ?? null, data.baby_age_group ?? null,
-        data.age_range_min_months, data.age_range_max_months, data.recipe_type,
-        data.ingredients ? JSON.stringify(data.ingredients) : null,
-        data.instructions ? JSON.stringify(data.instructions) : null,
-        data.nutrition_info ? JSON.stringify(data.nutrition_info) : null,
-        data.prep_time_minutes ?? null, data.cooking_time_minutes ?? null, data.image_url ?? null,
-        data.language ?? 'en',
-      ]
-    );
-    return result.rows[0];
+    const row = await prisma.recipes.create({
+      data: {
+        title: data.title,
+        description: data.description ?? null,
+        target: data.target,
+        meal_slot: data.meal_slot ?? null,
+        baby_age_group: data.baby_age_group ?? null,
+        age_range_min_months: data.age_range_min_months,
+        age_range_max_months: data.age_range_max_months,
+        recipe_type: data.recipe_type,
+        ingredients: data.ingredients ?? [],
+        instructions: data.instructions ?? [],
+        nutrition_info: data.nutrition_info ?? null,
+        prep_time_minutes: data.prep_time_minutes ?? null,
+        cooking_time_minutes: data.cooking_time_minutes ?? null,
+        image_url: data.image_url ?? null,
+        language: data.language ?? 'en',
+      },
+    });
+    return row as unknown as Recipe;
   }
 
   async update(id: number, data: Partial<{
@@ -286,35 +279,34 @@ export class RecipeRepository {
     nutrition_info: any; prep_time_minutes: number; cooking_time_minutes: number;
     image_url: string;
   }>): Promise<Recipe | null> {
-    const sets: string[] = [];
-    const params: any[] = [];
-    let i = 1;
-    const fields: Record<string, any> = {
-      title: data.title, description: data.description, target: data.target,
-      meal_slot: data.meal_slot, baby_age_group: data.baby_age_group,
-      age_range_min_months: data.age_range_min_months,
-      age_range_max_months: data.age_range_max_months,
-      recipe_type: data.recipe_type,
-      ingredients: data.ingredients ? JSON.stringify(data.ingredients) : undefined,
-      instructions: data.instructions ? JSON.stringify(data.instructions) : undefined,
-      nutrition_info: data.nutrition_info !== undefined ? JSON.stringify(data.nutrition_info) : undefined,
-      prep_time_minutes: data.prep_time_minutes, cooking_time_minutes: data.cooking_time_minutes,
-      image_url: data.image_url,
-    };
-    for (const [key, val] of Object.entries(fields)) {
-      if (val !== undefined) { sets.push(`${key} = $${i++}`); params.push(val); }
-    }
-    if (!sets.length) return this.findById(id);
-    params.push(id);
-    const result = await database.query(
-      `UPDATE recipes SET ${sets.join(', ')}, updated_at = NOW() WHERE id = $${i} RETURNING *`,
-      params
-    );
-    return result.rows[0] || null;
+    const updateData: Record<string, unknown> = { updated_at: new Date() };
+
+    if (data.title !== undefined) updateData.title = data.title;
+    if (data.description !== undefined) updateData.description = data.description;
+    if (data.target !== undefined) updateData.target = data.target;
+    if (data.meal_slot !== undefined) updateData.meal_slot = data.meal_slot;
+    if (data.baby_age_group !== undefined) updateData.baby_age_group = data.baby_age_group;
+    if (data.age_range_min_months !== undefined) updateData.age_range_min_months = data.age_range_min_months;
+    if (data.age_range_max_months !== undefined) updateData.age_range_max_months = data.age_range_max_months;
+    if (data.recipe_type !== undefined) updateData.recipe_type = data.recipe_type;
+    if (data.ingredients !== undefined) updateData.ingredients = data.ingredients;
+    if (data.instructions !== undefined) updateData.instructions = data.instructions;
+    if (data.nutrition_info !== undefined) updateData.nutrition_info = data.nutrition_info;
+    if (data.prep_time_minutes !== undefined) updateData.prep_time_minutes = data.prep_time_minutes;
+    if (data.cooking_time_minutes !== undefined) updateData.cooking_time_minutes = data.cooking_time_minutes;
+    if (data.image_url !== undefined) updateData.image_url = data.image_url;
+
+    if (Object.keys(updateData).length === 1) return this.findById(id);
+
+    const row = await prisma.recipes.update({
+      where: { id },
+      data: updateData,
+    });
+    return row as unknown as Recipe;
   }
 
   async delete(id: number): Promise<boolean> {
-    const result = await database.query('DELETE FROM recipes WHERE id = $1', [id]);
-    return (result.rowCount ?? 0) > 0;
+    const result = await prisma.recipes.deleteMany({ where: { id } });
+    return result.count > 0;
   }
 }

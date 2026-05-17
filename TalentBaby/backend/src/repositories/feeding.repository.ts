@@ -1,4 +1,5 @@
-import { database } from '../config/database';
+import { prisma } from '../config/prisma';
+import { Prisma } from '../generated/prisma/client';
 
 export interface Feeding {
   id: number;
@@ -18,61 +19,48 @@ export interface Feeding {
 
 export class FeedingRepository {
   async findByBabyId(babyId: number, startDate?: Date, endDate?: Date): Promise<Feeding[]> {
-    let query = 'SELECT * FROM feedings WHERE baby_id = $1';
-    const params: any[] = [babyId];
-    let paramIndex = 2;
+    const where: Prisma.feedingsWhereInput = { baby_id: babyId };
 
-    if (startDate) {
-      query += ` AND feeding_date >= $${paramIndex}`;
-      params.push(startDate);
-      paramIndex++;
+    if (startDate || endDate) {
+      where.feeding_date = {
+        ...(startDate ? { gte: startDate } : {}),
+        ...(endDate ? { lte: endDate } : {}),
+      };
     }
 
-    if (endDate) {
-      query += ` AND feeding_date <= $${paramIndex}`;
-      params.push(endDate);
-      paramIndex++;
-    }
+    const rows = await prisma.feedings.findMany({
+      where,
+      orderBy: [{ feeding_date: 'desc' }, { start_time: 'desc' }],
+    });
 
-    query += ' ORDER BY feeding_date DESC, start_time DESC';
-
-    const result = await database.query(query, params);
-    return result.rows;
+    return rows as unknown as Feeding[];
   }
 
   async findById(id: number): Promise<Feeding | null> {
-    const result = await database.query('SELECT * FROM feedings WHERE id = $1', [id]);
-    return result.rows[0] || null;
+    const row = await prisma.feedings.findUnique({ where: { id } });
+    return row as unknown as Feeding | null;
   }
 
   async create(feedingData: Partial<Feeding>): Promise<Feeding> {
-    const result = await database.query(
-      `INSERT INTO feedings 
-       (baby_id, feeding_type, feeding_date, start_time, end_time, duration_minutes, 
-        amount_ml, amount_oz, side, notes)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
-       RETURNING *`,
-      [
-        feedingData.baby_id,
-        feedingData.feeding_type,
-        feedingData.feeding_date,
-        feedingData.start_time || null,
-        feedingData.end_time || null,
-        feedingData.duration_minutes || null,
-        feedingData.amount_ml || null,
-        feedingData.amount_oz || null,
-        feedingData.side || null,
-        feedingData.notes || null,
-      ]
-    );
-    return result.rows[0];
+    const row = await prisma.feedings.create({
+      data: {
+        baby_id: feedingData.baby_id!,
+        feeding_type: feedingData.feeding_type!,
+        feeding_date: feedingData.feeding_date!,
+        start_time: feedingData.start_time ?? null,
+        end_time: feedingData.end_time ?? null,
+        duration_minutes: feedingData.duration_minutes ?? null,
+        amount_ml: feedingData.amount_ml ?? null,
+        amount_oz: feedingData.amount_oz ?? null,
+        side: feedingData.side ?? null,
+        notes: feedingData.notes ?? null,
+      },
+    });
+
+    return row as unknown as Feeding;
   }
 
   async update(id: number, updates: Partial<Feeding>): Promise<Feeding> {
-    const fields: string[] = [];
-    const values: any[] = [];
-    let paramIndex = 1;
-
     const allowedFields = [
       'feeding_type',
       'feeding_date',
@@ -83,61 +71,57 @@ export class FeedingRepository {
       'amount_oz',
       'side',
       'notes',
-    ];
+    ] as const;
 
-    Object.keys(updates).forEach((key) => {
-      if (allowedFields.includes(key)) {
-        fields.push(`${key} = $${paramIndex}`);
-        values.push(updates[key as keyof Feeding]);
-        paramIndex++;
+    const data: Record<string, unknown> = { updated_at: new Date() };
+    for (const key of allowedFields) {
+      if (Object.prototype.hasOwnProperty.call(updates, key)) {
+        data[key] = updates[key] ?? null;
       }
-    });
+    }
 
-    if (fields.length === 0) {
+    if (Object.keys(data).length === 1) {
+      // only updated_at was going to be set — no real update fields
       const feeding = await this.findById(id);
       if (!feeding) throw new Error('Feeding record not found');
       return feeding;
     }
 
-    fields.push('updated_at = CURRENT_TIMESTAMP');
-    values.push(id);
+    const row = await prisma.feedings.update({
+      where: { id },
+      data,
+    });
 
-    const result = await database.query(
-      `UPDATE feedings SET ${fields.join(', ')} WHERE id = $${paramIndex} RETURNING *`,
-      values
-    );
-
-    return result.rows[0];
+    return row as unknown as Feeding;
   }
 
   async delete(id: number): Promise<void> {
-    const result = await database.query('DELETE FROM feedings WHERE id = $1', [id]);
-    if (result.rowCount === 0) {
+    const result = await prisma.feedings.deleteMany({ where: { id } });
+    if (result.count === 0) {
       throw new Error('Feeding record not found');
     }
   }
 
   async getStatistics(babyId: number, startDate: Date, endDate: Date): Promise<any> {
-    const result = await database.query(
-      `SELECT 
+    const rows = await prisma.$queryRaw<any[]>(Prisma.sql`
+      SELECT
         feeding_type,
         COUNT(*) as total_feedings,
         AVG(duration_minutes) as avg_duration,
         SUM(amount_ml) as total_amount_ml,
         SUM(amount_oz) as total_amount_oz
-       FROM feedings
-       WHERE baby_id = $1 AND feeding_date >= $2 AND feeding_date <= $3
-       GROUP BY feeding_type`,
-      [babyId, startDate, endDate]
-    );
-    return result.rows;
+      FROM feedings
+      WHERE baby_id = ${babyId} AND feeding_date >= ${startDate} AND feeding_date <= ${endDate}
+      GROUP BY feeding_type
+    `);
+    return rows;
   }
 
   async verifyBabyOwnership(babyId: number, userId: number): Promise<boolean> {
-    const result = await database.query(
-      'SELECT id FROM babies WHERE id = $1 AND user_id = $2',
-      [babyId, userId]
-    );
-    return result.rows.length > 0;
+    const row = await prisma.babies.findFirst({
+      where: { id: babyId, user_id: userId },
+      select: { id: true },
+    });
+    return row !== null;
   }
 }

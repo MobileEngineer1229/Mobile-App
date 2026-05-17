@@ -1,4 +1,5 @@
-import { database } from '../config/database';
+import { prisma } from '../config/prisma';
+import { Prisma } from '../generated/prisma/client';
 
 export interface Article {
   id: number;
@@ -37,160 +38,143 @@ export interface CreateArticleInput {
 
 export class ArticleRepository {
   async findAll(category?: string, isFeatured?: boolean, limit?: number, offset?: number, lang?: string, month?: number): Promise<Article[]> {
-    let query = 'SELECT * FROM articles WHERE 1=1';
-    const params: any[] = [];
-    let paramIndex = 1;
+    const where: Prisma.articlesWhereInput = {
+      ...(lang ? { language: lang } : {}),
+      ...(category ? { category } : {}),
+      ...(isFeatured !== undefined ? { is_featured: isFeatured } : {}),
+      ...(month !== undefined
+        ? {
+            AND: [
+              { OR: [{ age_min_months: null }, { age_min_months: { lte: month } }] },
+              { OR: [{ age_max_months: null }, { age_max_months: { gte: month } }] },
+            ],
+          }
+        : {}),
+    };
 
-    if (lang) { query += ` AND language = $${paramIndex}`; params.push(lang); paramIndex++; }
-    if (category) { query += ` AND category = $${paramIndex}`; params.push(category); paramIndex++; }
-    if (isFeatured !== undefined) { query += ` AND is_featured = $${paramIndex}`; params.push(isFeatured); paramIndex++; }
-    if (month !== undefined) {
-      query += ` AND (age_min_months IS NULL OR age_min_months <= $${paramIndex})`;
-      query += ` AND (age_max_months IS NULL OR age_max_months >= $${paramIndex})`;
-      params.push(month);
-      paramIndex++;
-    }
+    const rows = await prisma.articles.findMany({
+      where,
+      orderBy: { created_at: 'desc' },
+      ...(limit ? { take: limit } : {}),
+      ...(limit && offset ? { skip: offset } : {}),
+    });
 
-    query += ' ORDER BY created_at DESC';
-
-    if (limit) {
-      query += ` LIMIT $${paramIndex}`; params.push(limit); paramIndex++;
-      if (offset) { query += ` OFFSET $${paramIndex}`; params.push(offset); }
-    }
-
-    const result = await database.query(query, params);
-    return result.rows;
+    return rows as unknown as Article[];
   }
 
   async findByAgeRange(ageMonths: number, category?: string, lang: string = 'en'): Promise<Article[]> {
-    let query = `
-      SELECT * FROM articles
-      WHERE language = $1
-        AND age_min_months <= $2
-        AND age_max_months >= $2
-        AND doctor_name IS NOT NULL
-    `;
-    const params: any[] = [lang, ageMonths];
-    let paramIndex = 3;
+    const rows = await prisma.articles.findMany({
+      where: {
+        language: lang,
+        age_min_months: { lte: ageMonths },
+        age_max_months: { gte: ageMonths },
+        doctor_name: { not: null },
+        ...(category ? { category } : {}),
+      },
+      orderBy: [{ is_featured: 'desc' }, { view_count: 'desc' }],
+    });
 
-    if (category) {
-      query += ` AND category = $${paramIndex}`;
-      params.push(category);
-      paramIndex++;
-    }
-
-    query += ' ORDER BY is_featured DESC, view_count DESC';
-    const result = await database.query(query, params);
-    return result.rows;
+    return rows as unknown as Article[];
   }
 
   async findById(id: number): Promise<Article | null> {
-    const result = await database.query('SELECT * FROM articles WHERE id = $1', [id]);
-    return result.rows[0] || null;
+    const row = await prisma.articles.findUnique({ where: { id } });
+    return row as unknown as Article | null;
   }
 
   async create(input: CreateArticleInput): Promise<Article> {
-    const result = await database.query(
-      `INSERT INTO articles
-        (title, content, category, author, image_url, reading_time_minutes,
-         is_featured, doctor_name, doctor_credentials, doctor_verified,
-         age_min_months, age_max_months, language)
-       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,'en')
-       RETURNING *`,
-      [
-        input.title, input.content, input.category,
-        input.author ?? 'BabyG Editorial Team',
-        input.image_url ?? null,
-        input.reading_time_minutes ?? null,
-        input.is_featured ?? false,
-        input.doctor_name ?? null,
-        input.doctor_credentials ?? null,
-        input.doctor_verified ?? false,
-        input.age_min_months ?? 0,
-        input.age_max_months ?? 60,
-      ]
-    );
-    return result.rows[0];
+    const row = await prisma.articles.create({
+      data: {
+        title: input.title,
+        content: input.content,
+        category: input.category,
+        author: input.author ?? 'BabyG Editorial Team',
+        image_url: input.image_url ?? null,
+        reading_time_minutes: input.reading_time_minutes ?? null,
+        is_featured: input.is_featured ?? false,
+        doctor_name: input.doctor_name ?? null,
+        doctor_credentials: input.doctor_credentials ?? null,
+        doctor_verified: input.doctor_verified ?? false,
+        age_min_months: input.age_min_months ?? 0,
+        age_max_months: input.age_max_months ?? 60,
+        language: 'en',
+      },
+    });
+    return row as unknown as Article;
   }
 
   async update(id: number, input: Partial<CreateArticleInput>): Promise<Article | null> {
-    const fields: string[] = [];
-    const params: any[] = [];
-    let i = 1;
-
     const allowed: (keyof CreateArticleInput)[] = [
       'title', 'content', 'category', 'author', 'image_url',
       'reading_time_minutes', 'is_featured', 'doctor_name',
       'doctor_credentials', 'doctor_verified', 'age_min_months', 'age_max_months',
     ];
 
+    const data: Record<string, unknown> = { updated_at: new Date() };
     for (const key of allowed) {
       if (input[key] !== undefined) {
-        fields.push(`${key} = $${i}`);
-        params.push(input[key]);
-        i++;
+        data[key] = input[key];
       }
     }
 
-    if (fields.length === 0) return this.findById(id);
+    if (Object.keys(data).length === 1) return this.findById(id);
 
-    fields.push(`updated_at = NOW()`);
-    params.push(id);
-
-    const result = await database.query(
-      `UPDATE articles SET ${fields.join(', ')} WHERE id = $${i} RETURNING *`,
-      params
-    );
-    return result.rows[0] || null;
+    const row = await prisma.articles.update({
+      where: { id },
+      data,
+    });
+    return row as unknown as Article;
   }
 
   async delete(id: number): Promise<boolean> {
-    const result = await database.query('DELETE FROM articles WHERE id = $1', [id]);
-    return (result.rowCount ?? 0) > 0;
+    const result = await prisma.articles.deleteMany({ where: { id } });
+    return result.count > 0;
   }
 
   async search(searchTerm: string, limit: number = 20): Promise<Article[]> {
-    const result = await database.query(
-      `SELECT * FROM articles
-       WHERE title ILIKE $1 OR content ILIKE $1
-       ORDER BY created_at DESC LIMIT $2`,
-      [`%${searchTerm}%`, limit]
-    );
-    return result.rows;
+    const rows = await prisma.articles.findMany({
+      where: {
+        OR: [
+          { title: { contains: searchTerm, mode: 'insensitive' } },
+          { content: { contains: searchTerm, mode: 'insensitive' } },
+        ],
+      },
+      orderBy: { created_at: 'desc' },
+      take: limit,
+    });
+    return rows as unknown as Article[];
   }
 
   async incrementViewCount(id: number): Promise<void> {
-    await database.query('UPDATE articles SET view_count = view_count + 1 WHERE id = $1', [id]);
+    await prisma.articles.update({
+      where: { id },
+      data: { view_count: { increment: 1 } },
+    });
   }
 
   async bookmarkArticle(userId: number, articleId: number): Promise<void> {
-    await database.query(
-      `INSERT INTO article_bookmarks (user_id, article_id) VALUES ($1, $2) ON CONFLICT DO NOTHING`,
-      [userId, articleId]
-    );
+    await prisma.$executeRaw`INSERT INTO article_bookmarks (user_id, article_id) VALUES (${userId}, ${articleId}) ON CONFLICT DO NOTHING`;
   }
 
   async unbookmarkArticle(userId: number, articleId: number): Promise<void> {
-    await database.query(
-      'DELETE FROM article_bookmarks WHERE user_id = $1 AND article_id = $2',
-      [userId, articleId]
-    );
+    await prisma.article_bookmarks.deleteMany({
+      where: { user_id: userId, article_id: articleId },
+    });
   }
 
   async getBookmarkedArticles(userId: number): Promise<Article[]> {
-    const result = await database.query(
-      `SELECT a.* FROM articles a
-       JOIN article_bookmarks ab ON a.id = ab.article_id
-       WHERE ab.user_id = $1 ORDER BY ab.created_at DESC`,
-      [userId]
+    const rows = await prisma.$queryRaw<Article[]>(
+      Prisma.sql`SELECT a.* FROM articles a
+                 JOIN article_bookmarks ab ON a.id = ab.article_id
+                 WHERE ab.user_id = ${userId}
+                 ORDER BY ab.created_at DESC`
     );
-    return result.rows;
+    return rows;
   }
 
   async recordReadingHistory(userId: number, articleId: number): Promise<void> {
-    await database.query(
-      `INSERT INTO article_reading_history (user_id, article_id) VALUES ($1, $2)`,
-      [userId, articleId]
-    );
+    await prisma.article_reading_history.create({
+      data: { user_id: userId, article_id: articleId },
+    });
   }
 }

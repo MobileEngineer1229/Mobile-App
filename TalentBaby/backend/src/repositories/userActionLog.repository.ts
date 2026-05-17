@@ -1,4 +1,5 @@
-import { database } from '../config/database';
+import { prisma } from '../config/prisma';
+import { Prisma } from '../generated/prisma/client';
 
 export interface UserActionLog {
   id: number;
@@ -19,115 +20,97 @@ export interface UserActionLog {
 
 export class UserActionLogRepository {
   async create(logData: Partial<UserActionLog>): Promise<UserActionLog> {
-    const result = await database.query(
-      `INSERT INTO user_action_logs 
-       (user_id, action_type, action_description, resource_type, resource_id, 
-        ip_address, user_agent, request_method, request_path, status_code, 
-        error_message, metadata)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
-       RETURNING *`,
-      [
-        logData.user_id || null,
-        logData.action_type,
-        logData.action_description || null,
-        logData.resource_type || null,
-        logData.resource_id || null,
-        logData.ip_address || null,
-        logData.user_agent || null,
-        logData.request_method || null,
-        logData.request_path || null,
-        logData.status_code || null,
-        logData.error_message || null,
-        logData.metadata ? JSON.stringify(logData.metadata) : null,
-      ]
-    );
-    return result.rows[0];
+    const result = await prisma.user_action_logs.create({
+      data: {
+        user_id: logData.user_id || null,
+        action_type: logData.action_type!,
+        action_description: logData.action_description || null,
+        resource_type: logData.resource_type || null,
+        resource_id: logData.resource_id || null,
+        ip_address: logData.ip_address || null,
+        user_agent: logData.user_agent || null,
+        request_method: logData.request_method || null,
+        request_path: logData.request_path || null,
+        status_code: logData.status_code || null,
+        error_message: logData.error_message || null,
+        metadata: logData.metadata ? logData.metadata : null,
+      },
+    });
+    return result as unknown as UserActionLog;
   }
 
   async findByUserId(userId: number, limit: number = 100, offset: number = 0): Promise<UserActionLog[]> {
-    const result = await database.query(
-      `SELECT * FROM user_action_logs 
-       WHERE user_id = $1 
-       ORDER BY created_at DESC 
-       LIMIT $2 OFFSET $3`,
-      [userId, limit, offset]
-    );
-    return result.rows;
+    const results = await prisma.user_action_logs.findMany({
+      where: { user_id: userId },
+      orderBy: { created_at: 'desc' },
+      take: limit,
+      skip: offset,
+    });
+    return results as unknown as UserActionLog[];
   }
 
   async findByActionType(actionType: string, limit: number = 100, offset: number = 0): Promise<UserActionLog[]> {
-    const result = await database.query(
-      `SELECT * FROM user_action_logs 
-       WHERE action_type = $1 
-       ORDER BY created_at DESC 
-       LIMIT $2 OFFSET $3`,
-      [actionType, limit, offset]
-    );
-    return result.rows;
+    const results = await prisma.user_action_logs.findMany({
+      where: { action_type: actionType },
+      orderBy: { created_at: 'desc' },
+      take: limit,
+      skip: offset,
+    });
+    return results as unknown as UserActionLog[];
   }
 
   async findByResource(resourceType: string, resourceId: number): Promise<UserActionLog[]> {
-    const result = await database.query(
-      `SELECT * FROM user_action_logs 
-       WHERE resource_type = $1 AND resource_id = $2 
-       ORDER BY created_at DESC`,
-      [resourceType, resourceId]
-    );
-    return result.rows;
+    const results = await prisma.user_action_logs.findMany({
+      where: {
+        resource_type: resourceType,
+        resource_id: resourceId,
+      },
+      orderBy: { created_at: 'desc' },
+    });
+    return results as unknown as UserActionLog[];
   }
 
   async findByDateRange(startDate: Date, endDate: Date, limit: number = 1000): Promise<UserActionLog[]> {
-    const result = await database.query(
-      `SELECT * FROM user_action_logs 
-       WHERE created_at >= $1 AND created_at <= $2 
-       ORDER BY created_at DESC 
-       LIMIT $3`,
-      [startDate, endDate, limit]
-    );
-    return result.rows;
+    const results = await prisma.user_action_logs.findMany({
+      where: {
+        created_at: {
+          gte: startDate,
+          lte: endDate,
+        },
+      },
+      orderBy: { created_at: 'desc' },
+      take: limit,
+    });
+    return results as unknown as UserActionLog[];
   }
 
   async getStatistics(userId?: number, startDate?: Date, endDate?: Date): Promise<any> {
-    let query = `
-      SELECT 
+    // Aggregate query with dynamic conditions — use $queryRaw
+    const conditions: Prisma.Sql[] = [Prisma.sql`1=1`];
+    if (userId) conditions.push(Prisma.sql`user_id = ${userId}`);
+    if (startDate) conditions.push(Prisma.sql`created_at >= ${startDate}`);
+    if (endDate) conditions.push(Prisma.sql`created_at <= ${endDate}`);
+
+    const whereClause = Prisma.join(conditions, ' AND ');
+
+    const results = await prisma.$queryRaw<any[]>(Prisma.sql`
+      SELECT
         action_type,
         COUNT(*) as count,
         COUNT(DISTINCT user_id) as unique_users
       FROM user_action_logs
-      WHERE 1=1
-    `;
-    const params: any[] = [];
-    let paramIndex = 1;
-
-    if (userId) {
-      query += ` AND user_id = $${paramIndex}`;
-      params.push(userId);
-      paramIndex++;
-    }
-
-    if (startDate) {
-      query += ` AND created_at >= $${paramIndex}`;
-      params.push(startDate);
-      paramIndex++;
-    }
-
-    if (endDate) {
-      query += ` AND created_at <= $${paramIndex}`;
-      params.push(endDate);
-      paramIndex++;
-    }
-
-    query += ' GROUP BY action_type ORDER BY count DESC';
-
-    const result = await database.query(query, params);
-    return result.rows;
+      WHERE ${whereClause}
+      GROUP BY action_type
+      ORDER BY count DESC
+    `);
+    return results;
   }
 
   async deleteOldLogs(daysToKeep: number = 90): Promise<number> {
-    const result = await database.query(
-      `DELETE FROM user_action_logs 
-       WHERE created_at < NOW() - INTERVAL '${daysToKeep} days'`
-    );
-    return result.rowCount || 0;
+    const result = await prisma.$executeRaw`
+      DELETE FROM user_action_logs
+      WHERE created_at < NOW() - (${daysToKeep} || ' days')::INTERVAL
+    `;
+    return result;
   }
 }

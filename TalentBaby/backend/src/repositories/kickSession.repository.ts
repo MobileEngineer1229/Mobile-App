@@ -1,4 +1,4 @@
-import { database } from '../config/database';
+import { prisma } from '../config/prisma';
 
 export interface KickSession {
   id: number;
@@ -14,16 +14,16 @@ export interface KickSession {
 
 export class KickSessionRepository {
   async findByPregnancyId(pregnancyId: number): Promise<KickSession[]> {
-    const result = await database.query(
-      'SELECT * FROM kick_sessions WHERE pregnancy_id = $1 ORDER BY session_date DESC, start_time DESC',
-      [pregnancyId]
-    );
-    return result.rows;
+    const rows = await prisma.kick_sessions.findMany({
+      where: { pregnancy_id: pregnancyId },
+      orderBy: [{ session_date: 'desc' }, { start_time: 'desc' }],
+    });
+    return rows as unknown as KickSession[];
   }
 
   async findById(id: number): Promise<KickSession | null> {
-    const result = await database.query('SELECT * FROM kick_sessions WHERE id = $1', [id]);
-    return result.rows[0] || null;
+    const row = await prisma.kick_sessions.findUnique({ where: { id } });
+    return row as unknown as KickSession | null;
   }
 
   async create(sessionData: Partial<KickSession>): Promise<KickSession> {
@@ -35,71 +35,66 @@ export class KickSessionRepository {
       duration_minutes = Math.floor((end.getTime() - start.getTime()) / (1000 * 60));
     }
 
-    const result = await database.query(
-      `INSERT INTO kick_sessions 
-       (pregnancy_id, session_date, start_time, end_time, kick_count, duration_minutes, notes)
-       VALUES ($1, $2, $3, $4, $5, $6, $7)
-       RETURNING *`,
-      [
-        sessionData.pregnancy_id,
-        sessionData.session_date,
-        sessionData.start_time,
-        sessionData.end_time || null,
-        sessionData.kick_count || 0,
-        duration_minutes,
-        sessionData.notes || null,
-      ]
-    );
-    return result.rows[0];
+    const row = await prisma.kick_sessions.create({
+      data: {
+        pregnancy_id: sessionData.pregnancy_id!,
+        session_date: sessionData.session_date!,
+        start_time: sessionData.start_time!,
+        end_time: sessionData.end_time ?? null,
+        kick_count: sessionData.kick_count ?? 0,
+        duration_minutes: duration_minutes,
+        notes: sessionData.notes ?? null,
+      },
+    });
+    return row as unknown as KickSession;
   }
 
   async update(id: number, updates: Partial<KickSession>): Promise<KickSession> {
-    const fields: string[] = [];
-    const values: any[] = [];
-    let paramIndex = 1;
-
     const allowedFields = ['start_time', 'end_time', 'kick_count', 'duration_minutes', 'notes'];
+    const data: Record<string, any> = {};
 
-    Object.keys(updates).forEach((key) => {
-      if (allowedFields.includes(key)) {
-        fields.push(`${key} = $${paramIndex}`);
-        values.push(updates[key as keyof KickSession]);
-        paramIndex++;
+    for (const key of allowedFields) {
+      if (key in updates) {
+        data[key] = (updates as any)[key];
       }
-    });
+    }
 
     // Recalculate duration if start_time or end_time changed
     if (updates.start_time || updates.end_time) {
       const existing = await this.findById(id);
       if (existing) {
         const start = updates.start_time ? new Date(updates.start_time) : new Date(existing.start_time);
-        const end = updates.end_time ? new Date(updates.end_time) : existing.end_time ? new Date(existing.end_time) : null;
+        const end = updates.end_time
+          ? new Date(updates.end_time)
+          : existing.end_time
+          ? new Date(existing.end_time)
+          : null;
         if (end) {
-          const duration = Math.floor((end.getTime() - start.getTime()) / (1000 * 60));
-          fields.push(`duration_minutes = $${paramIndex}`);
-          values.push(duration);
-          paramIndex++;
+          data.duration_minutes = Math.floor((end.getTime() - start.getTime()) / (1000 * 60));
         }
       }
     }
 
-    if (fields.length === 0) {
+    if (Object.keys(data).length === 0) {
       const session = await this.findById(id);
       if (!session) throw new Error('Kick session not found');
       return session;
     }
 
-    const result = await database.query(
-      `UPDATE kick_sessions SET ${fields.join(', ')} WHERE id = $${paramIndex} RETURNING *`,
-      [...values, id]
-    );
+    const result = await prisma.kick_sessions.updateMany({
+      where: { id },
+      data,
+    });
 
-    return result.rows[0];
+    if (result.count === 0) throw new Error('Kick session not found');
+
+    const updated = await this.findById(id);
+    return updated!;
   }
 
   async delete(id: number): Promise<void> {
-    const result = await database.query('DELETE FROM kick_sessions WHERE id = $1', [id]);
-    if (result.rowCount === 0) {
+    const result = await prisma.kick_sessions.deleteMany({ where: { id } });
+    if (result.count === 0) {
       throw new Error('Kick session not found');
     }
   }

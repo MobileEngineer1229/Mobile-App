@@ -1,4 +1,4 @@
-import { database } from '../config/database';
+import { prisma } from '../config/prisma';
 
 export interface NutritionGuide {
   id: number;
@@ -15,20 +15,22 @@ export interface NutritionGuide {
 
 export class NutritionRepository {
   async findByTrimester(trimester: number): Promise<NutritionGuide[]> {
-    const result = await database.query(
-      'SELECT * FROM nutrition_guides WHERE trimester = $1 ORDER BY title ASC',
-      [trimester]
-    );
-    return result.rows;
+    const rows = await prisma.nutrition_guides.findMany({
+      where: { trimester },
+      orderBy: { title: 'asc' },
+    });
+    return rows as unknown as NutritionGuide[];
   }
 
   async findAll(): Promise<NutritionGuide[]> {
-    const result = await database.query('SELECT * FROM nutrition_guides ORDER BY trimester ASC, title ASC');
-    return result.rows;
+    const rows = await prisma.nutrition_guides.findMany({
+      orderBy: [{ trimester: 'asc' }, { title: 'asc' }],
+    });
+    return rows as unknown as NutritionGuide[];
   }
 
   async findById(id: number): Promise<NutritionGuide | null> {
-    const result = await database.query('SELECT * FROM nutrition_guides WHERE id = $1', [id]);
-    return result.rows[0] || null;
+    const row = await prisma.nutrition_guides.findUnique({ where: { id } });
+    return (row as unknown as NutritionGuide) ?? null;
   }
 }

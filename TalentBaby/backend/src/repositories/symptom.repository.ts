@@ -1,4 +1,5 @@
-import { database } from '../config/database';
+import { prisma } from '../config/prisma';
+import { Prisma } from '../generated/prisma/client';
 
 export interface Symptom {
   id: number;
@@ -12,56 +13,46 @@ export interface Symptom {
 
 export class SymptomRepository {
   async findByPregnancyId(pregnancyId: number, startDate?: Date, endDate?: Date): Promise<Symptom[]> {
-    let query = 'SELECT * FROM pregnancy_symptoms WHERE pregnancy_id = $1';
-    const params: any[] = [pregnancyId];
-    let paramIndex = 2;
+    const where: Prisma.pregnancy_symptomsWhereInput = { pregnancy_id: pregnancyId };
 
-    if (startDate) {
-      query += ` AND symptom_date >= $${paramIndex}`;
-      params.push(startDate);
-      paramIndex++;
+    if (startDate || endDate) {
+      where.symptom_date = {};
+      if (startDate) (where.symptom_date as any).gte = startDate;
+      if (endDate) (where.symptom_date as any).lte = endDate;
     }
 
-    if (endDate) {
-      query += ` AND symptom_date <= $${paramIndex}`;
-      params.push(endDate);
-      paramIndex++;
-    }
-
-    query += ' ORDER BY symptom_date DESC';
-
-    const result = await database.query(query, params);
-    return result.rows;
+    const rows = await prisma.pregnancy_symptoms.findMany({
+      where,
+      orderBy: { symptom_date: 'desc' },
+    });
+    return rows as unknown as Symptom[];
   }
 
   async create(symptomData: Partial<Symptom>): Promise<Symptom> {
-    const result = await database.query(
-      `INSERT INTO pregnancy_symptoms (pregnancy_id, symptom_date, symptom_type, severity, notes)
-       VALUES ($1, $2, $3, $4, $5)
-       RETURNING *`,
-      [
-        symptomData.pregnancy_id,
-        symptomData.symptom_date,
-        symptomData.symptom_type,
-        symptomData.severity || 1,
-        symptomData.notes || null,
-      ]
-    );
-    return result.rows[0];
+    const row = await prisma.pregnancy_symptoms.create({
+      data: {
+        pregnancy_id: symptomData.pregnancy_id!,
+        symptom_date: symptomData.symptom_date!,
+        symptom_type: symptomData.symptom_type!,
+        severity: symptomData.severity ?? 1,
+        notes: symptomData.notes ?? null,
+      },
+    });
+    return row as unknown as Symptom;
   }
 
   async getSymptomPatterns(pregnancyId: number): Promise<any> {
-    const result = await database.query(
-      `SELECT 
+    // Uses GROUP BY aggregate — requires raw SQL
+    const rows = await prisma.$queryRaw<any[]>(Prisma.sql`
+      SELECT
         symptom_type,
         AVG(severity) as avg_severity,
         COUNT(*) as frequency
-       FROM pregnancy_symptoms
-       WHERE pregnancy_id = $1
-       GROUP BY symptom_type
-       ORDER BY frequency DESC`,
-      [pregnancyId]
-    );
-    return result.rows;
+      FROM pregnancy_symptoms
+      WHERE pregnancy_id = ${pregnancyId}
+      GROUP BY symptom_type
+      ORDER BY frequency DESC
+    `);
+    return rows;
   }
 }

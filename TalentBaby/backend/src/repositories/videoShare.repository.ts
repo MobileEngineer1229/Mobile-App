@@ -1,4 +1,5 @@
-import { database } from '../config/database';
+import { prisma } from '../config/prisma';
+import { Prisma } from '../generated/prisma/client';
 import crypto from 'crypto';
 
 export interface VideoShare {
@@ -19,41 +20,46 @@ export class VideoShareRepository {
       ? new Date(Date.now() + expiresInDays * 24 * 60 * 60 * 1000)
       : null;
 
-    const result = await database.query(
-      `INSERT INTO video_shares (memory_id, shared_by_user_id, share_token, share_type, expires_at)
-       VALUES ($1, $2, $3, $4, $5)
-       RETURNING *`,
-      [memoryId, userId, shareToken, shareType, expiresAt]
-    );
-    return result.rows[0];
+    const row = await prisma.video_shares.create({
+      data: {
+        memory_id: memoryId,
+        shared_by_user_id: userId,
+        share_token: shareToken,
+        share_type: shareType,
+        expires_at: expiresAt,
+      },
+    });
+    return row as unknown as VideoShare;
   }
 
   async findByToken(shareToken: string): Promise<VideoShare | null> {
-    const result = await database.query(
-      'SELECT * FROM video_shares WHERE share_token = $1 AND (expires_at IS NULL OR expires_at > NOW())',
-      [shareToken]
-    );
-    return result.rows[0] || null;
+    const rows = await prisma.$queryRaw<VideoShare[]>(Prisma.sql`
+      SELECT * FROM video_shares
+      WHERE share_token = ${shareToken}
+        AND (expires_at IS NULL OR expires_at > NOW())
+    `);
+    return rows[0] ?? null;
   }
 
   async incrementViewCount(shareId: number): Promise<void> {
-    await database.query('UPDATE video_shares SET view_count = view_count + 1 WHERE id = $1', [shareId]);
+    await prisma.$executeRaw`
+      UPDATE video_shares SET view_count = view_count + 1 WHERE id = ${shareId}
+    `;
   }
 
   async getSharesByMemory(memoryId: number): Promise<VideoShare[]> {
-    const result = await database.query(
-      'SELECT * FROM video_shares WHERE memory_id = $1 ORDER BY created_at DESC',
-      [memoryId]
-    );
-    return result.rows;
+    const rows = await prisma.video_shares.findMany({
+      where: { memory_id: memoryId },
+      orderBy: { created_at: 'desc' },
+    });
+    return rows as unknown as VideoShare[];
   }
 
   async deleteShare(shareId: number, userId: number): Promise<void> {
-    const result = await database.query(
-      'DELETE FROM video_shares WHERE id = $1 AND shared_by_user_id = $2',
-      [shareId, userId]
-    );
-    if (result.rowCount === 0) {
+    const result = await prisma.video_shares.deleteMany({
+      where: { id: shareId, shared_by_user_id: userId },
+    });
+    if (result.count === 0) {
       throw new Error('Share not found');
     }
   }

@@ -1,4 +1,5 @@
-import { database } from '../config/database';
+import { prisma } from '../config/prisma';
+import { Prisma } from '../generated/prisma/client';
 
 export interface Subscription {
   id: number;
@@ -15,80 +16,69 @@ export interface Subscription {
 
 export class SubscriptionRepository {
   async findByUserId(userId: number): Promise<Subscription | null> {
-    const result = await database.query(
-      'SELECT * FROM subscriptions WHERE user_id = $1 ORDER BY created_at DESC LIMIT 1',
-      [userId]
-    );
-    return result.rows[0] || null;
+    const result = await prisma.subscriptions.findFirst({
+      where: { user_id: userId },
+      orderBy: { created_at: 'desc' },
+    });
+    return result as unknown as Subscription | null;
   }
 
   async create(subscriptionData: Partial<Subscription>): Promise<Subscription> {
-    const result = await database.query(
-      `INSERT INTO subscriptions 
-       (user_id, plan_type, status, start_date, end_date, payment_provider, payment_id)
-       VALUES ($1, $2, $3, $4, $5, $6, $7)
-       RETURNING *`,
-      [
-        subscriptionData.user_id,
-        subscriptionData.plan_type,
-        subscriptionData.status || 'active',
-        subscriptionData.start_date,
-        subscriptionData.end_date || null,
-        subscriptionData.payment_provider || null,
-        subscriptionData.payment_id || null,
-      ]
-    );
-    return result.rows[0];
+    const result = await prisma.subscriptions.create({
+      data: {
+        user_id: subscriptionData.user_id!,
+        plan_type: subscriptionData.plan_type!,
+        status: subscriptionData.status || 'active',
+        start_date: subscriptionData.start_date!,
+        end_date: subscriptionData.end_date || null,
+        payment_provider: subscriptionData.payment_provider || null,
+        payment_id: subscriptionData.payment_id || null,
+      },
+    });
+    return result as unknown as Subscription;
   }
 
   async update(id: number, userId: number, updates: Partial<Subscription>): Promise<Subscription> {
-    const fields: string[] = [];
-    const values: any[] = [];
-    let paramIndex = 1;
+    const data: Prisma.subscriptionsUpdateInput = { updated_at: new Date() };
+    if (updates.plan_type !== undefined) data.plan_type = updates.plan_type;
+    if (updates.status !== undefined) data.status = updates.status;
+    if (updates.end_date !== undefined) data.end_date = updates.end_date;
+    if (updates.payment_provider !== undefined) data.payment_provider = updates.payment_provider;
+    if (updates.payment_id !== undefined) data.payment_id = updates.payment_id;
 
-    const allowedFields = ['plan_type', 'status', 'end_date', 'payment_provider', 'payment_id'];
-
-    Object.keys(updates).forEach((key) => {
-      if (allowedFields.includes(key)) {
-        fields.push(`${key} = $${paramIndex}`);
-        values.push(updates[key as keyof Subscription]);
-        paramIndex++;
-      }
-    });
-
-    if (fields.length === 0) {
-      const result = await database.query(
-        'SELECT * FROM subscriptions WHERE id = $1 AND user_id = $2',
-        [id, userId]
-      );
-      if (result.rows.length === 0) throw new Error('Subscription not found');
-      return result.rows[0];
+    if (Object.keys(data).length === 1) {
+      const existing = await prisma.subscriptions.findFirst({
+        where: { id, user_id: userId },
+      });
+      if (!existing) throw new Error('Subscription not found');
+      return existing as unknown as Subscription;
     }
 
-    fields.push('updated_at = CURRENT_TIMESTAMP');
-    values.push(id, userId);
+    const result = await prisma.subscriptions.updateMany({
+      where: { id, user_id: userId },
+      data,
+    });
 
-    const result = await database.query(
-      `UPDATE subscriptions SET ${fields.join(', ')} WHERE id = $${paramIndex} AND user_id = $${paramIndex + 1} RETURNING *`,
-      values
-    );
+    if (result.count === 0) throw new Error('Subscription not found');
 
-    return result.rows[0];
+    const updated = await prisma.subscriptions.findFirst({ where: { id, user_id: userId } });
+    return updated as unknown as Subscription;
   }
 
   async cancel(id: number, userId: number): Promise<Subscription> {
-    const result = await database.query(
-      `UPDATE subscriptions 
-       SET status = 'cancelled', updated_at = CURRENT_TIMESTAMP 
-       WHERE id = $1 AND user_id = $2 
-       RETURNING *`,
-      [id, userId]
-    );
+    const result = await prisma.subscriptions.updateMany({
+      where: { id, user_id: userId },
+      data: {
+        status: 'cancelled',
+        updated_at: new Date(),
+      },
+    });
 
-    if (result.rows.length === 0) {
+    if (result.count === 0) {
       throw new Error('Subscription not found');
     }
 
-    return result.rows[0];
+    const updated = await prisma.subscriptions.findFirst({ where: { id, user_id: userId } });
+    return updated as unknown as Subscription;
   }
 }

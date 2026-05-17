@@ -1,4 +1,4 @@
-import { database } from '../config/database';
+import { prisma } from '../config/prisma';
 
 export type MilestoneTypeValue = 'physical' | 'cognitive' | 'communication' | 'social_emotional';
 
@@ -29,88 +29,61 @@ export interface CreateMilestoneDefinitionInput {
 
 export class MilestoneDefinitionRepository {
   async findByMonth(month: number): Promise<MilestoneDefinition[]> {
-    const result = await database.query(
-      `SELECT * FROM milestone_definitions
-       WHERE month = $1
-       ORDER BY milestone_type, display_order`,
-      [month]
-    );
-    return result.rows;
+    return prisma.milestone_definitions.findMany({
+      where: { month },
+      orderBy: [{ milestone_type: 'asc' }, { display_order: 'asc' }],
+    }) as unknown as MilestoneDefinition[];
   }
 
   async findAll(month?: number, milestoneType?: string): Promise<MilestoneDefinition[]> {
-    const conditions: string[] = [];
-    const params: unknown[] = [];
-
-    if (month !== undefined) {
-      params.push(month);
-      conditions.push(`month = $${params.length}`);
-    }
-    if (milestoneType) {
-      params.push(milestoneType);
-      conditions.push(`milestone_type = $${params.length}`);
-    }
-
-    const where = conditions.length ? `WHERE ${conditions.join(' AND ')}` : '';
-    const result = await database.query(
-      `SELECT * FROM milestone_definitions ${where} ORDER BY month, milestone_type, display_order`,
-      params
-    );
-    return result.rows;
+    return prisma.milestone_definitions.findMany({
+      where: {
+        ...(month !== undefined ? { month } : {}),
+        ...(milestoneType ? { milestone_type: milestoneType } : {}),
+      },
+      orderBy: [{ month: 'asc' }, { milestone_type: 'asc' }, { display_order: 'asc' }],
+    }) as unknown as MilestoneDefinition[];
   }
 
   async findById(id: number): Promise<MilestoneDefinition | null> {
-    const result = await database.query(
-      'SELECT * FROM milestone_definitions WHERE id = $1',
-      [id]
-    );
-    return result.rows[0] ?? null;
+    return prisma.milestone_definitions.findUnique({
+      where: { id },
+    }) as unknown as MilestoneDefinition | null;
   }
 
   async create(input: CreateMilestoneDefinitionInput): Promise<MilestoneDefinition> {
-    const result = await database.query(
-      `INSERT INTO milestone_definitions
-         (month, milestone_type, title, description, question, related_activity, display_order, doctor_verified)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
-       RETURNING *`,
-      [
-        input.month,
-        input.milestone_type,
-        input.title,
-        input.description,
-        input.question ?? null,
-        input.related_activity ?? null,
-        input.display_order ?? 0,
-        input.doctor_verified ?? false,
-      ]
-    );
-    return result.rows[0];
+    return prisma.milestone_definitions.create({
+      data: {
+        month: input.month,
+        milestone_type: input.milestone_type,
+        title: input.title,
+        description: input.description,
+        question: input.question ?? null,
+        related_activity: input.related_activity ?? null,
+        display_order: input.display_order ?? 0,
+        doctor_verified: input.doctor_verified ?? false,
+      },
+    }) as unknown as MilestoneDefinition;
   }
 
   async update(id: number, input: Partial<CreateMilestoneDefinitionInput>): Promise<MilestoneDefinition | null> {
-    const result = await database.query(
-      `UPDATE milestone_definitions
-       SET month = $1, milestone_type = $2, title = $3, description = $4,
-           question = $5, related_activity = $6, display_order = $7,
-           doctor_verified = $8, updated_at = CURRENT_TIMESTAMP
-       WHERE id = $9
-       RETURNING *`,
-      [
-        input.month,
-        input.milestone_type,
-        input.title,
-        input.description,
-        input.question ?? null,
-        input.related_activity ?? null,
-        input.display_order ?? 0,
-        input.doctor_verified ?? false,
-        id,
-      ]
-    );
-    return result.rows[0] ?? null;
+    return prisma.milestone_definitions.update({
+      where: { id },
+      data: {
+        ...(input.month !== undefined ? { month: input.month } : {}),
+        ...(input.milestone_type !== undefined ? { milestone_type: input.milestone_type } : {}),
+        ...(input.title !== undefined ? { title: input.title } : {}),
+        ...(input.description !== undefined ? { description: input.description } : {}),
+        ...(input.question !== undefined ? { question: input.question } : {}),
+        ...(input.related_activity !== undefined ? { related_activity: input.related_activity } : {}),
+        ...(input.display_order !== undefined ? { display_order: input.display_order } : {}),
+        ...(input.doctor_verified !== undefined ? { doctor_verified: input.doctor_verified } : {}),
+        updated_at: new Date(),
+      },
+    }) as unknown as MilestoneDefinition;
   }
 
   async delete(id: number): Promise<void> {
-    await database.query('DELETE FROM milestone_definitions WHERE id = $1', [id]);
+    await prisma.milestone_definitions.delete({ where: { id } });
   }
 }

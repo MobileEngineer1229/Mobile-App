@@ -195,6 +195,29 @@ def title_from_question(question: str) -> str:
     return title[:1].upper() + title[1:]
 
 
+def finalize_records(records: list[dict]) -> list[dict]:
+    cleaned = []
+    for record in records:
+        question = record["question"]
+        if "^" in question:
+            continue
+        if len(re.findall(r"[A-Za-z]", question)) < 8:
+            continue
+        cleaned.append({**record})
+
+    cleaned.sort(key=lambda r: (r["month"], r["milestone_type"], r["display_order"]))
+    current_group: tuple[int, str] | None = None
+    next_order = 1
+    for record in cleaned:
+        group = (record["month"], record["milestone_type"])
+        if group != current_group:
+            current_group = group
+            next_order = 1
+        record["display_order"] = next_order
+        next_order += 1
+    return cleaned
+
+
 def build_sql(records: list[dict]) -> str:
     lines = [
         "-- Migration 030: Seed milestone definitions extracted from ui/babyG/milestones screenshots",
@@ -209,17 +232,29 @@ def build_sql(records: list[dict]) -> str:
         title = title_from_question(question)
         lines.extend(
             [
-                "  INSERT INTO milestone_definitions",
-                "    (month, milestone_type, title, description, question, related_activity, display_order, doctor_verified)",
-                "  SELECT",
-                f"    {record['month']}, {sql_quote(record['milestone_type'])}, {sql_quote(title)},",
-                f"    {sql_quote(question)}, {sql_quote(question)}, NULL, {record['display_order']}, false",
-                "  WHERE NOT EXISTS (",
+                "  IF EXISTS (",
                 "    SELECT 1 FROM milestone_definitions",
                 f"    WHERE month = {record['month']}",
                 f"      AND milestone_type = {sql_quote(record['milestone_type'])}",
                 f"      AND display_order = {record['display_order']}",
-                "  );",
+                "  ) THEN",
+                "    UPDATE milestone_definitions",
+                f"    SET title = {sql_quote(title)},",
+                f"        description = {sql_quote(question)},",
+                f"        question = {sql_quote(question)},",
+                "        related_activity = NULL,",
+                "        doctor_verified = false,",
+                "        updated_at = CURRENT_TIMESTAMP",
+                f"    WHERE month = {record['month']}",
+                f"      AND milestone_type = {sql_quote(record['milestone_type'])}",
+                f"      AND display_order = {record['display_order']};",
+                "  ELSE",
+                "    INSERT INTO milestone_definitions",
+                "      (month, milestone_type, title, description, question, related_activity, display_order, doctor_verified)",
+                "    VALUES",
+                f"      ({record['month']}, {sql_quote(record['milestone_type'])}, {sql_quote(title)},",
+                f"       {sql_quote(question)}, {sql_quote(question)}, NULL, {record['display_order']}, false);",
+                "  END IF;",
                 "",
             ]
         )
@@ -250,7 +285,7 @@ def main() -> None:
     parser.add_argument("--to-month", type=int)
     args = parser.parse_args()
 
-    records = extract_records(args.root, args.limit_month, args.from_month, args.to_month)
+    records = finalize_records(extract_records(args.root, args.limit_month, args.from_month, args.to_month))
     args.out_json.write_text(json.dumps(records, indent=2) + "\n", encoding="utf-8")
     args.out_sql.write_text(build_sql(records), encoding="utf-8")
     print(f"Wrote {len(records)} records to {args.out_json} and {args.out_sql}")

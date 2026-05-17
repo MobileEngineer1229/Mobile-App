@@ -1,4 +1,5 @@
-import { database } from '../config/database';
+import { prisma } from '../config/prisma';
+import { Prisma } from '../generated/prisma/client';
 
 export interface DailyPlan {
   id: number;
@@ -12,81 +13,60 @@ export interface DailyPlan {
 
 export class DailyPlanRepository {
   async findByBabyIdAndDate(babyId: number, date: Date): Promise<DailyPlan | null> {
-    const result = await database.query(
-      'SELECT * FROM daily_plans WHERE baby_id = $1 AND plan_date = $2',
-      [babyId, date]
-    );
-    return result.rows[0] || null;
+    const result = await prisma.daily_plans.findFirst({
+      where: {
+        baby_id: babyId,
+        plan_date: date,
+      },
+    });
+    return result as unknown as DailyPlan | null;
   }
 
   async findByBabyId(babyId: number, startDate?: Date, endDate?: Date): Promise<DailyPlan[]> {
-    let query = 'SELECT * FROM daily_plans WHERE baby_id = $1';
-    const params: any[] = [babyId];
-    let paramIndex = 2;
+    const where: Prisma.daily_plansWhereInput = { baby_id: babyId };
 
-    if (startDate) {
-      query += ` AND plan_date >= $${paramIndex}`;
-      params.push(startDate);
-      paramIndex++;
+    if (startDate || endDate) {
+      where.plan_date = {};
+      if (startDate) (where.plan_date as Prisma.DateTimeFilter).gte = startDate;
+      if (endDate) (where.plan_date as Prisma.DateTimeFilter).lte = endDate;
     }
 
-    if (endDate) {
-      query += ` AND plan_date <= $${paramIndex}`;
-      params.push(endDate);
-      paramIndex++;
-    }
-
-    query += ' ORDER BY plan_date DESC';
-
-    const result = await database.query(query, params);
-    return result.rows;
+    const results = await prisma.daily_plans.findMany({
+      where,
+      orderBy: { plan_date: 'desc' },
+    });
+    return results as unknown as DailyPlan[];
   }
 
   async create(planData: Partial<DailyPlan>): Promise<DailyPlan> {
-    const result = await database.query(
-      `INSERT INTO daily_plans (baby_id, plan_date, activities, status)
-       VALUES ($1, $2, $3, $4)
-       RETURNING *`,
-      [
-        planData.baby_id,
-        planData.plan_date,
-        planData.activities || [],
-        planData.status || 'pending',
-      ]
-    );
-    return result.rows[0];
+    const result = await prisma.daily_plans.create({
+      data: {
+        baby_id: planData.baby_id!,
+        plan_date: planData.plan_date!,
+        activities: planData.activities || [],
+        status: planData.status || 'pending',
+      },
+    });
+    return result as unknown as DailyPlan;
   }
 
   async update(id: number, updates: Partial<DailyPlan>): Promise<DailyPlan> {
-    const fields: string[] = [];
-    const values: any[] = [];
-    let paramIndex = 1;
+    const data: Prisma.daily_plansUpdateInput = { updated_at: new Date() };
+    if (updates.activities !== undefined) data.activities = updates.activities;
+    if (updates.status !== undefined) data.status = updates.status;
 
-    const allowedFields = ['activities', 'status'];
-
-    Object.keys(updates).forEach((key) => {
-      if (allowedFields.includes(key)) {
-        fields.push(`${key} = $${paramIndex}`);
-        values.push(updates[key as keyof DailyPlan]);
-        paramIndex++;
-      }
-    });
-
-    if (fields.length === 0) {
-      const result = await database.query('SELECT * FROM daily_plans WHERE id = $1', [id]);
-      if (result.rows.length === 0) throw new Error('Daily plan not found');
-      return result.rows[0];
+    if (Object.keys(data).length === 1) {
+      // only updated_at — no real changes, just fetch
+      const existing = await prisma.daily_plans.findUnique({ where: { id } });
+      if (!existing) throw new Error('Daily plan not found');
+      return existing as unknown as DailyPlan;
     }
 
-    fields.push('updated_at = CURRENT_TIMESTAMP');
-    values.push(id);
-
-    const result = await database.query(
-      `UPDATE daily_plans SET ${fields.join(', ')} WHERE id = $${paramIndex} RETURNING *`,
-      values
-    );
-
-    return result.rows[0];
+    const result = await prisma.daily_plans.update({
+      where: { id },
+      data,
+    });
+    return result as unknown as DailyPlan;
   }
 
   async generateDailyPlan(babyId: number, date: Date, activityIds: number[]): Promise<DailyPlan> {

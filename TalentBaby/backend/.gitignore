@@ -9,3 +9,5 @@ logs/
 *.pem
 *.key
 *.crt
+
+/src/generated/prisma

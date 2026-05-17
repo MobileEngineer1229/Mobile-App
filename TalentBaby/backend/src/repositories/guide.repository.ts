@@ -1,30 +1,22 @@
-import { Pool } from 'pg';
-import { database } from '../config/database';
+import { prisma } from '../config/prisma';
 
 export class GuideRepository {
-  private pool: Pool;
-
-  constructor() {
-    this.pool = database.getPool();
-  }
-
   // Sleep Guide Methods
   async getSleepGuideByAge(ageMonths: number) {
-    const query = `
-      SELECT * FROM sleep_guides
-      WHERE age_min_months <= $1
-      AND (age_max_months IS NULL OR age_max_months >= $1)
-      ORDER BY age_min_months DESC
-      LIMIT 1
-    `;
-    const result = await this.pool.query(query, [ageMonths]);
-    return result.rows[0] || null;
+    const row = await prisma.sleep_guides.findFirst({
+      where: {
+        age_min_months: { lte: ageMonths },
+        OR: [{ age_max_months: null }, { age_max_months: { gte: ageMonths } }],
+      },
+      orderBy: { age_min_months: 'desc' },
+    });
+    return row || null;
   }
 
   async getAllSleepGuides() {
-    const query = 'SELECT * FROM sleep_guides ORDER BY age_min_months ASC';
-    const result = await this.pool.query(query);
-    return result.rows;
+    return prisma.sleep_guides.findMany({
+      orderBy: { age_min_months: 'asc' },
+    });
   }
 
   async getSleepTipsByAge(ageMonths: number) {
@@ -39,21 +31,20 @@ export class GuideRepository {
 
   // Feeding Guide Methods
   async getFeedingGuideByAge(ageMonths: number) {
-    const query = `
-      SELECT * FROM feeding_guides
-      WHERE age_min_months <= $1
-      AND (age_max_months IS NULL OR age_max_months >= $1)
-      ORDER BY age_min_months DESC
-      LIMIT 1
-    `;
-    const result = await this.pool.query(query, [ageMonths]);
-    return result.rows[0] || null;
+    const row = await prisma.feeding_guides.findFirst({
+      where: {
+        age_min_months: { lte: ageMonths },
+        OR: [{ age_max_months: null }, { age_max_months: { gte: ageMonths } }],
+      },
+      orderBy: { age_min_months: 'desc' },
+    });
+    return row || null;
   }
 
   async getAllFeedingGuides() {
-    const query = 'SELECT * FROM feeding_guides ORDER BY age_min_months ASC';
-    const result = await this.pool.query(query);
-    return result.rows;
+    return prisma.feeding_guides.findMany({
+      orderBy: { age_min_months: 'asc' },
+    });
   }
 
   async getFeedingTipsByAge(ageMonths: number) {

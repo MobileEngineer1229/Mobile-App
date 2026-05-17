@@ -1,4 +1,5 @@
-import { database } from '../config/database';
+import { prisma } from '../config/prisma';
+import { Prisma } from '../generated/prisma/client';
 
 export interface DailyUpdate {
   id: number;
@@ -14,54 +15,55 @@ export interface DailyUpdate {
 
 export class DailyUpdateRepository {
   async findByAge(ageInMonths: number, contentType?: string): Promise<DailyUpdate[]> {
-    let query = 'SELECT * FROM daily_updates_content WHERE age_in_months = $1';
-    const params: any[] = [ageInMonths];
+    const where: Prisma.daily_updates_contentWhereInput = { age_in_months: ageInMonths };
+    if (contentType) where.content_type = contentType;
 
-    if (contentType) {
-      query += ' AND content_type = $2';
-      params.push(contentType);
-    }
-
-    query += ' ORDER BY created_at DESC';
-
-    const result = await database.query(query, params);
-    return result.rows;
+    const results = await prisma.daily_updates_content.findMany({
+      where,
+      orderBy: { created_at: 'desc' },
+    });
+    return results as unknown as DailyUpdate[];
   }
 
   async findById(id: number): Promise<DailyUpdate | null> {
-    const result = await database.query('SELECT * FROM daily_updates_content WHERE id = $1', [id]);
-    return result.rows[0] || null;
+    const result = await prisma.daily_updates_content.findUnique({
+      where: { id },
+    });
+    return result as unknown as DailyUpdate | null;
   }
 
   async create(updateData: Partial<DailyUpdate>): Promise<DailyUpdate> {
-    const result = await database.query(
-      `INSERT INTO daily_updates_content (age_in_months, content_type, title, content, image_url, video_url)
-       VALUES ($1, $2, $3, $4, $5, $6)
-       RETURNING *`,
-      [
-        updateData.age_in_months,
-        updateData.content_type,
-        updateData.title || null,
-        updateData.content,
-        updateData.image_url || null,
-        updateData.video_url || null,
-      ]
-    );
-    return result.rows[0];
+    const result = await prisma.daily_updates_content.create({
+      data: {
+        age_in_months: updateData.age_in_months!,
+        content_type: updateData.content_type!,
+        title: updateData.title || null,
+        content: updateData.content!,
+        image_url: updateData.image_url || null,
+        video_url: updateData.video_url || null,
+      },
+    });
+    return result as unknown as DailyUpdate;
   }
 
   async getRandomUpdate(ageInMonths: number, contentType?: string): Promise<DailyUpdate | null> {
-    let query = 'SELECT * FROM daily_updates_content WHERE age_in_months = $1';
+    const where: Prisma.daily_updates_contentWhereInput = { age_in_months: ageInMonths };
+    if (contentType) where.content_type = contentType;
+
+    // Use $queryRaw for RANDOM() ordering
     const params: any[] = [ageInMonths];
+    let sql = Prisma.sql`SELECT * FROM daily_updates_content WHERE age_in_months = ${ageInMonths}`;
 
     if (contentType) {
-      query += ' AND content_type = $2';
-      params.push(contentType);
+      const results = await prisma.$queryRaw<DailyUpdate[]>(
+        Prisma.sql`SELECT * FROM daily_updates_content WHERE age_in_months = ${ageInMonths} AND content_type = ${contentType} ORDER BY RANDOM() LIMIT 1`
+      );
+      return results[0] || null;
     }
 
-    query += ' ORDER BY RANDOM() LIMIT 1';
-
-    const result = await database.query(query, params);
-    return result.rows[0] || null;
+    const results = await prisma.$queryRaw<DailyUpdate[]>(
+      Prisma.sql`SELECT * FROM daily_updates_content WHERE age_in_months = ${ageInMonths} ORDER BY RANDOM() LIMIT 1`
+    );
+    return results[0] || null;
   }
 }

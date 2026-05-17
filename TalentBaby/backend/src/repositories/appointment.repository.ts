@@ -1,4 +1,5 @@
-import { database } from '../config/database';
+import { prisma } from '../config/prisma';
+import { Prisma } from '../generated/prisma/client';
 
 export interface Appointment {
   id: number;
@@ -17,94 +18,77 @@ export interface Appointment {
 
 export class AppointmentRepository {
   async findByUserId(userId: number, startDate?: Date, endDate?: Date): Promise<Appointment[]> {
-    let query = 'SELECT * FROM appointments WHERE user_id = $1';
-    const params: any[] = [userId];
-    let paramIndex = 2;
+    const where: Prisma.appointmentsWhereInput = { user_id: userId };
 
-    if (startDate) {
-      query += ` AND appointment_date >= $${paramIndex}`;
-      params.push(startDate);
-      paramIndex++;
+    if (startDate || endDate) {
+      where.appointment_date = {};
+      if (startDate) (where.appointment_date as any).gte = startDate;
+      if (endDate) (where.appointment_date as any).lte = endDate;
     }
 
-    if (endDate) {
-      query += ` AND appointment_date <= $${paramIndex}`;
-      params.push(endDate);
-      paramIndex++;
-    }
-
-    query += ' ORDER BY appointment_date ASC';
-
-    const result = await database.query(query, params);
-    return result.rows;
+    const rows = await prisma.appointments.findMany({
+      where,
+      orderBy: { appointment_date: 'asc' },
+    });
+    return rows as unknown as Appointment[];
   }
 
   async findById(id: number, userId: number): Promise<Appointment | null> {
-    const result = await database.query(
-      'SELECT * FROM appointments WHERE id = $1 AND user_id = $2',
-      [id, userId]
-    );
-    return result.rows[0] || null;
+    const row = await prisma.appointments.findFirst({
+      where: { id, user_id: userId },
+    });
+    return row as unknown as Appointment | null;
   }
 
   async create(appointmentData: Partial<Appointment>): Promise<Appointment> {
-    const result = await database.query(
-      `INSERT INTO appointments 
-       (user_id, baby_id, pregnancy_id, appointment_type, title, description, appointment_date, location)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
-       RETURNING *`,
-      [
-        appointmentData.user_id || null,
-        appointmentData.baby_id || null,
-        appointmentData.pregnancy_id || null,
-        appointmentData.appointment_type,
-        appointmentData.title,
-        appointmentData.description || null,
-        appointmentData.appointment_date,
-        appointmentData.location || null,
-      ]
-    );
-    return result.rows[0];
+    const row = await prisma.appointments.create({
+      data: {
+        user_id: appointmentData.user_id ?? null,
+        baby_id: appointmentData.baby_id ?? null,
+        pregnancy_id: appointmentData.pregnancy_id ?? null,
+        appointment_type: appointmentData.appointment_type ?? null,
+        title: appointmentData.title!,
+        description: appointmentData.description ?? null,
+        appointment_date: appointmentData.appointment_date!,
+        location: appointmentData.location ?? null,
+      },
+    });
+    return row as unknown as Appointment;
   }
 
   async update(id: number, userId: number, updates: Partial<Appointment>): Promise<Appointment> {
-    const fields: string[] = [];
-    const values: any[] = [];
-    let paramIndex = 1;
-
     const allowedFields = ['appointment_type', 'title', 'description', 'appointment_date', 'location'];
+    const data: Record<string, any> = { updated_at: new Date() };
 
-    Object.keys(updates).forEach((key) => {
-      if (allowedFields.includes(key)) {
-        fields.push(`${key} = $${paramIndex}`);
-        values.push(updates[key as keyof Appointment]);
-        paramIndex++;
+    for (const key of allowedFields) {
+      if (key in updates) {
+        data[key] = (updates as any)[key];
       }
-    });
+    }
 
-    if (fields.length === 0) {
+    if (Object.keys(data).length === 1) {
+      // Only updated_at — no real changes
       const appointment = await this.findById(id, userId);
       if (!appointment) throw new Error('Appointment not found');
       return appointment;
     }
 
-    fields.push('updated_at = CURRENT_TIMESTAMP');
-    values.push(id, userId);
+    const result = await prisma.appointments.updateMany({
+      where: { id, user_id: userId },
+      data,
+    });
 
-    const result = await database.query(
-      `UPDATE appointments SET ${fields.join(', ')} WHERE id = $${paramIndex} AND user_id = $${paramIndex + 1} RETURNING *`,
-      values
-    );
+    if (result.count === 0) throw new Error('Appointment not found');
 
-    return result.rows[0];
+    const updated = await this.findById(id, userId);
+    return updated!;
   }
 
   async delete(id: number, userId: number): Promise<void> {
-    const result = await database.query(
-      'DELETE FROM appointments WHERE id = $1 AND user_id = $2',
-      [id, userId]
-    );
-    if (result.rowCount === 0) {
+    const result = await prisma.appointments.deleteMany({
+      where: { id, user_id: userId },
+    });
+    if (result.count === 0) {
       throw new Error('Appointment not found');
     }
   }

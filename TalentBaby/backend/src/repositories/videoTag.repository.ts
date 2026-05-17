@@ -1,4 +1,5 @@
-import { database } from '../config/database';
+import { prisma } from '../config/prisma';
+import { Prisma } from '../generated/prisma/client';
 
 export interface VideoTag {
   id: number;
@@ -9,64 +10,67 @@ export interface VideoTag {
 
 export class VideoTagRepository {
   async addTag(memoryId: number, tagName: string): Promise<VideoTag> {
-    const result = await database.query(
-      `INSERT INTO video_tags (memory_id, tag_name)
-       VALUES ($1, $2)
-       ON CONFLICT (memory_id, tag_name) DO NOTHING
-       RETURNING *`,
-      [memoryId, tagName]
-    );
-    return result.rows[0];
+    const rows = await prisma.$queryRaw<VideoTag[]>(Prisma.sql`
+      INSERT INTO video_tags (memory_id, tag_name)
+      VALUES (${memoryId}, ${tagName})
+      ON CONFLICT (memory_id, tag_name) DO NOTHING
+      RETURNING *
+    `);
+    return rows[0];
   }
 
   async removeTag(memoryId: number, tagName: string): Promise<void> {
-    await database.query('DELETE FROM video_tags WHERE memory_id = $1 AND tag_name = $2', [memoryId, tagName]);
+    await prisma.video_tags.deleteMany({
+      where: { memory_id: memoryId, tag_name: tagName },
+    });
   }
 
   async getTagsByMemory(memoryId: number): Promise<VideoTag[]> {
-    const result = await database.query(
-      'SELECT * FROM video_tags WHERE memory_id = $1 ORDER BY tag_name ASC',
-      [memoryId]
-    );
-    return result.rows;
+    const rows = await prisma.video_tags.findMany({
+      where: { memory_id: memoryId },
+      orderBy: { tag_name: 'asc' },
+    });
+    return rows as unknown as VideoTag[];
   }
 
   async getMemoriesByTag(tagName: string, babyId?: number): Promise<any[]> {
-    let query = `
+    if (babyId !== undefined) {
+      return prisma.$queryRaw<any[]>(Prisma.sql`
+        SELECT m.* FROM memories m
+        JOIN video_tags vt ON m.id = vt.memory_id
+        WHERE vt.tag_name = ${tagName}
+          AND m.memory_type = 'video'
+          AND m.baby_id = ${babyId}
+        ORDER BY m.memory_date DESC
+      `);
+    }
+    return prisma.$queryRaw<any[]>(Prisma.sql`
       SELECT m.* FROM memories m
       JOIN video_tags vt ON m.id = vt.memory_id
-      WHERE vt.tag_name = $1 AND m.memory_type = 'video'
-    `;
-    const params: any[] = [tagName];
-    let paramIndex = 2;
-
-    if (babyId) {
-      query += ` AND m.baby_id = $${paramIndex}`;
-      params.push(babyId);
-    }
-
-    query += ' ORDER BY m.memory_date DESC';
-
-    const result = await database.query(query, params);
-    return result.rows;
+      WHERE vt.tag_name = ${tagName}
+        AND m.memory_type = 'video'
+      ORDER BY m.memory_date DESC
+    `);
   }
 
   async getAllTags(babyId?: number): Promise<string[]> {
-    let query = `
-      SELECT DISTINCT vt.tag_name FROM video_tags vt
-      JOIN memories m ON vt.memory_id = m.id
-      WHERE m.memory_type = 'video'
-    `;
-    const params: any[] = [];
-
-    if (babyId) {
-      query += ' AND m.baby_id = $1';
-      params.push(babyId);
+    let rows: { tag_name: string }[];
+    if (babyId !== undefined) {
+      rows = await prisma.$queryRaw<{ tag_name: string }[]>(Prisma.sql`
+        SELECT DISTINCT vt.tag_name FROM video_tags vt
+        JOIN memories m ON vt.memory_id = m.id
+        WHERE m.memory_type = 'video'
+          AND m.baby_id = ${babyId}
+        ORDER BY vt.tag_name ASC
+      `);
+    } else {
+      rows = await prisma.$queryRaw<{ tag_name: string }[]>(Prisma.sql`
+        SELECT DISTINCT vt.tag_name FROM video_tags vt
+        JOIN memories m ON vt.memory_id = m.id
+        WHERE m.memory_type = 'video'
+        ORDER BY vt.tag_name ASC
+      `);
     }
-
-    query += ' ORDER BY vt.tag_name ASC';
-
-    const result = await database.query(query, params);
-    return result.rows.map((row: any) => row.tag_name);
+    return rows.map(r => r.tag_name);
   }
 }

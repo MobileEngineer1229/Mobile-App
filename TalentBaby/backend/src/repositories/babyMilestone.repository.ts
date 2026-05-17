@@ -1,4 +1,5 @@
-import { database } from '../config/database';
+import { prisma } from '../config/prisma';
+import { Prisma } from '../generated/prisma/client';
 
 export type MilestoneStatus = 'yes' | 'no' | 'almost';
 
@@ -32,42 +33,32 @@ export interface BabyMilestoneStatusRow {
 
 export class BabyMilestoneRepository {
   async findByBabyId(babyId: number, month?: number): Promise<BabyMilestoneWithDefinition[]> {
-    const params: unknown[] = [babyId];
-    let monthFilter = '';
-    if (month !== undefined) {
-      params.push(month);
-      monthFilter = `AND md.month = $${params.length}`;
-    }
-
-    const result = await database.query(
-      `SELECT bm.*, md.month, md.milestone_type, md.title, md.description,
-              md.question, md.related_activity, md.display_order
-       FROM baby_milestones bm
-       JOIN milestone_definitions md ON md.id = bm.milestone_definition_id
-       WHERE bm.baby_id = $1 ${monthFilter}
-       ORDER BY md.month, md.milestone_type, md.display_order`,
-      params
-    );
-    return result.rows;
+    return prisma.$queryRaw<BabyMilestoneWithDefinition[]>(Prisma.sql`
+      SELECT bm.*, md.month, md.milestone_type, md.title, md.description,
+             md.question, md.related_activity, md.display_order
+      FROM baby_milestones bm
+      JOIN milestone_definitions md ON md.id = bm.milestone_definition_id
+      WHERE bm.baby_id = ${babyId}
+      ${month !== undefined ? Prisma.sql`AND md.month = ${month}` : Prisma.empty}
+      ORDER BY md.month, md.milestone_type, md.display_order
+    `);
   }
 
   async findStatusesByBabyAndMonth(babyId: number, month: number): Promise<BabyMilestoneStatusRow[]> {
-    const result = await database.query(
-      `SELECT bm.milestone_definition_id, bm.status, bm.achieved_date, bm.notes
-       FROM baby_milestones bm
-       JOIN milestone_definitions md ON md.id = bm.milestone_definition_id
-       WHERE bm.baby_id = $1 AND md.month = $2`,
-      [babyId, month]
-    );
-    return result.rows;
+    return prisma.$queryRaw<BabyMilestoneStatusRow[]>(Prisma.sql`
+      SELECT bm.milestone_definition_id, bm.status, bm.achieved_date, bm.notes
+      FROM baby_milestones bm
+      JOIN milestone_definitions md ON md.id = bm.milestone_definition_id
+      WHERE bm.baby_id = ${babyId} AND md.month = ${month}
+    `);
   }
 
   async findBabyBirthDate(babyId: number): Promise<string | null> {
-    const result = await database.query(
-      'SELECT birth_date FROM babies WHERE id = $1',
-      [babyId]
-    );
-    return result.rows[0]?.birth_date ?? null;
+    const baby = await prisma.babies.findUnique({
+      where: { id: babyId },
+      select: { birth_date: true },
+    });
+    return baby ? String(baby.birth_date) : null;
   }
 
   async upsert(
@@ -77,22 +68,21 @@ export class BabyMilestoneRepository {
     achievedDate?: string | null,
     notes?: string | null
   ): Promise<BabyMilestone> {
-    const result = await database.query(
-      `INSERT INTO baby_milestones (baby_id, milestone_definition_id, status, achieved_date, notes)
-       VALUES ($1, $2, $3, $4, $5)
-       ON CONFLICT (baby_id, milestone_definition_id)
-       DO UPDATE SET
-         status        = EXCLUDED.status,
-         achieved_date = EXCLUDED.achieved_date,
-         notes         = EXCLUDED.notes,
-         updated_at    = CURRENT_TIMESTAMP
-       RETURNING *`,
-      [babyId, milestoneDefinitionId, status, achievedDate ?? null, notes ?? null]
-    );
-    return result.rows[0];
+    const rows = await prisma.$queryRaw<BabyMilestone[]>(Prisma.sql`
+      INSERT INTO baby_milestones (baby_id, milestone_definition_id, status, achieved_date, notes)
+      VALUES (${babyId}, ${milestoneDefinitionId}, ${status}, ${achievedDate ?? null}, ${notes ?? null})
+      ON CONFLICT (baby_id, milestone_definition_id)
+      DO UPDATE SET
+        status        = EXCLUDED.status,
+        achieved_date = EXCLUDED.achieved_date,
+        notes         = EXCLUDED.notes,
+        updated_at    = CURRENT_TIMESTAMP
+      RETURNING *
+    `);
+    return rows[0];
   }
 
   async delete(id: number): Promise<void> {
-    await database.query('DELETE FROM baby_milestones WHERE id = $1', [id]);
+    await prisma.baby_milestones.delete({ where: { id } });
   }
 }

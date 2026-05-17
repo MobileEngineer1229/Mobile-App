@@ -9,6 +9,7 @@ import swaggerUi from 'swagger-ui-express';
 import { logger } from './utils/logger';
 import { errorHandler } from './middleware/errorHandler';
 import { database } from './config/database';
+import { prisma } from './config/prisma';
 
 // Load environment variables
 dotenv.config();
@@ -214,12 +215,14 @@ async function startServer() {
 // Handle graceful shutdown
 process.on('SIGTERM', async () => {
   logger.info('SIGTERM signal received: closing HTTP server');
+  await prisma.$disconnect();
   await database.close();
   process.exit(0);
 });
 
 process.on('SIGINT', async () => {
   logger.info('SIGINT signal received: closing HTTP server');
+  await prisma.$disconnect();
   await database.close();
   process.exit(0);
 });
