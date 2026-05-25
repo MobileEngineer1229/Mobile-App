@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useFetch } from '@/hooks/useFetch';
 import { api } from '@/lib/api';
 import { NutritionCategory, NutritionFood } from '@/types/api';
@@ -10,6 +10,7 @@ import Pagination from '@/components/Pagination';
 import { usePagination } from '@/hooks/usePagination';
 
 const AGE_GROUP_OPTIONS = ['0-6', '7-11', '12-17', '18-24', '25-30', '31-36'];
+const ALL_AGES = 'All';
 
 // ─── Food Form Modal ──────────────────────────────────────────────────────────
 
@@ -192,24 +193,99 @@ function FoodModal({
   );
 }
 
+function FoodDetailModal({
+  food,
+  onClose,
+  onEdit,
+}: {
+  food: NutritionFood;
+  onClose: () => void;
+  onEdit: () => void;
+}) {
+  const ages = food.age_groups?.split(',').map((ag) => ag.trim()).filter(Boolean) ?? [];
+
+  return (
+    <Modal onClose={onClose} maxWidth="max-w-xl">
+      <div className="px-6 py-4 border-b border-slate-100 flex items-start justify-between gap-4">
+        <div>
+          <div className="flex items-center gap-2 flex-wrap">
+            <h2 className="text-base font-semibold text-slate-800">{food.name}</h2>
+            {food.is_vegetarian && (
+              <span className="px-2 py-0.5 rounded-md text-[11px] font-medium bg-green-50 text-green-700">Veg</span>
+            )}
+          </div>
+          <p className="text-xs text-slate-500 mt-1">{food.category_name ?? 'Nutrition food'}</p>
+        </div>
+        <button onClick={onClose} className="text-slate-400 hover:text-slate-600 text-xl leading-none">&times;</button>
+      </div>
+
+      <div className="p-6 space-y-5">
+        {food.image_url && (
+          <img src={food.image_url} alt={food.name} className="w-full h-48 object-cover rounded-xl border border-slate-100" />
+        )}
+
+        <div>
+          <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">Description</h3>
+          <p className="text-sm text-slate-700 leading-6">{food.description || 'No description yet.'}</p>
+        </div>
+
+        <div>
+          <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">Age Groups</h3>
+          <div className="flex flex-wrap gap-2">
+            {(ages.length ? ages : [ALL_AGES]).map((ag) => (
+              <span key={ag} className="px-2 py-1 rounded-md text-xs bg-slate-100 text-slate-600">
+                {ag === ALL_AGES ? 'All ages' : `${ag}m`}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <div className="flex justify-end gap-3 pt-2">
+          <button onClick={onClose} className="px-4 py-2 text-sm text-slate-600 bg-slate-100 rounded-xl hover:bg-slate-200 transition-colors">
+            Close
+          </button>
+          <button onClick={onEdit} className="px-5 py-2 text-sm font-medium text-white bg-purple-600 rounded-xl hover:bg-purple-700 transition-colors">
+            Edit Food
+          </button>
+        </div>
+      </div>
+    </Modal>
+  );
+}
+
 // ─── Main Page ────────────────────────────────────────────────────────────────
 
 export default function NutritionPage() {
   const { data: categoriesRaw, loading: catLoading, refetch: refetchCats } = useFetch<NutritionCategory[]>('/nutrition/categories');
   const categories: NutritionCategory[] = categoriesRaw ?? [];
   const [selectedCat, setSelectedCat] = useState<NutritionCategory | null>(null);
+  const [ageFilter, setAgeFilter] = useState<string>(ALL_AGES);
+  const [vegetarianOnly, setVegetarianOnly] = useState(false);
+  const [search, setSearch] = useState('');
 
   const selectedId = selectedCat?.id ?? categories[0]?.id;
   const activeCat = selectedCat ?? categories[0] ?? null;
+  const query = [
+    ageFilter !== ALL_AGES ? `age_group=${encodeURIComponent(ageFilter)}` : '',
+    vegetarianOnly ? 'vegetarian=true' : '',
+  ].filter(Boolean).join('&');
 
   const { data: catData, loading: foodsLoading, refetch: refetchFoods } = useFetch<{ category: NutritionCategory; foods: NutritionFood[] }>(
-    selectedId ? `/nutrition/categories/${selectedId}/foods` : null
+    selectedId ? `/nutrition/categories/${selectedId}/foods${query ? `?${query}` : ''}` : null
   );
 
   const foods = catData?.foods ?? [];
-  const { paged: pagedFoods, page: foodPage, totalPages: foodTotalPages, setPage: setFoodPage } = usePagination(foods);
+  const filteredFoods = useMemo(() => {
+    const q = search.trim().toLowerCase();
+    if (!q) return foods;
+    return foods.filter((food) =>
+      [food.name, food.description, food.age_groups].some((value) => value?.toLowerCase().includes(q))
+    );
+  }, [foods, search]);
+  const { paged: pagedFoods, page: foodPage, totalPages: foodTotalPages, setPage: setFoodPage } = usePagination(filteredFoods);
 
   const [modal, setModal] = useState<{ open: boolean; food?: NutritionFood }>({ open: false });
+  const [detail, setDetail] = useState<NutritionFood | null>(null);
   const [deleting, setDeleting] = useState<number | null>(null);
 
   async function handleDelete(food: NutritionFood) {
@@ -275,7 +351,33 @@ export default function NutritionPage() {
               <h2 className="text-sm font-semibold text-slate-800">
                 {activeCat?.name ?? '—'}
               </h2>
-              <p className="text-xs text-slate-400 mt-0.5">{foods.length} foods</p>
+              <p className="text-xs text-slate-500 mt-1 leading-5">{activeCat?.description ?? 'No benefit description yet.'}</p>
+              <div className="mt-4 grid grid-cols-1 md:grid-cols-[1fr_auto_auto] gap-3 items-center">
+                <input
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  placeholder="Search foods..."
+                  className="w-full px-3 py-2 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-300"
+                />
+                <select
+                  value={ageFilter}
+                  onChange={(e) => setAgeFilter(e.target.value)}
+                  className="px-3 py-2 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-300"
+                >
+                  <option value={ALL_AGES}>All ages</option>
+                  {AGE_GROUP_OPTIONS.map((ag) => <option key={ag} value={ag}>{ag}m</option>)}
+                </select>
+                <label className="flex items-center gap-2 px-3 py-2 border border-slate-200 rounded-xl text-sm text-slate-700">
+                  <input
+                    type="checkbox"
+                    checked={vegetarianOnly}
+                    onChange={(e) => setVegetarianOnly(e.target.checked)}
+                    className="w-4 h-4 rounded border-slate-300 text-purple-600 focus:ring-purple-400"
+                  />
+                  Veg only
+                </label>
+              </div>
+              <p className="text-xs text-slate-400 mt-3">{filteredFoods.length} foods</p>
             </div>
 
             {foodsLoading ? (
@@ -308,6 +410,12 @@ export default function NutritionPage() {
                     </div>
                     <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity shrink-0">
                       <button
+                        onClick={() => setDetail(food)}
+                        className="px-2.5 py-1 text-xs text-slate-600 bg-slate-100 rounded-lg hover:bg-slate-200 transition-colors"
+                      >
+                        Details
+                      </button>
+                      <button
                         onClick={() => setModal({ open: true, food })}
                         className="px-2.5 py-1 text-xs text-blue-600 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors"
                       >
@@ -336,6 +444,16 @@ export default function NutritionPage() {
           initial={modal.food}
           onClose={() => setModal({ open: false })}
           onSaved={() => { refetchFoods(); refetchCats(); }}
+        />
+      )}
+      {detail && (
+        <FoodDetailModal
+          food={detail}
+          onClose={() => setDetail(null)}
+          onEdit={() => {
+            setModal({ open: true, food: detail });
+            setDetail(null);
+          }}
         />
       )}
     </div>

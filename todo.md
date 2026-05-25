@@ -21,6 +21,8 @@
 - [ ] 17. [AR/AI Hair Style App](./17-ar-ai-hair-style-app.md)
 - [ ] 18. [Workout App](./18-workout-app.md)
 - [ ] 19. [AI Assistant with DPRK Language (Generative AI from scratch)](./19-ai-assistant-dprk-language.md)
+- [ ] 20. [World Cuisines App](./20-world-cuisines-app.md)
+- [ ] 21. [AI Old Friends & Relatives Finder](./21-ai-old-friends-relatives-finder.md)
 
 ---
 
@@ -57,22 +59,37 @@
 
 ---
 
-3. 🍲 종합 영양+이미지 데이터셋 사용하기 (로컬 데이터베이스 구축)
-API 호출이 아니라, 미리 구축된 종합 데이터베이스를 통째로 다운로드하여 사용하는 방법입니다.
+### 21. AI Old Friends & Relatives Finder
 
-종합 식품 데이터베이스(Comprehensive Food Database): GitHub에 공개된 lxaw/ComprehensiveFoodDatabase 프로젝트가 대표적입니다. 이는 USDA의 원천 데이터를 가공하여 음식명과 함께 수십만 개의 이미지 파일까지 포함한 거대한 MySQL 데이터베이스입니다.
+**Overview:** An AI-powered mobile app that helps elderly people reconnect with lost friends and relatives from decades past. Before the era of mobile phones and the internet, people lost touch easily — moving cities, changing jobs, or simply fading away. This app uses AI to intelligently match users based on shared schools, hometowns, family trees, and relationship networks, giving people a second chance to find those they once knew.
 
-적용 방법: 이 리포지토리에서 데이터 덤프 파일을 다운로드받아 로컬 서버에 구축하여 사용할 수 있습니다.
+**Target Audience:** Elderly adults (50+), middle-aged people seeking childhood friends, diaspora communities, adoptees searching for birth families, anyone who lost contact before the digital age.
 
-장점: 외부 API 의존도가 낮아지고 빠른 응답 속도를 기대할 수 있습니다.
+**Core Features:**
 
-단점: 데이터 용량이 매우 크고(이미지 파일만 수십만 개), 로컬 서버 관리가 필요합니다.
+1. **Profile & Memory Builder** — Users input their life history: birthplace, elementary school name & graduation year, middle school name & graduation year, high school, university, workplaces, neighborhoods lived in, and time periods for each.
+2. **Family & Relative Tree Input** — Build a partial family tree with known relatives (parents' names, siblings, aunts/uncles, cousins) including approximate birth years and last-known locations. AI fills in likely connections from the network.
+3. **AI Smart Matching Engine** — Semantic AI matching across user profiles: same school + overlapping years = strong match signal. Fuzzy name matching handles name changes (marriage, transliteration) and spelling variants.
+4. **School Alumni Network** — Search by school name, region, and graduation year range. Alumni confirm classmates from shared memory prompts ("Do you remember the teacher named…?", "Was your classroom on the 2nd floor?").
+5. **AI-Powered Memory Prompts** — To verify authentic connections, AI generates era-specific memory prompts: local events, popular songs, school customs from that year. Only real classmates can answer correctly.
+6. **Relationship Chain Discovery** — "Friend of a friend" graph traversal: if User A knows User B, and User B knows User C, the app surfaces C as a possible connection to A — like Six Degrees of Separation powered by AI.
+7. **Voice & Photo Input** — Elderly users can describe people verbally ("my friend from 1972 with a scar on his chin who lived near the river market"). AI transcribes and extracts searchable attributes. Old photo upload with face-aging AI to match against current profile photos.
+8. **Privacy-First Matching** — All matches are double opt-in: both parties must consent before contact details are shared. Users control visibility of their profile.
+9. **Reunion Coordination** — Once connected, built-in chat, voice call, and group reunion planner with shared photo albums and memory timelines.
+10. **Diaspora & Migration Support** — Special support for people who emigrated or were displaced: country-of-origin school records, refugee community networks, and multi-language name matching (romanization, Cyrillic, Hangul, etc.).
+11. **AI Obituary & Memorial Mode** — Gracefully handle cases where the sought person has passed: memorial page with tributes from those who knew them, family notification with consent.
+12. **Community Boards by Era & Region** — Open discussion boards organized by decade and region: "Pyongyang 1970s", "Seoul Mapo-gu 1980s", "Yanbian 1960s" — people post memories and others self-identify.
 
-4. 🔄 대체 API 사용하기 (가장 간편한 방법)
-처음부터 이미지를 포함한 데이터를 제공하는 다른 영양/식품 API로 완전히 갈아타는 것도 좋은 방법입니다. 대부분의 서비스는 개발자를 위한 무료 요금제를 제공합니다.
+**Tech Stack:** Flutter (mobile) · Node.js/NestJS (backend) · PostgreSQL (profiles & relationships) · Neo4j (relationship graph) · Python FastAPI (AI/ML) · OpenAI / Claude API (semantic matching, memory prompts) · AWS Rekognition (face aging & matching) · Firebase Auth · ElasticSearch (fuzzy name search)
 
-API 서비스	주요 특징	가격 정책
-FatSecret Platform API	음식 이미지, 알레르기 정보, 방대한 레시피 데이터베이스 등 고급 기능 지원	무료 요금제 (출처 표기 의무) 및 유료 요금제 제공
-Edamam API	자연어 검색, 식이 제한 필터링 등 강력한 검색 기능	무료 요금제 (월 1,000회 호출) 및 유료 요금제 제공
-Open Food Facts API	커뮤니티 기반의 방대한 데이터베이스, 바코드 기반 이미지 제공	완전 무료, RESTful API 제공
-Nutritionix API	방대한 식품 데이터베이스, 자연어 검색 지원	무료 요금제 및 유료 요금제 제공
+**AI Components:**
+- **Semantic Name Matching** — Handles spelling variants, transliterations, and name changes across decades
+- **Era-Aware Memory Verification** — LLM generates culturally accurate prompts by year and region to verify authentic connections
+- **Face Age Progression** — Estimate current appearance from old photos using GAN-based age progression
+- **Relationship Graph Inference** — Graph neural network to infer likely connections from partial family/social trees
+
+**Monetization:** Free basic search + Premium ($3.99/mo) for unlimited matches, photo aging, and priority AI matching. One-time reunion group fee ($9.99) for group features.
+
+**MVP Scope:** Profile creation with school/year input, basic AI name + school matching, opt-in contact reveal, simple chat, community boards by region/decade.
+
+- [ ] 21. [AI Old Friends & Relatives Finder](./21-ai-old-friends-relatives-finder.md)

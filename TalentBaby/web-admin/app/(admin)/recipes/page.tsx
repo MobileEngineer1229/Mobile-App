@@ -34,6 +34,7 @@ interface RecipeFormData {
   prep_time_minutes: string;
   cooking_time_minutes: string;
   image_url: string;
+  nutrition_info: string;
 }
 
 function RecipeModal({
@@ -65,6 +66,7 @@ function RecipeModal({
     prep_time_minutes: String(initial?.prep_time_minutes ?? ''),
     cooking_time_minutes: String(initial?.cooking_time_minutes ?? ''),
     image_url: initial?.image_url ?? '',
+    nutrition_info: initial?.nutrition_info ? JSON.stringify(initial.nutrition_info, null, 2) : '',
   });
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
@@ -76,6 +78,15 @@ function RecipeModal({
   async function submit(e: React.SyntheticEvent) {
     e.preventDefault();
     if (!form.title.trim()) { setError('Title is required.'); return; }
+    let nutritionInfo: Record<string, unknown> | null = null;
+    if (form.nutrition_info.trim()) {
+      try {
+        nutritionInfo = JSON.parse(form.nutrition_info);
+      } catch {
+        setError('Nutrition info must be valid JSON.');
+        return;
+      }
+    }
     setSaving(true);
     setError('');
     try {
@@ -93,6 +104,7 @@ function RecipeModal({
         prep_time_minutes: form.prep_time_minutes ? Number(form.prep_time_minutes) : null,
         cooking_time_minutes: form.cooking_time_minutes ? Number(form.cooking_time_minutes) : null,
         image_url: form.image_url || null,
+        nutrition_info: nutritionInfo,
         language: 'en',
       };
       if (initial?.id) {
@@ -262,6 +274,17 @@ function RecipeModal({
             />
           </div>
 
+          <div>
+            <label className="block text-xs font-medium text-slate-600 mb-1">Nutrition Info JSON</label>
+            <textarea
+              value={form.nutrition_info}
+              onChange={(e) => set('nutrition_info', e.target.value)}
+              rows={6}
+              placeholder={'{\n  "nutrients": ["Iron", "Vitamin C"],\n  "safety_notes": []\n}'}
+              className="w-full px-3 py-2 border border-slate-200 rounded-xl text-sm font-mono focus:outline-none focus:ring-2 focus:ring-purple-300 resize-none"
+            />
+          </div>
+
           <div className="flex justify-end gap-3 pt-2">
             <button
               type="button"
@@ -285,15 +308,162 @@ function RecipeModal({
 
 // ─── Recipe List ──────────────────────────────────────────────────────────────
 
+function stringList(value: unknown): string[] {
+  return Array.isArray(value) ? value.map((item) => String(item)).filter(Boolean) : [];
+}
+
+function RecipeDetailModal({
+  recipe,
+  onClose,
+  onEdit,
+}: {
+  recipe: Recipe;
+  onClose: () => void;
+  onEdit: () => void;
+}) {
+  const nutrients = stringList(recipe.nutrition_info?.nutrients);
+  const safetyNotes = stringList(recipe.nutrition_info?.safety_notes);
+  const source = typeof recipe.nutrition_info?.source === 'string' ? recipe.nutrition_info.source : undefined;
+
+  return (
+    <Modal onClose={onClose} maxWidth="max-w-3xl">
+      <div className="px-6 py-4 border-b border-slate-100 flex items-start justify-between gap-4 sticky top-0 bg-white z-10">
+        <div>
+          <div className="flex items-center gap-2 flex-wrap">
+            <h2 className="text-base font-semibold text-slate-800">{recipe.title}</h2>
+            <span className="px-2 py-0.5 rounded-md text-[11px] font-medium bg-slate-100 text-slate-600 capitalize">
+              {recipe.target ?? 'baby'}
+            </span>
+            <span className="px-2 py-0.5 rounded-md text-[11px] font-medium bg-purple-50 text-purple-700">
+              {recipe.baby_age_group ? `${recipe.baby_age_group}m` : `${recipe.age_range_min_months}-${recipe.age_range_max_months}m`}
+            </span>
+            {source && (
+              <span className="px-2 py-0.5 rounded-md text-[11px] font-medium bg-orange-50 text-orange-700">
+                UI seed
+              </span>
+            )}
+          </div>
+          <p className="text-xs text-slate-500 mt-1">
+            {slotLabel(recipe.meal_slot ?? 'meal')} · {slotLabel(recipe.recipe_type ?? 'meal')}
+          </p>
+        </div>
+        <button onClick={onClose} className="text-slate-400 hover:text-slate-600 text-xl leading-none">&times;</button>
+      </div>
+
+      <div className="p-6 space-y-6">
+        {recipe.image_url && (
+          <img src={recipe.image_url} alt={recipe.title} className="w-full h-56 object-cover rounded-xl border border-slate-100" />
+        )}
+
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          <div className="rounded-xl border border-slate-100 p-3">
+            <p className="text-[11px] uppercase tracking-wide text-slate-400">Prep</p>
+            <p className="text-sm font-semibold text-slate-800">{recipe.prep_time_minutes ?? 0} min</p>
+          </div>
+          <div className="rounded-xl border border-slate-100 p-3">
+            <p className="text-[11px] uppercase tracking-wide text-slate-400">Cook</p>
+            <p className="text-sm font-semibold text-slate-800">{recipe.cooking_time_minutes ?? 0} min</p>
+          </div>
+          <div className="rounded-xl border border-slate-100 p-3">
+            <p className="text-[11px] uppercase tracking-wide text-slate-400">Ingredients</p>
+            <p className="text-sm font-semibold text-slate-800">{recipe.ingredients?.length ?? 0}</p>
+          </div>
+          <div className="rounded-xl border border-slate-100 p-3">
+            <p className="text-[11px] uppercase tracking-wide text-slate-400">Steps</p>
+            <p className="text-sm font-semibold text-slate-800">{recipe.instructions?.length ?? 0}</p>
+          </div>
+        </div>
+
+        <div>
+          <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">Description</h3>
+          <p className="text-sm text-slate-700 leading-6">{recipe.description || 'No description yet.'}</p>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-5">
+          <div>
+            <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">Ingredients</h3>
+            {recipe.ingredients?.length ? (
+              <ol className="space-y-2">
+                {recipe.ingredients.map((item, index) => (
+                  <li key={`${item}-${index}`} className="text-sm text-slate-700 leading-5 flex gap-2">
+                    <span className="text-slate-400">{index + 1}.</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ol>
+            ) : (
+              <p className="text-sm text-slate-400">No ingredients listed.</p>
+            )}
+          </div>
+
+          <div>
+            <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">Instructions</h3>
+            {recipe.instructions?.length ? (
+              <ol className="space-y-2">
+                {recipe.instructions.map((item, index) => (
+                  <li key={`${item}-${index}`} className="text-sm text-slate-700 leading-5 flex gap-2">
+                    <span className="text-slate-400">{index + 1}.</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ol>
+            ) : (
+              <p className="text-sm text-slate-400">No instructions listed.</p>
+            )}
+          </div>
+        </div>
+
+        <div>
+          <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">Nutrients</h3>
+          <div className="flex flex-wrap gap-2">
+            {(nutrients.length ? nutrients : ['No nutrients listed']).map((item) => (
+              <span key={item} className="px-2 py-1 rounded-md text-xs bg-green-50 text-green-700">{item}</span>
+            ))}
+          </div>
+        </div>
+
+        {safetyNotes.length > 0 && (
+          <div>
+            <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">Safety Notes</h3>
+            <ul className="space-y-2">
+              {safetyNotes.map((note, index) => (
+                <li key={`${note}-${index}`} className="text-sm text-slate-700 leading-5">{note}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {recipe.nutrition_info && (
+          <details className="rounded-xl border border-slate-100">
+            <summary className="cursor-pointer px-4 py-3 text-sm font-medium text-slate-700">Raw nutrition JSON</summary>
+            <pre className="px-4 pb-4 text-xs text-slate-600 overflow-x-auto">{JSON.stringify(recipe.nutrition_info, null, 2)}</pre>
+          </details>
+        )}
+
+        <div className="flex justify-end gap-3 pt-2">
+          <button onClick={onClose} className="px-4 py-2 text-sm text-slate-600 bg-slate-100 rounded-xl hover:bg-slate-200 transition-colors">
+            Close
+          </button>
+          <button onClick={onEdit} className="px-5 py-2 text-sm font-medium text-white bg-purple-600 rounded-xl hover:bg-purple-700 transition-colors">
+            Edit Recipe
+          </button>
+        </div>
+      </div>
+    </Modal>
+  );
+}
+
 function RecipeList({
   recipes,
   loading,
+  onView,
   onEdit,
   onDelete,
   deleting,
 }: {
   recipes: Recipe[];
   loading: boolean;
+  onView: (r: Recipe) => void;
   onEdit: (r: Recipe) => void;
   onDelete: (r: Recipe) => void;
   deleting: number | null;
@@ -323,6 +493,12 @@ function RecipeList({
           </div>
           <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity shrink-0">
             <button
+              onClick={() => onView(r)}
+              className="px-2.5 py-1 text-xs text-slate-600 bg-slate-100 rounded-lg hover:bg-slate-200 transition-colors"
+            >
+              Details
+            </button>
+            <button
               onClick={() => onEdit(r)}
               className="px-2.5 py-1 text-xs text-blue-600 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors"
             >
@@ -348,6 +524,7 @@ function BabyTab() {
   const [ageGroup, setAgeGroup] = useState('7-11');
   const [mealSlot, setMealSlot] = useState<string>('All');
   const [modal, setModal] = useState<{ open: boolean; recipe?: Recipe }>({ open: false });
+  const [detail, setDetail] = useState<Recipe | null>(null);
   const [deleting, setDeleting] = useState<number | null>(null);
 
   const url = `/recipes/baby/age-group/${ageGroup}${mealSlot !== 'All' ? `?meal_slot=${mealSlot}` : ''}`;
@@ -406,6 +583,7 @@ function BabyTab() {
       <RecipeList
         recipes={paged}
         loading={loading}
+        onView={setDetail}
         onEdit={(r) => setModal({ open: true, recipe: r })}
         onDelete={handleDelete}
         deleting={deleting}
@@ -426,6 +604,16 @@ function BabyTab() {
           onSaved={refetch}
         />
       )}
+      {detail && (
+        <RecipeDetailModal
+          recipe={detail}
+          onClose={() => setDetail(null)}
+          onEdit={() => {
+            setModal({ open: true, recipe: detail });
+            setDetail(null);
+          }}
+        />
+      )}
     </div>
   );
 }
@@ -435,6 +623,7 @@ function BabyTab() {
 function MumTab() {
   const [mealSlot, setMealSlot] = useState<string>('All');
   const [modal, setModal] = useState<{ open: boolean; recipe?: Recipe }>({ open: false });
+  const [detail, setDetail] = useState<Recipe | null>(null);
   const [deleting, setDeleting] = useState<number | null>(null);
 
   const url = mealSlot === 'All' ? '/recipes/mum' : `/recipes/mum/slot/${mealSlot}`;
@@ -477,6 +666,7 @@ function MumTab() {
       <RecipeList
         recipes={paged}
         loading={loading}
+        onView={setDetail}
         onEdit={(r) => setModal({ open: true, recipe: r })}
         onDelete={handleDelete}
         deleting={deleting}
@@ -494,6 +684,16 @@ function MumTab() {
           defaultSlot={mealSlot !== 'All' ? mealSlot : 'early_morning'}
           onClose={() => setModal({ open: false })}
           onSaved={refetch}
+        />
+      )}
+      {detail && (
+        <RecipeDetailModal
+          recipe={detail}
+          onClose={() => setDetail(null)}
+          onEdit={() => {
+            setModal({ open: true, recipe: detail });
+            setDetail(null);
+          }}
         />
       )}
     </div>

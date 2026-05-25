@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1180" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif">
+  <defs>
+    <marker id="arrTeal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2E7D6B"/>
+    </marker>
+    <marker id="arrOrange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#E89B3D"/>
+    </marker>
+    <marker id="arrBlue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#3B97D3"/>
+    </marker>
+    <filter id="cardShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="4"/>
+      <feOffset dx="0" dy="2" result="offsetblur"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.12"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="1180" fill="#F8FAFC"/>
+
+  <!-- =================== HEADER =================== -->
+  <text x="800" y="55" text-anchor="middle" font-size="32" font-weight="700" fill="#0F172A">
+    Smart Home IoT App — Detailed Workflow
+  </text>
+  <text x="800" y="88" text-anchor="middle" font-size="16" fill="#64748B">
+    How the user, mobile app, cloud backend, MQTT message broker, and physical devices all fit together
+  </text>
+
+  <!-- =================== TOP FLOW LABEL =================== -->
+  <text x="800" y="135" text-anchor="middle" font-size="13" font-weight="700" fill="#2E7D6B" letter-spacing="1.5">
+    ▸  COMMANDS FLOW THIS WAY  ▸
+  </text>
+
+  <!-- =================== FORWARD ARROWS =================== -->
+  <line x1="270" y1="200" x2="370" y2="200" stroke="#2E7D6B" stroke-width="2.5" marker-end="url(#arrTeal)"/>
+  <text x="320" y="188" text-anchor="middle" font-size="11" font-weight="600" fill="#0F172A">tap / type</text>
+  <text x="320" y="222" text-anchor="middle" font-size="10" fill="#64748B">touchscreen</text>
+
+  <line x1="590" y1="200" x2="690" y2="200" stroke="#2E7D6B" stroke-width="2.5" marker-end="url(#arrTeal)"/>
+  <text x="640" y="188" text-anchor="middle" font-size="11" font-weight="600" fill="#0F172A">REST API</text>
+  <text x="640" y="222" text-anchor="middle" font-size="10" fill="#64748B">HTTPS · JSON</text>
+
+  <line x1="910" y1="200" x2="1010" y2="200" stroke="#2E7D6B" stroke-width="2.5" marker-end="url(#arrTeal)"/>
+  <text x="960" y="188" text-anchor="middle" font-size="11" font-weight="600" fill="#0F172A">MQTT publish</text>
+  <text x="960" y="222" text-anchor="middle" font-size="10" fill="#64748B">backend → broker</text>
+
+  <line x1="1230" y1="200" x2="1330" y2="200" stroke="#2E7D6B" stroke-width="2.5" marker-end="url(#arrTeal)"/>
+  <text x="1280" y="188" text-anchor="middle" font-size="11" font-weight="600" fill="#0F172A">MQTT deliver</text>
+  <text x="1280" y="222" text-anchor="middle" font-size="10" fill="#64748B">broker → device</text>
+
+  <!-- =================== ACTOR CARDS =================== -->
+
+  <!-- USER -->
+  <g filter="url(#cardShadow)">
+    <rect x="50" y="245" width="220" height="290" rx="16" fill="#FFFFFF" stroke="#E2E8F0"/>
+    <path d="M 50 261 A 16 16 0 0 1 66 245 L 254 245 A 16 16 0 0 1 270 261 L 270 285 L 50 285 Z" fill="#6B5B95"/>
+    <text x="160" y="270" text-anchor="middle" font-size="13" font-weight="700" fill="#FFFFFF" letter-spacing="1.5">THE PERSON</text>
+
+    <g transform="translate(160, 360)">
+      <circle cx="0" cy="-22" r="26" fill="#EFE9F7" stroke="#6B5B95" stroke-width="2.5"/>
+      <path d="M -40 30 Q -40 -5 0 -5 Q 40 -5 40 30 Z" fill="#EFE9F7" stroke="#6B5B95" stroke-width="2.5"/>
+    </g>
+
+    <text x="160" y="445" text-anchor="middle" font-size="20" font-weight="700" fill="#0F172A">User</text>
+    <text x="160" y="475" text-anchor="middle" font-size="13" fill="#64748B">Homeowner using</text>
+    <text x="160" y="493" text-anchor="middle" font-size="13" fill="#64748B">the app on their phone</text>
+    <text x="160" y="518" text-anchor="middle" font-size="11" font-style="italic" fill="#94A3B8">Android (Java)</text>
+  </g>
+
+  <!-- MOBILE APP -->
+  <g filter="url(#cardShadow)">
+    <rect x="370" y="245" width="220" height="290" rx="16" fill="#FFFFFF" stroke="#E2E8F0"/>
+    <path d="M 370 261 A 16 16 0 0 1 386 245 L 574 245 A 16 16 0 0 1 590 261 L 590 285 L 370 285 Z" fill="#2E7D6B"/>
+    <text x="480" y="270" text-anchor="middle" font-size="13" font-weight="700" fill="#FFFFFF" letter-spacing="1.5">MOBILE APP</text>
+
+    <g transform="translate(480, 380)">
+      <rect x="-38" y="-70" width="76" height="130" rx="9" fill="#D4EFE7" stroke="#2E7D6B" stroke-width="2.5"/>
+      <rect x="-31" y="-59" width="62" height="100" rx="2" fill="#FFFFFF" stroke="#2E7D6B" stroke-width="1.2"/>
+      <rect x="-24" y="-50" width="48" height="9" rx="1.5" fill="#2E7D6B" opacity="0.25"/>
+      <rect x="-24" y="-34" width="20" height="20" rx="3" fill="#2E7D6B" opacity="0.5"/>
+      <rect x="4" y="-34" width="20" height="20" rx="3" fill="#E89B3D" opacity="0.6"/>
+      <rect x="-24" y="-8" width="20" height="20" rx="3" fill="#1E5F8C" opacity="0.5"/>
+      <rect x="4" y="-8" width="20" height="20" rx="3" fill="#2E7D6B" opacity="0.5"/>
+      <rect x="-24" y="18" width="48" height="6" rx="1.5" fill="#2E7D6B" opacity="0.25"/>
+      <circle cx="0" cy="50" r="3.5" fill="#2E7D6B" opacity="0.4"/>
+    </g>
+
+    <text x="480" y="475" text-anchor="middle" font-size="13" fill="#64748B">Talks to our cloud only.</text>
+    <text x="480" y="493" text-anchor="middle" font-size="13" fill="#64748B">Never connects to devices</text>
+    <text x="480" y="511" text-anchor="middle" font-size="13" fill="#64748B">directly (except for pairing).</text>
+  </g>
+
+  <!-- CLOUD BACKEND -->
+  <g filter="url(#cardShadow)">
+    <rect x="690" y="245" width="220" height="290" rx="16" fill="#FFFFFF" stroke="#E2E8F0"/>
+    <path d="M 690 261 A 16 16 0 0 1 706 245 L 894 245 A 16 16 0 0 1 910 261 L 910 285 L 690 285 Z" fill="#1E5F8C"/>
+    <text x="800" y="270" text-anchor="middle" font-size="13" font-weight="700" fill="#FFFFFF" letter-spacing="1.5">CLOUD BACKEND</text>
+
+    <g transform="translate(800, 370)">
+      <path d="M -50 10 C -70 10 -70 -20 -50 -20 C -50 -45 -20 -50 -10 -35 C 0 -55 35 -55 40 -30 C 65 -30 65 10 40 10 Z"
+            fill="#E3F1FB" stroke="#1E5F8C" stroke-width="2.5"/>
+      <rect x="-22" y="-15" width="44" height="6" rx="1" fill="#1E5F8C" opacity="0.7"/>
+      <rect x="-22" y="-5" width="44" height="6" rx="1" fill="#1E5F8C" opacity="0.7"/>
+      <circle cx="-15" cy="-12" r="1.5" fill="#FFFFFF"/>
+      <circle cx="-15" cy="-2" r="1.5" fill="#FFFFFF"/>
+    </g>
+
+    <text x="800" y="445" text-anchor="middle" font-size="14" font-weight="700" fill="#0F172A">Our Server</text>
+    <text x="800" y="475" text-anchor="middle" font-size="13" fill="#64748B">Verifies users, stores data,</text>
+    <text x="800" y="493" text-anchor="middle" font-size="13" fill="#64748B">translates app requests into</text>
+    <text x="800" y="511" text-anchor="middle" font-size="13" fill="#64748B">device messages (via MQTT)</text>
+  </g>
+
+  <!-- MQTT BROKER -->
+  <g filter="url(#cardShadow)">
+    <rect x="1010" y="245" width="220" height="290" rx="16" fill="#FFFFFF" stroke="#E2E8F0"/>
+    <path d="M 1010 261 A 16 16 0 0 1 1026 245 L 1214 245 A 16 16 0 0 1 1230 261 L 1230 285 L 1010 285 Z" fill="#CC4B37"/>
+    <text x="1120" y="270" text-anchor="middle" font-size="13" font-weight="700" fill="#FFFFFF" letter-spacing="1.5">MQTT BROKER</text>
+
+    <!-- Broker / hub icon: central hub with radiating spokes -->
+    <g transform="translate(1120, 370)">
+      <!-- Spokes -->
+      <line x1="-50" y1="0" x2="-22" y2="0" stroke="#CC4B37" stroke-width="2.5"/>
+      <line x1="50" y1="0" x2="22" y2="0" stroke="#CC4B37" stroke-width="2.5"/>
+      <line x1="-35" y1="-35" x2="-15" y2="-15" stroke="#CC4B37" stroke-width="2.5"/>
+      <line x1="35" y1="-35" x2="15" y2="-15" stroke="#CC4B37" stroke-width="2.5"/>
+      <line x1="-35" y1="35" x2="-15" y2="15" stroke="#CC4B37" stroke-width="2.5"/>
+      <line x1="35" y1="35" x2="15" y2="15" stroke="#CC4B37" stroke-width="2.5"/>
+      <!-- Endpoint dots -->
+      <circle cx="-50" cy="0" r="5" fill="#FCDCD2" stroke="#CC4B37" stroke-width="2"/>
+      <circle cx="50" cy="0" r="5" fill="#FCDCD2" stroke="#CC4B37" stroke-width="2"/>
+      <circle cx="-35" cy="-35" r="5" fill="#FCDCD2" stroke="#CC4B37" stroke-width="2"/>
+      <circle cx="35" cy="-35" r="5" fill="#FCDCD2" stroke="#CC4B37" stroke-width="2"/>
+      <circle cx="-35" cy="35" r="5" fill="#FCDCD2" stroke="#CC4B37" stroke-width="2"/>
+      <circle cx="35" cy="35" r="5" fill="#FCDCD2" stroke="#CC4B37" stroke-width="2"/>
+      <!-- Central hub -->
+      <circle cx="0" cy="0" r="22" fill="#FCDCD2" stroke="#CC4B37" stroke-width="2.5"/>
+      <text x="0" y="5" text-anchor="middle" font-size="11" font-weight="700" fill="#CC4B37">MQTT</text>
+    </g>
+
+    <text x="1120" y="445" text-anchor="middle" font-size="14" font-weight="700" fill="#0F172A">EMQX Broker</text>
+    <text x="1120" y="475" text-anchor="middle" font-size="13" fill="#64748B">A "post office" that routes</text>
+    <text x="1120" y="493" text-anchor="middle" font-size="13" fill="#64748B">tiny messages between the</text>
+    <text x="1120" y="511" text-anchor="middle" font-size="13" fill="#64748B">cloud and every device</text>
+  </g>
+
+  <!-- SMART DEVICES -->
+  <g filter="url(#cardShadow)">
+    <rect x="1330" y="245" width="220" height="290" rx="16" fill="#FFFFFF" stroke="#E2E8F0"/>
+    <path d="M 1330 261 A 16 16 0 0 1 1346 245 L 1534 245 A 16 16 0 0 1 1550 261 L 1550 285 L 1330 285 Z" fill="#E89B3D"/>
+    <text x="1440" y="270" text-anchor="middle" font-size="13" font-weight="700" fill="#FFFFFF" letter-spacing="1.5">SMART DEVICES</text>
+
+    <g transform="translate(1390, 360)">
+      <circle cx="0" cy="0" r="20" fill="#FFF4D6" stroke="#E89B3D" stroke-width="2.5"/>
+      <rect x="-7" y="18" width="14" height="6" fill="#E89B3D"/>
+      <rect x="-5" y="24" width="10" height="4" fill="#94734A"/>
+      <line x1="-30" y1="0" x2="-24" y2="0" stroke="#E89B3D" stroke-width="2"/>
+      <line x1="24" y1="0" x2="30" y2="0" stroke="#E89B3D" stroke-width="2"/>
+      <line x1="-22" y1="-22" x2="-18" y2="-18" stroke="#E89B3D" stroke-width="2"/>
+      <line x1="18" y1="-22" x2="22" y2="-18" stroke="#E89B3D" stroke-width="2"/>
+    </g>
+    <g transform="translate(1460, 360)">
+      <rect x="-18" y="-18" width="36" height="36" rx="6" fill="#FCF1E3" stroke="#E89B3D" stroke-width="2.5"/>
+      <circle cx="0" cy="0" r="10" fill="#FFFFFF" stroke="#E89B3D" stroke-width="2"/>
+      <line x1="0" y1="0" x2="0" y2="-7" stroke="#E89B3D" stroke-width="2" stroke-linecap="round"/>
+    </g>
+    <g transform="translate(1415, 420)">
+      <rect x="-22" y="-12" width="44" height="24" rx="4" fill="#FCF1E3" stroke="#E89B3D" stroke-width="2.5"/>
+      <circle cx="-2" cy="0" r="7" fill="#FFFFFF" stroke="#E89B3D" stroke-width="2"/>
+      <circle cx="-2" cy="0" r="3" fill="#E89B3D"/>
+      <circle cx="15" cy="-6" r="1.5" fill="#E89B3D"/>
+    </g>
+
+    <text x="1440" y="475" text-anchor="middle" font-size="13" fill="#64748B">Bulbs, thermostats, cameras,</text>
+    <text x="1440" y="493" text-anchor="middle" font-size="13" fill="#64748B">sensors — each running a tiny</text>
+    <text x="1440" y="511" text-anchor="middle" font-size="13" fill="#64748B">MQTT client (FastBee firmware)</text>
+  </g>
+
+  <!-- =================== REVERSE ARROWS =================== -->
+  <line x1="1330" y1="565" x2="1230" y2="565" stroke="#E89B3D" stroke-width="2.5" marker-end="url(#arrOrange)"/>
+  <text x="1280" y="555" text-anchor="middle" font-size="11" font-weight="600" fill="#0F172A">MQTT publish</text>
+  <text x="1280" y="587" text-anchor="middle" font-size="10" fill="#64748B">device → broker</text>
+
+  <line x1="1010" y1="565" x2="910" y2="565" stroke="#E89B3D" stroke-width="2.5" marker-end="url(#arrOrange)"/>
+  <text x="960" y="555" text-anchor="middle" font-size="11" font-weight="600" fill="#0F172A">MQTT subscribe</text>
+  <text x="960" y="587" text-anchor="middle" font-size="10" fill="#64748B">broker → backend</text>
+
+  <line x1="690" y1="565" x2="590" y2="565" stroke="#E89B3D" stroke-width="2.5" marker-end="url(#arrOrange)"/>
+  <text x="640" y="555" text-anchor="middle" font-size="11" font-weight="600" fill="#0F172A">WebSocket / SSE</text>
+  <text x="640" y="587" text-anchor="middle" font-size="10" fill="#64748B">live push to app</text>
+
+  <line x1="370" y1="565" x2="270" y2="565" stroke="#E89B3D" stroke-width="2.5" marker-end="url(#arrOrange)"/>
+  <text x="320" y="555" text-anchor="middle" font-size="11" font-weight="600" fill="#0F172A">UI updates</text>
+  <text x="320" y="587" text-anchor="middle" font-size="10" fill="#64748B">screen refresh</text>
+
+  <text x="800" y="620" text-anchor="middle" font-size="13" font-weight="700" fill="#E89B3D" letter-spacing="1.5">
+    ◂  LIVE STATUS &amp; UPDATES FLOW THIS WAY  ◂
+  </text>
+
+  <!-- BLE PAIRING ARC (App → Devices, special case) -->
+  <path d="M 480 535 Q 800 700 1440 535"
+        fill="none" stroke="#3B97D3" stroke-width="2.5" stroke-dasharray="8 5" marker-end="url(#arrBlue)"/>
+  <rect x="710" y="635" width="180" height="40" rx="6" fill="#FFFFFF" stroke="#3B97D3" stroke-width="1.5"/>
+  <text x="800" y="652" text-anchor="middle" font-size="11" font-weight="700" fill="#3B97D3">Bluetooth (BLE)</text>
+  <text x="800" y="668" text-anchor="middle" font-size="10" fill="#64748B">first-time device pairing only</text>
+
+  <!-- =================== PROTOCOL GUIDE =================== -->
+  <text x="800" y="720" text-anchor="middle" font-size="20" font-weight="700" fill="#0F172A">
+    The four channels we use, in plain English
+  </text>
+
+  <!-- REST API -->
+  <g filter="url(#cardShadow)">
+    <rect x="60" y="745" width="360" height="200" rx="14" fill="#FFFFFF" stroke="#E2E8F0"/>
+    <rect x="60" y="745" width="6" height="200" fill="#2E7D6B"/>
+    <text x="85" y="775" font-size="16" font-weight="700" fill="#0F172A">REST API (HTTPS)</text>
+    <text x="85" y="795" font-size="12" font-weight="600" fill="#2E7D6B" letter-spacing="0.8">APP ↔ BACKEND</text>
+    <text x="85" y="822" font-size="13" fill="#475569">The standard "ask &amp; answer"</text>
+    <text x="85" y="840" font-size="13" fill="#475569">channel: app asks the cloud for</text>
+    <text x="85" y="858" font-size="13" fill="#475569">data (homes, rooms, devices)</text>
+    <text x="85" y="876" font-size="13" fill="#475569">or sends an action (turn on).</text>
+    <text x="85" y="908" font-size="11" font-style="italic" fill="#94A3B8">Tech: HTTP + JSON. Used for</text>
+    <text x="85" y="924" font-size="11" font-style="italic" fill="#94A3B8">login, lists, and one-off commands.</text>
+  </g>
+
+  <!-- MQTT -->
+  <g filter="url(#cardShadow)">
+    <rect x="445" y="745" width="360" height="200" rx="14" fill="#FFFFFF" stroke="#E2E8F0"/>
+    <rect x="445" y="745" width="6" height="200" fill="#CC4B37"/>
+    <text x="470" y="775" font-size="16" font-weight="700" fill="#0F172A">MQTT (via EMQX broker)</text>
+    <text x="470" y="795" font-size="12" font-weight="600" fill="#CC4B37" letter-spacing="0.8">BACKEND ↔ BROKER ↔ DEVICES</text>
+    <text x="470" y="822" font-size="13" fill="#475569">A lightweight messaging system</text>
+    <text x="470" y="840" font-size="13" fill="#475569">designed for IoT. Devices and our</text>
+    <text x="470" y="858" font-size="13" fill="#475569">cloud both connect to a central</text>
+    <text x="470" y="876" font-size="13" fill="#475569">broker that routes messages.</text>
+    <text x="470" y="908" font-size="11" font-style="italic" fill="#94A3B8">Tech: tcp://broker:1883.  Topics:</text>
+    <text x="470" y="924" font-size="11" font-style="italic" fill="#94A3B8">/fastbee/{product}/{device}/{action}</text>
+  </g>
+
+  <!-- WebSocket / SSE -->
+  <g filter="url(#cardShadow)">
+    <rect x="830" y="745" width="360" height="200" rx="14" fill="#FFFFFF" stroke="#E2E8F0"/>
+    <rect x="830" y="745" width="6" height="200" fill="#E89B3D"/>
+    <text x="855" y="775" font-size="16" font-weight="700" fill="#0F172A">WebSocket &amp; SSE</text>
+    <text x="855" y="795" font-size="12" font-weight="600" fill="#E89B3D" letter-spacing="0.8">BACKEND → APP (LIVE PUSH)</text>
+    <text x="855" y="822" font-size="13" fill="#475569">When a device changes state, our</text>
+    <text x="855" y="840" font-size="13" fill="#475569">cloud pushes the update to the</text>
+    <text x="855" y="858" font-size="13" fill="#475569">app instantly — no refresh, no</text>
+    <text x="855" y="876" font-size="13" fill="#475569">polling, no waiting.</text>
+    <text x="855" y="908" font-size="11" font-style="italic" fill="#94A3B8">Tech: ws:// for device status,</text>
+    <text x="855" y="924" font-size="11" font-style="italic" fill="#94A3B8">SSE for notifications.</text>
+  </g>
+
+  <!-- Bluetooth -->
+  <g filter="url(#cardShadow)">
+    <rect x="1215" y="745" width="335" height="200" rx="14" fill="#FFFFFF" stroke="#E2E8F0"/>
+    <rect x="1215" y="745" width="6" height="200" fill="#3B97D3"/>
+    <text x="1240" y="775" font-size="16" font-weight="700" fill="#0F172A">Bluetooth (BLE)</text>
+    <text x="1240" y="795" font-size="12" font-weight="600" fill="#3B97D3" letter-spacing="0.8">APP ↔ NEW DEVICE</text>
+    <text x="1240" y="822" font-size="13" fill="#475569">Only used once, when a user</text>
+    <text x="1240" y="840" font-size="13" fill="#475569">adds a brand-new device. The</text>
+    <text x="1240" y="858" font-size="13" fill="#475569">phone sends Wi-Fi credentials</text>
+    <text x="1240" y="876" font-size="13" fill="#475569">over Bluetooth so the device</text>
+    <text x="1240" y="894" font-size="13" fill="#475569">can join the network.</text>
+    <text x="1240" y="926" font-size="11" font-style="italic" fill="#94A3B8">Tech: BLE provisioning (FastBee).</text>
+  </g>
+
+  <!-- =================== SCENARIOS =================== -->
+  <text x="800" y="990" text-anchor="middle" font-size="20" font-weight="700" fill="#0F172A">
+    Three real scenarios, and which channels they use
+  </text>
+
+  <!-- Scenario 1: Turn on the light -->
+  <g filter="url(#cardShadow)">
+    <rect x="60" y="1015" width="490" height="150" rx="14" fill="#FFFFFF" stroke="#E2E8F0"/>
+    <circle cx="100" cy="1055" r="22" fill="#2E7D6B"/>
+    <text x="100" y="1062" text-anchor="middle" font-size="20" font-weight="700" fill="#FFFFFF">1</text>
+    <text x="140" y="1050" font-size="15" font-weight="700" fill="#0F172A">Turn on the living-room light</text>
+    <text x="140" y="1070" font-size="12" fill="#64748B">User taps the bulb tile in the app</text>
+    <text x="80" y="1102" font-size="12" fill="#475569">
+      <tspan font-weight="700" fill="#2E7D6B">REST</tspan>
+      <tspan>: App → Backend  "turn device 17 ON"</tspan>
+    </text>
+    <text x="80" y="1122" font-size="12" fill="#475569">
+      <tspan font-weight="700" fill="#CC4B37">MQTT</tspan>
+      <tspan>: Backend publishes to /fastbee/.../set, broker delivers to bulb</tspan>
+    </text>
+    <text x="80" y="1142" font-size="12" fill="#475569">
+      <tspan font-weight="700" fill="#0F172A">Result</tspan>
+      <tspan>: Bulb switches on within ~1 second</tspan>
+    </text>
+  </g>
+
+  <!-- Scenario 2: See live status -->
+  <g filter="url(#cardShadow)">
+    <rect x="575" y="1015" width="490" height="150" rx="14" fill="#FFFFFF" stroke="#E2E8F0"/>
+    <circle cx="615" cy="1055" r="22" fill="#E89B3D"/>
+    <text x="615" y="1062" text-anchor="middle" font-size="20" font-weight="700" fill="#FFFFFF">2</text>
+    <text x="655" y="1050" font-size="15" font-weight="700" fill="#0F172A">See the bulb update in real time</text>
+    <text x="655" y="1070" font-size="12" fill="#64748B">Someone flips a physical switch — app updates instantly</text>
+    <text x="595" y="1102" font-size="12" fill="#475569">
+      <tspan font-weight="700" fill="#CC4B37">MQTT</tspan>
+      <tspan>: Bulb publishes its new state to broker, broker → backend</tspan>
+    </text>
+    <text x="595" y="1122" font-size="12" fill="#475569">
+      <tspan font-weight="700" fill="#E89B3D">WebSocket</tspan>
+      <tspan>: Backend pushes the update straight to the app</tspan>
+    </text>
+    <text x="595" y="1142" font-size="12" fill="#475569">
+      <tspan font-weight="700" fill="#0F172A">Result</tspan>
+      <tspan>: Bulb tile in the app shows "ON" without any refresh</tspan>
+    </text>
+  </g>
+
+  <!-- Scenario 3: Pair a new device -->
+  <g filter="url(#cardShadow)">
+    <rect x="1090" y="1015" width="460" height="150" rx="14" fill="#FFFFFF" stroke="#E2E8F0"/>
+    <circle cx="1130" cy="1055" r="22" fill="#3B97D3"/>
+    <text x="1130" y="1062" text-anchor="middle" font-size="20" font-weight="700" fill="#FFFFFF">3</text>
+    <text x="1170" y="1050" font-size="15" font-weight="700" fill="#0F172A">Add a brand-new smart plug</text>
+    <text x="1170" y="1070" font-size="12" fill="#64748B">First-time setup of a device fresh from the box</text>
+    <text x="1110" y="1102" font-size="12" fill="#475569">
+      <tspan font-weight="700" fill="#3B97D3">BLE</tspan>
+      <tspan>: App sends home Wi-Fi credentials over Bluetooth</tspan>
+    </text>
+    <text x="1110" y="1122" font-size="12" fill="#475569">
+      <tspan font-weight="700" fill="#CC4B37">MQTT</tspan>
+      <tspan>: Plug joins Wi-Fi, connects to broker, registers itself</tspan>
+    </text>
+    <text x="1110" y="1142" font-size="12" fill="#475569">
+      <tspan font-weight="700" fill="#0F172A">Result</tspan>
+      <tspan>: Plug appears in the app, ready to control</tspan>
+    </text>
+  </g>
+
+  <!-- FOOTER -->
+  <text x="800" y="1175" text-anchor="middle" font-size="11" fill="#94A3B8">
+    Smartify · Smart Home IoT Platform — detailed workflow with MQTT
+  </text>
+</svg>
