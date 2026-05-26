@@ -15,7 +15,13 @@
       "Bash(npx ts-node --transpile-only -e ' *)",
       "Bash(Select-String -Path \"E:\\\\Github\\\\Mobile\\\\Mobile-App\\\\TalentBaby\\\\backend\\\\prisma\\\\schema.prisma\" -Pattern \"^model \")",
       "Bash(Measure-Object)",
-      "Bash(Select-Object -ExpandProperty Count)"
+      "Bash(Select-Object -ExpandProperty Count)",
+      "Bash(dir E:\\\\Github\\\\Mobile\\\\Mobile-App\\\\TalentBaby *)",
+      "Bash(dir \"E:\\\\Github\\\\Mobile\\\\Mobile-App\\\\TalentBaby\\\\web-admin\")",
+      "Bash(dir \"E:\\\\Github\\\\Mobile\\\\Mobile-App\\\\TalentBaby\\\\backend\")",
+      "PowerShell(Start-Process -FilePath \"cmd.exe\" -ArgumentList \"/c cd /d E:\\\\Github\\\\Mobile\\\\Mobile-App\\\\TalentBaby\\\\web-admin && npm run dev > logs\\\\dev.stdout.log 2> logs\\\\dev.stderr.log\" -WindowStyle Normal -PassThru | Select-Object Id)",
+      "PowerShell($r = Invoke-WebRequest -Uri \"http://localhost:3000/recipes\" -UseBasicParsing -TimeoutSec 15 -ErrorAction SilentlyContinue; \"Status: $\\($r.StatusCode\\)\")",
+      "Bash(Get-ChildItem *)"
     ]
   }
 }

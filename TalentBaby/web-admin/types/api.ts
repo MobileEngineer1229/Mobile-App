@@ -162,6 +162,27 @@ export interface MilestoneReport {
 
 // ─── Recipes ──────────────────────────────────────────────────────────────
 
+export interface RecipeIngredient {
+  id?: number;
+  recipe_id?: number;
+  name: string;
+  amount?: string;   // "2-4 tbsp", "½ cup", "4+ oz"
+  unit?: string;     // optional separate unit
+  notes?: string;
+  image_url?: string;
+  sort_order?: number;
+}
+
+export interface RecipeNutritionInfo {
+  nutrients?: string[];       // ["Fiber", "Vitamin C", ...]
+  steps?: string[];           // cooking steps (from instructions array)
+  instructions?: string[];    // safety/serving guidelines
+  general_notes?: string[];   // doctor advice + safety notes
+  doctor_verified?: boolean;
+  safety_notes?: string[];
+  source?: string;
+}
+
 export interface Recipe {
   id: number;
   title: string;
@@ -172,9 +193,10 @@ export interface Recipe {
   age_range_min_months: number;
   age_range_max_months: number;
   recipe_type: string;
-  ingredients?: string[];
+  ingredients?: string[];                    // legacy flat strings kept for compatibility
+  recipe_ingredients?: RecipeIngredient[];   // structured rows from recipe_ingredients table
   instructions?: string[];
-  nutrition_info?: Record<string, unknown>;
+  nutrition_info?: RecipeNutritionInfo;
   prep_time_minutes?: number;
   cooking_time_minutes?: number;
   image_url?: string;

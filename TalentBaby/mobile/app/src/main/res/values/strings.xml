@@ -56,7 +56,11 @@
     <string name="recipes_title">Recipes</string>
     <string name="recipe_details">Recipe Details</string>
     <string name="ingredients">Ingredients</string>
+    <string name="nutrients">Nutrients</string>
+    <string name="steps">Steps</string>
     <string name="instructions">Instructions</string>
+    <string name="general_notes">General Notes</string>
+    <string name="doctor_pending_review">Pending Doctor Review</string>
     <string name="prep_time">Prep: %d min</string>
     <string name="cook_time">Cook: %d min</string>
     <string name="servings">%d servings</string>

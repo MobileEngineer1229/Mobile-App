@@ -9,16 +9,24 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.talentbaby.app.R;
 import com.talentbaby.app.models.NutritionRecipeDisplay;
+import com.talentbaby.app.utils.ApiClient;
 
 import java.util.List;
 
 public class NutritionRecipeDisplayAdapter extends RecyclerView.Adapter<NutritionRecipeDisplayAdapter.ViewHolder> {
     private final List<NutritionRecipeDisplay> recipes;
+    private final OnRecipeClickListener listener;
 
-    public NutritionRecipeDisplayAdapter(List<NutritionRecipeDisplay> recipes) {
+    public interface OnRecipeClickListener {
+        void onRecipeClick(NutritionRecipeDisplay recipe);
+    }
+
+    public NutritionRecipeDisplayAdapter(List<NutritionRecipeDisplay> recipes, OnRecipeClickListener listener) {
         this.recipes = recipes;
+        this.listener = listener;
     }
 
     @NonNull
@@ -31,7 +39,7 @@ public class NutritionRecipeDisplayAdapter extends RecyclerView.Adapter<Nutritio
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.bind(recipes.get(position));
+        holder.bind(recipes.get(position), listener);
     }
 
     @Override
@@ -53,16 +61,36 @@ public class NutritionRecipeDisplayAdapter extends RecyclerView.Adapter<Nutritio
             lock = itemView.findViewById(R.id.lockRecipeDisplay);
         }
 
-        void bind(NutritionRecipeDisplay recipe) {
+        void bind(NutritionRecipeDisplay recipe, OnRecipeClickListener listener) {
             title.setText(recipe.getTitle());
-            if (recipe.getImageResId() != 0) {
+            if (recipe.getImageUrl() != null && !recipe.getImageUrl().isEmpty()) {
+                String imageUrl = recipe.getImageUrl();
+                if (imageUrl.startsWith("/")) {
+                    imageUrl = ApiClient.getBaseUrl() + imageUrl.substring(1);
+                }
                 image.setVisibility(View.VISIBLE);
+                Glide.with(itemView.getContext())
+                        .load(imageUrl)
+                        .placeholder(R.drawable.rounded_image_background)
+                        .centerCrop()
+                        .into(image);
+            } else if (recipe.getImageResId() != 0) {
+                image.setVisibility(View.VISIBLE);
+                Glide.with(itemView.getContext()).clear(image);
                 image.setImageResource(recipe.getImageResId());
             } else {
+                Glide.with(itemView.getContext()).clear(image);
                 image.setVisibility(View.INVISIBLE);
             }
             actions.setVisibility(recipe.isLocked() ? View.GONE : View.VISIBLE);
             lock.setVisibility(recipe.isLocked() ? View.VISIBLE : View.GONE);
+            itemView.setEnabled(!recipe.isLocked() && recipe.getRecipeId() > 0);
+            itemView.setAlpha(recipe.isLocked() ? 0.78f : 1f);
+            itemView.setOnClickListener(v -> {
+                if (!recipe.isLocked() && recipe.getRecipeId() > 0 && listener != null) {
+                    listener.onRecipeClick(recipe);
+                }
+            });
         }
     }
 }

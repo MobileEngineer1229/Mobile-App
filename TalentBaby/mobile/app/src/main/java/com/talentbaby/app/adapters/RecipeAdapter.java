@@ -85,6 +85,9 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
                         .placeholder(R.drawable.rounded_image_background)
                         .centerCrop()
                         .into(imageRecipe);
+            } else {
+                Glide.with(itemView.getContext()).clear(imageRecipe);
+                imageRecipe.setImageResource(R.drawable.rounded_image_background);
             }
 
             itemView.setOnClickListener(v -> listener.onRecipeClick(recipe));

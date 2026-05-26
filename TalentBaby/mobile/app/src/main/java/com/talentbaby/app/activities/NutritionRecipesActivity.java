@@ -1,6 +1,7 @@
 package com.talentbaby.app.activities;
 
 import android.content.res.ColorStateList;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -133,7 +134,11 @@ public class NutritionRecipesActivity extends AppCompatActivity {
         recyclerMeals.setAdapter(mealAdapter);
         recyclerMeals.setNestedScrollingEnabled(false);
 
-        babyRecipeAdapter = new NutritionRecipeDisplayAdapter(babyRecipeItems);
+        babyRecipeAdapter = new NutritionRecipeDisplayAdapter(babyRecipeItems, recipe -> {
+            Intent intent = new Intent(this, RecipeDetailActivity.class);
+            intent.putExtra("recipe_id", recipe.getRecipeId());
+            startActivity(intent);
+        });
         recyclerBabyRecipes.setLayoutManager(new LinearLayoutManager(this));
         recyclerBabyRecipes.setAdapter(babyRecipeAdapter);
         recyclerBabyRecipes.setNestedScrollingEnabled(false);
@@ -420,7 +425,7 @@ public class NutritionRecipesActivity extends AppCompatActivity {
     }
 
     private void loadBabyRecipesFromApi() {
-        apiService.getRecipes(mealTypes[selectedMealIndex], ageTargets[selectedAgeIndex])
+        apiService.getBabyRecipesByAgeGroup(selectedAgeGroup(), selectedMealSlot())
                 .enqueue(new Callback<ApiResponse<List<Recipe>>>() {
                     @Override
                     public void onResponse(Call<ApiResponse<List<Recipe>>> call,
@@ -430,19 +435,15 @@ public class NutritionRecipesActivity extends AppCompatActivity {
                                 && response.body().getData() != null
                                 && !response.body().getData().isEmpty()) {
                             babyRecipeItems.clear();
-                            int count = Math.min(2, response.body().getData().size());
+                            int count = response.body().getData().size();
                             for (int i = 0; i < count; i++) {
                                 Recipe recipe = response.body().getData().get(i);
                                 babyRecipeItems.add(new NutritionRecipeDisplay(
+                                        recipe.getId(),
                                         recipe.getTitle() != null ? recipe.getTitle() : "",
-                                        R.drawable.nutrition_recipe_crackers,
+                                        recipe.getLocalImageResId(),
+                                        recipe.getImageUrl(),
                                         false));
-                            }
-                            for (int i = babyRecipeItems.size(); i < 6; i++) {
-                                babyRecipeItems.add(new NutritionRecipeDisplay(
-                                        getString(R.string.unlock_with_premium),
-                                        R.drawable.nutrition_premium_blur,
-                                        true));
                             }
                             babyRecipeAdapter.notifyDataSetChanged();
                         }
@@ -457,6 +458,28 @@ public class NutritionRecipesActivity extends AppCompatActivity {
 
     private boolean isBabyAge() {
         return selectedAgeIndex > 0;
+    }
+
+    private String selectedAgeGroup() {
+        switch (selectedAgeIndex) {
+            case 1: return "7-11";
+            case 2: return "12-17";
+            case 3: return "18-24";
+            case 4: return "25-30";
+            case 5: return "31-36";
+            case 0:
+            default: return "0-6";
+        }
+    }
+
+    private String selectedMealSlot() {
+        switch (selectedMealIndex) {
+            case 0: return "breakfast";
+            case 1: return "lunch";
+            case 2: return "dinner";
+            case 3:
+            default: return "snack";
+        }
     }
 
     private void animateVisibleContent() {

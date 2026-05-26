@@ -207,6 +207,12 @@ public interface ApiService {
     @GET("recipes/baby/{babyId}")
     Call<ApiResponse<List<Recipe>>> getBabyRecipes(@Path("babyId") int babyId);
 
+    @GET("recipes/baby/age-group/{group}")
+    Call<ApiResponse<List<Recipe>>> getBabyRecipesByAgeGroup(
+            @Path("group") String group,
+            @Query("meal_slot") String mealSlot
+    );
+
     @GET("recipes/favorites")
     Call<ApiResponse<List<Recipe>>> getFavoriteRecipes();
 

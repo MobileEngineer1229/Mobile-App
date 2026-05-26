@@ -11,6 +11,12 @@ import { usePagination } from '@/hooks/usePagination';
 
 const AGE_GROUP_OPTIONS = ['0-6', '7-11', '12-17', '18-24', '25-30', '31-36'];
 const ALL_AGES = 'All';
+const API_BASE = (process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:5000/api/v1').replace(/\/api\/v1\/?$/, '');
+
+function imgSrc(url?: string | null) {
+  if (!url) return null;
+  return url.startsWith('http') ? url : `${API_BASE}${url}`;
+}
 
 // ─── Food Form Modal ──────────────────────────────────────────────────────────
 
@@ -203,6 +209,7 @@ function FoodDetailModal({
   onEdit: () => void;
 }) {
   const ages = food.age_groups?.split(',').map((ag) => ag.trim()).filter(Boolean) ?? [];
+  const source = imgSrc(food.image_url);
 
   return (
     <Modal onClose={onClose} maxWidth="max-w-xl">
@@ -220,8 +227,8 @@ function FoodDetailModal({
       </div>
 
       <div className="p-6 space-y-5">
-        {food.image_url && (
-          <img src={food.image_url} alt={food.name} className="w-full h-48 object-cover rounded-xl border border-slate-100" />
+        {source && (
+          <img src={source} alt={food.name} className="w-full h-48 object-cover rounded-xl border border-slate-100" />
         )}
 
         <div>

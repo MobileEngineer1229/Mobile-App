@@ -129,6 +129,20 @@ export class RecipeRepository {
   // ─── Baby recipes ──────────────────────────────────────────────────────────
 
   async findBabyByAgeGroup(ageGroup: string, mealSlot?: string, lang?: string): Promise<Recipe[]> {
+    const uiRows = await prisma.$queryRaw<Recipe[]>(
+      Prisma.sql`
+        SELECT *
+        FROM recipes
+        WHERE target = 'baby'
+          AND baby_age_group = ${ageGroup}
+          AND (${lang ?? null}::text IS NULL OR language = ${lang ?? null})
+          AND (${mealSlot ?? null}::text IS NULL OR meal_slot = ${mealSlot ?? null})
+          AND nutrition_info->>'source' = 'ui/babyG/nutritions'
+        ORDER BY title ASC
+      `
+    );
+    if (uiRows.length > 0) return uiRows;
+
     const rows = await prisma.recipes.findMany({
       where: {
         target: 'baby',
