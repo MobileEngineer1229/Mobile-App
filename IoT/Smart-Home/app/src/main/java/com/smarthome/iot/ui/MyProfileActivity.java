@@ -56,7 +56,7 @@ public class MyProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_my_profile);
 
         ApiClient.initialize(this);
-        apiService = ApiClient.getClient().create(ApiService.class);
+        apiService = ApiClient.getApiService();
         authManager = new AuthManager(this);
 
         birthdateCalendar = Calendar.getInstance();

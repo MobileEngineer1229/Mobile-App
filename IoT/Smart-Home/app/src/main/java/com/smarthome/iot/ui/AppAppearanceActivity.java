@@ -58,7 +58,7 @@ public class AppAppearanceActivity extends AppCompatActivity {
         setContentView(R.layout.activity_app_appearance);
 
         ApiClient.initialize(this);
-        apiService = ApiClient.getClient().create(ApiService.class);
+        apiService = ApiClient.getApiService();
         authManager = new AuthManager(this);
         prefs = getSharedPreferences("app_prefs", MODE_PRIVATE);
 

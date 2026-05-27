@@ -65,7 +65,7 @@ public class EnterOTPActivity extends AppCompatActivity {
 
         // Initialize API
         ApiClient.initialize(this);
-        apiService = ApiClient.getClient().create(ApiService.class);
+        apiService = ApiClient.getApiService();
 
         email = getIntent().getStringExtra("email");
         expiresInMinutes = getIntent().getIntExtra("expiresInMinutes", 15);

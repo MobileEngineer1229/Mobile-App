@@ -55,7 +55,7 @@ public class HomeManagementActivity extends AppCompatActivity {
         
         // Initialize API
         ApiClient.initialize(this);
-        apiService = ApiClient.getClient().create(ApiService.class);
+        apiService = ApiClient.getApiService();
         
         initializeViews();
         setupRecyclerView();

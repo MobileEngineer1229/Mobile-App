@@ -30,6 +30,7 @@ import com.smarthome.iot.models.User;
 import com.smarthome.iot.network.ApiClient;
 import com.smarthome.iot.network.ApiService;
 import com.smarthome.iot.utils.AuthManager;
+import com.smarthome.iot.utils.MockDataProvider;
 import com.smarthome.iot.utils.ThemeHelper;
 
 import java.util.regex.Pattern;
@@ -72,7 +73,7 @@ public class SignInActivity extends AppCompatActivity {
         
         // Initialize API client
         ApiClient.initialize(this);
-        apiService = ApiClient.getClient().create(ApiService.class);
+        apiService = ApiClient.getApiService();
 
         initializeViews();
         prefillTestCredentials();
@@ -128,6 +129,13 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     private void prefillTestCredentials() {
+        if (MockDataProvider.isMockupMode()) {
+            editTextEmail.setText("demo@smartify.com");
+            editTextPassword.setText("demo123456");
+            checkBoxRememberMe.setChecked(true);
+            return;
+        }
+
         // Prefill with saved email if "Remember Me" was checked previously
         String savedEmail = authManager.getSavedEmail();
         if (savedEmail != null && !savedEmail.isEmpty()) {

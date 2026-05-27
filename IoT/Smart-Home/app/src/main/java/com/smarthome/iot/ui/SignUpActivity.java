@@ -72,7 +72,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         // Initialize API client and AuthManager
         ApiClient.initialize(this);
-        apiService = ApiClient.getClient().create(ApiService.class);
+        apiService = ApiClient.getApiService();
         authManager = new AuthManager(this);
 
         initializeViews();

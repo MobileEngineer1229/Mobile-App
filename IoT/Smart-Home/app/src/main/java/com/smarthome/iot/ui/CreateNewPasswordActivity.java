@@ -59,7 +59,7 @@ public class CreateNewPasswordActivity extends AppCompatActivity {
 
         // Initialize API
         ApiClient.initialize(this);
-        apiService = ApiClient.getClient().create(ApiService.class);
+        apiService = ApiClient.getApiService();
 
         email = getIntent().getStringExtra("email");
         otpCode = getIntent().getStringExtra("otpCode");

@@ -73,6 +73,12 @@ public class WebSocketDeviceStatusService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        if (com.smarthome.iot.utils.MockDataProvider.isMockupMode()) {
+            broadcastConnectionStatus(true);
+            Log.d(TAG, "WebSocket service mocked as connected");
+            return START_STICKY;
+        }
+
         if (intent != null) {
             jwtToken = intent.getStringExtra("token");
 

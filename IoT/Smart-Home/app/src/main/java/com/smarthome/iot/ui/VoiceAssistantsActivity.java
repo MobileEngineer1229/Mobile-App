@@ -39,7 +39,7 @@ public class VoiceAssistantsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_voice_assistants);
 
         ApiClient.initialize(this);
-        apiService = ApiClient.getClient().create(ApiService.class);
+        apiService = ApiClient.getApiService();
         authManager = new AuthManager(this);
 
         initializeViews();

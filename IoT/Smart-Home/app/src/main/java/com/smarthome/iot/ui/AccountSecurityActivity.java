@@ -47,7 +47,7 @@ public class AccountSecurityActivity extends AppCompatActivity {
         setContentView(R.layout.activity_account_security);
 
         ApiClient.initialize(this);
-        apiService = ApiClient.getClient().create(ApiService.class);
+        apiService = ApiClient.getApiService();
         authManager = new AuthManager(this);
 
         initializeViews();

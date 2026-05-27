@@ -52,7 +52,7 @@ public class LinkVoiceAssistantActivity extends AppCompatActivity {
         }
 
         ApiClient.initialize(this);
-        apiService = ApiClient.getClient().create(ApiService.class);
+        apiService = ApiClient.getApiService();
         authManager = new AuthManager(this);
 
         initializeViews();

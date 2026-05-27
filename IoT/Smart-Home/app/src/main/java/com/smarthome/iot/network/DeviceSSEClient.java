@@ -62,6 +62,12 @@ public class DeviceSSEClient {
     }
 
     public void connect() {
+        if (com.smarthome.iot.utils.MockDataProvider.isMockupMode()) {
+            running = true;
+            Log.i(TAG, "SSE mocked as connected");
+            return;
+        }
+
         if (running) {
             Log.d(TAG, "Already connected");
             return;
@@ -140,6 +146,9 @@ public class DeviceSSEClient {
     }
 
     private void scheduleReconnect() {
+        if (com.smarthome.iot.utils.MockDataProvider.isMockupMode()) {
+            return;
+        }
         mainHandler.postDelayed(this::connect, currentReconnectDelay);
         currentReconnectDelay = Math.min(currentReconnectDelay * 2, RECONNECT_DELAY_MAX_MS);
     }

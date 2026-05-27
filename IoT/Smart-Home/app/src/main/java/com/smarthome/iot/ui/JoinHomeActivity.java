@@ -56,7 +56,7 @@ public class JoinHomeActivity extends AppCompatActivity {
 
         // Initialize API
         ApiClient.initialize(this);
-        apiService = ApiClient.getClient().create(ApiService.class);
+        apiService = ApiClient.getApiService();
         authManager = new AuthManager(this);
 
         initializeViews();

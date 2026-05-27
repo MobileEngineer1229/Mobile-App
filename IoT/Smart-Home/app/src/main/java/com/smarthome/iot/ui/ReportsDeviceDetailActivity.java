@@ -77,7 +77,7 @@ public class ReportsDeviceDetailActivity extends AppCompatActivity {
             dateRange = "last_6_months";
         }
 
-        apiService = ApiClient.getClient().create(ApiService.class);
+        apiService = ApiClient.getApiService();
         authManager = new AuthManager(this);
 
         initViews();

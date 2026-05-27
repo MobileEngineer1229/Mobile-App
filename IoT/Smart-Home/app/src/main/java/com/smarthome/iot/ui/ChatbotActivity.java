@@ -48,7 +48,7 @@ public class ChatbotActivity extends AppCompatActivity {
 
         // Initialize API
         ApiClient.initialize(this);
-        apiService = ApiClient.getClient().create(ApiService.class);
+        apiService = ApiClient.getApiService();
         authManager = new AuthManager(this);
 
         String helpTopic = getIntent().getStringExtra("help_topic");

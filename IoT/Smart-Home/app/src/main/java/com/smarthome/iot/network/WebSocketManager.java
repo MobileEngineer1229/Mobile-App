@@ -142,6 +142,20 @@ public class WebSocketManager extends WebSocketListener {
      * @param token JWT authentication token
      */
     public void connect(String token) {
+        if (com.smarthome.iot.utils.MockDataProvider.isMockupMode()) {
+            this.authToken = token;
+            shouldReconnect = false;
+            isConnected = true;
+            Globals.setWebSocketConnected(true);
+            mainHandler.post(() -> {
+                for (ConnectionListener listener : connectionListeners) {
+                    listener.onConnected();
+                }
+            });
+            Log.d(TAG, "WebSocket mocked as connected");
+            return;
+        }
+
         if (token == null || token.isEmpty()) {
             Log.e(TAG, "Cannot connect: token is null or empty");
             notifyConnectionError("Authentication token is missing");

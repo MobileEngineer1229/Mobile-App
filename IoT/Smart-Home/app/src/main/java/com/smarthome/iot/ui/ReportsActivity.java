@@ -97,7 +97,7 @@ public class ReportsActivity extends AppCompatActivity {
         // Set status bar color to dark
         setStatusBarColor();
 
-        apiService = ApiClient.getClient().create(ApiService.class);
+        apiService = ApiClient.getApiService();
         authManager = new AuthManager(this);
 
         initViews();

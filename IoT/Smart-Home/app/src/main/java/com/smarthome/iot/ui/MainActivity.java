@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Initialize API
         try {
-            apiService = ApiClient.getClient().create(ApiService.class);
+            apiService = ApiClient.getApiService();
             android.util.Log.d("MainActivity", "API service created");
         } catch (Exception e) {
             android.util.Log.e("MainActivity", "Error creating API service", e);

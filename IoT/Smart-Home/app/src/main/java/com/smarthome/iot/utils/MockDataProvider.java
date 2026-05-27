@@ -21,6 +21,7 @@ import java.util.List;
 public class MockDataProvider {
     
     private static final String DEMO_EMAIL = "offline@demo.local"; // Changed from demo@smartify.com to allow real backend usage
+    private static final boolean MOCKUP_MODE = true;
     
     // Store dynamically created scenes (for runtime scene creation)
     private static final List<SmartScene> dynamicScenes = new ArrayList<>();
@@ -31,7 +32,11 @@ public class MockDataProvider {
      * Disabled — all features now use real backend API
      */
     public static boolean isDemoUser(AuthManager authManager) {
-        return false;
+        return MOCKUP_MODE;
+    }
+
+    public static boolean isMockupMode() {
+        return MOCKUP_MODE;
     }
     
     /**

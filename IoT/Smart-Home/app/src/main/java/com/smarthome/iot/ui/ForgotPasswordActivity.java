@@ -55,7 +55,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
         // Initialize API
         ApiClient.initialize(this);
-        apiService = ApiClient.getClient().create(ApiService.class);
+        apiService = ApiClient.getApiService();
 
         initViews();
         setupClickListeners();

@@ -18,6 +18,7 @@ public class ApiClient {
     private static Retrofit retrofit = null;
     private static Retrofit healthRetrofit = null; // Separate Retrofit instance for health checks
     private static Context appContext = null;
+    private static final ApiService MOCK_API_SERVICE = new MockApiService();
 
     public static void initialize(Context context) {
         appContext = context.getApplicationContext();
@@ -63,6 +64,14 @@ public class ApiClient {
         return retrofit;
     }
 
+    public static ApiService getApiService() {
+        if (com.smarthome.iot.utils.MockDataProvider.isMockupMode()) {
+            android.util.Log.d("ApiClient", "Using local MockApiService for mockup mode");
+            return MOCK_API_SERVICE;
+        }
+        return getClient().create(ApiService.class);
+    }
+
     /**
      * Get Retrofit client for health check endpoint
      * Health endpoint is at /health (not /api/v1/health)
@@ -88,6 +97,13 @@ public class ApiClient {
             android.util.Log.d("ApiClient", "Health Retrofit client created successfully");
         }
         return healthRetrofit;
+    }
+
+    public static ApiService getHealthApiService() {
+        if (com.smarthome.iot.utils.MockDataProvider.isMockupMode()) {
+            return MOCK_API_SERVICE;
+        }
+        return getHealthClient().create(ApiService.class);
     }
 
     public static String getBaseUrl() {

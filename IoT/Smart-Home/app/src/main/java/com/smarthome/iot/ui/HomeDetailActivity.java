@@ -70,7 +70,7 @@ public class HomeDetailActivity extends AppCompatActivity {
         
         // Initialize API
         ApiClient.initialize(this);
-        apiService = ApiClient.getClient().create(ApiService.class);
+        apiService = ApiClient.getApiService();
         authManager = new AuthManager(this);
         
         // Get home data from intent

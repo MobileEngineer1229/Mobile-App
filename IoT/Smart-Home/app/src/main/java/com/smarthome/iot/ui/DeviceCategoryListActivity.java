@@ -57,7 +57,7 @@ public class DeviceCategoryListActivity extends AppCompatActivity {
         setStatusBarColor();
 
         // Initialize API
-        apiService = ApiClient.getClient().create(ApiService.class);
+        apiService = ApiClient.getApiService();
         authManager = new AuthManager(this);
 
         // Get category from intent

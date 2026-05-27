@@ -38,7 +38,7 @@ public class LinkedAccountsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_linked_accounts);
 
         ApiClient.initialize(this);
-        apiService = ApiClient.getClient().create(ApiService.class);
+        apiService = ApiClient.getApiService();
         authManager = new AuthManager(this);
 
         initializeViews();

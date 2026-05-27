@@ -52,7 +52,7 @@ public class ManageRoomsActivity extends AppCompatActivity {
         
         // Initialize API
         ApiClient.initialize(this);
-        apiService = ApiClient.getClient().create(ApiService.class);
+        apiService = ApiClient.getApiService();
         authManager = new AuthManager(this);
         homeId = getIntent().getIntExtra("home_id", -1);
         

@@ -80,7 +80,7 @@ public class LampControlFragment extends Fragment {
         // Initialize API
         if (getContext() != null) {
             ApiClient.initialize(getContext());
-            apiService = ApiClient.getClient().create(ApiService.class);
+            apiService = ApiClient.getApiService();
             authManager = new AuthManager(getContext());
         }
     }

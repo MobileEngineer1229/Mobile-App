@@ -6,8 +6,6 @@ import com.smarthome.iot.utils.Globals;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Service for checking API health status
@@ -18,9 +16,7 @@ public class HealthCheckService {
     private ApiService healthApiService;
 
     private HealthCheckService() {
-        // Create Retrofit instance for health checks (uses different base URL)
-        Retrofit healthRetrofit = ApiClient.getHealthClient();
-        healthApiService = healthRetrofit.create(ApiService.class);
+        healthApiService = ApiClient.getHealthApiService();
     }
 
     public static synchronized HealthCheckService getInstance() {
@@ -44,6 +40,15 @@ public class HealthCheckService {
      */
     public void checkHealth(HealthCheckCallback callback) {
         Log.d(TAG, "Checking API health...");
+
+        if (com.smarthome.iot.utils.MockDataProvider.isMockupMode()) {
+            Globals.setApiHealthStatus(true);
+            Globals.setMqttBrokerAvailable(true);
+            if (callback != null) {
+                callback.onHealthCheckComplete(true);
+            }
+            return;
+        }
         
         Call<HealthResponse> call = healthApiService.checkHealth();
         call.enqueue(new Callback<HealthResponse>() {

@@ -29,7 +29,7 @@ public class VersionCheckService {
 
     public VersionCheckService(Context context) {
         this.context = context;
-        this.apiService = ApiClient.getClient().create(ApiService.class);
+        this.apiService = ApiClient.getApiService();
     }
 
     /**

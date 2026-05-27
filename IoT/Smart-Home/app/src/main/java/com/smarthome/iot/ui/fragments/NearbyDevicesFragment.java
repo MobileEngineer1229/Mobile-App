@@ -68,7 +68,7 @@ public class NearbyDevicesFragment extends Fragment {
 
         // Initialize API
         ApiClient.initialize(requireContext());
-        apiService = ApiClient.getClient().create(ApiService.class);
+        apiService = ApiClient.getApiService();
         authManager = new AuthManager(requireContext());
 
         buttonConnectAll = view.findViewById(R.id.buttonConnectAll);

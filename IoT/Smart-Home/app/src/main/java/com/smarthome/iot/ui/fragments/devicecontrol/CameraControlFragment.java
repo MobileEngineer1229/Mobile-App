@@ -77,7 +77,7 @@ public class CameraControlFragment extends Fragment {
             roomId = getArguments().getInt(ARG_ROOM_ID);
         }
         
-        apiService = ApiClient.getClient().create(ApiService.class);
+        apiService = ApiClient.getApiService();
     }
 
     @Nullable

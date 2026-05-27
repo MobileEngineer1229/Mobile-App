@@ -178,7 +178,7 @@ public class DeviceDetectedActivity extends AppCompatActivity {
         mqttDeviceType = getIntent().getStringExtra("mqtt_device_type");
 
         // Initialize API service and auth manager
-        apiService = ApiClient.getClient().create(ApiService.class);
+        apiService = ApiClient.getApiService();
         authManager = new AuthManager(this);
 
         // Initialize FastBee Bluetooth service for device provisioning
