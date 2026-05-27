@@ -211,7 +211,20 @@ public class MainActivity extends AppCompatActivity {
                     selectedHomeId = homes.get(0).getId();
                     updateLocationText(homes.get(0).getName());
                 }
-                // Demo user always has data, return true
+
+                roomsList = MockDataProvider.getMockRooms(selectedHomeId);
+                allDevicesList = MockDataProvider.getMockDevicesForScene("all", null);
+                if (deviceAdapter != null) {
+                    deviceAdapter.setRooms(roomsList);
+                }
+
+                Globals.setUserHomes(homes);
+                Globals.setPrimaryHome(currentHome);
+                Globals.setUserRooms(roomsList, selectedHomeId);
+                Globals.setCachedDevices(allDevicesList, selectedHomeId);
+
+                setupRoomFilters();
+                filterDevicesByCategoryAndRoom();
                 return true;
             }
             return false;

@@ -11,7 +11,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.smarthome.iot.R;
 import com.smarthome.iot.network.HealthCheckService;
+import com.smarthome.iot.models.User;
 import com.smarthome.iot.utils.AuthManager;
+import com.smarthome.iot.utils.Globals;
+import com.smarthome.iot.utils.MockDataProvider;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -30,6 +33,15 @@ public class SplashActivity extends AppCompatActivity {
 
         // Navigate after 2.5 seconds
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
+            if (MockDataProvider.isMockupMode()) {
+                prepareMockupSession();
+                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
+                return;
+            }
+
             // Check if user is logged in (auto-login on same device)
             if (authManager.isAutoLoginEnabled()) {
                 // Check server health before navigating to MainActivity
@@ -42,6 +54,26 @@ public class SplashActivity extends AppCompatActivity {
                 finish();
             }
         }, SPLASH_DURATION);
+    }
+
+    private void prepareMockupSession() {
+        authManager.saveToken("mockup-iot-token");
+        authManager.saveUserInfo(1, "demo@smartify.com");
+        authManager.saveUserName("Demo Owner");
+        authManager.saveLoginEmail("demo@smartify.com");
+
+        User user = new User();
+        user.setId(1);
+        user.setEmail("demo@smartify.com");
+        user.setFirstName("Demo");
+        user.setLastName("Owner");
+        Globals.setCurrentUser(user);
+        Globals.setUserHomes(MockDataProvider.getMockHomes());
+        Globals.setPrimaryHome(MockDataProvider.getMockHomes().get(0));
+        Globals.setUserRooms(MockDataProvider.getMockRooms(1), 1);
+        Globals.setCachedDevices(MockDataProvider.getMockDevicesForScene("all", null), 1);
+        Globals.setApiHealthStatus(true);
+        Globals.setMqttBrokerAvailable(true);
     }
 
     /**
