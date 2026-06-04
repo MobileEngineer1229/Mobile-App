@@ -3,6 +3,8 @@ package com.talentbaby.app;
 import android.app.Application;
 import android.content.Context;
 
+import com.talentbaby.app.offline.sync.ContentSyncManager;
+
 import java.util.Set;
 
 public class TalentBabyApplication extends Application {
@@ -14,6 +16,7 @@ public class TalentBabyApplication extends Application {
         super.onCreate();
         instance = this;
         appContext = getApplicationContext();
+        new ContentSyncManager(appContext).syncIfOnlineAsync();
     }
 
     public static TalentBabyApplication getInstance() {

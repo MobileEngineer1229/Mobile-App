@@ -133,6 +133,7 @@ import nutritionBenefitsRoutes from './routes/nutritionBenefits.routes';
 import milestoneDefinitionRoutes from './routes/milestoneDefinition.routes';
 import babyMilestoneRoutes from './routes/babyMilestone.routes';
 import adminMessageRoutes from './routes/adminMessage.routes';
+import contentSyncRoutes from './routes/contentSync.routes';
 
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/users', userRoutes);
@@ -187,6 +188,7 @@ app.use('/api/v1/nutrition', nutritionBenefitsRoutes);
 app.use('/api/v1/milestone-definitions', milestoneDefinitionRoutes);
 app.use('/api/v1/baby-milestones', babyMilestoneRoutes);
 app.use('/api/v1/admin-messages', adminMessageRoutes);
+app.use('/api/v1/content-sync', contentSyncRoutes);
 
 // 404 handler
 app.use((req: Request, res: Response) => {
