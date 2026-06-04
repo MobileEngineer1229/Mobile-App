@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI-assistant-workout</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="profile-panel" aria-label="Profile form">
+        <div class="title-block">
+          <h1>AI-assistant-workout</h1>
+          <p id="status">Checking service...</p>
+        </div>
+
+        <form id="profileForm" class="form-grid">
+          <label>Age
+            <input name="age" type="number" min="13" max="90" value="32" required />
+          </label>
+          <label>Gender
+            <select name="gender">
+              <option>Male</option>
+              <option>Female</option>
+              <option>Other</option>
+            </select>
+          </label>
+          <label>Height cm
+            <input name="height_cm" type="number" min="120" max="230" value="175" required />
+          </label>
+          <label>Weight kg
+            <input name="weight_kg" type="number" min="30" max="250" value="82" step="0.1" required />
+          </label>
+          <label>Body fat % optional
+            <input name="body_fat_pct" type="number" min="3" max="70" step="0.1" placeholder="optional" />
+          </label>
+          <label>Fitness level
+            <select name="fitness_level">
+              <option>Beginner</option>
+              <option>Intermediate</option>
+              <option>Advanced</option>
+            </select>
+          </label>
+          <label>Goal
+            <select name="goal">
+              <option value="fat_loss">Fat loss</option>
+              <option value="muscle_gain">Muscle gain</option>
+              <option value="endurance">Endurance</option>
+              <option value="mobility">Mobility</option>
+              <option value="general">General fitness</option>
+            </select>
+          </label>
+          <label>Days per week
+            <input name="days_per_week" type="number" min="2" max="6" value="4" />
+          </label>
+          <label>Minutes per session
+            <input name="session_minutes" type="number" min="15" max="120" value="45" />
+          </label>
+          <label>Equipment
+            <select name="equipment">
+              <option value="bodyweight">Bodyweight/home</option>
+              <option value="dumbbells">Dumbbells</option>
+              <option value="gym">Gym</option>
+            </select>
+          </label>
+          <label>Sleep hours optional
+            <input name="sleep_hours" type="number" min="0" max="14" step="0.1" placeholder="optional" />
+          </label>
+          <label>Recovery score optional
+            <input name="recovery_score" type="number" min="0" max="100" step="0.1" placeholder="optional" />
+          </label>
+          <label class="wide">Injuries or limits
+            <input name="injuries" type="text" placeholder="knee pain, lower back, none..." />
+          </label>
+          <button type="submit">Create routine</button>
+        </form>
+      </section>
+
+      <section class="routine-panel" aria-label="Routine result">
+        <div id="emptyState" class="empty-state">
+          Enter a profile and create a data-backed workout routine.
+        </div>
+        <div id="result" class="result hidden"></div>
+      </section>
+    </main>
+
+    <script src="/app.js"></script>
+  </body>
+</html>

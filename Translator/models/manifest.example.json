@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "runtime": "offline-mobile",
+  "languages": {
+    "ko_kp": {
+      "label": "조선말",
+      "base_model_code": "kor_Hang",
+      "notes": "Use Korean model output plus DPRK glossary and post-edit rules."
+    },
+    "en": {
+      "label": "English",
+      "base_model_code": "eng_Latn"
+    },
+    "zh": {
+      "label": "Chinese",
+      "base_model_code": "zho_Hans"
+    },
+    "ru": {
+      "label": "Russian",
+      "base_model_code": "rus_Cyrl"
+    }
+  },
+  "models": {
+    "text_translation": {
+      "engine": "nllb_quantized",
+      "path": "models/text/",
+      "required_files": [
+        "model.bin",
+        "tokenizer.model",
+        "config.json"
+      ]
+    },
+    "speech_recognition": {
+      "engine": "whisper_cpp_or_vosk",
+      "path": "models/asr/",
+      "required_files": [
+        "model.bin"
+      ]
+    },
+    "ocr": {
+      "engine": "paddleocr_or_native",
+      "path": "models/ocr/",
+      "required_files": [
+        "det_model",
+        "rec_model",
+        "dictionary.txt"
+      ]
+    },
+    "speech_synthesis": {
+      "engine": "piper_or_platform_tts",
+      "path": "models/tts/",
+      "required_files": [
+        "voice.onnx",
+        "voice.onnx.json"
+      ]
+    }
+  }
+}

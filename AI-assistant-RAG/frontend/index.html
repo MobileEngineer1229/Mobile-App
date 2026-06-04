@@ -1,0 +1,48 @@
+<!doctype html>
+    <html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI-assistant-RAG</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <aside class="sidebar">
+        <div>
+          <h1>AI-assistant-RAG</h1>
+          <p id="statusText">벡토르자료기지를 확인하는 중...</p>
+        </div>
+        <div class="hint-list">
+          <button class="hint" data-question="AI-assistant-RAG는 무엇인가?">AI-assistant-RAG란?</button>
+          <button class="hint" data-question="새 문서는 어떻게 추가하는가?">문서 추가 방법</button>
+          <button class="hint" data-question="초보자를 위한 운동 계획을 알려줘.">초보자 운동 계획</button>
+          <button class="hint" data-question="건강한 식사는 무엇을 포함해야 하는가?">건강한 식사 기본</button>
+        </div>
+      </aside>
+
+      <section class="chat-panel" aria-label="RAG chat">
+        <div id="messages" class="messages">
+          <article class="message assistant">
+            <div class="bubble">
+              질문을 입력하세요. 색인된 문서를 찾아 간단히 답하고 근거 문서도 함께 보여줍니다.
+            </div>
+          </article>
+        </div>
+
+        <form id="chatForm" class="composer">
+          <input
+            id="questionInput"
+            type="text"
+            autocomplete="off"
+            placeholder="문서에 대해 질문하세요..."
+            aria-label="Question"
+          />
+          <button type="submit">질문</button>
+        </form>
+      </section>
+    </main>
+
+    <script src="/app.js"></script>
+  </body>
+</html>

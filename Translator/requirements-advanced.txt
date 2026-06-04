@@ -1,0 +1,9 @@
+# Optional advanced packages for the complete offline translator.
+#
+# Install only when the corresponding feature is being implemented.
+ctranslate2
+sentence-transformers
+onnxruntime
+paddleocr
+openai-whisper
+

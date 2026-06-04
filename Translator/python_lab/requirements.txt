@@ -1,0 +1,9 @@
+# Keep the default lab lightweight. Heavy AI packages should be added only
+# after the final offline model/runtime decision is made.
+#
+# Candidate future dependencies:
+# ctranslate2
+# sentencepiece
+# transformers
+# torch
+# pillow

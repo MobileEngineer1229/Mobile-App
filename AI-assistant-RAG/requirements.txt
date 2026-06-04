@@ -1,0 +1,7 @@
+sentence-transformers>=5.5
+transformers>=5.9
+torch>=2.12
+scikit-learn>=1.8
+numpy>=2.4
+scipy>=1.17
+tqdm>=4.67

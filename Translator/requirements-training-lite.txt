@@ -1,0 +1,7 @@
+# Small packages that can be installed from the local wheelhouse immediately.
+#
+# Heavy packages such as torch are intentionally not listed here because this
+# machine already has them installed and their CUDA wheels are very large.
+protobuf==5.29.6
+sacrebleu==2.6.0
+

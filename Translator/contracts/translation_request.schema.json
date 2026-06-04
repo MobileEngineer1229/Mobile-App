@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TranslationRequest",
+  "type": "object",
+  "required": ["mode", "sourceLanguage", "targetLanguage"],
+  "properties": {
+    "mode": {
+      "type": "string",
+      "enum": ["text", "voice", "image"]
+    },
+    "sourceLanguage": {
+      "type": "string",
+      "enum": ["auto", "ko_kp", "en", "zh", "ru"]
+    },
+    "targetLanguage": {
+      "type": "string",
+      "enum": ["ko_kp", "en", "zh", "ru"]
+    },
+    "text": {
+      "type": "string"
+    },
+    "assetPath": {
+      "type": "string"
+    }
+  }
+}

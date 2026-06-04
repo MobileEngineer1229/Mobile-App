@@ -1,6 +1,0 @@
-2026-04-18 04:49:21.130  [Match]  [OK]  🎉 Custom room created  roomId="room-4"  map="jungle-maze"  mode="TEAM"
-2026-04-18 04:49:21.130  [Match]  [OK]  👤 JOIN  player=42  room=room-3-xyz  players=5  max=500
-2026-04-18 04:49:21.130  [Match]  [INFO]  🚪 LEAVE  player=42  room=room-3-xyz
-2026-04-18 04:49:21.131  [Match]  [OK]  💥 GAME START  room=room-3-xyz  players=8  map=volcano-isle
-2026-04-18 04:49:21.131  [Match]  [INFO]  🔗 CONNECT  ws#1  (total=3)
-2026-04-18 04:49:21.131  [Match]  [INFO]  🔌 DISCONNECT  ws#2  (remaining=2)
