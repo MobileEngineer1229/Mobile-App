@@ -1,8 +1,35 @@
-"""Training entry point.
+"""GPT 모형 훈련 진입점.
 
-Usage:
+【초보자 안내】
+  이 파일이 훈련 파이프라인의 핵심이다.
+  GPT 모형을 처음부터 훈련하는 전체 반복문이 여기 있다.
+
+  훈련 과정 요약:
+    1. 설정 파일 읽기 (config/model_config.yaml)
+    2. 장치 설정 (GPU 또는 CPU)
+    3. 전처리된 자료 불러오기 (data/processed/train.bin)
+    4. GPT 모형 생성 (또는 체크포인트에서 복원)
+    5. 훈련 반복문:
+       a. 무작위 묶음 표본추출
+       b. 순방향 계산 → 손실 계산
+       c. 역전파 → 기울기 계산
+       d. 기울기 자르기 → 가중치 갱신
+       e. 주기적으로 검증, 로그 출력, 체크포인트 저장
+    6. 최종 체크포인트 저장
+
+  주요 기능:
+    - 학습률 코사인 감쇠 (워밍업 포함)
+    - 기울기 누적 (실질 묶음 크기 확대)
+    - 혼합 정밀도 (bfloat16/fp16, GPU에서 자동)
+    - 기울기 자르기 (폭발적 기울기 방지)
+    - 자동 block_size 축소 (자료가 너무 작을 때)
+    - TensorBoard 로그 기록
+    - 체크포인트 자동 정리 (최근 3개 보관)
+
+  실행 방법:
     python -m src.train.train --config config/model_config.yaml
     python -m src.train.train --config config/model_config.yaml --resume checkpoints/ckpt_step001000.pt
+    python -m src.train.train --config config/model_config.yaml --max-steps 5  (연기 시험)
 """
 
 from __future__ import annotations
@@ -192,15 +219,17 @@ def main() -> int:
     print(f"[train] tensorboard: {tb_dir}")
     save_config(cfg, out_dir / "training_config.yaml")
 
-    # ----- main loop -----
-    micro_bs = cfg.train.batch_size
-    grad_accum = max(1, cfg.train.grad_accum_steps)
-    max_steps = cfg.train.max_steps
+    # ----- 주 훈련 반복문 -----
+    # 매 단계마다: 묶음 표본추출 → 순방향 → 손실 → 역방향 → 기울기 자르기 → 가중치 갱신
+    micro_bs   = cfg.train.batch_size         # 한 번에 처리하는 문서 수
+    grad_accum = max(1, cfg.train.grad_accum_steps)  # 기울기 누적 단계 수
+    max_steps  = cfg.train.max_steps          # 총 훈련 단계 수
 
     t0 = time.time()
-    model.train()
+    model.train()  # 훈련 모드 설정 (드롭아웃 활성화 등)
     for step in range(start_step, max_steps):
-        # LR schedule
+
+        # 1. 학습률 계산 (코사인 감쇠 + 워밍업)
         lr = cosine_lr(
             step,
             warmup=cfg.train.warmup_steps,
@@ -209,66 +238,72 @@ def main() -> int:
             min_lr=cfg.train.min_lr,
         )
         for pg in optimizer.param_groups:
-            pg["lr"] = lr
+            pg["lr"] = lr  # 최적화기의 모든 매개변수 그룹에 새 학습률 적용
 
-        # Forward / backward with gradient accumulation
-        optimizer.zero_grad(set_to_none=True)
+        # 2. 기울기 누적 (grad_accum_steps 번 순방향/역방향을 합산)
+        # 리유: GPU 현현기억기가 큰 묶음을 한 번에 처리하기 어려울 때
+        #       작은 묶음을 여러 번 계산하여 같은 효과를 낸다.
+        optimizer.zero_grad(set_to_none=True)  # 이전 기울기 초기화 (set_to_none이 더 빠름)
         accum_loss = 0.0
         for _ in range(grad_accum):
-            x, y = train_ds.sample(micro_bs, device=device)
-            with autocast_ctx:
-                _, loss = model(x, y)
-                loss = loss / grad_accum
+            x, y = train_ds.sample(micro_bs, device=device)  # 무작위 묶음 표본추출
+            with autocast_ctx:  # 혼합 정밀도 (bfloat16/fp16 자동 변환)
+                _, loss = model(x, y)   # 순방향 계산 → 손실 계산
+                loss = loss / grad_accum  # 누적 단계 수로 나눠 평균 손실 유지
             if use_grad_scaler:
-                scaler.scale(loss).backward()
+                scaler.scale(loss).backward()  # fp16: 언더플로 방지를 위해 스케일러 적용
             else:
-                loss.backward()
-            accum_loss += loss.item() * grad_accum
+                loss.backward()  # bfloat16/float32: 일반 역전파
+            accum_loss += loss.item() * grad_accum  # 실제 손실 기록
 
-        # Clip + step
+        # 3. 기울기 자르기 → 가중치 갱신
         if use_grad_scaler:
-            scaler.unscale_(optimizer)
+            scaler.unscale_(optimizer)  # 기울기를 원래 스케일로 복원 (자르기 전)
+        # 기울기 노름이 grad_clip을 넘으면 비율적으로 자름 (폭발적 기울기 방지)
         grad_norm = torch.nn.utils.clip_grad_norm_(model.parameters(), cfg.train.grad_clip)
         if use_grad_scaler:
-            scaler.step(optimizer)
-            scaler.update()
+            scaler.step(optimizer)   # fp16: NaN/inf 확인 후 가중치 갱신
+            scaler.update()          # 다음 단계를 위해 스케일 조정
         else:
-            optimizer.step()
+            optimizer.step()         # AdamW로 가중치 갱신
 
-        train_loss = accum_loss / grad_accum
+        train_loss = accum_loss / grad_accum  # 이 단계의 평균 훈련 손실
 
-        # Logging
+        # 4. 훈련 로그 출력 (log_interval 단계마다)
         if step % cfg.train.log_interval == 0:
             elapsed = time.time() - t0
             tokens_seen = (step + 1) * micro_bs * grad_accum * cfg.model.block_size
-            tps = tokens_seen / max(elapsed, 1e-6)
+            tps = tokens_seen / max(elapsed, 1e-6)  # 초당 처리 어표 수
             print(
                 f"[step {step:>6}] loss={train_loss:.4f}  lr={lr:.2e}  "
                 f"|grad|={grad_norm:.2f}  tok/s={tps:,.0f}"
             )
-            writer.add_scalar("train/loss", train_loss, step)
-            writer.add_scalar("train/lr", lr, step)
-            writer.add_scalar("train/grad_norm", float(grad_norm), step)
+            writer.add_scalar("train/loss",      train_loss,       step)
+            writer.add_scalar("train/lr",         lr,               step)
+            writer.add_scalar("train/grad_norm",  float(grad_norm), step)
 
-        # Validation
+        # 5. 검증 및 체크포인트 저장 (eval_interval 단계마다)
         if step > 0 and step % cfg.train.eval_interval == 0:
             val_loss = evaluate(model, val_ds, micro_bs, cfg.train.eval_iters, device)
             print(f"[step {step:>6}] val_loss={val_loss:.4f}")
             writer.add_scalar("val/loss", val_loss, step)
+            # 검증 손실이 최저점 갱신 시 _best 체크포인트 저장
             if val_loss < best_val:
                 best_val = val_loss
                 save_checkpoint(
                     out_dir, step, model, optimizer,
                     cfg_dict={"model": cfg.model.__dict__, "train": cfg.train.__dict__},
-                    tag="best",
+                    tag="best",  # 이 파일은 정리 시에도 삭제하지 않음
                 )
+            # 정기 체크포인트 저장 (최근 ckpt_keep_last 개만 보관)
             save_checkpoint(
                 out_dir, step, model, optimizer,
                 cfg_dict={"model": cfg.model.__dict__, "train": cfg.train.__dict__},
             )
             cleanup_old_checkpoints(out_dir, keep_last=cfg.train.ckpt_keep_last)
 
-        # Qualitative sample
+        # 6. 글 생성 예시 출력 (sample_interval 단계마다)
+        # 현재 모형의 수준을 눈으로 확인하기 위해 짧은 료리법을 생성해 출력
         if step > 0 and step % cfg.train.sample_interval == 0:
             try:
                 sample = sample_text(model, tokenizer, sample_prompt, device, max_new_tokens=80)

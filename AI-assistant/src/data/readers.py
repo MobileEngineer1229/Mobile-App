@@ -1,5 +1,14 @@
 """다양한 형식의 파일에서 학습용 텍스트를 추출하는 공용 모듈.
 
+【초보자 안내】
+  이 파일은 훈련 파이프라인의 "자료 입구" 다.
+  다양한 형식의 파일들을 읽어서 글자렬(문자열)로 바꿔준다.
+  preprocess.py와 train_tokenizer.py 가 이 모듈을 사용한다.
+
+  iter_texts() 함수 하나로 모든 형식을 처리한다:
+    for text in iter_texts(Path("data/raw")):
+        # text는 각 문서의 글자렬
+
 지원 형식
 ---------
     .txt            일반 문자(UTF-8)
@@ -9,9 +18,11 @@
     .docx           마이크로소프트 워드 문서
     이미지 파일     .jpg .jpeg .png .bmp .gif .webp .tiff .tif (OCR 문자 인식)
 
-의존 라이브러리 설치
+의존 라이브러리 설치 (필요 형식만 설치하면 됨)
 --------------------
-    pip install pdfplumber python-docx easyocr
+    pip install pdfplumber     ← PDF 지원
+    pip install python-docx    ← DOCX 지원
+    pip install easyocr        ← 이미지 OCR 지원 (약 200MB 모형 자동 내려받기)
 
 사용 방법
 ---------

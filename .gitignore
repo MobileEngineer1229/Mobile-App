@@ -39,6 +39,7 @@ node_modules/
 package-lock.json
 yarn.lock
 pnpm-lock.yaml
+Videos/
 
 .env
 .env.local
