@@ -1,4 +1,4 @@
-# Reference Data Layer — Design
+﻿# Reference Data Layer — Design
 
 **Date:** 2026-05-08
 **Sub-project:** A (of two — Sub-project B is admin polish + dashboard, deferred)
@@ -86,8 +86,8 @@ Each rule is one of: prefer-food (foodTagsPrefer), avoid-food (foodTagsAvoid), n
 
 ### Korean text policy
 
-- `koreanName`, `koreanTerm`, `recommendationKo`, `messageKo`, `interpretationKo`, `sourceNote`, etc. use **North Korean Korean (조선말)** orthography and vocabulary.
-- For nutrient terms where standard Korean and North Korean differ (e.g. 단백질 vs 단백, 칼슘 vs 칼시움), use the NK form. Where they don't differ, the term is identical.
+- `koreanName`, `koreanTerm`, `recommendationKo`, `messageKo`, `interpretationKo`, `sourceNote`, etc. use **North Korean Korean (Joseon language)** orthography and vocabulary.
+- For nutrient terms where standard Korean and North Korean differ (e.g. protein vs protein, calcium vs Calcium), use the NK form. Where they don't differ, the term is identical.
 - All seeded rows are `doctor_verified: false` so reviewers can validate translations later.
 
 ### Curation honesty
@@ -96,7 +96,7 @@ DRI tables (WST578) and threshold tables (WST428/586/etc.) are well-defined publ
 
 ### Excluded from `referenceSources`
 
-- 问답 (Q&A companion) PDFs — narrative supplements, no structured rows.
+- 问answer (Q&A companion) PDFs — narrative supplements, no structured rows.
 - `封面前言和目录.docx` — table of contents.
 - `WST426.1-2013` / `WST426.2-2013` (dietary survey methodology) — methodology, not lookup data.
 - `营养健康食堂/餐厅/学校建设指南` — facility certification, not nutrition data.

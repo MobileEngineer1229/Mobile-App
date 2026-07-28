@@ -1,10 +1,10 @@
-# CLAUDE.md
+﻿# CLAUDE.md
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## What This Project Is
 
-A GPT-style language model trained **from scratch** on DPRK Korean (조선말) corpus, specialised for food (료리법) and workout domains. No pretrained weights are used. The full stack: SentencePiece BPE tokenizer → binary preprocessing → PyTorch training loop → Gradio 6 chat UI.
+A GPT-style language model trained **from scratch** on DPRK Korean (Joseon language) corpus, specialised for food (Recipes) and workout domains. No pretrained weights are used. The full stack: SentencePiece BPE tokenizer → binary preprocessing → PyTorch training loop → Gradio 6 chat UI.
 
 This directory (`AI-assistant/`) is a subdirectory of a larger Mobile-App monorepo; it is self-contained.
 
@@ -51,7 +51,7 @@ Decoder-only GPT: learned token + position embeddings → N × `Block(pre-norm L
 SentencePiece BPE wrapper. Special token IDs are fixed: PAD=0, BOS=1, EOS=2, UNK=3. The `.model` file lives at `checkpoints/tokenizer/dprk_sp.model`. UNK surface strings (`⁇`) are stripped on decode.
 
 ### Data pipeline (`src/data/`)
-- `readers.py`: Reads `.txt`, `.jsonl`, `.json`, `.pdf`, `.docx`, and images (EasyOCR). Q&A pairs are merged as `질문: ...\n대답: ...`.
+- `readers.py`: Reads `.txt`, `.jsonl`, `.json`, `.pdf`, `.docx`, and images (EasyOCR). Q&A pairs are merged as `question: ...\nanswer: ...`.
 - `preprocess.py`: Deduplicates by SHA-1, shuffles, splits 95/5 train/val, wraps each doc with BOS/EOS, saves as `uint16` numpy binary files.
 - `dataset.py`: `TokenDataset` — random-offset sliding-window sampling over a `numpy.memmap`.
 
@@ -60,10 +60,10 @@ AdamW with cosine LR + linear warmup. Gradient accumulation (`grad_accum_steps`)
 
 ### Inference (`src/inference/`)
 - `generate.py`: Token-by-token generation with temperature, top-k, top-p, repetition penalty; streaming variant via `generate_stream`.
-- `chat.py`: `ChatSession` manages multi-turn history in `사용자: ... \n조수: ...` format. Drops oldest turns when prompt would exceed `block_size`. System prefix is **only applied when tokenizer `vocab_size >= 8000`**.
+- `chat.py`: `ChatSession` manages multi-turn history in `user: ... \nassistant: ...` format. Drops oldest turns when prompt would exceed `block_size`. System prefix is **only applied when tokenizer `vocab_size >= 8000`**.
 
 ### UI (`src/app/gradio_app.py`)
-Gradio 6 `gr.Blocks` with three tabs (자유 대화, 료리 추천, 운동 계획). History format is Gradio 6 message-dict style (`{"role": ..., "content": ...}`).
+Gradio 6 `gr.Blocks` with three tabs (free conversation, Ryori Recommendation, exercise plan). History format is Gradio 6 message-dict style (`{"role": ..., "content": ...}`).
 
 ## Key Constraints
 

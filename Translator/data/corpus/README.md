@@ -1,6 +1,6 @@
-# Corpus Workspace
+﻿# Corpus Workspace
 
-This folder is for building a DPRK Korean / 조선말 corpus from the beginning.
+This folder is for building a DPRK Korean / Joseon language corpus from the beginning.
 
 ```text
 data/corpus/

@@ -1,4 +1,4 @@
-"""Advanced offline RAG store.
+﻿"""Advanced offline RAG store.
 
 The retrieval stack is intentionally local:
 - multilingual dense embeddings from `models/embedding`,
@@ -206,7 +206,7 @@ def build_answer(question: str, results: list[SearchResult]) -> dict:
     """
     if not results:
         return {
-            "answer": "색인된 문서에서 이 질문에 답할 충분한 근거를 찾지 못했습니다.",
+            "answer": "I did not find sufficient evidence to answer this question in the indexed documents..",
             "sources": [],
         }
 
@@ -214,11 +214,11 @@ def build_answer(question: str, results: list[SearchResult]) -> dict:
     supporting = results[1:3]
     generated = generate_grounded_answer(question, [result.chunk_text for result in results])
     answer_parts = [
-        "색인된 문서에 따르면:",
+        "According to the indexed document::",
         generated or _shorten(best.chunk_text, 520),
     ]
     if supporting:
-        answer_parts.append("관련 근거: " + " ".join(_shorten(r.chunk_text, 180) for r in supporting))
+        answer_parts.append("Relevant evidence: " + " ".join(_shorten(r.chunk_text, 180) for r in supporting))
 
     return {
         "answer": "\n\n".join(answer_parts),

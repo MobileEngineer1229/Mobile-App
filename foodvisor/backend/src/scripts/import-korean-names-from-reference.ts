@@ -1,4 +1,4 @@
-import "dotenv/config";
+﻿import "dotenv/config";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { connectDatabase } from "../db.js";
@@ -26,9 +26,9 @@ async function parseReference(): Promise<Map<string, Mapping>> {
   const map = new Map<string, Mapping>();
   const conflicts: { chinese: string; existing: string; ignored: string; line: number }[] = [];
 
-  // Format 1: `    "中文": "조선말",`
+  // Format 1: `    "中文": "Joseon language",`
   const jsonRe = /^\s*"([^"]+)"\s*:\s*"([^"]+)"\s*,?\s*$/;
-  // Format 2: `中文 → 조선말 ...`
+  // Format 2: `中文 → Joseon language ...`
   const arrowRe = /^\s*([^\s→]+)\s*→\s*(.+?)\s*$/;
 
   lines.forEach((line, idx) => {

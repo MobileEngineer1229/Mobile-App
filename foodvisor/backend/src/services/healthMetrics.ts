@@ -1,4 +1,4 @@
-export type HealthFormulaGender = "male" | "female" | "non_binary";
+﻿export type HealthFormulaGender = "male" | "female" | "non_binary";
 export type ActivityLevel = "sedentary" | "low_active" | "active" | "very_active";
 export type WeightGoal = "lose_weight" | "maintain_weight" | "gain_weight";
 type GrowthReferenceGender = "male" | "female";
@@ -114,7 +114,7 @@ function gendered(gender: HealthFormulaGender, male: number, female: number) {
   if (gender === "male") return male;
   if (gender === "female") return female;
 
-  // 조선말: 성별공식을 하나로 정하기 어려운 경우에는 남/녀 공식의 평균값을 씁니다.
+  // Joseon language: In cases where it is difficult to determine a single gender formula,/Write the average value of the female formula.
   // English: When a binary formula cannot be selected, use the average of male and female estimates.
   return (male + female) / 2;
 }
@@ -140,7 +140,7 @@ export function calculateBmi(weightKg: number, heightCm: number) {
   assertPositive("weightKg", weightKg);
   assertPositive("heightCm", heightCm);
 
-  // 조선말: BMI는 몸무게(kg)를 키(m)의 제곱으로 나눈 값입니다.
+  // Joseon language: BMIis the weight(kg)key(m)It is divided by the square of.
   // English: BMI is body weight in kilograms divided by height in meters squared.
   const bmi = weightKg / (heightCm / 100) ** 2;
   let category = "normal_weight";
@@ -250,7 +250,7 @@ export function calculateBmr(gender: HealthFormulaGender, age: number, heightCm:
   assertPositive("heightCm", heightCm);
   assertPositive("weightKg", weightKg);
 
-  // 조선말: BMR은 안정상태에서 하루에 필요한 기초열량 추정값입니다.
+  // Joseon language: BMRis an estimate of the basic calories needed per day in a steady state..
   // English: BMR estimates baseline daily calories needed at rest.
   const harrisBenedict1918 = gendered(
     gender,
@@ -316,7 +316,7 @@ export function calculateTdee(input: Pick<HealthMetricsInput, "gender" | "age" |
   const bmr = calculateBmr(input.gender, input.age, input.heightCm, input.weightKg);
   const paCoefficient = getPaCoefficient(input.gender, palValue);
 
-  // 조선말: TDEE는 하루 전체 에네르기소비량이며, 활동수준을 기초대사량에 반영합니다.
+  // Joseon language: TDEEis the total energy consumption per day., Activity level is reflected in basal metabolic rate.
   // English: TDEE estimates total daily energy expenditure after applying activity level.
   const who2001 = bmr.schofield1985 * palValue;
   const iom2005 = gendered(
@@ -338,7 +338,7 @@ export function calculateTdee(input: Pick<HealthMetricsInput, "gender" | "age" |
 export function calculateActivityBurn(weightKg: number, activities: ActivityBurnInput[] = []) {
   assertPositive("weightKg", weightKg);
 
-  // 조선말: 운동소모열량은 MET * 몸무게(kg) * 시간(h) 공식으로 계산합니다.
+  // Joseon language: Calories burned during exercise MET * weight(kg) * time(h) Calculate with the formula.
   // English: Activity calories use MET * body weight in kg * duration in hours.
   const items = activities.map((activity) => {
     assertPositive("metValue", activity.metValue);
@@ -369,7 +369,7 @@ export function calculateCalorieGoal(input: {
   const adjustment = input.calorieAdjustment ?? goalAdjustment[goal] ?? 0;
   const dailyActivityCalories = input.dailyActivityCalories ?? 0;
 
-  // 조선말: 하루 열량목표는 TDEE에 체중목표 보정값과 운동소모열량을 더하여 정합니다.
+  // Joseon language: Daily calorie goal TDEEIt is determined by adding the weight target correction value and exercise calories burned..
   // English: Daily calorie goal adds goal adjustment and activity calories to TDEE.
   return {
     goal,
@@ -398,7 +398,7 @@ export function calculateMacroGoal(totalCalories: number, ratios: MacroRatios = 
     protein: proteinRatio / ratioTotal
   };
 
-  // 조선말: 매크로 목표는 열량을 탄수화물/지방/단백질 비률로 나누고 g 단위로 바꿉니다.
+  // Joseon language: Macro goal is calories from carbohydrates/fat/Divide by protein ratio g Convert to units.
   // English: Macro goals split calories by carb/fat/protein ratios and convert calories to grams.
   return {
     ratios: {
@@ -439,7 +439,7 @@ export function calculateHealthMetrics(input: HealthMetricsInput) {
     macroGoal: calculateMacroGoal(calorieGoal.totalCalories, input.macroRatios),
     activityBurn,
     notes: [
-      "조선말: 이 결과는 건강관리용 추정값이며 의학적 진단이나 처방이 아닙니다.",
+      "Joseon language: These results are health care estimates and are not intended as a medical diagnosis or prescription..",
       "English: These values are wellness estimates, not medical diagnosis or treatment."
     ]
   };

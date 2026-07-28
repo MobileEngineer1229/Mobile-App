@@ -81,12 +81,12 @@ Activity-based Android app with MVVM structure in progress:
 
 **Mobile**:
 - All user-facing text must use string resources (`@string/...`), never hardcoded
-- Supported languages: English (`res/values/strings.xml`) and Korean (`res/values-ko/strings.xml`)
+- Supported language: English (`res/values/strings.xml`)
 - Use Material Design components for UI; consistent padding 24dp content / 16dp cards, card radius 12-16dp
 
 **Database schema changes**: Create a migration file, add it to `database/migrations/`, then run `npm run migrate`.
 
-**Language rule**: Database seed data and content (recipes, nutrition foods, articles, etc.) must be in **English only**. Do not add Korean (`name_ko` or similar) columns or seed Korean text into the database.
+**Language rule**: Database seed data and content (recipes, nutrition foods, articles, etc.) must be in **English only**. Do not add localized (`name_ko` or similar) columns or non-English seed text into the database.
 
 ## Implementation Status
 

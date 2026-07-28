@@ -1,7 +1,7 @@
-# AI Assistant with DPRK Language (Generative AI from Scratch)
+﻿# AI Assistant with DPRK Language (Generative AI from Scratch)
 
 ## Overview
-A domain-specific generative AI assistant that produces text in DPRK (조선말) Korean about food and workouts. The model is a small GPT-style decoder-only transformer trained from scratch (no pretrained foundation model) on a user-supplied DPRK Korean corpus. The assistant is exposed through a Gradio web UI for chat-style interaction.
+A domain-specific generative AI assistant that produces text in DPRK (Joseon language) Korean about food and workouts. The model is a small GPT-style decoder-only transformer trained from scratch (no pretrained foundation model) on a user-supplied DPRK Korean corpus. The assistant is exposed through a Gradio web UI for chat-style interaction.
 
 This project bundles:
 1. **Inference / chat** — the working assistant.
@@ -12,7 +12,7 @@ This project bundles:
 ## Features
 
 ### Core Features
-- **DPRK Korean Generation** — Produces text in 조선말 (vocabulary, orthography, register), not 한국어
+- **DPRK Korean Generation** — Produces text in Joseon language (vocabulary, orthography, register), not Korean
 - **Domain Focus: Food** — Recipe generation, meal planning, ingredient descriptions, cooking instructions
 - **Domain Focus: Workouts** — Workout routine generation, exercise descriptions, training plan suggestions
 - **Free Chat** — Open-ended conversation in DPRK Korean within the food/workout domain
@@ -20,7 +20,7 @@ This project bundles:
 - **Conversation History** — Multi-turn context within the model's context window (1024 tokens default)
 
 ### Additional Features
-- **Prompt Templates** — One-click templates: "오늘의 식사를 추천하라", "30분 운동 계획을 짜라"
+- **Prompt Templates** — One-click templates: "Recommend today's meal", "30Make a minute exercise plan"
 - **Streaming Output** — Tokens render progressively, not all-at-once
 - **Model Switcher** — Load different checkpoints to compare training stages
 - **Training Progress Dashboard** — TensorBoard logs: loss curves, learning-rate schedule, sample generations during training
@@ -54,7 +54,7 @@ This project bundles:
 
 ### Web UI (Gradio)
 - Chat panel + sampling controls in sidebar
-- Tabs: "자유 대화" / "료리 추천" / "운동 계획"
+- Tabs: "free conversation" / "Ryori Recommendation" / "exercise plan"
 - Each tab pre-fills the prompt template
 
 ### Project Structure

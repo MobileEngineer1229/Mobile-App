@@ -1,4 +1,4 @@
-import "dotenv/config";
+﻿import "dotenv/config";
 import { readFile } from "fs/promises";
 import path from "path";
 import mongoose from "mongoose";
@@ -87,7 +87,7 @@ async function translateBatch(items: TranslationItem[], referenceExcerpt: string
             "- Preserve the input id exactly.",
             "- koreanName must be DPRK/North Korean standard Korean food name in Hangul only, with short natural wording.",
             "- Prefer DPRK-style vocabulary and orthography where it differs from South Korean usage.",
-            "- Examples of preferred DPRK-style wording: 료리 not 요리, 료리감 not 식재료 when describing ingredients, 남새 for vegetables when natural, 닭알 for chicken egg, 기름 not 오일, 젖제품/우유 depending on common food name.",
+            "- Examples of preferred DPRK-style wording: Ryori not cooking, Ryorigam not ingredients when describing ingredients, Vegetables for vegetables when natural, chicken egg for chicken egg, oil not oil, milk products/milk depending on common food name.",
             "- Avoid South Korean loanwords when a natural DPRK Korean word exists.",
             "- Do not include Chinese characters.",
             "- Do not include explanations, categories, notes, or quotes around the whole response.",
@@ -170,7 +170,7 @@ for (let index = 0; index < selected.length; index += batchSize) {
       updateOne: {
         filter: { _id: new mongoose.Types.ObjectId(result.id) },
         update: {
-          $set: { koreanName: result.koreanName || "식품" },
+          $set: { koreanName: result.koreanName || "food" },
           $unset: { name: 1 }
         }
       }

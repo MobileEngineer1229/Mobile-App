@@ -1,36 +1,36 @@
-# Translator
+﻿# Translator
 
-`Translator`는 조선민주주의인민공화국 국어, 영어, 중어, 로어 사이의 **쌍방향 오프라인 번역봉사**를 만들기 위한 프로젝트입니다.
+`Translator`is the national language of the Democratic People's Republic of Korea, english, Chinese, between lower **Interactive offline translation service**This is a project to create.
 
-이 프로젝트의 중심은 조선말자료기지입니다. 조선말자료는 사용자가 직접 구축할수 있다고 전제합니다. 그러므로 이 프로젝트는 조선말 원문자료와 조선말 병렬번역자료를 직접 모아 번역기를 키우는 방향으로 갑니다.
+The center of this project is the Joseon Dynasty Data Base.. It is assumed that users can construct Joseon language data themselves.. Therefore, this project is aimed at developing a translator by directly collecting Korean language original text materials and Korean language parallel translation materials..
 
-## 무엇을 만들것인가
+## what to make
 
-최종 목표는 다음 3가지 입력을 모두 처리하는 쌍방향번역기입니다.
+The ultimate goal is an interactive translator that processes all three inputs:.
 
-1. 문자번역  
-   사용자가 글을 입력하면 조선말, 영어, 중어, 로어 사이에서 번역합니다.
+1. Text translation  
+   When the user enters text, it is written in Korean, english, Chinese, Translate between Lore.
 
-2. 음성번역  
-   사용자가 말하면 오프라인 음성인식으로 글을 만들고, 그 글을 번역합니다.
+2. voice translation  
+   When the user speaks, text is created using offline voice recognition., I translate the text.
 
-3. 이미지번역  
-   사용자가 사진이나 그림을 넣으면 오프라인 문자추출/OCR로 글을 뽑고, 그 글을 번역합니다.
+3. Image translation  
+   Offline text extraction when a user enters a photo or picture/OCRSelect the article with, I translate the text.
 
-현재 첫 실행대상은 손전화앱이 아니라 **국부 웹대면부**입니다. 열람기에서 바로 시험하고, 이후 같은 번역엔진을 손전화앱이나 다른 봉사에 붙일수 있게 만듭니다.
+Currently, the first launch target is not the mobile phone app. **Ministry of National Affairs web face-to-face department**is. Test it right from the reading machine, Afterwards, the same translation engine can be attached to mobile phone apps or other services..
 
-## 번역방향
+## Translation direction
 
-기본언어코드는 다음과 같습니다.
+The default language code is as follows:.
 
-| 이름 | 내부코드 | 설명 |
+| name | Internal code | Description |
 |---|---:|---|
-| 조선말 | `ko_kp` | 조선민주주의인민공화국 국어 |
-| 영어 | `en` | English |
-| 중어 | `zh` | Chinese |
-| 로어 | `ru` | Russian |
+| Joseon language | `ko_kp` | National language of the Democratic People's Republic of Korea |
+| english | `en` | English |
+| Chinese | `zh` | Chinese |
+| lore | `ru` | Russian |
 
-목표 번역방향:
+Target translation direction:
 
 ```text
 ko_kp <-> en
@@ -41,105 +41,105 @@ en    <-> ru
 zh    <-> ru
 ```
 
-가장 중요한 방향은 `ko_kp <-> en`, `ko_kp <-> zh`, `ko_kp <-> ru`입니다.
+The most important direction is `ko_kp <-> en`, `ko_kp <-> zh`, `ko_kp <-> ru`is.
 
-## 기본동작 원리
+## Basic operating principle
 
-이 프로젝트는 처음부터 완전한 대형모델만 기다리지 않습니다. 사람이 만든 자료가 곧바로 번역기에 반영되도록 다음 순서로 동작합니다.
+This project doesn't just wait for a full-scale model from the start.. It operates in the following order so that human-created data is immediately reflected in the translator..
 
 ```text
-사용자 입력
-  -> 입력형식 판정: 문자 / 음성 / 이미지
-  -> 음성인식 또는 이미지문자인식
-  -> 번역메모리 검색
-  -> 오프라인 신경망 번역모델
-  -> 조선말 용어사전
-  -> 조선말 후처리규칙
-  -> 번역결과
+user input
+  -> Input format determination: character / voice / image
+  -> Voice recognition or image text recognition
+  -> Translation memory search
+  -> Offline neural network translation model
+  -> Korean terminology dictionary
+  -> Post-processing rules in the late Joseon Dynasty
+  -> Translation result
 ```
 
-### 번역메모리란 무엇인가
+### What is translation memory?
 
-번역메모리는 사람이 이미 검토한 번역쌍입니다. 례를 들면:
+Translation memories are pairs of translations that have already been reviewed by humans.. For example:
 
 ```tsv
 source_language	target_language	source_text	target_text
-en	ko_kp	Good morning.	좋은 아침입니다.
-ko_kp	en	좋은 아침입니다.	Good morning.
+en	ko_kp	Good morning.	good morning.
+ko_kp	en	good morning.	Good morning.
 ```
 
-사용자가 같은 문장을 다시 번역하면 인공지능모델을 부르기 전에 번역메모리에서 정확한 결과를 먼저 돌려줍니다. 이것은 초기에 번역품질을 빨리 높이는 가장 현실적인 방법입니다.
+If the user translates the same sentence again, the translation memory returns accurate results before calling the artificial intelligence model.. This is the most realistic way to quickly increase translation quality in the beginning..
 
-## 프로젝트 구조
+## project structure
 
 ```text
 Translator/
   web_service/
-    열람기에서 시험하는 국부 웹대면부와 /api/translate 접속점.
+    Local wealth web face-to-face section tested in a reading machine /api/translate connection point.
 
   python_lab/
-    번역메모리, 후처리, 모델시험을 위한 파이썬 작업공간.
+    translation memory, Post-processing, Python workspace for model testing.
 
   scripts/
-    자료수입, 자료검사, 모델준비, 학습자료 생성을 위한 파이썬 스크립트.
+    data import, Data inspection, Model preparation, Python script for creating learning materials.
 
   data/
-    조선말자료기지, 번역메모리, 용어사전, 평가자료.
+    Joseon Dynasty Data Base, translation memory, Glossary, Evaluation data.
 
   models/
-    오프라인 번역, 음성인식, OCR, 음성합성 모델을 넣는 곳.
+    offline translation, voice recognition, OCR, Where to put the voice synthesis model.
 
   docs/
-    설계문서, DPRK-BERT 분석, 모델학습계획.
+    design document, DPRK-BERT analysis, Model learning plan.
 
   mobile/
-    나중에 손전화앱을 만들 때 사용할수 있는 보관된 골격.
+    An archived skeleton that can be used later when creating a mobile phone app..
 ```
 
-## 자료기지 구조
+## Data base structure
 
 ```text
 data/corpus/
   raw/
-    조선말 원문자료를 넣는 곳.
+    A place to store original text materials from the Joseon Dynasty.
 
   processed/
-    정리된 문자자료가 만들어지는 곳.
+    A place where organized text data is created.
 
   parallel/inbox/
-    사용자가 직접 만든 병렬번역쌍을 넣는 곳.
+    A place to insert parallel translation pairs created by the user.
 
   parallel/
-    검증된 병렬번역자료가 만들어지는 곳.
+    A place where verified parallel translation materials are created.
 
   speech/
-    음성자료와 받아쓴 글을 넣는 곳.
+    A place to put audio material and written text.
 
   image/
-    이미지자료와 OCR 정답글을 넣는 곳.
+    image data and OCR Where to put the correct answer.
 
   licenses/
-    자료출처와 사용허가를 적는 곳.
+    A place to list data sources and permission to use.
 ```
 
-## URL을 주어 자료를 넣는 방법
+## URLHow to insert data by giving
 
-URL에 있는 글을 조선말자료기지에 넣으려면 다음 명령을 씁니다.
+URLTo insert the text in the Joseon language data base, use the following command:.
 
 ```powershell
 python scripts\learn_from_url.py "https://example.com/page" --language ko_kp
 ```
 
-웹대면부에서도 할수 있습니다.
+You can also do it online.
 
-1. `python scripts\run_web_service.py`를 실행합니다.
-2. 열람기에서 `http://127.0.0.1:8765`를 엽니다.
-3. `Corpus` 부분에 URL을 넣습니다.
-4. 언어를 고릅니다.
-5. `Import URL`을 누릅니다.
-6. `Rebuild / Train local models`를 누릅니다.
+1. `python scripts\run_web_service.py`Run.
+2. In the browser `http://127.0.0.1:8765`Open.
+3. `Corpus` in part URLPut.
+4. Choose a language.
+5. `Import URL`Press.
+6. `Rebuild / Train local models`Press.
 
-이 흐름은 다음 파일들을 갱신합니다.
+This flow updates the following files:.
 
 ```text
 data/corpus/raw/
@@ -149,7 +149,7 @@ data/training/mlm/
 models/text/ko_kp_char_lm.json
 ```
 
-번역쌍 자료가 있으면 다음 파일들도 갱신됩니다.
+If translation pair data is available, the following files will also be updated..
 
 ```text
 data/corpus/parallel/reviewed_parallel.tsv
@@ -158,49 +158,49 @@ data/training/translation/
 data/training/neural/
 ```
 
-## 조선말 URL과 영어 URL을 한쌍으로 넣는 방법
+## Joseon language URLand english URLHow to pair
 
-조선말 문서 URL과 그에 해당한 영어 문서 URL이 있을 때에는 아래 명령을 씁니다.
+Joseon language documents URLand corresponding English documents URLIn this case, write the command below.
 
 ```powershell
-python scripts\learn_from_url_pair.py --source-url "조선말_URL" --target-url "영어_URL"
+python scripts\learn_from_url_pair.py --source-url "Joseon language_URL" --target-url "english_URL"
 ```
 
-이 명령은 두 문서를 내려받고 문장을 나누어 후보 병렬자료를 만듭니다.
+This command downloads two documents and splits the sentences to create candidate parallel data..
 
 ```text
 data/corpus/url_pairs/candidates/
 ```
 
-후보자료는 자동정렬이므로 반드시 사람이 확인해야 합니다. 좋은 줄만 다음 등록부에 TSV로 넣으면 학습자료에 들어갑니다.
+Candidate data is automatically sorted, so it must be checked by a human.. Only good lines go to the next register TSVEnter it into the learning materials..
 
 ```text
 data/corpus/url_pairs/approved/
 ```
 
-두 URL의 문장순서가 완전히 같다는것을 이미 알고 있을 때에만 다음 선택을 쓸수 있습니다.
+two URLYou can use the next option only when you already know that the sentence order of is exactly the same..
 
 ```powershell
-python scripts\learn_from_url_pair.py --source-url "조선말_URL" --target-url "영어_URL" --approve-exact-order
+python scripts\learn_from_url_pair.py --source-url "Joseon language_URL" --target-url "english_URL" --approve-exact-order
 ```
 
-이 경우 후보정렬이 곧바로 승인자료로 들어가며 `bootstrap_data_pipeline.py`가 번역메모리와 학습자료를 갱신합니다.
+In this case, the candidate sorting goes directly into the approval data. `bootstrap_data_pipeline.py`Update translation memory and learning materials.
 
-## 1. 문자자료 넣기
+## 1. Insert text data
 
-조선말 원문자료는 여기에 넣습니다.
+The original text in the Joseon Dynasty is inserted here..
 
 ```text
 data/corpus/raw/
 ```
 
-지원하는 형식:
+Supported formats:
 
 ```text
 .corpus .md .json .jsonl .tsv .csv
 ```
 
-례:
+example:
 
 ```text
 data/corpus/raw/article_001.corpus
@@ -208,51 +208,51 @@ data/corpus/raw/book_notes.jsonl
 data/corpus/raw/sentences.tsv
 ```
 
-자료를 넣은 다음 실행:
+Insert data and then run:
 
 ```powershell
 python scripts\bootstrap_data_pipeline.py
 ```
 
-그러면 다음 파일이 만들어집니다.
+This will create the following files.
 
 ```text
 data/corpus/processed/monolingual_sentences.tsv
 ```
 
-이 파일은 나중에 조선말 언어모델, 문체판정, 용어추출에 쓰입니다.
+This file will later be used as a Korean language model, Writing style judgment, Used for term extraction.
 
-## 2. 병렬번역자료 넣기
+## 2. Insert parallel translation data
 
-사람이 직접 만든 번역쌍은 여기에 넣습니다.
+Translation pairs created by humans are inserted here..
 
 ```text
 data/corpus/parallel/inbox/
 ```
 
-파일형식은 TSV입니다. 첫 줄은 반드시 다음과 같아야 합니다.
+The file format is TSVis. The first line must be:.
 
 ```tsv
 source_language	target_language	source_text	target_text
 ```
 
-례:
+example:
 
 ```tsv
 source_language	target_language	source_text	target_text
-en	ko_kp	Good morning.	좋은 아침입니다.
-ko_kp	en	좋은 아침입니다.	Good morning.
-zh	ko_kp	你好	안녕하십니까.
-ko_kp	ru	안녕하십니까.	Здравствуйте.
+en	ko_kp	Good morning.	good morning.
+ko_kp	en	good morning.	Good morning.
+zh	ko_kp	你好	hello.
+ko_kp	ru	hello.	Здравствуйте.
 ```
 
-자료를 넣은 다음 실행:
+Insert data and then run:
 
 ```powershell
 python scripts\bootstrap_data_pipeline.py
 ```
 
-그러면 다음 파일들이 만들어집니다.
+Then the following files will be created.
 
 ```text
 data/corpus/parallel/reviewed_parallel.tsv
@@ -262,14 +262,14 @@ data/training/translation/dev.tsv
 data/training/translation/test.tsv
 ```
 
-## 3. 음성자료 넣기
+## 3. Insert audio data
 
-음성번역을 만들려면 두가지 자료가 필요합니다.
+To create a voice translation, you need two materials:.
 
-1. 음성파일
-2. 그 음성을 사람이 받아쓴 정답글
+1. voice file
+2. The correct answer written by a person from that voice
 
-권장 구조:
+Recommended Structure:
 
 ```text
 data/corpus/speech/audio/
@@ -279,34 +279,34 @@ data/corpus/speech/audio/
 data/corpus/speech/transcripts.tsv
 ```
 
-`transcripts.tsv` 형식:
+`transcripts.tsv` format:
 
 ```tsv
 audio_path	language	text
-data/corpus/speech/audio/speech_0001.wav	ko_kp	안녕하십니까.
+data/corpus/speech/audio/speech_0001.wav	ko_kp	hello.
 data/corpus/speech/audio/speech_0002.wav	en	Good morning.
 ```
 
-음성번역의 실제 흐름:
+The actual flow of voice translation:
 
 ```text
-음성파일
-  -> 오프라인 음성인식모델
-  -> 문자
-  -> 문자번역파이프라인
-  -> 번역결과
+voice file
+  -> Offline voice recognition model
+  -> character
+  -> Text translation pipeline
+  -> Translation result
 ```
 
-처음에는 Whisper.cpp 또는 Vosk 같은 오프라인 음성인식엔진을 붙일수 있습니다. 그러나 조선말 음성인식품질을 높이려면 사용자가 만든 조선말 음성자료와 정답 받아쓰기자료가 필요합니다.
+At first Whisper.cpp or Vosk You can attach the same offline voice recognition engine.. However, to improve the quality of Korean speech recognition, user-created Korean speech data and answer dictation data are needed..
 
-## 4. 이미지자료 넣기
+## 4. Insert image data
 
-이미지번역을 만들려면 두가지 자료가 필요합니다.
+To create an image translation, you need two materials:.
 
-1. 글자가 들어있는 이미지
-2. 이미지에서 사람이 확인한 정답글
+1. image containing text
+2. The correct answer confirmed by a person in the image
 
-권장 구조:
+Recommended Structure:
 
 ```text
 data/corpus/image/files/
@@ -316,143 +316,143 @@ data/corpus/image/files/
 data/corpus/image/ocr_labels.tsv
 ```
 
-`ocr_labels.tsv` 형식:
+`ocr_labels.tsv` format:
 
 ```tsv
 image_path	language	text
-data/corpus/image/files/image_0001.png	ko_kp	조선말
+data/corpus/image/files/image_0001.png	ko_kp	Joseon language
 data/corpus/image/files/image_0002.jpg	en	Translator
 ```
 
-이미지번역의 실제 흐름:
+Actual flow of image translation:
 
 ```text
-이미지
-  -> 오프라인 OCR
-  -> 문자
-  -> 문자번역파이프라인
-  -> 번역결과
+image
+  -> offline OCR
+  -> character
+  -> Text translation pipeline
+  -> Translation result
 ```
 
-처음에는 PaddleOCR 같은 오프라인 OCR엔진을 붙일수 있습니다. 조선말 인식품질을 높이려면 조선말 글자가 들어있는 이미지와 정답글을 꾸준히 모아야 합니다.
+At first PaddleOCR same offline OCRThe engine can be attached. In order to improve the recognition quality of the Korean language, you must consistently collect images and correct answers containing Korean characters..
 
-## 처음 실행하는 방법
+## How to run it for the first time
 
-먼저 프로젝트 등록부로 들어갑니다.
+First, go to the project register.
 
 ```powershell
 cd Translator
 ```
 
-환경을 확인합니다.
+Check your environment.
 
 ```powershell
 python scripts\check_environment.py
 ```
 
-자료작업공간을 준비하고, 들어온 자료를 처리합니다.
+Prepare a data workspace, Process incoming data.
 
 ```powershell
 python scripts\bootstrap_data_pipeline.py
 ```
 
-웹대면부를 실행합니다.
+Run the web interface.
 
 ```powershell
 python scripts\run_web_service.py
 ```
 
-열람기에서 엽니다.
+Open in browser.
 
 ```text
 http://127.0.0.1:8765
 ```
 
-## 매일 작업순서
+## Daily work order
 
-1. 조선말 원문자료를 `data/corpus/raw/`에 넣습니다.
-2. 직접 검토한 번역쌍을 `data/corpus/parallel/inbox/`에 넣습니다.
-3. 음성자료가 있으면 `data/corpus/speech/audio/`와 `transcripts.tsv`를 채웁니다.
-4. 이미지자료가 있으면 `data/corpus/image/files/`와 `ocr_labels.tsv`를 채웁니다.
-5. 아래 명령을 실행합니다.
+1. Original text materials from the Joseon Dynasty `data/corpus/raw/`Put it in.
+2. Translation pairs that we personally reviewed `data/corpus/parallel/inbox/`Put it in.
+3. If there is audio material `data/corpus/speech/audio/`Wow `transcripts.tsv`fill in.
+4. If you have image data `data/corpus/image/files/`Wow `ocr_labels.tsv`fill in.
+5. Run the command below.
 
 ```powershell
 python scripts\bootstrap_data_pipeline.py
 ```
 
-6. 웹대면부에서 번역결과를 시험합니다.
+6. Test the translation results in the web-face-to-face section..
 
 ```powershell
 python scripts\run_web_service.py
 ```
 
-7. 틀린 번역은 새 번역쌍, 용어사전, 후처리규칙으로 고칩니다.
+7. Wrong translation is a new translation pair, Glossary, Fix it with post-processing rules.
 
-## 현재 구현된것
+## What is currently implemented
 
-현재 이미 들어있는 기능:
+Features already included:
 
-1. 국부 웹대면부
-2. `/api/translate` 번역접속점
-3. 번역메모리 우선검색
-4. 조선말 용어사전
-5. 조선말 후처리규칙
-6. 조선말 원문자료 수입
-7. 병렬번역자료 수입
-8. 학습용 train/dev/test 자료 생성
-9. DPRK-BERT 분석문서
-10. 조선말자료기지 구축계획
-11. URL로부터 원문자료 수입
-12. 국부 조선말 문자언어모델 학습
-13. 웹대면부에서 URL 수입과 국부모델 재학습
-14. 자체 SentencePiece 토크나이저 학습
-15. 자체 PyTorch Transformer 번역모델을 0부터 학습
-16. 자체모델 추론 backend
+1. Ministry of National Affairs web face-to-face department
+2. `/api/translate` Translation connection point
+3. Translation memory priority search
+4. Korean terminology dictionary
+5. Post-processing rules in the late Joseon Dynasty
+6. Import of original text materials from the Joseon Dynasty
+7. Import parallel translation data
+8. For learning train/dev/test Data generation
+9. DPRK-BERT analysis document
+10. Plan to build a late Joseon data base
+11. URLImport original data from
+12. Learning the Korean language model for the father of the nation
+13. In the web face-to-face section URL Retraining the income and national wealth model
+14. self SentencePiece Tokenizer training
+15. self PyTorch Transformer Learn the translation model from 0
+16. Own model inference backend
 
-아직 붙여야 하는 기능:
+Features that still need to be added:
 
-1. 오프라인 음성인식모델
-2. 오프라인 OCR모델
-3. 음성합성모델
-4. 번역품질 자동평가
+1. Offline voice recognition model
+2. offline OCRmodel
+3. Voice synthesis model
+4. Automatic evaluation of translation quality
 
-현재의 학습은 `translation_memory.json`과 `models/text/ko_kp_char_lm.json`을 만드는 국부학습입니다. 완전한 신경망 번역모델 학습은 자료가 충분히 쌓인 다음 `data/training/translation/` 및 `data/training/neural/` 자료를 가지고 진행합니다.
+Current learning is `translation_memory.json`and `models/text/ko_kp_char_lm.json`This is a national learning program that creates. Learning a complete neural network translation model begins after sufficient data has been accumulated. `data/training/translation/` and `data/training/neural/` We proceed with data.
 
-## 자체 번역모델을 처음부터 학습하기
+## Learning your own translation model from scratch
 
-이 절은 미세조정을 쓰지 않는 길입니다. 이미 학습된 NLLB, Marian, mBART 같은 모델을 부르지 않고, 이 프로젝트안의 자료만으로 토크나이저와 Transformer 번역모델을 새로 만듭니다.
+This section does not use fine tuning.. already learned NLLB, Marian, mBART without calling the same model, The tokenizer and Transformer Create a new translation model.
 
-먼저 수집자료를 train/dev/test와 neural JSONL로 다시 만듭니다.
+First, collect data train/dev/testWow neural JSONLrecreate it with.
 
 ```powershell
 python scripts\bootstrap_data_pipeline.py
 ```
 
-그 다음 자체 SentencePiece BPE 토크나이저를 학습합니다.
+then itself SentencePiece BPE Learn the tokenizer.
 
 ```powershell
 python scripts\train_tokenizer.py --vocab-size 16000
 ```
 
-특정 방향 자료만으로 토크나이저를 만들고 싶으면:
+If you want to create a tokenizer with only specific direction data,:
 
 ```powershell
 python scripts\train_tokenizer.py --direction ko_kp__en --vocab-size 16000
 ```
 
-이제 자체 Transformer 번역모델을 0부터 학습합니다. 현재 컴퓨터의 12GB VRAM에서는 아래와 같은 작은 설정부터 시작하는것이 안전합니다.
+now itself Transformer Learn the translation model from 0. 12 on your current computerGB VRAMIt is safe to start with a small setting like the one below:.
 
 ```powershell
 python scripts\train_transformer_from_scratch.py --direction ko_kp__en --epochs 20 --batch-size 8 --d-model 256 --encoder-layers 4 --decoder-layers 4
 ```
 
-영어에서 조선말 방향도 따로 학습해야 합니다.
+You need to learn the directions from English to Korean separately..
 
 ```powershell
 python scripts\train_transformer_from_scratch.py --direction en__ko_kp --epochs 20 --batch-size 8 --d-model 256 --encoder-layers 4 --decoder-layers 4
 ```
 
-학습이 끝나면 다음 파일들이 생깁니다.
+When learning is complete, the following files will be created:.
 
 ```text
 models/text/from_scratch/tokenizer/tokenizer.model
@@ -461,24 +461,24 @@ models/text/from_scratch/ko_kp__en/config.json
 models/text/active_backend.json
 ```
 
-`active_backend.json`의 `backend`가 `from_scratch`이면 웹대면부의 번역기는 이 자체모델을 먼저 사용합니다. 번역메모리에 정확히 같은 문장이 있으면 번역메모리가 우선입니다.
+`active_backend.json`of `backend`go `from_scratch`The translator in the web-face-to-face section uses this model first.. If there is an exact same sentence in the translation memory, the translation memory takes priority..
 
-주의할 점:
+Things to watch out for:
 
-1. 이 경로는 미세조정이 아닙니다.
-2. 기성 번역모델 가중치를 쓰지 않습니다.
-3. 기성 토크나이저를 쓰지 않습니다.
-4. 품질은 자료량과 승인품질에 좌우됩니다.
-5. 처음 몇만 문장쌍에서는 실험품질이고, 실전품질은 보통 수십만 문장쌍부터 좋아집니다.
+1. This path is not a tweak.
+2. Does not use ready-made translation model weights.
+3. We do not use off-the-shelf tokenizers.
+4. Quality depends on data volume and approval quality..
+5. The first few thousand sentence pairs are of experimental quality., The actual quality usually improves from hundreds of thousands of sentence pairs..
 
-처음부터 학습하는 경로의 명령상태를 확인하려면 다음 명령들을 씁니다.
+To check the command status of the learning path from the beginning, use the following commands:.
 
 ```powershell
 python scripts\train_tokenizer.py --help
 python scripts\train_transformer_from_scratch.py --help
 ```
 
-학습에 필요한 작은 패키지들을 오프라인용으로 준비하려면:
+To prepare small packages needed for learning for offline use:
 
 ```powershell
 python scripts\prepare_offline_packages.py
@@ -486,17 +486,17 @@ python scripts\install_offline_packages.py
 python scripts\check_training_dependencies.py
 ```
 
-이 등록부에 오프라인 설치용 wheel 파일들이 보관됩니다.
+For offline installation on this registry wheel Files are archived.
 
 ```text
 third_party/wheels/
 ```
 
-`torch` 같은 CUDA 학습패키지는 이미 현재 Python 환경에 설치되어 있습니다. 다른 오프라인 콤퓨터로 옮기려면 그 콤퓨터의 Python/CUDA 판본에 맞는 `torch` wheel을 따로 준비해야 합니다.
+`torch` same CUDA The learning package is already Python It is installed in the environment. To move to another offline computer, Python/CUDA correct for the edition `torch` wheelmust be prepared separately.
 
-기존 `scripts\train_neural_translation_model.py`는 기성모델 미세조정용으로 남아있는 유산 스크립트입니다. 이 프로젝트의 공식경로가 아니므로 기본상태에서는 실행되지 않고 `disabled` 상태를 돌려줍니다. 미세조정이 필요없다면 이 스크립트를 쓰지 마십시오.
+existing `scripts\train_neural_translation_model.py`is a legacy script that remains for fine tuning of existing models.. Because it is not the official path of this project, it does not run in the default state. `disabled` returns the status. Don't use this script if you don't need any fine-tuning.
 
-공식 학습명령은 다음과 같습니다.
+The official learning instructions are as follows:.
 
 ```powershell
 python scripts\train_tokenizer.py --vocab-size 16000
@@ -504,49 +504,49 @@ python scripts\train_transformer_from_scratch.py --direction ko_kp__en
 python scripts\train_transformer_from_scratch.py --direction en__ko_kp
 ```
 
-이 명령들은 기성모델의 가중치나 토크나이저를 부르지 않습니다.
+These commands do not call off-the-shelf model weights or tokenizers..
 
-## 어떤 모델을 붙일것인가
+## What model to use
 
-문자번역:
+Text translation:
 
 ```text
-NLLB / Marian / OpenNMT / CTranslate2 계렬
+NLLB / Marian / OpenNMT / CTranslate2 series
 ```
 
-음성인식:
+voice recognition:
 
 ```text
 Whisper.cpp / Vosk
 ```
 
-이미지문자인식:
+Image character recognition:
 
 ```text
 PaddleOCR
 ```
 
-음성합성:
+voice synthesis:
 
 ```text
-Piper 또는 다른 오프라인 TTS
+Piper or other offline TTS
 ```
 
-중요한 점은 모델보다 자료가 먼저라는것입니다. 사용자가 조선말자료기지를 구축할수 있다면 이 프로젝트는 자료가 쌓일수록 점점 더 조선말번역기에 가까와집니다.
+The important thing is that the data comes before the model.. If users can build a Joseon language data base, this project will become closer to a Korean language translation machine as the data accumulates..
 
-## DPRK-BERT는 어디에 쓰는가
+## DPRK-BERTWhere is it used?
 
-DPRK-BERT는 번역모델이 아니라 조선말 언어모델입니다. 그러므로 직접 번역문을 생성하는 기본엔진으로 쓰지 않습니다.
+DPRK-BERTis not a translation model, but a Korean language model.. Therefore, it is not used as a basic engine to directly generate translations..
 
-대신 다음 일에 쓸수 있습니다.
+Instead, you can use it for the next task.
 
-1. 번역결과가 조선말답게 나왔는지 점수화
-2. 조선말 용어 추출
-3. 후보번역 순위매기기
-4. 조선말 문체판정
-5. 자료기지 품질검사
+1. Scoring whether the translation result came out as Korean
+2. Extracting Korean terminology
+3. Ranking of candidate translations
+4. Chosun language writing style judgment
+5. Data base quality inspection
 
-분석문서:
+analysis document:
 
 ```text
 docs/DPRK_BERT_ANALYSIS.md
@@ -554,33 +554,33 @@ docs/URL_TO_TRAINING_WORKFLOW.md
 docs/COMPLETE_PROJECT_BLUEPRINT.md
 ```
 
-## 프로젝트 검사
+## project inspection
 
-전체 프로젝트 상태와 학습준비상태를 검사하려면:
+To check overall project status and learning readiness:
 
 ```powershell
 python scripts\project_health.py
 ```
 
-번역품질 평가보고서는 여기에 만들어집니다.
+The translation quality evaluation report is created here..
 
 ```text
 data/evaluation/translation_eval_report.tsv
 ```
 
-## 개발원칙
+## Development principles
 
-1. 조선말자료기지를 기본으로 한다.
-2. 사람이 검토한 번역쌍을 가장 믿는다.
-3. 모든 자료수입과 변환은 `scripts/` 안의 파이썬 스크립트로 반복가능하게 만든다.
-4. 큰 모델파일은 `models/`에 넣되 git에는 올리지 않는다.
-5. 오프라인 동작을 기본으로 한다.
-6. 문자번역을 먼저 안정화하고, 그 다음 음성인식과 이미지인식을 붙인다.
+1. Based on the Joseon Dynasty data base.
+2. Human-reviewed translation pairs are most trusted.
+3. All data import and conversion `scripts/` Make it repeatable with the Python script inside.
+4. Large model files `models/`Put it in gitDo not upload to.
+5. Offline operation is the default.
+6. Stabilize the text translation first, Then add voice recognition and image recognition..
 
-## 다음 단계
+## next steps
 
-1. 실제 조선말 원문자료를 `data/corpus/raw/`에 넣습니다.
-2. 직접 만든 번역쌍을 `data/corpus/parallel/inbox/`에 넣습니다.
-3. `python scripts\bootstrap_data_pipeline.py`를 실행합니다.
-4. 웹대면부에서 번역결과를 확인합니다.
-5. 자료가 충분히 쌓이면 첫 오프라인 번역모델을 학습하거나 미세조정합니다.
+1. Actual Joseon language original text `data/corpus/raw/`Put it in.
+2. A pair of translations you created yourself `data/corpus/parallel/inbox/`Put it in.
+3. `python scripts\bootstrap_data_pipeline.py`Run.
+4. Check the translation results in the web interface..
+5. Once enough data is accumulated, the first offline translation model is trained or fine-tuned..

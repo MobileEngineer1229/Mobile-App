@@ -1,158 +1,158 @@
-# AI-assistant-workout
+﻿# AI-assistant-workout
 
-`AI-assistant-workout`는 사용자의 프로필을 입력받아 개인 맞춤 운동 루틴을 만들어 주는 Python 백엔드 + 간단한 웹 대면부 프로젝트입니다.
+`AI-assistant-workout`takes the user's profile and creates a personalized exercise routine. Python backend + This is a simple web face-to-face project..
 
-이 프로젝트는 현재 `datas/` 폴더에 있는 여러 운동/건강 데이터셋을 활용합니다. 앞으로 손전화앱에서 사용자가 남기는 피드백도 저장하여 추천 품질을 계속 개선할 수 있게 설계했습니다.
+This project is currently `datas/` Several exercises in a folder/Utilizing health datasets. In the future, we have designed the mobile phone app to store feedback left by users so that we can continue to improve the quality of recommendations..
 
-## 1. 서비스 목표
+## 1. Service Goals
 
-사용자가 가입할 때 이런 정보를 입력합니다.
+Users enter this information when signing up..
 
-- 나이
-- 성별
-- 키
-- 몸무게
-- 체지방률
-- 운동 수준
-- 운동 목표
-- 주당 운동 가능 일수
-- 하루 운동 가능 시간
-- 장비
-- 부상/제한 사항
-- 수면 시간
-- 회복 점수
+- age
+- gender
+- key
+- weight
+- body fat percentage
+- exercise level
+- exercise goals
+- Number of days you can exercise per week
+- Time available for exercise per day
+- equipment
+- injury/Restrictions
+- sleep time
+- recovery score
 
-서버는 이 정보를 바탕으로 다음을 만듭니다.
+Based on this information, the server creates the following:.
 
-- BMI와 체형 분류
-- 데이터셋에서 비슷한 사람들의 추천 코드 검색
-- 목표와 운동 수준에 맞는 활동 선택
-- 주간 운동 루틴
-- 세션별 준비운동, 본운동, 정리운동
-- 예상 칼로리
-- 안전 주의사항
-- 추천에 쓰인 데이터 근거
+- BMIand body type classification
+- Search for recommendation codes from similar people in your dataset
+- Choose activities that fit your goals and exercise level
+- weekly exercise routine
+- Warm-up for each session, main movement, clean-up exercise
+- estimated calories
+- Safety precautions
+- Data basis for recommendations
 
-## 2. 데이터셋을 어떻게 쓰는가
+## 2. How to use datasets
 
-현재 `datas/` 폴더에는 여러 CSV 데이터셋이 있습니다.
+present `datas/` There are several folders CSV I have a dataset.
 
 ### `final_dataset.csv`
 
-프로필과 운동 추천 코드가 들어 있습니다.
+Contains profile and exercise recommendation code.
 
-사용처:
+Where to use:
 
-- 키, 몸무게, BMI, 나이, 성별 기준으로 비슷한 사용자 찾기
-- 해당 사용자들에게 주어진 운동 추천 코드를 참고하기
+- key, weight, BMI, age, Find similar users by gender
+- Refer to the exercise recommendation code given to these users.
 
 ### `final_dataset_BFP .csv`
 
-체지방률까지 포함된 추천 데이터셋입니다.
+This is a recommended dataset that includes body fat percentage..
 
-사용처:
+Where to use:
 
-- 체지방률이 입력된 사용자의 추천 정확도 향상
-- BMI만으로 부족한 체형 판단 보완
+- Improved recommendation accuracy for users with body fat percentage input
+- BMICompensate for insufficient body type judgment
 
 ### `daily_gym_attendance_workout_data.csv`
 
-헬스장 출석, 운동 종류, 운동 시간, 칼로리 데이터입니다.
+gym attendance, exercise type, exercise time, Calorie data.
 
-사용처:
+Where to use:
 
-- 운동 종류별 평균 운동 시간 확인
-- 운동 종류별 평균 칼로리 확인
-- 현실적인 세션 길이 설정
+- Check average exercise time by exercise type
+- Check average calories by exercise type
+- Set realistic session lengths
 
-### Fitbit export 데이터
+### Fitbit export data
 
-걸음 수, 활동 시간, 수면 기록 같은 활동량 데이터입니다.
+steps, activity time, Activity data such as sleep records.
 
-사용처:
+Where to use:
 
-- 일반 사용자의 활동량 기준 이해
-- 앞으로 손전화앱 활동 추적 기능과 연결 가능
+- Understand the activity level standards of general users
+- Can be connected to mobile phone app activity tracking function in the future
 
 ### `whoop_fitness_dataset_100k.csv`
 
-수면, 회복 점수, 운동 강도, 운동 종류, 칼로리, 심박 관련 데이터가 들어 있습니다.
+sleep, recovery score, exercise intensity, exercise type, calories, Contains heart rate related data.
 
-사용처:
+Where to use:
 
-- 운동 수준별 활동 추천
-- 회복 점수와 수면 시간에 따른 운동 강도 조절
-- 운동 종류별 평균 duration, calories, strain 계산
+- Activity recommendations for each exercise level
+- Adjust exercise intensity according to recovery score and sleep time
+- Average by exercise type duration, calories, strain calculation
 
-## 3. 폴더 구조
+## 3. folder structure
 
 ```text
 AI-assistant-workout/
   app/
     main.py
-      HTTP API 서버입니다.
+      HTTP API This is the server.
 
     services/
       recommender.py
-        운동 추천 핵심 로직입니다.
+        This is the core logic of exercise recommendation..
 
   datas/
-    원본 CSV 데이터셋입니다.
+    original CSV This is a dataset.
 
   frontend/
     index.html
     styles.css
     app.js
-      사용자가 프로필을 입력하는 간단한 웹 화면입니다.
+      This is a simple web screen where the user enters their profile..
 
   scripts/
     ingest_datasets.py
-      원본 CSV 데이터셋을 읽고 SQLite DB를 만듭니다.
+      original CSV read the dataset SQLite DBcreates.
 
     train_plan_model.py
-      scikit-learn 머신러닝 모델을 학습합니다.
+      scikit-learn Train a machine learning model.
 
     run_server.py
-      서버를 실행합니다.
+      Run the server.
 
   storage/
     workout.db
-      생성된 서비스 데이터베이스입니다.
+      This is the created service database..
 ```
 
-## 4. 처음 실행하기
+## 4. Run it for the first time
 
-PowerShell에서 프로젝트 폴더로 이동합니다.
+PowerShellGo to your project folder in.
 
 ```powershell
 cd E:\Github\Mobile\Mobile-App\AI-assistant-workout
 ```
 
-현재는 외부 Python 패키지가 필요 없습니다. 그래도 나중 배포를 위해 아래 명령은 실행해도 됩니다.
+Currently outside Python No package needed. Still, you can run the command below for later deployment..
 
 ```powershell
 python -m pip install -r requirements.txt
 ```
 
-데이터셋을 서비스 DB로 변환합니다.
+Service the dataset DBConvert to.
 
 ```powershell
 python scripts\ingest_datasets.py
 ```
 
-운동 추천 코드 예측 머신러닝 모델을 학습합니다.
+Train exercise recommendation code prediction machine learning model.
 
 ```powershell
 python scripts\train_plan_model.py
 ```
 
-서버를 실행합니다.
+Run the server.
 
 ```powershell
 python scripts\run_server.py
 ```
 
-브라우저에서 엽니다.
+Open in browser.
 
 ```text
 http://127.0.0.1:8020
@@ -160,13 +160,13 @@ http://127.0.0.1:8020
 
 ## 5. API
 
-### 상태 확인
+### Check status
 
 ```text
 GET /api/health
 ```
 
-응답 예:
+Example response:
 
 ```json
 {
@@ -179,13 +179,13 @@ GET /api/health
 }
 ```
 
-### 운동 루틴 생성
+### Create an exercise routine
 
 ```text
 POST /api/routine
 ```
 
-요청 예:
+Request example:
 
 ```json
 {
@@ -205,13 +205,13 @@ POST /api/routine
 }
 ```
 
-### 피드백 저장
+### Save Feedback
 
 ```text
 POST /api/feedback
 ```
 
-요청 예:
+Request example:
 
 ```json
 {
@@ -223,64 +223,64 @@ POST /api/feedback
 }
 ```
 
-## 6. 앞으로 피드백을 어떻게 활용할 것인가
+## 6. How will you use feedback in the future?
 
-현재 피드백은 `feedback` 테이블에 저장됩니다.
+Current feedback is `feedback` stored in table.
 
-저장되는 정보:
+Information stored:
 
-- 어떤 plan에 대한 피드백인지
-- 사용자가 준 평점
-- 난이도 느낌
-- 완료 여부
-- 사용자 메모
-- 당시 프로필
-- 당시 루틴 JSON
+- which planIs it feedback on
+- Ratings given by users
+- Difficulty feeling
+- Completed or not
+- user notes
+- Profile at the time
+- routine at the time JSON
 
-다음 단계에서는 이 피드백을 이용해 다음을 할 수 있습니다.
+In the next steps, you can use this feedback to:.
 
-- 특정 사용자군에서 너무 어렵다고 평가된 운동 강도 낮추기
-- 완료율이 높은 운동 종류를 더 많이 추천하기
-- 평점이 낮은 루틴 패턴 줄이기
-- 앱 사용자 데이터를 기반으로 개인화 모델 학습하기
+- Reduce the intensity of exercises that are rated as too difficult for certain user groups
+- Recommend more workout types with high completion rates
+- Reduce low-rated routine patterns
+- Train a personalization model based on app user data
 
-## 7. 추천 로직 요약
+## 7. Recommendation logic summary
 
 ```text
-1. 사용자 프로필을 받습니다.
-2. BMI와 체지방 분류를 계산합니다.
-3. scikit-learn ML 모델이 추천 plan code를 예측합니다.
-4. 데이터셋에서 비슷한 사용자 사례를 찾습니다.
-5. ML 예측과 유사사례 투표를 섞어 최종 plan code를 선택합니다.
-6. 목표와 운동 수준에 맞는 운동 종류를 고릅니다.
-7. 저장된 사용자 피드백으로 운동 순위와 시간을 조절합니다.
-8. WHOOP/gym 데이터 평균으로 운동 시간과 칼로리를 조정합니다.
-9. 수면, 회복 점수, 부상, 나이에 따라 강도를 낮추거나 조절합니다.
-10. 주간 운동 루틴을 만듭니다.
-11. 결과와 근거를 DB에 저장합니다.
-12. 사용자가 남긴 피드백을 저장합니다.
+1. Get user profile.
+2. BMICalculate body fat classification with.
+3. scikit-learn ML model is recommended plan codepredicts.
+4. Find similar user stories in your dataset.
+5. ML The final result is a mixture of predictions and similar case votes. plan codeSelect.
+6. Choose the type of exercise that suits your goals and exercise level.
+7. Adjust exercise ranking and time with saved user feedback.
+8. WHOOP/gym Adjust exercise time and calories by averaging data.
+9. sleep, recovery score, injury, Reduce or adjust intensity based on age.
+10. Create a weekly exercise routine.
+11. results and evidence DBSave it to.
+12. Saves feedback left by users.
 ```
 
-## 8. 주의
+## 8. caution
 
-이 서비스는 운동 루틴 추천 서비스이지 의학 진단 서비스가 아닙니다.
+This service is an exercise routine recommendation service, not a medical diagnosis service..
 
-다음 경우에는 반드시 전문가 상담이 필요합니다.
+Professional consultation is required in the following cases:.
 
-- 심장 질환
-- 심한 관절 통증
-- 임신
-- 수술 후 회복 중
-- 어지러움 또는 흉통
-- 의사가 운동 제한을 준 경우
+- heart disease
+- severe joint pain
+- pregnancy
+- recovering after surgery
+- Dizziness or chest pain
+- If your doctor gives you exercise restrictions
 
-## 9. 현재 완성된 것
+## 9. currently completed
 
-- 데이터셋 ingest 스크립트
-- scikit-learn plan prediction 머신러닝 모델
-- SQLite 데이터베이스
-- 개인 프로필 기반 운동 추천 엔진
-- Python HTTP API 서버
-- 간단한 웹 대면부
-- 사용자 피드백 저장 및 추천 반영 구조
-- 앞으로 모바일앱과 연결 가능한 JSON API
+- dataset ingest script
+- scikit-learn plan prediction machine learning model
+- SQLite database
+- Personal profile-based exercise recommendation engine
+- Python HTTP API server
+- Simple web interface
+- Structure for storing user feedback and reflecting recommendations
+- Possible to connect with mobile app in the future JSON API

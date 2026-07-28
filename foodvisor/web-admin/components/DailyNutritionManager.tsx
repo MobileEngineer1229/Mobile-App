@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { Activity, BadgeCheck, Calculator, ClipboardCheck, Ruler, Search, Target, Utensils } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
@@ -79,25 +79,25 @@ type DailyTargetWarning = {
 };
 
 const nutrientLabels: Record<string, string> = {
-  calories: "에네르기",
-  energyKcal: "에네르기",
-  protein: "단백질",
-  carbs: "탄수화물",
-  carbohydrateG: "탄수화물",
-  fat: "지방",
-  saturatedFat: "포화지방",
-  fiber: "식이섬유",
-  dietaryFiberG: "식이섬유",
-  sugar: "당",
-  sodium: "나트리움",
-  calcium: "칼시움",
-  iron: "철분",
-  potassium: "칼리움",
-  magnesium: "마그네시움",
-  zinc: "아연",
-  folate: "엽산",
-  vitaminC: "비타민 C",
-  vitaminD: "비타민 D"
+  calories: "energy",
+  energyKcal: "energy",
+  protein: "protein",
+  carbs: "carbohydrates",
+  carbohydrateG: "carbohydrates",
+  fat: "fat",
+  saturatedFat: "saturated fat",
+  fiber: "dietary fiber",
+  dietaryFiberG: "dietary fiber",
+  sugar: "party",
+  sodium: "Sodium",
+  calcium: "Calcium",
+  iron: "iron",
+  potassium: "Calium",
+  magnesium: "Magnesium",
+  zinc: "zinc",
+  folate: "folic acid",
+  vitaminC: "vitamins C",
+  vitaminD: "vitamins D"
 };
 
 const highlightKeys = ["calories", "protein", "carbs", "fat", "fiber", "sodium", "calcium", "iron"];
@@ -120,11 +120,11 @@ function refUnit(target: NutrientTarget, type: keyof NonNullable<NutrientTarget[
 }
 
 function goalLabel(type?: string) {
-  if (type === "RNI") return "권장섭취량";
-  if (type === "AI") return "충분섭취량";
-  if (type === "EER") return "에네르기 필요량";
-  if (type === "EAR") return "평균필요량";
-  return "기준값";
+  if (type === "RNI") return "Recommended intake amount";
+  if (type === "AI") return "Sufficient intake amount";
+  if (type === "EER") return "energy needs";
+  if (type === "EAR") return "Average Requirement";
+  return "reference value";
 }
 
 function amdrText(target: NutrientTarget) {
@@ -154,7 +154,7 @@ function populationForStage(stage: string) {
 }
 
 function ageLabel(profile: DailyProfile) {
-  return `${profile.ageMin}-${profile.ageMax}세`;
+  return `${profile.ageMin}-${profile.ageMax}three`;
 }
 
 export default function DailyNutritionManager() {
@@ -185,7 +185,7 @@ export default function DailyNutritionManager() {
       setProfiles(profileData.items);
       setConstraints(constraintData.items);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "하루 영양자료를 불러오지 못했습니다.");
+      setError(err instanceof Error ? err.message : "Daily nutrition data could not be loaded..");
     } finally {
       setLoading(false);
     }
@@ -209,7 +209,7 @@ export default function DailyNutritionManager() {
         setPal(data.profile.physicalActivityLevel ?? "moderate");
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : "하루 필요량 계산에 실패했습니다.");
+      setError(err instanceof Error ? err.message : "Failed to calculate daily requirement.");
     } finally {
       setTargetLoading(false);
     }
@@ -245,9 +245,9 @@ export default function DailyNutritionManager() {
   const expectedPopulation = populationFromAge(age);
   const stagePopulation = populationForStage(lifeStage);
   const profileWarnings = [
-    populationGroup !== expectedPopulation ? `나이 ${age}세에는 보통 '${expectedPopulation}' 대상이 맞습니다.` : "",
-    gender === "male" && (lifeStage === "pregnant" || lifeStage === "lactating") ? "남성에는 임신/수유 단계를 적용할 수 없습니다." : "",
-    (lifeStage === "pregnant" || lifeStage === "lactating") && populationGroup !== lifeStage ? "임신/수유 단계는 대상도 같은 값으로 맞추는 것이 좋습니다." : ""
+    populationGroup !== expectedPopulation ? `age ${age}Usually at age '${expectedPopulation}' Target is correct.` : "",
+    gender === "male" && (lifeStage === "pregnant" || lifeStage === "lactating") ? "pregnant in men/Feeding stages cannot be applied." : "",
+    (lifeStage === "pregnant" || lifeStage === "lactating") && populationGroup !== lifeStage ? "pregnancy/It is recommended that the feeding stage be set to the same value.." : ""
   ].filter(Boolean);
   const canonicalProfileWarnings = [
     ...profileWarnings,
@@ -264,22 +264,22 @@ export default function DailyNutritionManager() {
   return (
     <section className="page daily-nutrition-page">
       <PageHeader
-        title="하루 필요 영양량"
-        subtitle="Daily Values, Nutrient Intake Rules, Nutrition Constraints를 한곳에서 보고 실제 하루 목표량을 확인합니다."
-        action={<button type="button" onClick={() => { loadBasics(); loadTargets(); }}>새로고침</button>}
+        title="Nutrients needed per day"
+        subtitle="Daily Values, Nutrient Intake Rules, Nutrition ConstraintsView in one place and check your actual daily goal.."
+        action={<button type="button" onClick={() => { loadBasics(); loadTargets(); }}>refresh</button>}
       />
 
       <section className="daily-nutrition-summary">
-        <div><Target size={18} /><strong>{profiles.length}</strong><span>Daily Value 프로필</span></div>
-        <div><ClipboardCheck size={18} /><strong>{targets.length}</strong><span>계산된 필요량</span></div>
-        <div><Ruler size={18} /><strong>{constraints.length}</strong><span>최적화 제한값</span></div>
-        <div><BadgeCheck size={18} /><strong>{verifiedProfiles + verifiedConstraints}</strong><span>검증된 항목</span></div>
+        <div><Target size={18} /><strong>{profiles.length}</strong><span>Daily Value profile</span></div>
+        <div><ClipboardCheck size={18} /><strong>{targets.length}</strong><span>Calculated Requirements</span></div>
+        <div><Ruler size={18} /><strong>{constraints.length}</strong><span>Optimization limits</span></div>
+        <div><BadgeCheck size={18} /><strong>{verifiedProfiles + verifiedConstraints}</strong><span>Verified Item</span></div>
       </section>
 
-      <section className="daily-tabbar" aria-label="하루 영양자료">
-        <button type="button" className={tab === "needed" ? "active" : ""} onClick={() => setTab("needed")}><Calculator size={16} /> 하루 필요량</button>
-        <button type="button" className={tab === "rules" ? "active" : ""} onClick={() => setTab("rules")}><ClipboardCheck size={16} /> 섭취기준표</button>
-        <button type="button" className={tab === "constraints" ? "active" : ""} onClick={() => setTab("constraints")}><Ruler size={16} /> 식단 제한값</button>
+      <section className="daily-tabbar" aria-label="Daily nutritional data">
+        <button type="button" className={tab === "needed" ? "active" : ""} onClick={() => setTab("needed")}><Calculator size={16} /> daily requirement</button>
+        <button type="button" className={tab === "rules" ? "active" : ""} onClick={() => setTab("rules")}><ClipboardCheck size={16} /> Intake standard table</button>
+        <button type="button" className={tab === "constraints" ? "active" : ""} onClick={() => setTab("constraints")}><Ruler size={16} /> Dietary Limits</button>
       </section>
 
       {error ? <p className="error">{error}</p> : null}
@@ -288,31 +288,31 @@ export default function DailyNutritionManager() {
         <section className="daily-needed-layout">
           <div className="daily-calculator-panel">
             <header>
-              <p>프로필 입력</p>
-              <h2>사용자에게 필요한 하루 목표량</h2>
+              <p>Enter your profile</p>
+              <h2>Daily target amount required by the user</h2>
             </header>
             <div className="daily-input-grid">
-              <label>나이<input type="number" min={0} max={120} value={age} onChange={(event) => setAge(Number(event.target.value))} /></label>
-              <label>성별
+              <label>age<input type="number" min={0} max={120} value={age} onChange={(event) => setAge(Number(event.target.value))} /></label>
+              <label>gender
                 <select value={gender} onChange={(event) => setGender(event.target.value)}>
-                  <option value="all">전체</option><option value="male">남성</option><option value="female">녀성</option>
+                  <option value="all">all</option><option value="male">male</option><option value="female">woman</option>
                 </select>
               </label>
-              <label>대상
+              <label>target
                 <select value={populationGroup} onChange={(event) => setPopulationGroup(event.target.value)}>
-                  <option value="general">일반</option><option value="infant">젖먹이</option><option value="child">어린이</option>
-                  <option value="adolescent">청소년</option><option value="adult">성인</option><option value="senior">로인</option>
-                  <option value="pregnant">임신부</option><option value="lactating">수유</option>
+                  <option value="general">general</option><option value="infant">breastfeeding</option><option value="child">children</option>
+                  <option value="adolescent">youth</option><option value="adult">adult</option><option value="senior">Loin</option>
+                  <option value="pregnant">pregnant woman</option><option value="lactating">lactation</option>
                 </select>
               </label>
-              <label>단계
+              <label>step
                 <select value={lifeStage} onChange={(event) => setLifeStage(event.target.value)}>
-                  <option value="general">일반</option><option value="pregnancy">임신 전체</option><option value="pregnancy_early">임신 초기</option><option value="pregnancy_mid">임신 중기</option><option value="pregnancy_late">임신 말기</option><option value="lactation">수유</option>
+                  <option value="general">general</option><option value="pregnancy">full pregnancy</option><option value="pregnancy_early">early pregnancy</option><option value="pregnancy_mid">second trimester</option><option value="pregnancy_late">late pregnancy</option><option value="lactation">lactation</option>
                 </select>
               </label>
-              <label>활동수준
+              <label>activity level
                 <select value={pal} onChange={(event) => setPal(event.target.value)}>
-                  <option value="rest">안정</option><option value="light">가벼움</option><option value="moderate">보통</option><option value="heavy">높음</option>
+                  <option value="rest">stable</option><option value="light">lightness</option><option value="moderate">Normal</option><option value="heavy">high</option>
                 </select>
               </label>
             </div>
@@ -320,26 +320,26 @@ export default function DailyNutritionManager() {
               <div className="daily-profile-warnings">
                 {canonicalProfileWarnings.map((message) => <p key={message}>{message}</p>)}
                 {targetWarnings.map((warning) => <p key={warning.code}>{warning.message}</p>)}
-                <button type="button" onClick={normalizeProfileInputs}>입력값 자동정리</button>
+                <button type="button" onClick={normalizeProfileInputs}>Automatic cleaning of input values</button>
               </div>
             ) : null}
-            <button className="primary" type="button" onClick={loadTargets} disabled={targetLoading}>{targetLoading ? "계산 중..." : "필요량 계산"}</button>
+            <button className="primary" type="button" onClick={loadTargets} disabled={targetLoading}>{targetLoading ? "Calculating..." : "Calculate your needs"}</button>
           </div>
 
           <div className="daily-target-panel">
             <header>
               <div>
-                <p>계산 결과</p>
-                <h2>오늘 기준 목표량</h2>
+                <p>calculation result</p>
+                <h2>Target amount as of today</h2>
               </div>
-              <span>{targetLoading ? "계산 중" : `${targets.length}개`}</span>
+              <span>{targetLoading ? "Calculating" : `${targets.length}dog`}</span>
             </header>
             <div className="daily-target-grid">
               {topTargets.map((target) => (
                 <article key={target.nutrientKey}>
                   <span>{nutrientLabels[target.nutrientKey] ?? target.nutrientLabel}</span>
                   <strong>{formatValue(targetGoal(target), targetUnit(target.unit))}</strong>
-                  <small>{goalLabel(target.goalType)}{target.UL ? ` · 상한 ${formatValue(target.UL, refUnit(target, "UL"))}` : ""}</small>
+                  <small>{goalLabel(target.goalType)}{target.UL ? ` · upper limit ${formatValue(target.UL, refUnit(target, "UL"))}` : ""}</small>
                   <div className="daily-target-detail">
                     {target.EAR != null ? <em>EAR {formatValue(target.EAR, refUnit(target, "EAR"))}</em> : null}
                     {target.RNI != null ? <em>RNI {formatValue(target.RNI, refUnit(target, "RNI"))}</em> : null}
@@ -347,7 +347,7 @@ export default function DailyNutritionManager() {
                     {target.EER != null ? <em>EER {formatValue(target.EER, refUnit(target, "EER"))}</em> : null}
                     {target.AMDR ? <em>AMDR {amdrText(target)}</em> : null}
                   </div>
-                  <small>산출: RNI → AI → EER → EAR</small>
+                  <small>output: RNI → AI → EER → EAR</small>
                 </article>
               ))}
             </div>
@@ -357,11 +357,11 @@ export default function DailyNutritionManager() {
             <header>
               <div>
                 <p>Daily Values</p>
-                <h2>앱에서 쓰는 하루 기준 프로필</h2>
+                <h2>Daily profile used in the app</h2>
               </div>
               <label className="search-field">
                 <Search size={16} />
-                <input value={profileQuery} onChange={(event) => setProfileQuery(event.target.value)} placeholder="프로필 검색" />
+                <input value={profileQuery} onChange={(event) => setProfileQuery(event.target.value)} placeholder="Profile Search" />
               </label>
             </header>
             <div className="daily-profile-grid">
@@ -385,7 +385,7 @@ export default function DailyNutritionManager() {
                   {profile.notes ? <p className="daily-profile-note">{profile.notes}</p> : null}
                 </article>
               ))}
-              {!loading && !filteredProfiles.length ? <p className="empty-row">프로필이 없습니다.</p> : null}
+              {!loading && !filteredProfiles.length ? <p className="empty-row">There is no profile.</p> : null}
             </div>
           </div>
         </section>
@@ -398,11 +398,11 @@ export default function DailyNutritionManager() {
           <header>
             <div>
               <p>Nutrition Constraints</p>
-              <h2>식단 최적화에 쓰는 하한/상한값</h2>
+              <h2>Lower limit used for diet optimization/upper limit</h2>
             </div>
             <label className="search-field">
               <Search size={16} />
-              <input value={constraintQuery} onChange={(event) => setConstraintQuery(event.target.value)} placeholder="프로필, 영양소 검색" />
+              <input value={constraintQuery} onChange={(event) => setConstraintQuery(event.target.value)} placeholder="profile, Nutrient Search" />
             </label>
           </header>
           <div className="daily-constraint-list">
@@ -416,13 +416,13 @@ export default function DailyNutritionManager() {
                   </div>
                 </div>
                 <div className="daily-bound-row">
-                  <span>하한 <b>{formatValue(item.lowerBound, item.unit)}</b></span>
-                  <span>상한 <b>{item.upperBound ? formatValue(item.upperBound, item.unit) : "없음"}</b></span>
-                  {item.isPercentOfCalories ? <span><Activity size={14} /> 열량비률</span> : null}
+                  <span>lower limit <b>{formatValue(item.lowerBound, item.unit)}</b></span>
+                  <span>upper limit <b>{item.upperBound ? formatValue(item.upperBound, item.unit) : "None"}</b></span>
+                  {item.isPercentOfCalories ? <span><Activity size={14} /> Calorie ratio</span> : null}
                 </div>
               </article>
             ))}
-            {!loading && !filteredConstraints.length ? <p className="empty-row">조건에 맞는 제한값이 없습니다.</p> : null}
+            {!loading && !filteredConstraints.length ? <p className="empty-row">There are no limits that meet the conditions.</p> : null}
           </div>
         </section>
       ) : null}

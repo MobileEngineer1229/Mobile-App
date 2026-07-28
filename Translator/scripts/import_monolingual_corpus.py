@@ -1,4 +1,4 @@
-"""Import raw DPRK Korean text files into a normalized sentence table.
+﻿"""Import raw DPRK Korean text files into a normalized sentence table.
 
 How to use:
 
@@ -116,7 +116,7 @@ def _normalize_text(text: str) -> str:
 
 
 def _split_sentences(text: str) -> list[str]:
-    parts = re.split(r"(?<=[.!?。！？\n])\s+|(?<=[다까요죠오네음함])\.\s*", text)
+    parts = re.split(r"(?<=[.!?。！？\n])\s+|(?<=[That's it, it's okay])\.\s*", text)
     return [part.strip() for part in parts if part.strip()]
 
 

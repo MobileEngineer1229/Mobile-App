@@ -1,4 +1,4 @@
-"""Text processing helpers for the local RAG pipeline.
+﻿"""Text processing helpers for the local RAG pipeline.
 
 This module intentionally avoids heavyweight dependencies. It provides:
 - plain text extraction helpers for simple document formats,
@@ -22,7 +22,7 @@ from typing import Iterable
 
 VECTOR_DIM = 512
 SUPPORTED_SUFFIXES = {".txt", ".md", ".json", ".jsonl"}
-TOKEN_RE = re.compile(r"[\w가-힣]+", re.UNICODE)
+TOKEN_RE = re.compile(r"[\wgo-Hehe]+", re.UNICODE)
 SENTENCE_RE = re.compile(r"(?<=[.!?。！？])\s+|\n{2,}")
 
 
@@ -38,13 +38,13 @@ def tokenize(text: str) -> list[str]:
 
     Korean particles and endings often attach directly to nouns/verbs, so exact
     word matching is brittle. Character bigrams/trigrams make queries such as
-    "문서는" still match document text containing "문서가".
+    "The document is" still match document text containing "document".
     """
     out: list[str] = []
     for match in TOKEN_RE.finditer(text):
         token = match.group(0).lower()
         out.append(token)
-        if any("가" <= char <= "힣" for char in token):
+        if any("go" <= char <= "Hehe" for char in token):
             for size in (2, 3):
                 for start in range(0, max(0, len(token) - size + 1)):
                     out.append(token[start : start + size])

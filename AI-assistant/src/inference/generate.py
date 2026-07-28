@@ -1,21 +1,21 @@
-"""표본추출 기반 글 생성 모듈.
+﻿"""Sampling-based article generation module.
 
-【초보자 안내】
-  이 파일은 훈련된 GPT 모형으로 글을 한 글자씩 생성하는 함수들을 담고 있다.
+【Beginner's Guide】
+  This file is trained GPT It contains functions that generate text one character at a time using the model..
 
-  생성 과정 요약:
-    1. 프롬프트 글자렬을 어표 ID 목록으로 변환
-    2. 모형에 넣어 다음 글자 확률 계산 (16,384개)
-    3. 확률에서 반복 벌점, Top-K, Top-P, 온도 순으로 조정
-    4. 최종 확률로 다음 글자 하나를 무작위 선택
-    5. 선택된 글자를 입력에 추가하고 2번으로 돌아감
-    6. EOS가 나오거나 max_new_tokens에 도달하면 종료
+  Creation process summary:
+    1. Enter the prompt string as a word mark. ID convert to list
+    2. Calculate the probability of the next letter by putting it in the model (16,384dog)
+    3. Repetition Penalty in Probability, Top-K, Top-P, Adjust by temperature
+    4. Randomly select the next letter with final probability
+    5. Add selected letters to input and return to step 2
+    6. EOScomes out max_new_tokensEnd when reached
 
-  생성 품질 조절 도구:
-    온도 (temperature):    낮으면 더 확실한 글자, 높으면 더 다양한 글자
-    Top-K:                 확률 상위 K개 후보만 허용
-    Top-P (핵 표본추출):   누적 확률 P 이하의 후보만 허용
-    반복 벌점:             이미 나온 글자의 확률을 낮춰 반복 방지
+  Creation Quality Control Tool:
+    temperature (temperature):    The lower the letter, the more certain it is., The higher it is, the more diverse the letters are.
+    Top-K:                 top probability KOnly dog candidates allowed
+    Top-P (nuclear sampling):   cumulative probability P Only the following candidates are accepted
+    repetition penalty:             Prevent repetition by lowering the probability of letters that have already appeared
 """
 
 from __future__ import annotations
@@ -29,87 +29,87 @@ from src.tokenizer.tokenizer import BOS_ID, EOS_ID, Tokenizer
 
 
 def _apply_repetition_penalty(logits: torch.Tensor, generated_ids: torch.Tensor, penalty: float) -> torch.Tensor:
-    """이미 생성한 글자의 확률을 낮추어 반복을 억제한다 (CTRL 방식).
+    """Suppresses repetition by lowering the probability of letters that have already been created (CTRL way).
 
-    【초보자 안내】
-      이 벌점이 없으면 모형이 같은 말을 무한 반복한다.
-      예: "김치 김치 김치 김치 김치..."
+    【Beginner's Guide】
+      Without this penalty, the model repeats the same words infinitely..
+      yes: "kimchi kimchi kimchi kimchi kimchi..."
 
-      CTRL 방식:
-        - 이미 생성된 글자 중 logit(점수)이 양수이면 → penalty로 나눔 (낮아짐)
-        - logit이 음수이면 → penalty를 곱함 (더 낮아짐, 즉 확률 감소)
-        - penalty=1.0: 벌점 없음 (기본 동작)
-        - penalty=1.15 (기본값): 약 13% 확률 감소
+      CTRL way:
+        - Among the letters already created logit(score)If this is a positive number → penaltyShare by (lowered)
+        - logitIf this is negative → penaltyMultiply by (lower, i.e. the probability decreases)
+        - penalty=1.0: No penalty points (default behavior)
+        - penalty=1.15 (default): about 13% reduced probability
 
-    인수:
-        logits:        현재 단계의 점수 벡토르 (어휘 크기)
-        generated_ids: 지금까지 생성된 어표 ID 목록
-        penalty:       반복 벌점 계수 (1.0 = 없음, >1.0 = 반복 억제)
+    argument:
+        logits:        Current stage score vector (vocabulary size)
+        generated_ids: Tags created so far ID list
+        penalty:       Repeat Penalty Factor (1.0 = None, >1.0 = repetition suppression)
 
-    반환값:
-        벌점이 적용된 logits
+    return value:
+        penalty points applied logits
     """
     if penalty == 1.0 or generated_ids.numel() == 0:
-        return logits  # 벌점 없음 또는 아직 생성된 어표 없음 → 그대로 반환
+        return logits  # No penalties or no tickets created yet → return as is
 
-    # 이미 생성된 어표들의 logit 값만 추출
+    # of already created tags logit Extract only values
     score = logits.gather(-1, generated_ids)
-    # 양수는 나누고, 음수는 곱해서 항상 확률이 내려가도록
+    # Divide positive numbers, Negative numbers are multiplied so that the probability always goes down.
     score = torch.where(score < 0, score * penalty, score / penalty)
-    # 조정된 값을 원래 위치에 다시 넣기
+    # Put adjusted values back in their original positions
     logits.scatter_(-1, generated_ids, score)
     return logits
 
 
 def _top_k_top_p(logits: torch.Tensor, top_k: int, top_p: float) -> torch.Tensor:
-    """Top-K 와 Top-P (핵 표본추출) 필터를 적용한다.
+    """Top-K Wow Top-P (nuclear sampling) Apply a filter.
 
-    【초보자 안내】
-      이 함수가 없으면 아주 낮은 확률의 엉뚱한 글자도 뽑힐 수 있다.
+    【Beginner's Guide】
+      Without this function, even random letters with a very low probability may be selected..
 
-      Top-K 필터:
-        상위 K개 후보만 남기고 나머지를 -∞로 만든다.
-        예: top_k=50 → 50개 후보 중에서만 선택
+      Top-K filter:
+        top KAll but one candidate is left -∞made with.
+        yes: top_k=50 → 50Choose only from among candidates
 
-      Top-P (핵 표본추출) 필터:
-        확률의 누적 합이 p가 될 때까지의 후보만 남긴다.
-        예: top_p=0.95 → 합계 95%가 되는 상위 몇 개만 선택
-        상황에 따라 후보 수가 달라지는 동적 필터
+      Top-P (nuclear sampling) filter:
+        The cumulative sum of probabilities is pOnly candidates left until ..
+        yes: top_p=0.95 → Total 95%Select only the top few that are
+        Dynamic filter with different number of candidates depending on the situation
 
-      두 필터를 순서대로 적용한다 (Top-K 먼저).
+      Apply both filters in order (Top-K first).
 
-    인수:
-        logits: 현재 단계의 점수 벡토르
-        top_k:  상위 K개 후보 수 (0이면 필터 없음)
-        top_p:  누적 확률 임계값 (1.0이면 필터 없음)
+    argument:
+        logits: Current stage score vector
+        top_k:  top Knumber of candidates (0No backside filter)
+        top_p:  Cumulative Probability Threshold (1.0No backside filter)
 
-    반환값:
-        필터가 적용된 logits (-∞로 막힌 후보들 포함)
+    return value:
+        filter applied logits (-∞Including candidates blocked by)
     """
     if top_k > 0:
-        # 어휘 크기보다 크게 설정하면 의미 없으므로 조정
+        # Setting it larger than the vocabulary size is meaningless, so adjust it.
         top_k = min(top_k, logits.size(-1))
-        # 상위 top_k번째 값을 찾아 기준값으로 삼음
+        # top top_kFind the second value and use it as the reference value
         kth = torch.topk(logits, top_k).values[..., -1, None]
-        # 기준값보다 작은 logit은 모두 -∞ 로 → 소프트막스 후 확률 0
+        # smaller than the reference value logitis all -∞ by → Probability 0 after softmax
         logits = torch.where(logits < kth, torch.full_like(logits, float("-inf")), logits)
 
     if 0.0 < top_p < 1.0:
-        # 높은 것부터 정렬
+        # Sort from highest to highest
         sorted_logits, sorted_idx = torch.sort(logits, descending=True)
-        # 소프트막스로 확률 계산 후 누적 합 계산
+        # Calculate probability with softmax and then calculate cumulative sum
         probs = F.softmax(sorted_logits, dim=-1)
         cum = probs.cumsum(dim=-1)
 
-        # 누적 확률이 top_p를 초과하는 위치 표시
+        # cumulative probability top_pShow location exceeding
         remove = cum > top_p
-        # 한 칸 오른쪽으로 이동: 경계값은 포함시키기 위해
+        # move one space to the right: To include boundary values,
         remove[..., 1:] = remove[..., :-1].clone()
-        remove[..., 0] = False  # 첫 번째는 항상 포함
+        remove[..., 0] = False  # The first is always included
 
-        # 제거 표시된 위치를 -∞ 로
+        # location marked for removal -∞ by
         sorted_logits = sorted_logits.masked_fill(remove, float("-inf"))
-        # 정렬 전 원래 위치로 되돌리기
+        # Return to original position before sorting
         logits = torch.empty_like(logits).scatter_(-1, sorted_idx, sorted_logits)
 
     return logits
@@ -125,52 +125,52 @@ def sample_token(
     top_p: float,
     repetition_penalty: float,
 ) -> torch.Tensor:
-    """다음 어표 하나를 표본추출한다.
+    """Sample one of the following tickets:.
 
-    【초보자 안내】
-      이 함수가 "다음 글자 하나를 선택" 하는 핵심 함수다.
-      모형을 한 번 실행하고, 필터들을 적용한 뒤, 확률로 선택한다.
+    【Beginner's Guide】
+      This function "Select the next letter" This is the core function that does.
+      Run the model once, After applying filters, Choose based on probability.
 
-      @torch.no_grad(): 기울기 계산을 하지 않음 → 추론 시 기억기 절약
+      @torch.no_grad(): Do not calculate slope → Memory savings when inferring
 
-    인수:
-        model:             GPT 모형 인스턴스
-        idx:               현재까지의 어표 ID 목록, 형태 (B, T)
-        temperature:       온도 (낮을수록 더 확실한 선택)
-        top_k:             Top-K 후보 수
-        top_p:             Top-P 누적 확률 임계값
-        repetition_penalty: 반복 벌점 계수
+    argument:
+        model:             GPT model instance
+        idx:               Tickets to date ID list, form (B, T)
+        temperature:       temperature (The lower, the more obvious the choice.)
+        top_k:             Top-K number of candidates
+        top_p:             Top-P Cumulative Probability Threshold
+        repetition_penalty: Repeat Penalty Factor
 
-    반환값:
-        선택된 다음 어표 ID, 형태 (B, 1)
+    return value:
+        Next selected quote ID, form (B, 1)
     """
-    # block_size(문맥 길이) 확인: torch.compile 포장을 고려
+    # block_size(context length) OK: torch.compile Consider packaging
     block_size = model.cfg.block_size if hasattr(model, "cfg") else model._orig_mod.cfg.block_size
 
-    # 입력이 block_size를 초과하면 가장 최근 block_size 개만 사용
+    # input block_sizeIf it exceeds the most recent block_size Use only
     idx_cond = idx if idx.size(1) <= block_size else idx[:, -block_size:]
 
-    # 모형 실행 → logits: (B, 1, vocab_size)
+    # Run the model → logits: (B, 1, vocab_size)
     logits, _ = model(idx_cond)
-    logits = logits[:, -1, :]  # 마지막 위치의 logit만 사용: (B, vocab_size)
+    logits = logits[:, -1, :]  # in last position logituse only: (B, vocab_size)
 
-    # 1. 반복 벌점 적용 (이미 생성된 어표의 확률을 낮춤)
+    # 1. Repeat penalty points applied (Reduces the probability of already created tags)
     logits = _apply_repetition_penalty(logits, idx, repetition_penalty)
 
     if temperature <= 0.0:
-        # 탐욕적 선택: 항상 가장 높은 확률의 글자 선택 (다양성 없음)
+        # greedy choice: Always choose the letter with the highest probability (no diversity)
         return logits.argmax(dim=-1, keepdim=True)
 
-    # 2. 온도 나누기: 높은 온도 → 확률 분포가 평평해짐 (더 다양)
-    #                낮은 온도 → 확률 분포가 뾰족해짐 (더 확실)
+    # 2. Divide temperature: high temperature → Probability distribution becomes flat (more diverse)
+    #                low temperature → Probability distribution becomes sharper (more certain)
     logits = logits / temperature
 
-    # 3. Top-K + Top-P 필터: 엉뚱한 후보 제거
+    # 3. Top-K + Top-P filter: Eliminate the wrong candidate
     logits = _top_k_top_p(logits, top_k=top_k, top_p=top_p)
 
-    # 4. 소프트막스로 확률 계산 후 무작위 선택
+    # 4. Random selection after calculating probability with softmax
     probs = F.softmax(logits, dim=-1)
-    next_id = torch.multinomial(probs, num_samples=1)  # 확률에 비례한 무작위 선택
+    next_id = torch.multinomial(probs, num_samples=1)  # Random selection proportional to probability
     return next_id
 
 
@@ -188,43 +188,43 @@ def generate_stream(
     device: torch.device | str = "cuda",
     stop_on_eos: bool = True,
 ) -> Iterator[str]:
-    """새로 생성된 글자를 한 조각씩 내보내는 스트리밍 생성기.
+    """Streaming generator that exports newly created letters piece by piece.
 
-    【초보자 안내】
-      이 함수는 Gradio UI에서 글자가 실시간으로 나타나는 효과를 만든다.
-      완성된 글을 한꺼번에 반환하지 않고, 새 글자가 생길 때마다 바로 내보낸다.
+    【Beginner's Guide】
+      This function Gradio UICreates the effect of letters appearing in real time.
+      Rather than returning the completed text all at once, Whenever a new character is created, it is immediately exported..
 
-      "델타(delta)" 방식:
-        각 단계에서 새로 추가된 부분만 내보낸다 (누적이 아님).
-        SentencePiece BPE는 여러 어표를 합쳐서 한 글자를 만들 수 있으므로
-        전체를 재해석하고 이전에 내보낸 부분을 빼서 새 부분만 계산한다.
+      "delta(delta)" way:
+        At each stage, only the newly added parts are exported. (Not cumulative).
+        SentencePiece BPESince several word marks can be combined to form one letter,
+        Reinterpret the whole thing, subtract the previously exported part and calculate only the new part..
 
-    인수:
-        model:             GPT 모형 인스턴스
-        tokenizer:         어표 분석기 인스턴스
-        prompt:            생성을 시작할 프롬프트 글자렬
-        max_new_tokens:    생성할 최대 어표 수
-        temperature:       온도
-        top_k:             Top-K 후보 수
-        top_p:             Top-P 임계값
-        repetition_penalty: 반복 벌점
-        device:            실행 장치 ("cuda" 또는 "cpu")
-        stop_on_eos:       EOS 어표 생성 시 중단 여부
+    argument:
+        model:             GPT model instance
+        tokenizer:         Tag Analyzer Instance
+        prompt:            Prompt string to start generating
+        max_new_tokens:    Maximum number of tickets to generate
+        temperature:       temperature
+        top_k:             Top-K number of candidates
+        top_p:             Top-P threshold
+        repetition_penalty: repetition penalty
+        device:            execution device ("cuda" or "cpu")
+        stop_on_eos:       EOS Whether to stop when creating a tag
 
-    생성값:
-        새로 생성된 글 조각 (델타 문자열)
+    generated value:
+        Newly created article fragment (delta string)
     """
-    model.eval()  # 추론 모드: 드롭아웃 비활성화
+    model.eval()  # inference mode: Disable dropout
 
-    # 프롬프트를 어표 ID로 변환 (BOS 추가)
+    # prompt IDconvert to (BOS add)
     ids = tokenizer.encode(prompt, add_bos=True)
     idx = torch.tensor([ids], dtype=torch.long, device=device)  # (1, T)
 
-    produced: list[int] = []  # 새로 생성된 어표 ID 목록 (프롬프트 제외)
-    last_text = ""             # 마지막으로 내보낸 글자렬 (델타 계산용)
+    produced: list[int] = []  # Newly created tag ID list (Except prompt)
+    last_text = ""             # Last exported string (For delta calculation)
 
     for _ in range(max_new_tokens):
-        # 다음 어표 선택
+        # Select the next ticket
         nxt = sample_token(
             model, idx,
             temperature=temperature, top_k=top_k, top_p=top_p,
@@ -232,19 +232,19 @@ def generate_stream(
         )
         token_id = int(nxt.item())
 
-        # EOS 어표가 나오면 생성 종료
+        # EOS Creation ends when a mark appears.
         if stop_on_eos and token_id == EOS_ID:
             break
 
-        produced.append(token_id)  # 생성된 어표 기록
-        idx = torch.cat([idx, nxt], dim=1)  # 입력에 새 어표 추가 (T가 1 증가)
+        produced.append(token_id)  # Generated tag record
+        idx = torch.cat([idx, nxt], dim=1)  # Add new mark to input (Tincreases by 1)
 
-        # 전체 생성된 어표를 글자렬로 변환 (BPE 합치기 고려)
-        # SentencePiece BPE는 여러 어표가 합쳐져야 하나의 글자를 이룰 수 있음
-        # 따라서 매 단계마다 전체를 재해석해야 정확한 글자가 나옴
+        # Convert all generated word tags to character strings (BPE Consider merging)
+        # SentencePiece BPESeveral word marks must be combined to form one letter.
+        # Therefore, the entire thing must be reinterpreted at each step to produce accurate letters.
         text = tokenizer.decode(produced)
         if len(text) > len(last_text):
-            yield text[len(last_text):]  # 새로 추가된 부분(델타)만 내보냄
+            yield text[len(last_text):]  # Newly added part(delta)export only
             last_text = text
 
 
@@ -262,20 +262,20 @@ def generate(
     device: torch.device | str = "cuda",
     stop_on_eos: bool = True,
 ) -> str:
-    """비스트리밍 글 생성 — 전체 완성된 글자렬을 한꺼번에 반환.
+    """Create a non-streaming post — Returns the entire completed string at once.
 
-    【초보자 안내】
-      generate_stream() 의 비스트리밍 버전이다.
-      모든 글자가 생성된 후 프롬프트 + 완성된 응답을 하나의 문자열로 반환한다.
-      훈련 중 sample_text() 함수에서 생성 예시를 볼 때 사용한다.
+    【Beginner's Guide】
+      generate_stream() It is a non-streaming version of.
+      Prompt after all characters are generated + Returns the completed response as a single string..
+      in training sample_text() Used to see examples of creation in functions..
 
-    인수:
-        (generate_stream과 동일)
+    argument:
+        (generate_streamSame as)
 
-    반환값:
-        프롬프트 + 생성된 글자렬 (완성본)
+    return value:
+        prompt + generated string (Completed version)
     """
-    # generate_stream에서 모든 델타를 모아 이어붙임
+    # generate_streamCollect all deltas from and concatenate them.
     chunks = list(
         generate_stream(
             model, tokenizer, prompt,
@@ -285,4 +285,4 @@ def generate(
             device=device, stop_on_eos=stop_on_eos,
         )
     )
-    return prompt + "".join(chunks)  # 프롬프트 + 생성된 내용 합쳐서 반환
+    return prompt + "".join(chunks)  # prompt + Return the generated contents together

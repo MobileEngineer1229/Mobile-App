@@ -1,4 +1,4 @@
-# DPRK Korean Food/Workout Generative AI — Design Spec
+﻿# DPRK Korean Food/Workout Generative AI — Design Spec
 
 **Date:** 2026-05-09
 **Project location:** `dprk-assistant/`
@@ -8,7 +8,7 @@
 
 ## Goal
 
-Build a domain-specific generative AI that produces text in DPRK Korean (조선말) about food and workouts. The model is trained **from scratch** (no pretrained foundation model) on a user-supplied DPRK corpus and exposed through a Gradio web UI.
+Build a domain-specific generative AI that produces text in DPRK Korean (Joseon language) about food and workouts. The model is trained **from scratch** (no pretrained foundation model) on a user-supplied DPRK corpus and exposed through a Gradio web UI.
 
 ## Non-goals
 

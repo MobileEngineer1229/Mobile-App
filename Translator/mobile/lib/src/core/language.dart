@@ -1,4 +1,4 @@
-class TranslatorLanguage {
+﻿class TranslatorLanguage {
   const TranslatorLanguage({
     required this.code,
     required this.label,
@@ -11,7 +11,7 @@ class TranslatorLanguage {
 }
 
 const translatorLanguages = [
-  TranslatorLanguage(code: 'ko_kp', label: '조선말', modelCode: 'kor_Hang'),
+  TranslatorLanguage(code: 'ko_kp', label: 'Joseon language', modelCode: 'kor_Hang'),
   TranslatorLanguage(code: 'en', label: 'English', modelCode: 'eng_Latn'),
   TranslatorLanguage(code: 'zh', label: 'Chinese', modelCode: 'zho_Hans'),
   TranslatorLanguage(code: 'ru', label: 'Russian', modelCode: 'rus_Cyrl'),

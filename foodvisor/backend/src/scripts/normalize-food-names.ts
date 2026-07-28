@@ -1,4 +1,4 @@
-import "dotenv/config";
+﻿import "dotenv/config";
 import { connectDatabase } from "../db.js";
 import { hasReferenceTranslation, referenceTranslationCount, translateChineseFoodName } from "../utils/chineseFoodKorean.js";
 import mongoose from "mongoose";
@@ -32,7 +32,7 @@ const operations = docs.map((food) => {
     updateOne: {
       filter: { _id: food._id },
       update: {
-        $set: { koreanName: koreanName || "식품" },
+        $set: { koreanName: koreanName || "food" },
         $unset: { name: 1 }
       }
     }

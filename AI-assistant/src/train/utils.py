@@ -1,13 +1,13 @@
-"""훈련 도우미 함수들 — 학습률 계획, 체크포인트 저장/불러오기.
+﻿"""Training helper functions — Learning rate planning, Save checkpoint/load.
 
-【초보자 안내】
-  이 파일은 train.py에서 반복적으로 쓰이는 도구 함수들을 모아놓은 것이다.
+【Beginner's Guide】
+  This file is train.pyIt is a collection of tool functions that are used repeatedly in.
 
-  주요 기능:
-    cosine_lr()            : 학습률을 단계에 따라 조절
-    save_checkpoint()      : 훈련 상태를 파일로 저장
-    cleanup_old_checkpoints(): 오래된 체크포인트 파일 정리
-    load_checkpoint()      : 저장된 체크포인트에서 훈련 재개
+  Main features:
+    cosine_lr()            : Adjust learning rate according to steps
+    save_checkpoint()      : Save training status as file
+    cleanup_old_checkpoints(): Clean up old checkpoint files
+    load_checkpoint()      : Resume training from a saved checkpoint
 """
 
 from __future__ import annotations
@@ -20,54 +20,54 @@ import torch
 
 
 def cosine_lr(step: int, *, warmup: int, max_steps: int, peak_lr: float, min_lr: float) -> float:
-    """코사인 감쇠 학습률 계획 (선형 워밍업 포함).
+    """Cosine damped learning rate scheme (Includes linear warm-up).
 
-    【초보자 안내】
-      학습률이란 "가중치를 한 번에 얼마나 조정할지" 의 크기다.
-      너무 크면 발산(훈련 실패), 너무 작으면 느리거나 가짜 최솟값에 갇힘.
+    【Beginner's Guide】
+      What is learning rate? "How much to adjust the weight at a time" is the size of.
+      If it's too big, it diverges.(training failure), Too small and you'll be slow or stuck in a false minimum..
 
-      이 함수는 세 구간으로 학습률을 조절한다:
+      This function adjusts the learning rate in three intervals.:
 
-      구간 1 (워밍업, 0 ~ warmup 단계):
-        학습률을 0에서 peak_lr까지 선형으로 올림.
-        초반 불안정한 훈련 방지.
+      Section 1 (warm up, 0 ~ warmup step):
+        learning rate from 0 peak_lrLinearly up to.
+        Prevent unstable training in the beginning.
 
-        예: warmup=100, peak_lr=0.0003
-          단계 0: 학습률 = 0.000003  (1/100)
-          단계 50: 학습률 = 0.00015  (50/100)
-          단계 100: 학습률 = 0.0003  (peak)
+        yes: warmup=100, peak_lr=0.0003
+          step 0: learning rate = 0.000003  (1/100)
+          Step 50: learning rate = 0.00015  (50/100)
+          step 100: learning rate = 0.0003  (peak)
 
-      구간 2 (코사인 감쇠, warmup ~ max_steps):
-        코사인 함수를 따라 peak_lr에서 min_lr까지 부드럽게 감소.
-        직선으로 줄이는 것보다 끝에서 더 천천히 줄어들어 안정적.
+      Section 2 (cosine attenuation, warmup ~ max_steps):
+        Following the cosine function peak_lrin min_lrgently decreases until.
+        It decreases more slowly at the end than in a straight line, making it more stable..
 
-      구간 3 (max_steps 이후):
-        min_lr로 고정.
+      Section 3 (max_steps After):
+        min_lrfixed to.
 
-    인수:
-        step:      현재 훈련 단계 번호 (0부터 시작)
-        warmup:    워밍업 단계 수
-        max_steps: 총 훈련 단계 수
-        peak_lr:   최고 학습률
-        min_lr:    최저 학습률
+    argument:
+        step:      Current training phase number (0starting from)
+        warmup:    Number of warm-up steps
+        max_steps: Total number of training steps
+        peak_lr:   highest learning rate
+        min_lr:    lowest learning rate
 
-    반환값:
-        현재 단계의 학습률
+    return value:
+        Learning rate of current step
     """
     if step < warmup:
-        # 워밍업 구간: 0에서 peak_lr까지 선형 증가
-        # +1 을 더하는 리유: step=0일 때 0이 아닌 최솟값부터 시작하도록
+        # Warm-up section: 0in peak_lrlinear increase until
+        # +1 Reason for adding: step=0When , start from the minimum value other than 0.
         return peak_lr * (step + 1) / max(1, warmup)
 
     if step >= max_steps:
-        # 훈련 종료 후: min_lr 고정
+        # After training: min_lr fixed
         return min_lr
 
-    # 코사인 감쇠 구간
-    # progress: 워밍업 이후 진행률 (0.0 ~ 1.0)
+    # Cosine decay section
+    # progress: Progress after warm-up (0.0 ~ 1.0)
     progress = (step - warmup) / max(1, max_steps - warmup)
-    # 코사인 함수: 0에서 π까지 → 1.0에서 -1.0
-    # 0.5 × (1 + cos(π × progress)): 1.0에서 0.0으로 부드럽게 감소
+    # cosine function: 0in πuntil → 1.0in -1.0
+    # 0.5 × (1 + cos(π × progress)): 1.0from 0.0gently decreases to
     coeff = 0.5 * (1.0 + math.cos(math.pi * progress))
     return min_lr + coeff * (peak_lr - min_lr)
 
@@ -80,46 +80,46 @@ def save_checkpoint(
     cfg_dict: dict,
     tag: str = "",
 ) -> Path:
-    """훈련 상태를 체크포인트 파일로 저장.
+    """Save training state as checkpoint file.
 
-    【초보자 안내】
-      체크포인트란 훈련 중간의 상태를 저장해두는 것이다.
-      전원이 꺼지거나 오류가 나도 여기서부터 다시 시작할 수 있다.
+    【Beginner's Guide】
+      A checkpoint is a way to store the state during training..
+      Even if the power turns off or an error occurs, you can start again from here..
 
-      저장 내용:
-        - step: 현재 훈련 단계 번호
-        - model_state: 모형의 모든 가중치
-        - optimizer_state: AdamW의 이동 평균(모멘트) 값들
-        - config: 모형 구조 설정 (재개 시 올바른 구조로 복원하기 위해)
+      Save contents:
+        - step: Current training phase number
+        - model_state: All weights in the model
+        - optimizer_state: AdamWmoving average of(moment) values
+        - config: Model structure settings (To restore the correct structure upon reopening.)
 
-      파일 이름 형식:
-        tag 없음: ckpt_step002500.pt
-        tag 있음: ckpt_step002500_best.pt
+      file name format:
+        tag None: ckpt_step002500.pt
+        tag Yes: ckpt_step002500_best.pt
 
-    인수:
-        out_dir:   저장할 폴더
-        step:      현재 단계 번호
-        model:     GPT 모형 인스턴스
-        optimizer: AdamW 최적화기 인스턴스
-        cfg_dict:  설정 사전 (FullConfig.__dict__ 형태)
-        tag:       파일 이름 뒤에 붙일 태그 ("best", "final" 등)
+    argument:
+        out_dir:   Folder to save
+        step:      Current step number
+        model:     GPT model instance
+        optimizer: AdamW optimizer instance
+        cfg_dict:  settings dictionary (FullConfig.__dict__ form)
+        tag:       Tags to add to the end of the file name ("best", "final" etc.)
 
-    반환값:
-        저장된 파일의 경로
+    return value:
+        Path to saved file
     """
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    # 파일 이름 생성: ckpt_step002500.pt 또는 ckpt_step002500_best.pt
+    # Generate file name: ckpt_step002500.pt or ckpt_step002500_best.pt
     name = f"ckpt_step{step:06d}{('_' + tag) if tag else ''}.pt"
     path = out_dir / name
 
-    # 체크포인트 저장 (torch.save: Python 객체를 직렬화하여 저장)
+    # Save checkpoint (torch.save: Python Serialize and store objects)
     torch.save(
         {
-            "step": step,                              # 현재 단계
-            "model_state": model.state_dict(),         # 모든 가중치 값
-            "optimizer_state": optimizer.state_dict(), # AdamW 내부 상태
-            "config": cfg_dict,                        # 모형 구조 설정
+            "step": step,                              # current stage
+            "model_state": model.state_dict(),         # all weight values
+            "optimizer_state": optimizer.state_dict(), # AdamW internal state
+            "config": cfg_dict,                        # Model structure settings
         },
         path,
     )
@@ -127,69 +127,69 @@ def save_checkpoint(
 
 
 def cleanup_old_checkpoints(out_dir: Path, keep_last: int) -> None:
-    """오래된 체크포인트 파일을 삭제하여 디스크 공간을 확보.
+    """Free up disk space by deleting old checkpoint files.
 
-    【초보자 안내】
-      훈련이 진행될수록 체크포인트 파일이 쌓인다.
-      각 파일이 수백 MB 여서 모두 보관하면 디스크가 가득 찬다.
+    【Beginner's Guide】
+      As training progresses, checkpoint files accumulate..
+      Each file has hundreds MB So if you keep them all, the disk will be full..
 
-      삭제 규칙:
-        - 태그 없는 파일: 가장 최근 keep_last 개만 남기고 삭제
-          예: keep_last=3 → 최근 3개만 보관
-        - 태그 있는 파일 (_best, _final): 항상 보관 (삭제 안 함)
+      Deletion Rules:
+        - File without tags: most recent keep_last Delete leaving only dogs
+          yes: keep_last=3 → Keep only the most recent 3
+        - file with tags (_best, _final): always keep (Do not delete)
 
-    인수:
-        out_dir:    체크포인트 폴더
-        keep_last:  보관할 최근 파일 수
+    argument:
+        out_dir:    checkpoint folder
+        keep_last:  Number of recent files to keep
     """
-    # 파일 이름 패턴: ckpt_step숫자[_태그].pt
+    # file name pattern: ckpt_stepnumbers[_tag].pt
     pattern = re.compile(r"^ckpt_step(\d+)(?:_([a-zA-Z0-9]+))?\.pt$")
-    untagged: list[tuple[int, Path]] = []  # (단계 번호, 파일 경로) 목록
+    untagged: list[tuple[int, Path]] = []  # (step number, file path) list
 
     for p in out_dir.glob("ckpt_step*.pt"):
         m = pattern.match(p.name)
         if not m:
-            continue                        # 패턴에 맞지 않는 파일은 건너뜀
-        if m.group(2):                      # 태그가 있는 파일 (_best 등)
-            continue                        # 태그 있는 파일은 항상 보관
-        untagged.append((int(m.group(1)), p))  # 단계 번호와 경로 저장
+            continue                        # Skip files that do not match the pattern
+        if m.group(2):                      # files with tags (_best etc.)
+            continue                        # Always keep tagged files
+        untagged.append((int(m.group(1)), p))  # Save step number and route
 
-    # 단계 번호 기준으로 오름차순 정렬 (작은 번호 = 오래된 파일)
+    # Sort ascending by step number (small number = old files)
     untagged.sort(key=lambda x: x[0])
 
-    # 최근 keep_last 개를 제외하고 나머지 삭제
+    # recently keep_last Delete everything except the dog
     for _, p in untagged[:-keep_last] if keep_last > 0 else untagged:
         try:
-            p.unlink()  # 파일 삭제
+            p.unlink()  # Delete File
         except OSError:
-            pass        # 삭제 실패해도 훈련은 계속
+            pass        # Even if deletion fails, training continues
 
 
 def load_checkpoint(path: str | Path, model: torch.nn.Module, optimizer=None, map_location="cpu"):
-    """체크포인트 파일에서 모형과 최적화기 상태를 복원.
+    """Restore model and optimizer states from checkpoint files.
 
-    【초보자 안내】
-      이 함수를 쓰면 이전에 저장한 훈련 상태에서 계속 훈련할 수 있다.
-      또는 훈련된 모형을 불러와 추론에 사용할 수 있다.
+    【Beginner's Guide】
+      Using this function, you can continue training in a previously saved training state..
+      Alternatively, you can load a trained model and use it for inference..
 
-    인수:
-        path:         체크포인트 파일 경로 (.pt 파일)
-        model:        복원할 GPT 모형 인스턴스 (구조가 일치해야 함)
-        optimizer:    복원할 최적화기 인스턴스 (None이면 복원 안 함)
-        map_location: 가중치를 올릴 장치 ("cpu", "cuda" 등)
+    argument:
+        path:         Checkpoint file path (.pt file)
+        model:        to restore GPT model instance (Structure must match)
+        optimizer:    Optimizer instance to restore (NoneIf so, do not restore)
+        map_location: device for lifting weights ("cpu", "cuda" etc.)
 
-    반환값:
-        체크포인트 사전 전체 (step, model_state, optimizer_state, config)
+    return value:
+        Full Checkpoint Dictionary (step, model_state, optimizer_state, config)
     """
-    # weights_only=False: config 사전도 함께 불러오기 위해 필요
+    # weights_only=False: config Required to load the dictionary as well
     ckpt = torch.load(str(path), map_location=map_location, weights_only=False)
 
-    # 모형 가중치 복원
+    # Restoring model weights
     model.load_state_dict(ckpt["model_state"])
 
-    # 최적화기 상태 복원 (AdamW의 이동 평균 값들)
-    # optimizer가 None이면 복원 안 함 (추론 전용으로 불러올 때)
+    # Restore optimizer state (AdamWmoving average values of)
+    # optimizergo NoneIf so, do not restore (When loaded for inference only)
     if optimizer is not None and "optimizer_state" in ckpt:
         optimizer.load_state_dict(ckpt["optimizer_state"])
 
-    return ckpt  # 호출자가 step 등 다른 정보를 꺼내 쓸 수 있도록 전체 반환
+    return ckpt  # the caller step Return the entire information so that other information can be retrieved and used.

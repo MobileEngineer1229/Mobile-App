@@ -1,4 +1,4 @@
-import "dotenv/config";
+﻿import "dotenv/config";
 import mongoose from "mongoose";
 import { connectDatabase } from "../db.js";
 import { HumanTypeQA } from "../models/human-type-qa.js";
@@ -43,10 +43,10 @@ const refs = [
 ];
 
 const categories = {
-  body: ["body_shape", "체형·기상", "Body Shape & Temperament"],
-  appearance: ["appearance_speech", "용모·사기", "Appearance & Speech"],
-  personality: ["personality_talent", "성질·재간", "Personality & Talent"],
-  symptoms: ["symptoms_habits", "병증·소증·식습관", "Disease, Fundamental Symptoms & Food Habits"]
+  body: ["body_shape", "body type·weather", "Body Shape & Temperament"],
+  appearance: ["appearance_speech", "appearance·fraud", "Appearance & Speech"],
+  personality: ["personality_talent", "temper·ingenuity", "Personality & Talent"],
+  symptoms: ["symptoms_habits", "disease·small symptom·eating habits", "Disease, Fundamental Symptoms & Food Habits"]
 } as const;
 
 function option(value: string, labelKo: string, score: TypeScore, recommendationTags: string[] = [], cautionTags: string[] = []) {
@@ -92,225 +92,225 @@ function scaleOptions(labels: [string, string, string, string, string], scores: 
 }
 
 const questions: Question[] = [
-  q("body", "body_shape_type", 1, "귀하의 체형에 가장 가까운 것은?", [
-    option("lower_body", "하체 비만형", { TE: 2 }),
-    option("upper_body", "상체 비만형", { SY: 2, TY: 1 }),
-    option("abdominal", "복부 비만형", { TE: 3 }),
-    option("balanced", "균등형", {})
-  ], { analysisNoteKo: "체형 문항은 자가 인식 편향이 있으므로 체격·체중증가·땀·소화 문항과 함께 판단합니다." }),
+  q("body", "body_shape_type", 1, "Which one is closest to your body type??", [
+    option("lower_body", "lower body obesity type", { TE: 2 }),
+    option("upper_body", "Upper body obesity type", { SY: 2, TY: 1 }),
+    option("abdominal", "abdominal obesity type", { TE: 3 }),
+    option("balanced", "Equal type", {})
+  ], { analysisNoteKo: "Since body type questions have self-perception bias,·weight gain·sweat·It is judged along with digestion questions.." }),
 
-  q("body", "body_frame_size", 2, "타인과 비교했을 때 전체적인 체격은 어느 쪽에 가깝습니까?", scaleOptions(
-    ["매우 작은 편", "작은 편", "보통", "큰 편", "매우 큰 편"],
+  q("body", "body_frame_size", 2, "Compared to others, which side is your overall physique closer to??", scaleOptions(
+    ["very small", "On the small side", "Normal", "On the big side", "very large"],
     [{ SE: 3 }, { SE: 2 }, {}, { TE: 2 }, { TE: 3 }]
   )),
 
-  q("body", "natural_muscle_mass", 3, "타고난 근육량은 어느 정도라고 생각하십니까?", scaleOptions(
-    ["매우 적은 편", "적은 편", "보통", "많은 편", "매우 많은 편"],
+  q("body", "natural_muscle_mass", 3, "How much muscle do you think you have naturally??", scaleOptions(
+    ["very little", "less", "Normal", "A lot", "very much"],
     [{ SE: 2 }, { SE: 1 }, {}, { SY: 1, TE: 1 }, { SY: 2, TE: 1 }]
   )),
 
-  q("body", "bone_thickness", 4, "손목·발목·관절 등 골격의 굵기는 어느 쪽에 가깝습니까?", scaleOptions(
-    ["매우 가는 편", "가는 편", "보통", "굵은 편", "매우 굵은 편"],
+  q("body", "bone_thickness", 4, "wrist·ankle·Which is closer to the thickness of the skeleton, including joints??", scaleOptions(
+    ["very thin", "On the way", "Normal", "On the thick side", "very thick"],
     [{ SE: 3 }, { SE: 2 }, {}, { TE: 2 }, { TE: 3 }]
   )),
 
-  q("body", "weight_gain_after_overeating", 5, "과식 후 체중 증가가 잘 되는 편입니까?", scaleOptions(
-    ["전혀 아니다", "아니다", "보통", "그렇다", "매우 그렇다"],
+  q("body", "weight_gain_after_overeating", 5, "Do you tend to gain weight after overeating??", scaleOptions(
+    ["Not at all", "no", "Normal", "Yes", "Very much so"],
     [{ SE: 1, SY: 1 }, { SY: 1 }, {}, { TE: 2 }, { TE: 3 }]
   ), { useForRecommendation: true }),
 
-  q("body", "upper_lower_balance", 6, "가슴·어깨 쪽과 골반·하체 쪽 중 어느 부위가 더 발달했다고 느끼십니까?", scaleOptions(
-    ["하체가 훨씬 발달", "하체가 약간 발달", "비슷함", "상체가 약간 발달", "상체가 훨씬 발달"],
+  q("body", "upper_lower_balance", 6, "chest·shoulder and pelvis·Which part of your lower body do you feel is more developed??", scaleOptions(
+    ["Lower body much developed", "Lower body slightly developed", "Similar", "Slightly developed upper body", "Upper body much developed"],
     [{ TE: 2 }, { TE: 1 }, {}, { SY: 1 }, { SY: 2, TY: 1 }]
   )),
 
-  q("body", "shoulder_width", 7, "어깨 넓이는 전체 체격에 비해 어떤 편입니까?", scaleOptions(
-    ["매우 좁음", "좁음", "보통", "넓음", "매우 넓음"],
+  q("body", "shoulder_width", 7, "How is your shoulder width compared to your overall physique??", scaleOptions(
+    ["very narrow", "narrow", "Normal", "wide", "very wide"],
     [{ SE: 2 }, { SE: 1 }, {}, { SY: 1, TY: 1 }, { SY: 2, TY: 1 }]
   )),
 
-  q("body", "appetite_strength", 8, "평소 식욕은 어느 정도입니까?", scaleOptions(
-    ["매우 약함", "약함", "보통", "좋은 편", "매우 왕성함"],
+  q("body", "appetite_strength", 8, "What is your usual appetite??", scaleOptions(
+    ["very weak", "weak", "Normal", "good side", "very hearty"],
     [{ SE: 2 }, { SE: 1 }, {}, { TE: 1, SY: 1 }, { TE: 2 }]
   ), { useForRecommendation: true }),
 
-  q("appearance", "face_shape", 9, "귀하의 얼굴형에 가장 가까운 것은?", [
-    option("round", "둥근형", { TE: 2 }),
-    option("angular", "각진형", { SY: 1, TE: 1 }),
-    option("oval", "달걀형", { SE: 1 }),
-    option("triangular", "삼각형", { TY: 2, SY: 1 })
-  ], { analysisNoteKo: "얼굴형은 사진 분석이 없을 때 보조 문항으로만 사용합니다." }),
+  q("appearance", "face_shape", 9, "Which one is closest to your face shape??", [
+    option("round", "round", { TE: 2 }),
+    option("angular", "angular", { SY: 1, TE: 1 }),
+    option("oval", "egg shape", { SE: 1 }),
+    option("triangular", "triangle", { TY: 2, SY: 1 })
+  ], { analysisNoteKo: "Face shape is only used as an auxiliary question when there is no photo analysis.." }),
 
-  q("appearance", "facial_skin_oiliness", 10, "얼굴 피부는 어떤 성질에 가깝습니까?", scaleOptions(
-    ["매우 건성", "건성", "보통", "지성", "매우 지성"],
+  q("appearance", "facial_skin_oiliness", 10, "What properties is facial skin close to??", scaleOptions(
+    ["very dry", "dry", "Normal", "intelligence", "very intelligent"],
     [{ SE: 2 }, { SE: 1 }, {}, { TE: 1, SY: 1 }, { TE: 2 }]
   )),
 
-  q("appearance", "voice_volume", 11, "타인이 평가하는 귀하의 목소리 크기는?", scaleOptions(
-    ["매우 작은 편", "작은 편", "보통", "큰 편", "매우 큰 편"],
+  q("appearance", "voice_volume", 11, "How loud your voice is judged by others?", scaleOptions(
+    ["very small", "On the small side", "Normal", "On the big side", "very large"],
     [{ SE: 2 }, { SE: 1 }, {}, { SY: 1, TY: 1 }, { TY: 2, SY: 1 }]
   )),
 
-  q("appearance", "speech_speed", 12, "말하는 속도는 어느 쪽에 가깝습니까?", scaleOptions(
-    ["매우 느린 편", "느린 편", "보통", "빠른 편", "매우 빠른 편"],
+  q("appearance", "speech_speed", 12, "Which speed is your speaking speed closer to??", scaleOptions(
+    ["very slow", "On the slow side", "Normal", "It's fast", "very fast"],
     [{ TE: 1 }, { TE: 1, SE: 1 }, {}, { SY: 2 }, { SY: 2, TY: 1 }]
   )),
 
-  q("appearance", "voice_pitch", 13, "목소리 높낮이는 어느 쪽에 가깝습니까?", scaleOptions(
-    ["매우 낮음", "낮음", "보통", "높음", "매우 높음"],
+  q("appearance", "voice_pitch", 13, "Which is the pitch of your voice closer to??", scaleOptions(
+    ["very low", "low", "Normal", "high", "very high"],
     [{ TE: 1 }, { TE: 1 }, { SE: 1 }, { SY: 1 }, { SY: 2 }]
-  ), { analysisNoteKo: "음성은 실제 음성 분석 없이 자가 응답으로만 쓰므로 낮은 가중치로 둡니다.", weight: 0.7 }),
+  ), { analysisNoteKo: "Since voice is used only as a self-response without actual voice analysis, it is given low weight..", weight: 0.7 }),
 
-  q("appearance", "facial_expression", 14, "주변에서 귀하의 인상에 대해 자주 듣는 평가는?", [
-    option("gentle", "온화하다", { TE: 1, SE: 1 }),
-    option("sharp", "날카롭다", { SY: 1, TY: 2 }),
-    option("flat", "무표정하다", { SE: 1, TE: 1 }),
-    option("bright", "밝고 활기차다", { SY: 2 })
+  q("appearance", "facial_expression", 14, "The evaluations you often hear about your impressions from those around you are:?", [
+    option("gentle", "gentle", { TE: 1, SE: 1 }),
+    option("sharp", "sharp", { SY: 1, TY: 2 }),
+    option("flat", "expressionless", { SE: 1, TE: 1 }),
+    option("bright", "bright and lively", { SY: 2 })
   ]),
 
-  q("appearance", "facial_flush", 15, "얼굴이 쉽게 붉어지는 편입니까?", scaleOptions(
-    ["전혀 아니다", "아니다", "보통", "그렇다", "매우 그렇다"],
+  q("appearance", "facial_flush", 15, "Does your face blush easily??", scaleOptions(
+    ["Not at all", "no", "Normal", "Yes", "Very much so"],
     [{ TE: 1 }, { TE: 1 }, { SE: 1 }, { SY: 1 }, { SY: 2 }]
   )),
 
-  q("personality", "detail_orientation", 16, "성격이 대범한 편입니까, 섬세한 편입니까?", scaleOptions(
-    ["매우 대범함", "대범한 편", "보통", "섬세한 편", "매우 섬세함"],
+  q("personality", "detail_orientation", 16, "Do you have a bold personality?, Are you delicate??", scaleOptions(
+    ["very bold", "On the bold side", "Normal", "On the delicate side", "very delicate"],
     [{ TE: 2, SY: 1 }, { TE: 1 }, {}, { SE: 2 }, { SE: 3 }]
-  ), { isCore: true, weight: 2, scoringNoteKo: "KS-15 성격 축에 해당하므로 핵심 가중치를 적용합니다." }),
+  ), { isCore: true, weight: 2, scoringNoteKo: "KS-15 Corresponds to the personality axis and therefore applies core weighting." }),
 
-  q("personality", "activity_speed", 17, "행동이 빠른 편입니까, 느린 편입니까?", scaleOptions(
-    ["매우 느린 편", "느린 편", "보통", "빠른 편", "매우 빠른 편"],
+  q("personality", "activity_speed", 17, "Are you quick to act?, Are you slow??", scaleOptions(
+    ["very slow", "On the slow side", "Normal", "It's fast", "very fast"],
     [{ TE: 1, SE: 1 }, { SE: 1 }, {}, { SY: 2, TY: 1 }, { SY: 3, TY: 1 }]
-  ), { isCore: true, weight: 2, scoringNoteKo: "KS-15 활동성 축에 해당하므로 핵심 가중치를 적용합니다." }),
+  ), { isCore: true, weight: 2, scoringNoteKo: "KS-15 Since it corresponds to the activity axis, key weights are applied." }),
 
-  q("personality", "initiative", 18, "모든 일에 적극적인 편입니까, 소극적인 편입니까?", scaleOptions(
-    ["매우 소극적", "소극적", "보통", "적극적", "매우 적극적"],
+  q("personality", "initiative", 18, "Are you active in everything?, Are you passive??", scaleOptions(
+    ["very passive", "passive", "Normal", "active", "very active"],
     [{ SE: 3 }, { SE: 2 }, { TE: 1 }, { SY: 2, TY: 1 }, { SY: 2, TY: 2 }]
-  ), { isCore: true, weight: 2, scoringNoteKo: "KS-15 주도성 축에 해당하므로 핵심 가중치를 적용합니다." }),
+  ), { isCore: true, weight: 2, scoringNoteKo: "KS-15 Since it corresponds to the initiative axis, we apply key weights." }),
 
-  q("personality", "extraversion", 19, "성격이 외향적인 편입니까, 내성적인 편입니까?", scaleOptions(
-    ["매우 내성적", "내성적", "보통", "외향적", "매우 외향적"],
+  q("personality", "extraversion", 19, "Do you have an extroverted personality?, Are you an introvert??", scaleOptions(
+    ["very introverted", "introvert", "Normal", "extroverted", "very extroverted"],
     [{ SE: 3 }, { SE: 2 }, { TE: 1 }, { SY: 1, TY: 1 }, { SY: 3 }]
-  ), { isCore: true, weight: 2, scoringNoteKo: "KS-15 외향성 축에 해당하므로 핵심 가중치를 적용합니다." }),
+  ), { isCore: true, weight: 2, scoringNoteKo: "KS-15 Core weighting is applied as it corresponds to the extroversion axis.." }),
 
-  q("personality", "emotional_reaction", 20, "일이 뜻대로 되지 않을 때 주된 반응은 어느 쪽입니까?", [
-    option("very_hurt", "매우 상함", { SE: 2 }),
-    option("slightly_hurt", "조금 상함", { SE: 1, TE: 1 }),
-    option("neutral", "보통", {}),
-    option("slightly_angry", "조금 화남", { SY: 1 }),
-    option("very_angry", "매우 화남", { SY: 2, TY: 1 })
+  q("personality", "emotional_reaction", 20, "What is your main reaction when things don't go your way??", [
+    option("very_hurt", "very damaged", { SE: 2 }),
+    option("slightly_hurt", "a little damaged", { SE: 1, TE: 1 }),
+    option("neutral", "Normal", {}),
+    option("slightly_angry", "A little angry", { SY: 1 }),
+    option("very_angry", "very angry", { SY: 2, TY: 1 })
   ]),
 
-  q("personality", "patience", 21, "인내심은 어느 정도라고 느끼십니까?", scaleOptions(
-    ["매우 부족", "부족", "보통", "강한 편", "매우 강함"],
+  q("personality", "patience", 21, "How much patience do you feel you have??", scaleOptions(
+    ["very lacking", "tribe", "Normal", "On the strong side", "very strong"],
     [{ SY: 2 }, { SY: 1 }, { SE: 1 }, { TE: 1 }, { TE: 2 }]
   )),
 
-  q("personality", "novelty_seeking", 22, "새로운 경험을 추구하는 정도는?", scaleOptions(
-    ["매우 싫어함", "싫어함", "보통", "좋아함", "매우 좋아함"],
+  q("personality", "novelty_seeking", 22, "The degree to which new experiences are sought?", scaleOptions(
+    ["very dislike", "Dislike", "Normal", "like", "Like it very much"],
     [{ TE: 1 }, { SE: 1 }, {}, { TY: 1 }, { SY: 2 }]
   )),
 
-  q("personality", "planning_style", 23, "계획성과 즉흥성 중 어느 쪽에 가깝습니까?", scaleOptions(
-    ["매우 즉흥적", "즉흥적", "보통", "계획적", "매우 계획적"],
+  q("personality", "planning_style", 23, "Are you closer to planning or improvisation??", scaleOptions(
+    ["very spontaneous", "impromptu", "Normal", "planned", "very planned"],
     [{ SY: 2 }, { SY: 1 }, {}, { SE: 1 }, { TE: 2, SE: 1 }]
   )),
 
-  q("personality", "competition_drive", 24, "경쟁심은 어느 정도입니까?", scaleOptions(
-    ["전혀 없음", "약함", "보통", "강함", "매우 강함"],
+  q("personality", "competition_drive", 24, "How competitive are you??", scaleOptions(
+    ["None at all", "weak", "Normal", "strong", "very strong"],
     [{ SE: 1 }, { TE: 1 }, {}, { SY: 1, TY: 1 }, { SY: 2, TY: 2 }]
   )),
 
-  q("personality", "preferred_activity", 25, "여가 시간에 주로 어떤 활동을 즐기십니까?", [
-    option("social", "사교/모임", { SY: 2, TE: 1 }, ["social_eating"]),
-    option("reading_art", "독서/예술 감상", { SE: 1, TY: 1 }, ["quiet_routine"]),
-    option("physical", "운동/신체 활동", { SY: 2 }, ["active_lifestyle"]),
-    option("online_game", "게임/온라인 활동", { SE: 1 }, ["sedentary_risk"])
+  q("personality", "preferred_activity", 25, "What activities do you enjoy most in your free time??", [
+    option("social", "socializing/meeting", { SY: 2, TE: 1 }, ["social_eating"]),
+    option("reading_art", "reading/appreciation of art", { SE: 1, TY: 1 }, ["quiet_routine"]),
+    option("physical", "exercise/physical activity", { SY: 2 }, ["active_lifestyle"]),
+    option("online_game", "game/online activity", { SE: 1 }, ["sedentary_risk"])
   ], { useForRecommendation: true }),
 
-  q("symptoms", "digestion", 26, "평소 소화 상태는 어떻습니까?", scaleOptions(
-    ["매우 나쁨", "나쁨", "보통", "좋음", "매우 좋음"],
+  q("symptoms", "digestion", 26, "How is your usual digestive condition??", scaleOptions(
+    ["very bad", "bad", "Normal", "Good", "very good"],
     [{ SE: 3 }, { SE: 2 }, { TE: 1 }, { TE: 1, SY: 1 }, { SY: 2 }]
-  ), { isCore: true, weight: 2, useForRecommendation: true, scoringNoteKo: "KS-15 소증 축에 해당하므로 핵심 가중치를 적용합니다." }),
+  ), { isCore: true, weight: 2, useForRecommendation: true, scoringNoteKo: "KS-15 Since it corresponds to the small-scale axis, key weights are applied." }),
 
-  q("symptoms", "hand_foot_temperature", 27, "손발이 차가운 편입니까, 따뜻한 편입니까?", scaleOptions(
-    ["매우 차가움", "차가움", "보통", "따뜻함", "매우 따뜻함"],
+  q("symptoms", "hand_foot_temperature", 27, "Do your hands and feet tend to be cold?, Are you warm??", scaleOptions(
+    ["very cold", "coldness", "Normal", "warmth", "very warm"],
     [{ SE: 3 }, { SE: 2 }, { TE: 1 }, { SY: 1, TE: 1 }, { SY: 2, TY: 1 }]
   ), { useForRecommendation: true }),
 
-  q("symptoms", "sweating", 28, "평소 땀을 많이 흘리는 체질입니까?", scaleOptions(
-    ["전혀 아니다", "아니다", "보통", "그렇다", "매우 그렇다"],
+  q("symptoms", "sweating", 28, "Do you usually sweat a lot??", scaleOptions(
+    ["Not at all", "no", "Normal", "Yes", "Very much so"],
     [{ SE: 1 }, { SE: 1 }, {}, { TE: 2 }, { TE: 3 }]
   ), { useForRecommendation: true }),
 
-  q("symptoms", "stool_type", 29, "평소 대변 상태는 어느 쪽에 가깝습니까?", [
-    option("constipation", "변비형", { SY: 1, TE: 1 }, ["fiber_priority"]),
-    option("normal", "보통", {}),
-    option("diarrhea", "설사형", { SE: 2 }, ["digestive_gentle"])
+  q("symptoms", "stool_type", 29, "Which side is your usual stool condition closer to??", [
+    option("constipation", "Constipation type", { SY: 1, TE: 1 }, ["fiber_priority"]),
+    option("normal", "Normal", {}),
+    option("diarrhea", "diarrhea type", { SE: 2 }, ["digestive_gentle"])
   ], { useForRecommendation: true }),
 
-  q("symptoms", "sleep_latency", 30, "잠들기까지 시간이 오래 걸리는 편입니까?", scaleOptions(
-    ["전혀 아니다", "아니다", "보통", "그렇다", "매우 그렇다"],
+  q("symptoms", "sleep_latency", 30, "Does it take you a long time to fall asleep??", scaleOptions(
+    ["Not at all", "no", "Normal", "Yes", "Very much so"],
     [{ TE: 1 }, {}, {}, { SY: 1 }, { SY: 1, TY: 1 }]
   )),
 
-  q("symptoms", "sleep_refresh", 31, "잠에서 깨어난 후 개운함을 느끼십니까?", scaleOptions(
-    ["전혀 아니다", "아니다", "보통", "그렇다", "매우 그렇다"],
+  q("symptoms", "sleep_refresh", 31, "Do you feel refreshed after waking up??", scaleOptions(
+    ["Not at all", "no", "Normal", "Yes", "Very much so"],
     [{ TE: 1, SE: 1 }, { TE: 1 }, {}, {}, { SY: 1 }]
   )),
 
-  q("symptoms", "throat_chest_stuck", 32, "목이나 가슴에 무언가 걸린 듯한 답답함을 자주 느끼십니까?", scaleOptions(
-    ["전혀 아니다", "아니다", "보통", "그렇다", "매우 그렇다"],
+  q("symptoms", "throat_chest_stuck", 32, "Do you often feel stuffy, as if something is stuck in your throat or chest??", scaleOptions(
+    ["Not at all", "no", "Normal", "Yes", "Very much so"],
     [{}, {}, { SE: 1 }, { TY: 1, SY: 1 }, { TY: 2, SY: 1 }]
   )),
 
-  q("symptoms", "cold_food_avoidance", 33, "찬 음식을 피하는 편입니까?", scaleOptions(
-    ["전혀 아니다", "아니다", "보통", "그렇다", "매우 그렇다"],
+  q("symptoms", "cold_food_avoidance", 33, "Do you tend to avoid cold foods??", scaleOptions(
+    ["Not at all", "no", "Normal", "Yes", "Very much so"],
     [{ SY: 1 }, {}, { TE: 1 }, { SE: 2 }, { SE: 3 }]
   ), { useForRecommendation: true, cautionTags: ["cold_food_sensitivity"] } as Partial<Question>),
 
-  q("symptoms", "greasy_food_discomfort", 34, "기름진 음식을 먹은 뒤 불편감이 있습니까?", scaleOptions(
-    ["전혀 없음", "거의 없음", "보통", "있음", "매우 심함"],
+  q("symptoms", "greasy_food_discomfort", 34, "Do you feel uncomfortable after eating fatty foods??", scaleOptions(
+    ["None at all", "almost none", "Normal", "Yes", "very severe"],
     [{ SY: 1 }, {}, { TE: 1 }, { SE: 1 }, { SE: 2 }]
   ), { useForRecommendation: true }),
 
-  q("symptoms", "meat_preference", 35, "육류(소고기·돼지고기)를 얼마나 좋아하십니까?", scaleOptions(
-    ["매우 싫어함", "싫어함", "보통", "좋아함", "매우 좋아함"],
+  q("symptoms", "meat_preference", 35, "meat(beef·pork)How much do you like?", scaleOptions(
+    ["very dislike", "Dislike", "Normal", "like", "Like it very much"],
     [{ SE: 1 }, {}, {}, { TE: 1 }, { TE: 1, SY: 1 }]
-  ), { useForClassification: false, useForRecommendation: true, weight: 0.5, analysisNoteKo: "음식 선호는 체질 확정보다 추천 개인화에 더 적합하므로 분류 가중치를 낮춥니다." }),
+  ), { useForClassification: false, useForRecommendation: true, weight: 0.5, analysisNoteKo: "Food preferences are better suited to personalizing recommendations than determining body type, so we lower the classification weight.." }),
 
-  q("symptoms", "fish_seafood_preference", 36, "생선·해산물을 얼마나 좋아하십니까?", scaleOptions(
-    ["매우 싫어함", "싫어함", "보통", "좋아함", "매우 좋아함"],
+  q("symptoms", "fish_seafood_preference", 36, "fish·How much do you like seafood??", scaleOptions(
+    ["very dislike", "Dislike", "Normal", "like", "Like it very much"],
     [{ SE: 1 }, {}, {}, { SY: 1, TY: 1 }, { SY: 1, TY: 1 }]
   ), { useForClassification: false, useForRecommendation: true, weight: 0.5 }),
 
-  q("symptoms", "chicken_preference", 37, "닭고기를 얼마나 좋아하십니까?", scaleOptions(
-    ["매우 싫어함", "싫어함", "보통", "좋아함", "매우 좋아함"],
+  q("symptoms", "chicken_preference", 37, "How much do you like chicken?", scaleOptions(
+    ["very dislike", "Dislike", "Normal", "like", "Like it very much"],
     [{}, {}, { SE: 1 }, { SE: 1 }, { SE: 1 }]
   ), { useForClassification: false, useForRecommendation: true, weight: 0.5 }),
 
-  q("symptoms", "spicy_preference", 38, "매운맛을 얼마나 좋아하십니까?", scaleOptions(
-    ["매우 싫어함", "싫어함", "보통", "좋아함", "매우 좋아함"],
+  q("symptoms", "spicy_preference", 38, "How much do you like spicy food??", scaleOptions(
+    ["very dislike", "Dislike", "Normal", "like", "Like it very much"],
     [{ SE: 1 }, {}, {}, { SY: 1 }, { SY: 1 }]
   ), { useForClassification: false, useForRecommendation: true, weight: 0.5 }),
 
-  q("symptoms", "salty_preference", 39, "짠맛을 얼마나 좋아하십니까?", scaleOptions(
-    ["매우 싫어함", "싫어함", "보통", "좋아함", "매우 좋아함"],
+  q("symptoms", "salty_preference", 39, "How salty do you like it??", scaleOptions(
+    ["very dislike", "Dislike", "Normal", "like", "Like it very much"],
     [{ SY: 1 }, {}, {}, { TE: 1 }, { TE: 1 }]
   ), { useForClassification: false, useForRecommendation: true, weight: 0.5 }),
 
-  q("symptoms", "sweet_preference", 40, "단맛을 얼마나 좋아하십니까?", scaleOptions(
-    ["매우 싫어함", "싫어함", "보통", "좋아함", "매우 좋아함"],
+  q("symptoms", "sweet_preference", 40, "How sweet do you like it??", scaleOptions(
+    ["very dislike", "Dislike", "Normal", "like", "Like it very much"],
     [{}, {}, {}, { SE: 1, TE: 1 }, { SE: 1, TE: 1 }]
   ), { useForClassification: false, useForRecommendation: true, weight: 0.5 }),
 
-  q("symptoms", "sour_preference", 41, "신맛을 얼마나 좋아하십니까?", scaleOptions(
-    ["매우 싫어함", "싫어함", "보통", "좋아함", "매우 좋아함"],
+  q("symptoms", "sour_preference", 41, "How much do you like sour food??", scaleOptions(
+    ["very dislike", "Dislike", "Normal", "like", "Like it very much"],
     [{}, {}, {}, { SE: 1, TY: 1 }, { SE: 1, TY: 1 }]
   ), { useForClassification: false, useForRecommendation: true, weight: 0.5 }),
 
-  q("symptoms", "fishy_food_avoidance", 42, "비린 생선이나 해산물을 피하는 편입니까?", scaleOptions(
-    ["전혀 아니다", "아니다", "보통", "그렇다", "매우 그렇다"],
+  q("symptoms", "fishy_food_avoidance", 42, "Do you tend to avoid fishy fish or seafood??", scaleOptions(
+    ["Not at all", "no", "Normal", "Yes", "Very much so"],
     [{ SY: 1 }, {}, {}, { SE: 1 }, { SE: 1 }]
   ), { useForClassification: false, useForRecommendation: true, weight: 0.5 })
 ];

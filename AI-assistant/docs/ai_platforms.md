@@ -1,416 +1,416 @@
-# AI Platform Comparison — 주요 인공지능 플래홈 비교 분석
-# 어느 플래홈이 어디서 앞서는가, 그 리유는 무엇인가
+﻿# AI Platform Comparison — Comparison analysis of major artificial intelligence platforms
+# Which platform wins where?, What is the reason?
 
 ---
 
-## 개요 / Overview
+## Overview / Overview
 
-현재 세계에서 가장 앞선 인공지능 언어 모형들:
+Currently, the world's most advanced artificial intelligence language models:
 
-| 플래홈 | 회사 | 대표 모형 | 공개 여부 |
+| platform | company | representative model | Public or not |
 |--------|------|----------|----------|
-| **GPT / ChatGPT** | OpenAI (미국) | GPT-4o, o3 | 비공개 |
-| **Gemini** | Google DeepMind (미국) | Gemini 2.0 Ultra | 비공개 |
-| **Copilot** | Microsoft (미국) | GPT-4o 기반 | 비공개 |
-| **Claude** | Anthropic (미국) | Claude Sonnet 4.6 | 비공개 |
-| **DeepSeek** | DeepSeek AI (중국) | DeepSeek-V3, R1 | **완전 공개** |
-| **LLaMA** | Meta (미국) | LLaMA-3.3 70B | **완전 공개** |
+| **GPT / ChatGPT** | OpenAI (united states) | GPT-4o, o3 | private |
+| **Gemini** | Google DeepMind (united states) | Gemini 2.0 Ultra | private |
+| **Copilot** | Microsoft (united states) | GPT-4o based | private |
+| **Claude** | Anthropic (united states) | Claude Sonnet 4.6 | private |
+| **DeepSeek** | DeepSeek AI (china) | DeepSeek-V3, R1 | **full disclosure** |
+| **LLaMA** | Meta (united states) | LLaMA-3.3 70B | **full disclosure** |
 
 ---
 
 ## 1. OpenAI — GPT-4o, o1, o3
 
-### 핵심 강점
+### core strengths
 
-**추론 능력 (o1/o3 계열)**이 가장 앞서 있습니다.
+**reasoning ability (o1/o3 series)**This is the most advanced.
 
-OpenAI가 다른 플래홈보다 앞서는 주된 리유:
+OpenAIThe main reason why it is ahead of other platforms:
 
-#### 1-1. RLHF (인간 피드백 강화학습)
+#### 1-1. RLHF (Human feedback reinforcement learning)
 
 ```
-일반 언어 모형(GPT-3) + 인간 선호도 자료
+general language model(GPT-3) + human preference data
     ↓
-지도 미세조정 (SFT: Supervised Fine-Tuning)
+Map tweaks (SFT: Supervised Fine-Tuning)
     ↓
-보상 모형 학습 (인간이 응답 쌍 선호도 평가)
+Learning reward model (Human response pair preference assessment)
     ↓
-PPO 강화학습 (보상 모형의 점수를 최대화)
+PPO Reinforcement learning (Maximize the score of the reward model)
     ↓
 InstructGPT / ChatGPT
 ```
 
-RLHF가 혁명적이었던 리유: 모형이 "옳은 답"이 아니라 "인간이 좋아하는 답"을 배우도록 함.
+RLHFReason why it was revolutionary: The model "correct answer"Not this "Human's Favorite Answer"Let's learn.
 
-#### 1-2. 사고 연쇄 강화학습 (o1/o3 — Chain-of-Thought RL)
+#### 1-2. Thought chain reinforcement learning (o1/o3 — Chain-of-Thought RL)
 
 ```
-문제 → [내부 사고 어표들] → 최종 답변
+problem → [internal thinking signs] → final answer
 ```
 
-- o1은 답하기 전에 수천 개의 "사고 어표"를 생성하며 스스로 검토
-- 인간의 검토 없이 순수 강화학습으로만 추론 능력 향상
-- 수학, 과학, 코딩에서 인간 전문가 수준 달성
+- o1Before answering, "accident ticket"Create and review yourself
+- Improve reasoning ability only through pure reinforcement learning without human review
+- math, science, Achieve human expert level in coding
 
-#### 1-3. 혼합 전문가 구조 (MoE: Mixture of Experts)
+#### 1-3. Mixed expert structure (MoE: Mixture of Experts)
 
-GPT-4는 아마도 MoE 구조 (미확인, OpenAI 비공개):
+GPT-4is probably MoE structure (unconfirmed, OpenAI private):
 ```
-입력 → 라우터(Router) → 8개 전문가 중 2개 선택 → 처리
+input → router(Router) → 8Choose 2 of our dog experts → processing
 ```
-- 전체 매개변수: ~1.76조 (추정)
-- 실제 활성 매개변수: ~220억 (처리당)
-- 결과: 대형 모형의 표현력 + 소형 모형의 속도
+- full parameters: ~1.76Joe (estimate)
+- Actual active parameters: ~220billion (per processing)
+- result: Expressive power of large models + Speed of small models
 
-#### 1-4. 강점 요약
+#### 1-4. Summary of Strengths
 
-| 분야 | 수준 |
+| field | level |
 |------|------|
-| 추론/논리 (o3) | ★★★★★ 최고 수준 |
-| 수학 | ★★★★★ |
-| 코딩 | ★★★★☆ |
-| 지시 따르기 | ★★★★★ |
-| 안전성 | ★★★☆☆ 논란 있음 |
-| 비용 | 비쌈 |
+| inference/logic (o3) | ★★★★★ highest level |
+| math | ★★★★★ |
+| coding | ★★★★☆ |
+| follow directions | ★★★★★ |
+| safety | ★★★☆☆ Controversial |
+| cost | Expensive |
 
 ---
 
 ## 2. Google Gemini — 2.0 Ultra/Pro/Flash
 
-### 핵심 강점
+### core strengths
 
-**긴 문맥 처리**와 **다매체 이해(Multimodal)**에서 가장 앞섭니다.
+**Long context processing**Wow **Multimedia Understanding(Multimodal)**The most advanced in.
 
-#### 2-1. 1,000,000 어표 문맥 (1M Token Context)
+#### 2-1. 1,000,000 tag context (1M Token Context)
 
-일반 모형: 4,096~200,000 어표 처리
-Gemini 1.5 Pro: **1,000,000 어표** = 약 750,000 단어 = 소설 10권
+general model: 4,096~200,000 stamp processing
+Gemini 1.5 Pro: **1,000,000 tag** = about 750,000 word = 10 novels
 
-이것이 가능한 기술적 리유:
+Technical reason why this is possible:
 ```
-일반 주목(Attention): 계산량 = O(n²)
-  n=1,000,000이면 1조 번의 연산 → 불가능
+general attention(Attention): Computation amount = O(n²)
+  n=1,000,0001 trillion calculations → impossible
 
-Gemini의 해결책: 선형 주목 변형 + 특수 위치 인코딩
-  계산량 = O(n) → 가능
+Geminisolution: Linear attention transformation + Special location encoding
+  Computation amount = O(n) → possible
 ```
 
-#### 2-2. 다매체 원본 학습 (Native Multimodal)
+#### 2-2. Multimedia original learning (Native Multimodal)
 
-GPT-4는 텍스트 모형에 시각 처리를 나중에 추가.  
-Gemini는 처음부터 텍스트, 이미지, 소리, 동영상을 함께 학습:
+GPT-4Add visual processing to the text mockup later.  
+Geminiis the text from the beginning, image, sound, Learn videos together:
 
 ```
-[텍스트 어표] [이미지 패치] [오디오 스펙트럼] [동영상 프레임]
+[text tag] [image patch] [audio spectrum] [video frame]
     ↓                ↓              ↓                ↓
-                변환기 통합 처리
+                Converter integrated processing
 ```
 
-#### 2-3. TPU v5 전용 하드웨어
+#### 2-3. TPU v5 dedicated hardware
 
-- Google이 자체 설계한 TPU(Tensor Processing Unit)로 학습
-- H100보다 특정 행렬 연산에서 2~4배 빠름
-- Google 내부에서만 사용 가능
+- GoogleThis self-designed TPU(Tensor Processing Unit)learn by
+- H100In more specific matrix operations, 2~4ship fast
+- Google For internal use only
 
-#### 2-4. 강점 요약
+#### 2-4. Summary of Strengths
 
-| 분야 | 수준 |
+| field | level |
 |------|------|
-| 긴 문맥 처리 | ★★★★★ 최고 수준 |
-| 다매체 이해 | ★★★★★ |
-| 검색 연동 | ★★★★★ (Google 검색 통합) |
-| 추론 | ★★★★☆ |
-| 코딩 | ★★★★☆ |
-| 비용 | 보통 |
+| Long context processing | ★★★★★ highest level |
+| Multimedia Understanding | ★★★★★ |
+| Search integration | ★★★★★ (Google Search integration) |
+| inference | ★★★★☆ |
+| coding | ★★★★☆ |
+| cost | Normal |
 
 ---
 
 ## 3. Microsoft Copilot
 
-### 실체
+### entity
 
-Copilot은 **독자적인 AI 모형이 아닙니다**.  
-OpenAI의 GPT-4o 모형을 Microsoft 서비스에 통합한 것입니다.
+Copilotsilver **unique AI not a model**.  
+OpenAIof GPT-4o model Microsoft It is integrated into the service.
 
 ```
-사용자 입력
+user input
     ↓
-Bing 검색 (실시간 웹 정보 검색) — RAG 방식
+Bing Search (Real-time web information retrieval) — RAG way
     ↓
-검색 결과 + 사용자 입력을 GPT-4o에 전달
+Search results + user input GPT-4opassed to
     ↓
-GPT-4o 응답 생성
+GPT-4o Generate response
     ↓
-Microsoft 형식으로 표시
+Microsoft display in format
 ```
 
-#### Copilot의 실제 강점
+#### CopilotThe actual strengths of
 
-독자 알고리듬이 아닌 **생태계 통합**이 강점:
+Not a reader algorithm **Ecosystem integration**this strength:
 
-| 통합 서비스 | 기능 |
+| integrated service | function |
 |------------|------|
-| Microsoft 365 | Word, Excel, PowerPoint 자동화 |
-| GitHub Copilot | 코드 자동완성 (GPT-4 기반) |
-| Windows 11 | 운영체제 내장 AI |
-| Bing Search | 실시간 웹 정보 |
-| Azure | 기업 클라우드 통합 |
+| Microsoft 365 | Word, Excel, PowerPoint automation |
+| GitHub Copilot | Code autocompletion (GPT-4 based) |
+| Windows 11 | Built-in operating system AI |
+| Bing Search | Real-time web information |
+| Azure | Enterprise Cloud Integration |
 
-**기술적으로는 GPT-4와 동일**하지만, 기업 환경 통합에서 가장 앞섭니다.
+**technically GPT-4Same as**But, Leading the way in corporate environment integration.
 
 ---
 
-## 4. Anthropic Claude — Sonnet 4.6 (이 AI)
+## 4. Anthropic Claude — Sonnet 4.6 (This AI)
 
-### 핵심 강점
+### core strengths
 
-**안전성**과 **코딩**에서 앞서며, 독자적인 학습 방법을 사용합니다.
+**safety**and **coding**ahead of, We use a unique learning method.
 
-#### 4-1. Constitutional AI (헌법적 인공지능)
+#### 4-1. Constitutional AI (constitutional artificial intelligence)
 
-OpenAI의 RLHF: **인간**이 응답을 평가 → 비용 높고 규모 제한 있음
+OpenAIof RLHF: **human**rate this response → Cost is high and scale is limited
 
-Anthropic의 RLAIF (AI 피드백 강화학습):
+Anthropicof RLAIF (AI Feedback Reinforcement Learning):
 ```
-1. 원칙(Constitution) 정의:
-   "해롭지 않아야 한다"
-   "정직해야 한다"
-   "도움이 되어야 한다"
+1. principles(Constitution) definition:
+   "must not be harmful"
+   "Be honest"
+   "should be helpful"
 
-2. AI 모형이 스스로 응답을 평가:
-   모형A가 응답 생성
-   → 같은 모형이 원칙에 따라 응답 비판
-   → 비판을 바탕으로 응답 개선
-   → 개선된 응답으로 다시 학습
+2. AI The model evaluates the response itself:
+   modelAgenerates a response
+   → The same model responds and criticizes based on its principles.
+   → Improve response based on criticism
+   → Retrain with improved responses
 
-3. 인간 평가자 없이 자동으로 정렬(Alignment) 달성
+3. Sort automatically without human evaluators(Alignment) achieve
 ```
 
-이 방식의 장점:
-- 수천 명의 인간 평가자 불필요 → 비용 대폭 절감
-- 원칙이 명확하여 일관된 행동
-- 규모 확장 용이
+Advantages of this method:
+- No need for thousands of human evaluators → Significant cost savings
+- Consistent action with clear principles
+- Easy to scale
 
-#### 4-2. 긴 문맥 (200K 어표)
+#### 4-2. long context (200K tag)
 
-Claude 3 이후: 200,000 어표 처리 가능 (소설 2권 분량)
+Claude 3 After: 200,000 Ticket processing possible (2 novel volumes)
 
-#### 4-3. 코딩 능력
+#### 4-3. coding skills
 
-SWE-bench(실제 소프트웨어 버그 수정 벤치마크)에서 최고 수준:
-- Claude Sonnet 4.6 / Opus 4.7: 업계 선두권
+SWE-bench(Real-world software bug fixing benchmarks)highest level in:
+- Claude Sonnet 4.6 / Opus 4.7: industry leader
 
-#### 4-4. 강점 요약
+#### 4-4. Summary of Strengths
 
-| 분야 | 수준 |
+| field | level |
 |------|------|
-| 안전성/거절 품질 | ★★★★★ 최고 수준 |
-| 코딩 | ★★★★★ |
-| 긴 문맥 | ★★★★☆ |
-| 정직성 | ★★★★★ |
-| 추론 | ★★★★☆ |
-| 한국어 | ★★★☆☆ (조선말은 약함) |
+| safety/rejection quality | ★★★★★ highest level |
+| coding | ★★★★★ |
+| long context | ★★★★☆ |
+| honesty | ★★★★★ |
+| inference | ★★★★☆ |
+| Korean | ★★★☆☆ (Korean language is weak) |
 
 ---
 
 ## 5. DeepSeek — V3, R1
 
-### 핵심 강점
+### core strengths
 
-**알고리듬 혁신**으로 적은 비용에 최고 수준 성능을 달성한 플래홈.  
-2025년 AI 업계에서 가장 충격적인 발표를 한 회사.
+**Algorithm Innovation**A platform that achieves the highest level of performance at low cost.  
+2025year AI The company that made the most shocking announcement in the industry.
 
-#### 5-1. MLA (Multi-head Latent Attention) — 핵심 혁신
+#### 5-1. MLA (Multi-head Latent Attention) — core innovation
 
-기존 MHA(Multi-Head Attention)의 문제:
+existing MHA(Multi-Head Attention)the problem:
 ```
-추론 시 KV Cache(키-값 저장소) = n_head × d_head × sequence_length × 2
-긴 문맥에서 수백 GB 기억 필요
-```
-
-DeepSeek의 MLA 해결책:
-```
-KV Cache를 저차원 잠재 벡터로 압축:
-  기존: KV Cache = 100% 기억 사용
-  MLA: KV Cache = 7% 기억 사용 (93% 절감!)
-
-수식:
-  c_KV = W_DKV × h   (h: 은닉 벡터, W_DKV: 압축 행렬)
-  K = W_UK × c_KV    (복원)
-  V = W_UV × c_KV    (복원)
+When inferring KV Cache(key-value store) = n_head × d_head × sequence_length × 2
+Hundreds in long context GB need to remember
 ```
 
-이 덕분에 같은 기억으로 훨씬 긴 문맥 처리 가능.
-
-#### 5-2. MoE + 효율적 라우팅
-
-DeepSeek-V3: 6,710억 매개변수, 하지만 처리당 370억만 활성
-
+DeepSeekof MLA solution:
 ```
-전체 매개변수: 671B
-전문가 수: 256개
-처리당 활성 전문가: 8개 (Top-8 라우팅)
-처리당 실제 사용 매개변수: 37B (5.5%)
+KV Cachecompresses into a low-dimensional latent vector.:
+  existing: KV Cache = 100% use memory
+  MLA: KV Cache = 7% use memory (93% savings!)
 
-결과: 37B 크기의 계산 비용으로 671B 지식 활용
+formula:
+  c_KV = W_DKV × h   (h: Hidden vector, W_DKV: compression matrix)
+  K = W_UK × c_KV    (restore)
+  V = W_UV × c_KV    (restore)
 ```
 
-라우팅 혁신 — 부하 균형(Load Balancing) 없이도 전문가가 골고루 활성화:
-```
-기존: 라우터가 특정 전문가만 선택 → 일부 전문가 과부하
-DeepSeek: 보조 손실 없이 균형 자동 달성
-```
+This allows much longer context processing with the same memory..
 
-#### 5-3. DeepSeek-R1 — 순수 강화학습 추론
+#### 5-2. MoE + efficient routing
+
+DeepSeek-V3: 6,710billion parameters, But only 37 billion active per processing
 
 ```
-OpenAI o1: SFT(지도학습) → RLHF → 추론 능력 향상
-DeepSeek-R1: SFT 없음 → 순수 RL만으로 추론 능력 창발(Emergence)!
+full parameters: 671B
+number of experts: 256dog
+Active Experts Per Processing: 8dog (Top-8 routing)
+Actual usage parameters per processing: 37B (5.5%)
+
+result: 37B 671 at the cost of calculating sizeB Use your knowledge
 ```
 
-결과: 모형이 스스로 "사고 연쇄"를 발견.  
-인간이 가르치지 않아도 "먼저 생각하고 답한다"는 행동이 자연히 나타남.
+Routing innovation — load balance(Load Balancing) Evenly activated by experts without:
+```
+existing: Router selects only certain experts → Some experts overload
+DeepSeek: Automatically achieves balance without secondary losses
+```
 
-이것이 놀라운 리유:  
-"특정 행동을 가르치지 않아도 보상 신호만 주면 AI가 스스로 최적 전략을 발견한다"는 증거.
+#### 5-3. DeepSeek-R1 — Pure reinforcement learning inference
 
-#### 5-4. 학습 비용 비교
+```
+OpenAI o1: SFT(Supervised learning) → RLHF → Improved reasoning skills
+DeepSeek-R1: SFT None → pure RLDeveloping reasoning skills just by(Emergence)!
+```
 
-| 모형 | 추정 학습 비용 |
+result: the model itself "chain of accidents"found.  
+Even if humans do not teach "Think first and then answer"The behavior appears naturally.
+
+This is an amazing reason:  
+"Even if you don't teach a specific behavior, just give a reward signal. AIdiscovers the optimal strategy on its own"is the evidence.
+
+#### 5-4. Compare learning costs
+
+| model | Estimated learning cost |
 |------|---------------|
 | GPT-4 | $60,000,000+ |
 | Gemini Ultra | $40,000,000+ |
 | Claude 3 Opus | $20,000,000+ |
 | **DeepSeek-V3** | **$5,576,000** |
 
-같은 성능을 1/10 비용으로 달성한 이유:
-1. MLA로 기억 사용량 93% 절감
-2. FP8 학습 정밀도 사용
-3. 효율적인 MoE 라우팅
-4. 중국 인건비 및 전력 비용 절감
+Same performance as 1/10 Why achieve it at cost:
+1. MLAMemory usage 93% savings
+2. FP8 Use learning precision
+3. efficient MoE routing
+4. Reduce labor and power costs in China
 
-#### 5-5. 완전 공개 (Open Source)
+#### 5-5. full disclosure (Open Source)
 
-- 모형 가중치: 허깅페이스(Hugging Face)에 무료 공개
-- 학습 방법: 논문으로 상세 공개
-- 누구나 자신의 서버에서 실행 가능
+- model weights: hugging face(Hugging Face)Free to public
+- How to learn: Detailed disclosure in thesis
+- Anyone can run it on their own server
 
-#### 5-6. 강점 요약
+#### 5-6. Summary of Strengths
 
-| 분야 | 수준 |
+| field | level |
 |------|------|
-| 수학/코딩 | ★★★★★ OpenAI o3와 동급 |
-| 비용 효율 | ★★★★★ 최고 수준 |
-| 알고리듬 혁신 | ★★★★★ |
-| 공개성 | ★★★★★ |
-| 안전성 | ★★☆☆☆ (미국 기준 검열 미흡) |
-| 한국어/조선말 | ★★★☆☆ |
+| math/coding | ★★★★★ OpenAI o3equivalent to |
+| cost-effective | ★★★★★ highest level |
+| Algorithm Innovation | ★★★★★ |
+| openness | ★★★★★ |
+| safety | ★★☆☆☆ (Insufficient censorship by US standards) |
+| Korean/Joseon language | ★★★☆☆ |
 
 ---
 
-## 6. 플래홈별 핵심 차별점 정리
+## 6. Summary of key differences by platform
 
-### 무엇이 AI를 앞서게 하는가?
+### what AIDoes it lead the way??
 
 ```
-성능 결정 요소 (중요도 순):
+performance determinants (In order of importance):
 
-1위. 학습 자료 규모와 품질          ████████████ 40%
-2위. 알고리듬/구조 혁신             ████████     30%
-3위. 계산 자원(GPU/TPU 수)          ██████       20%
-4위. 정렬(Alignment) 방법           ████         10%
+1above. Size and quality of learning materials          ████████████ 40%
+2above. algorithm/structural innovation             ████████     30%
+3above. computational resources(GPU/TPU number)          ██████       20%
+4above. sort(Alignment) method           ████         10%
 ```
 
-### 알고리듬이 앞서는 경우 vs. 자료/계산이 앞서는 경우
+### When the algorithm is ahead vs. material/When calculations are ahead
 
-| 앞서는 이유 | 해당 플래홈 | 핵심 혁신 |
+| Reasons for being ahead | Applicable platform | core innovation |
 |------------|------------|----------|
-| **알고리듬** | DeepSeek | MLA (KV Cache 93% 절감), MoE 라우팅 혁신, 순수 RL 추론 |
-| **알고리듬** | OpenAI | RLHF 최초 실용화, o1 사고 연쇄 RL |
-| **알고리듬** | Anthropic | Constitutional AI (RLAIF), 안전 정렬 |
-| **자료 규모** | Google | 전체 인터넷 자료 + YouTube + 도서 |
-| **계산 자원** | Google | TPU v5 자체 설계, 가장 많은 컴퓨팅 |
-| **문맥 길이** | Google | 1M 어표 선형 주목 |
-| **생태계** | Microsoft | GPT-4 + Office/Windows/GitHub 통합 |
+| **algorithm** | DeepSeek | MLA (KV Cache 93% savings), MoE Routing innovation, pure RL inference |
+| **algorithm** | OpenAI | RLHF First commercialization, o1 chain of accidents RL |
+| **algorithm** | Anthropic | Constitutional AI (RLAIF), safety alignment |
+| **data scale** | Google | full internet resources + YouTube + book |
+| **computational resources** | Google | TPU v5 self-designed, most computing |
+| **context length** | Google | 1M Fish mark linear attention |
+| **ecosystem** | Microsoft | GPT-4 + Office/Windows/GitHub integration |
 
-### 주요 구조 혁신 연대기
+### Chronology of major structural innovations
 
 ```
-2017  Transformer (구글) — 현대 AI의 기초
-2018  GPT-1 (OpenAI) — 언어 모형에 적용
-2019  GPT-2 — 규모 확장의 위력 증명
-2020  GPT-3 (175B) — 대규모 언어 모형 시대 개막
-2022  InstructGPT + RLHF — 사람이 원하는 응답 학습
-2022  ChatGPT — 일반 대중 AI 시대 개막
-2023  GPT-4 — MoE 추정, 멀티모달
-2023  LLaMA (Meta) — 오픈소스 혁명
-2023  Claude 2 — Constitutional AI 성숙
-2024  Gemini 1.5 — 1M 어표 문맥
-2024  DeepSeek-V2 — MLA 혁신, KV Cache 93% 절감
-2024  LLaMA-3 — 오픈소스 최강
-2025  DeepSeek-V3 — GPT-4급 성능, 1/10 비용
-2025  DeepSeek-R1 — 순수 RL로 o1급 추론
-2025  Claude Sonnet 4.6 — 코딩 최강 (현재 이 AI)
-2025  GPT o3 — 최고 수준 추론
+2017  Transformer (google) — modern AIthe basis of
+2018  GPT-1 (OpenAI) — Application to language models
+2019  GPT-2 — Proving the power of scale-up
+2020  GPT-3 (175B) — The era of large-scale language models begins
+2022  InstructGPT + RLHF — Learning human-desired responses
+2022  ChatGPT — general public AI The beginning of an era
+2023  GPT-4 — MoE estimate, multimodal
+2023  LLaMA (Meta) — open source revolution
+2023  Claude 2 — Constitutional AI maturity
+2024  Gemini 1.5 — 1M tag context
+2024  DeepSeek-V2 — MLA innovation, KV Cache 93% savings
+2024  LLaMA-3 — The best in open source
+2025  DeepSeek-V3 — GPT-4class performance, 1/10 cost
+2025  DeepSeek-R1 — pure RLby o1class inference
+2025  Claude Sonnet 4.6 — The best in coding (Currently this AI)
+2025  GPT o3 — highest level inference
 ```
 
 ---
 
-## 7. 우리 프로젝트(조선말 AI)와의 비교
+## 7. our project(Joseon language AI)comparison with
 
-### 우리 모형이 위 플래홈들과 다른 점
+### How our model differs from the above platforms
 
-| 항목 | 우리 모형 | GPT-4/Claude 등 |
+| item | our model | GPT-4/Claude etc. |
 |------|----------|----------------|
-| 학습 자료 | 조선말 전용 | 전 세계 언어 혼합 |
-| 매개변수 수 | 30M~350M | 7B~1,760B |
-| 학습 비용 | 전력비만 | 수백만~수천만 달러 |
-| 조선말 전문성 | **특화** | 일반적 |
-| 공개 여부 | 완전 자체 보유 | 외부 API 의존 |
-| 오프라인 사용 | **가능** | 인터넷 필요 |
-| 개인정보 보호 | **완전** | 외부 서버 전송 |
+| learning materials | Korean language only | Mixing languages around the world |
+| number of parameters | 30M~350M | 7B~1,760B |
+| learning cost | power consumption | millions~tens of millions of dollars |
+| Korean language expertise | **specialization** | general |
+| Public or not | completely self-contained | outside API dependence |
+| offline use | **possible** | internet required |
+| Privacy protection | **completely** | External server transfer |
 
-### 우리 모형이 앞설 수 있는 분야
+### Areas where our model can lead
 
-1. **조선말 특화**: 다른 플래홈은 조선말 자료가 극히 적음
-2. **완전 오프라인**: 인터넷 연결 불필요
-3. **완전 소유권**: 모형 가중치가 자신의 콤퓨터에 있음
-4. **개인정보**: 대화 내용이 외부로 나가지 않음
-5. **자유로운 미세조정**: 추가 자료로 언제든 재학습 가능
+1. **Specialization in Joseon language**: Other platforms have very little data on the Joseon language.
+2. **completely offline**: No internet connection required
+3. **full ownership**: Model weights are on your computer
+4. **Personal information**: Conversations don't go out
+5. **Free fine tuning**: You can re-study at any time with additional materials
 
-### 100기가 조선말 자료로 학습 후 예상 수준
+### 100Expected level after learning with Giga Joseon language materials
 
-| 비교 | 수준 |
+| Compare | level |
 |------|------|
-| 조선말 문법 이해 | GPT-3.5 수준 가능 |
-| 음식/운동 분야 답변 | 전문 수준 가능 |
-| 일반 대화 | GPT-2~3 수준 |
-| 추론 능력 | 제한적 (RLHF 없음) |
-| 안전성 정렬 | 미적용 (원하면 추가 가능) |
+| Understanding Korean Grammar | GPT-3.5 level possible |
+| food/Exercise Area Answers | Professional level available |
+| normal conversation | GPT-2~3 level |
+| reasoning ability | limited (RLHF None) |
+| Safety Alignment | Not applied (You can add more if you want) |
 
-### 성능 향상을 위해 추가할 수 있는 기술
+### Technologies that can be added to improve performance
 
-| 기술 | 설명 | 난이도 |
+| technology | Description | Difficulty level |
 |------|------|--------|
-| RLHF | 인간이 좋은 응답 선택 → 강화학습 | 높음 |
-| DPO | 선호/비선호 쌍으로 직접 학습 | 중간 |
-| 사고 연쇄 학습 | "질문: X\n생각: ...\n대답: Y" 형식 자료 | 낮음 |
-| Flash Attention | 주목 계산 속도 2~4배 향상 | 중간 |
-| 양자화(4-bit) | 모형 크기 75% 절감, CPU에서도 실행 가능 | 낮음 |
+| RLHF | Humans choose good responses → Reinforcement learning | high |
+| DPO | preference/Direct learning with non-preferred pairs | middle |
+| Thought chain learning | "question: X\nthink: ...\nanswer: Y" format data | low |
+| Flash Attention | Attention calculation speed 2~4belly enhancement | middle |
+| Quantization(4-bit) | model size 75% savings, CPUCan also run in | low |
 
 ---
 
-## 결론
+## conclusion
 
-> **알고리듬인가, 자료인가, 계산 자원인가?**
+> **Is it an algorithm?, Is it data?, Is it a computational resource??**
 
-셋 다 중요하지만 2025년 현재 트렌드:
+All three are important, but current trends in 2025:
 
-- **DeepSeek**이 증명: 스마트한 알고리듬 > 무작정 계산 자원
-- **LLaMA**가 증명: 고품질 소량 자료 > 저품질 대량 자료
-- **Claude**가 증명: 정렬 방법(Constitutional AI) = 행동 품질 결정
-- **Gemini**가 증명: 특정 구조 혁신(선형 주목) → 불가능한 것을 가능하게
+- **DeepSeek**this proof: smart algorithm > Calculate resources recklessly
+- **LLaMA**prove: High-quality, small-volume data > Low-quality, bulk data
+- **Claude**prove: Sorting method(Constitutional AI) = Determination of behavioral quality
+- **Gemini**prove: Specific structural innovations(linear attention) → make the impossible possible
 
-**우리 프로젝트의 핵심 장점:**  
-세계 어느 플래홈도 조선말 전용으로 특화하지 않았습니다.  
-100기가의 조선말 자료는 이 분야에서 독보적인 자산입니다.
+**Key advantages of our project:**  
+No platform in the world is specialized for Korean language only..  
+100Giga's Korean language materials are an unrivaled asset in this field..

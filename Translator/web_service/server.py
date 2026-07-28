@@ -1,4 +1,4 @@
-"""Small dependency-free web UI for testing the offline translation pipeline.
+﻿"""Small dependency-free web UI for testing the offline translation pipeline.
 
 The service uses Python's standard library so it can run before heavy offline
 AI packages are installed. Later, the same request path can call NLLB, Argos
@@ -25,7 +25,7 @@ from corpus_status import build_status  # noqa: E402
 
 
 LANGUAGES = {
-    "ko_kp": "조선말",
+    "ko_kp": "Joseon language",
     "en": "English",
     "zh": "Chinese",
     "ru": "Russian",
@@ -521,8 +521,8 @@ def _render_index() -> str:
     <h1>Translator</h1>
 
     <div class="tabs">
-      <button class="tab-button active" data-tab="translator">번역기</button>
-      <button class="tab-button" data-tab="training">자료모집/학습</button>
+      <button class="tab-button active" data-tab="translator">translator</button>
+      <button class="tab-button" data-tab="training">Data collection/learning</button>
     </div>
 
     <section id="translator-panel" class="tab-panel active">
@@ -539,56 +539,56 @@ def _render_index() -> str:
 
     <section id="training-panel" class="tab-panel">
       <div class="section">
-        <h1>Raw 자료모집</h1>
+        <h1>Raw Data collection</h1>
         <div class="toolbar">
           <select id="url-language">{language_options}</select>
           <span class="muted">URL</span>
-          <input id="url" placeholder="언어별 원문 URL">
+          <input id="url" placeholder="Original text by language URL">
         </div>
-        <button id="import-url">Raw URL 수집</button>
+        <button id="import-url">Raw URL collection</button>
       </div>
 
       <div class="section">
-        <h1>쌍방향 번역자료</h1>
+        <h1>Interactive translation materials</h1>
         <div class="grid-2">
           <div>
             <select id="pair-source-language">{language_options}</select>
-            <input id="source-url" placeholder="조선말 URL">
+            <input id="source-url" placeholder="Joseon language URL">
           </div>
           <div>
             <select id="pair-target-language">{language_options}</select>
-            <input id="target-url" placeholder="영어 URL">
+            <input id="target-url" placeholder="english URL">
           </div>
         </div>
         <label class="check-row muted">
           <input id="approve-exact-order" type="checkbox" style="width:auto;height:auto;">
-          문장순서가 정확히 같으면 곧바로 승인자료로 넣기
+          If the sentence order is exactly the same, insert it as approved material immediately.
         </label>
-        <button id="import-url-pair">URL쌍 수집</button>
+        <button id="import-url-pair">URLpair collection</button>
       </div>
 
       <div class="section">
-        <h1>문장 대 문장</h1>
+        <h1>sentence to sentence</h1>
         <div class="grid-2">
           <div>
             <select id="sentence-source-language">{language_options}</select>
-            <textarea id="sentence-source-text" spellcheck="false" placeholder="원문 문장"></textarea>
+            <textarea id="sentence-source-text" spellcheck="false" placeholder="original sentence"></textarea>
           </div>
           <div>
             <select id="sentence-target-language">{language_options}</select>
-            <textarea id="sentence-target-text" spellcheck="false" placeholder="번역 문장"></textarea>
+            <textarea id="sentence-target-text" spellcheck="false" placeholder="translation sentence"></textarea>
           </div>
         </div>
-        <button id="add-sentence-pair">문장쌍 추가</button>
+        <button id="add-sentence-pair">Add sentence pair</button>
       </div>
 
       <div class="section">
-        <h1>학습</h1>
-        <button id="rebuild">학습시키기</button>
+        <h1>learning</h1>
+        <button id="rebuild">let them learn</button>
         <div id="status-dashboard" class="status-dashboard"></div>
         <div class="status-actions">
           <span class="muted" id="status-updated">-</span>
-          <button id="toggle-status-log" type="button">JSON 보기</button>
+          <button id="toggle-status-log" type="button">JSON view</button>
         </div>
         <pre id="status-log" hidden></pre>
       </div>
@@ -726,28 +726,28 @@ def _render_index() -> str:
       const isHidden = status.hasAttribute('hidden');
       if (isHidden) {{
         status.removeAttribute('hidden');
-        document.querySelector('#toggle-status-log').textContent = 'JSON 숨기기';
+        document.querySelector('#toggle-status-log').textContent = 'JSON Hide';
       }} else {{
         status.setAttribute('hidden', '');
-        document.querySelector('#toggle-status-log').textContent = 'JSON 보기';
+        document.querySelector('#toggle-status-log').textContent = 'JSON view';
       }}
     }});
 
     function renderStatus(data) {{
       const readiness = data.training_readiness || {{}};
-      statusUpdated.textContent = `상태 갱신: ${{new Date().toLocaleTimeString()}}`;
+      statusUpdated.textContent = `status update: ${{new Date().toLocaleTimeString()}}`;
       statusDashboard.innerHTML = [
         renderMetricCards(data),
         '<div class="chart-grid">',
-        renderDonutPanel('Raw 문장 언어별', objectEntries(data.raw_sentences_by_language), '문장'),
-        renderDonutPanel('URL쌍 수집상태', [
-          ['후보', data.url_pair_candidate_files || 0],
-          ['승인', data.url_pair_approved_files || 0]
-        ], '파일'),
-        renderDonutPanel('문장쌍 방향별', objectEntries(data.parallel_sentences_by_direction), '쌍'),
-        renderDonutPanel('단어후보 언어별', objectEntries(data.term_candidates_by_language), '개'),
-        renderDonutPanel('성구후보 언어별', objectEntries(data.phrase_candidates_by_language), '개'),
-        renderDonutPanel('쌍방향 성구 방향별', objectEntries(data.parallel_phrase_candidates_by_direction), '쌍'),
+        renderDonutPanel('Raw Sentence by language', objectEntries(data.raw_sentences_by_language), 'sentence'),
+        renderDonutPanel('URLPair collection status', [
+          ['candidate', data.url_pair_candidate_files || 0],
+          ['approval', data.url_pair_approved_files || 0]
+        ], 'file'),
+        renderDonutPanel('Sentence pair direction', objectEntries(data.parallel_sentences_by_direction), 'pair'),
+        renderDonutPanel('Word candidate by language', objectEntries(data.term_candidates_by_language), 'dog'),
+        renderDonutPanel('Scripture candidates by language', objectEntries(data.phrase_candidates_by_language), 'dog'),
+        renderDonutPanel('Two-way scripture direction', objectEntries(data.parallel_phrase_candidates_by_direction), 'pair'),
         '</div>',
         renderReadiness(readiness)
       ].join('');
@@ -755,10 +755,10 @@ def _render_index() -> str:
 
     function renderMetricCards(data) {{
       const cards = [
-        ['Raw 파일', data.raw_text_files || 0, '원문 URL/파일'],
-        ['URL쌍 후보', data.url_pair_candidate_files || 0, '검토 대기'],
-        ['URL쌍 승인', data.url_pair_approved_files || 0, '학습에 반영'],
-        ['번역메모리', data.translation_memory_entries || 0, '즉시 검색 가능']
+        ['Raw file', data.raw_text_files || 0, 'original text URL/file'],
+        ['URLpair candidate', data.url_pair_candidate_files || 0, 'await review'],
+        ['URLpair approval', data.url_pair_approved_files || 0, 'reflection on learning'],
+        ['translation memory', data.translation_memory_entries || 0, 'Instantly searchable']
       ];
       return `<div class="metric-grid">${{cards.map(([label, value, note]) => `
         <div class="metric-card">
@@ -774,7 +774,7 @@ def _render_index() -> str:
         .map(([label, value]) => [String(label), Number(value) || 0])
         .filter(([, value]) => value > 0);
       const total = entries.reduce((sum, [, value]) => sum + value, 0);
-      const shownEntries = total > 0 ? entries : [['자료없음', 1]];
+      const shownEntries = total > 0 ? entries : [['No data', 1]];
       const gradient = total > 0 ? conicGradient(entries) : '#e5e7eb';
       return `
         <section class="chart-panel">
@@ -805,10 +805,10 @@ def _render_index() -> str:
     function renderReadiness(readiness) {{
       const entries = Object.entries(readiness);
       if (!entries.length) {{
-        return '<div class="readiness-card"><strong>학습준비</strong><p class="muted">아직 문장쌍이 없습니다.</p></div>';
+        return '<div class="readiness-card"><strong>Study preparation</strong><p class="muted">There are no sentence pairs yet.</p></div>';
       }}
       return `<div>
-        <h2 class="chart-title">학습준비 진행도</h2>
+        <h2 class="chart-title">Study preparation progress</h2>
         <div class="readiness-grid">${{entries.map(([direction, item]) => {{
           const count = Number(item.sentence_pairs) || 0;
           const target = Number(item.next_target) || count || 1;
@@ -860,28 +860,28 @@ def _render_index() -> str:
 
     function formatStatus(data) {{
       return [
-        '현재 자료상태',
+        'Current data status',
         `raw files: ${{data.raw_text_files}}`,
-        `URL쌍 후보파일: ${{data.url_pair_candidate_files}}`,
-        `URL쌍 승인파일: ${{data.url_pair_approved_files}}`,
-        `번역메모리: ${{data.translation_memory_entries}}`,
+        `URLPair candidate file: ${{data.url_pair_candidate_files}}`,
+        `URLPair approval file: ${{data.url_pair_approved_files}}`,
+        `translation memory: ${{data.translation_memory_entries}}`,
         '',
-        '언어별 raw 문장수',
+        'By language raw number of sentences',
         JSON.stringify(data.raw_sentences_by_language, null, 2),
         '',
-        '언어별 쌍방향 문장쌍',
+        'Interactive sentence pairs by language',
         JSON.stringify(data.parallel_sentences_by_direction, null, 2),
         '',
-        '언어별 단어 후보수',
+        'Number of word candidates per language',
         JSON.stringify(data.term_candidates_by_language, null, 2),
         '',
-        '언어별 성구 후보수',
+        'Number of scripture candidates by language',
         JSON.stringify(data.phrase_candidates_by_language, null, 2),
         '',
-        '쌍방향 성구 후보수',
+        'Number of interactive scripture candidates',
         JSON.stringify(data.parallel_phrase_candidates_by_direction, null, 2),
         '',
-        '학습준비 단계',
+        'Study preparation stage',
         JSON.stringify(data.training_readiness, null, 2)
       ].join('\\n');
     }}

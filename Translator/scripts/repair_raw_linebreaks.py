@@ -1,12 +1,12 @@
-"""Repair excessive line breaks in already collected raw URL text.
+﻿"""Repair excessive line breaks in already collected raw URL text.
 
 The URL importer used to keep one HTML text node per line. Some pages split
 honorific names and sentence parts into many spans, which produced raw text
 like:
 
-    경애하는
-    김정은
-    동지께서는
+    dear
+    Kim Jong-un
+    Comrade
 
 This script rewrites existing `data/corpus/raw/*.corpus` files with the improved
 normalizer from `import_url_corpus.py`, then optionally runs the data pipeline.

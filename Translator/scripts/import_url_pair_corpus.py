@@ -1,4 +1,4 @@
-"""Import paired source/target URLs as candidate parallel training data.
+﻿"""Import paired source/target URLs as candidate parallel training data.
 
 Use this when the user has a DPRK Korean URL and the corresponding English URL.
 The script downloads both pages, extracts readable text, splits them into
@@ -239,8 +239,8 @@ def _is_boilerplate_sentence(sentence: str) -> bool:
     lowered = text.lower()
     boilerplate = {
         "rodong sinmun",
-        "로동신문",
-        "【조선중앙통신】",
+        "Rodong Newspaper",
+        "【Korean Central News Agency】",
     }
     if text in boilerplate or lowered in boilerplate:
         return True

@@ -1,4 +1,4 @@
-# Complete Project Blueprint
+﻿# Complete Project Blueprint
 
 This is the target architecture for a complete offline DPRK Korean translator.
 
@@ -21,7 +21,7 @@ raw URL / paired URL / manual sentence pair
 
 ## Current Implemented Layer
 
-- local web UI with Translator and 자료모집/학습 tabs
+- local web UI with Translator and Data collection/learning tabs
 - raw URL collection
 - paired URL collection
 - manual sentence-pair collection

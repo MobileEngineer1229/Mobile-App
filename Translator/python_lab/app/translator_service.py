@@ -1,4 +1,4 @@
-"""Small Python lab service for testing the translation pipeline shape.
+﻿"""Small Python lab service for testing the translation pipeline shape.
 
 The real translator will use an offline neural model. This module keeps the
 same input/output flow and lets us validate DPRK glossary post-editing today.
@@ -51,9 +51,9 @@ def translate_for_demo(text: str, source_language: str, target_language: str) ->
 
 def _demo_dictionary_translate(text: str, source_language: str, target_language: str) -> str:
     phrase_map = {
-        ("en", "ko_kp", "hello"): "안녕하십니까",
+        ("en", "ko_kp", "hello"): "hello",
         ("en", "ko_kp", "korean"): "Korean",
-        ("ko_kp", "en", "조선말"): "DPRK Korean",
+        ("ko_kp", "en", "Joseon language"): "DPRK Korean",
     }
     key = (source_language, target_language, text.strip().lower())
     return phrase_map.get(key, text)

@@ -1,4 +1,4 @@
-source_language	target_language	source_term	target_term	note
-en	ko_kp	Korean	조선말	DPRK style language name
-en	ko_kp	North Korea	조선민주주의인민공화국	Formal country name
-ko_kp	en	조선말	DPRK Korean	Language/style label
+﻿source_language	target_language	source_term	target_term	note
+en	ko_kp	Korean	Joseon language	DPRK style language name
+en	ko_kp	North Korea	Democratic People's Republic of Korea	Formal country name
+ko_kp	en	Joseon language	DPRK Korean	Language/style label

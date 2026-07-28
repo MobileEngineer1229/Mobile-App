@@ -477,7 +477,7 @@ Before tagging a release:
 - [ ] `./gradlew connectedAndroidTest` passes against emulator + at least one physical device.
 - [ ] Manual smoke: login, demo login, create home, add device, control device, logout.
 - [ ] Release build runs end-to-end on a physical device (don't trust debug builds for release validation).
-- [ ] Strings reviewed: every new string has a Korean translation in `values-ko/`.
+- [ ] Strings reviewed: every new string is defined in `values/strings.xml`.
 - [ ] No cleartext URLs leaked into release `BuildConfig` fields.
 - [ ] ProGuard run (if `minifyEnabled true`) — verify Gson serialization on every screen.
 - [ ] Keystore file & passwords accessible to whoever signs.

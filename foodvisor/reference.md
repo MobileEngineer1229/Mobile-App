@@ -1,5347 +1,5347 @@
-    "小白菜": "청경채",
-    "茼蒿": "쑥갓",
-    "香菜": "고수",
-    "芦笋": "아스파라거스",
-    "苋菜": "비름",
-    "芥菜": "갓",
-    "豆苗": "완두순",
-    "莴笋": "우손",
-    "茴香": "회향",
-    "蒜苗": "마늘쫑",
-    "芥兰": "가이란",
-    "青菜": "청경채",
-    "油麦菜": "유맥채",
-    "花椰菜": "콜리플라워",
-    "西芹": "서양셀러리",
-    "紫苏": "차조기",
-    "莴苣": "상추",
-    "大白菜": "배추",
-    "紫甘蓝": "자색양배추",
-    "甘蓝": "양배추",
-    "娃娃菜": "어린배추",
-    "贡菜": "궁차이",
-    "芥蓝": "가이란",
-    "空心菜": "공심채",
-    "莴笋叶": "우순잎",
-    "圆白菜": "양배추",
-    "莼菜": "순채",
-    "鸡毛菜": "어린청경채",
-    "金针菜": "원추리",
-    "乌塌菜": "우타차이",
-    "水芹": "미나리",
-    "豌豆苗": "완두순",
-    "黄心菜": "노란심배추",
-    "紫背天葵": "자배천규",
-    "儿菜": "얼차이",
-    "细香葱": "쪽파",
-    "豌豆尖": "완두순",
-    "菜苔": "채태",
-    "观音菜": "관음채",
-    "苦菜": "씀바귀",
-    "冬寒菜": "동한채",
-    "盖菜": "개차이",
-    "紫花豆": "자화두",
-    "菊苣": "치커리",
-    "结球甘蓝": "양배추",
-    "落葵": "낙규",
-    "甜菜叶": "근대잎",
-    "豆瓣菜": "미나리",
-    "牛蒡": "우엉",
-    "百合": "백합",
-    "玫瑰花": "장미꽃",
-    "菊花": "국화",
-    "桂花": "계화",
-    "马齿苋": "쇠비름",
-    "车前草": "질경이",
-    "香椿": "차즈기",
-    "冬菜": "동차이",
-    "蚕蛹": "누에번데기",
-    "荠菜": "냉이",
-    "蕨菜": "고사리",
-    "芽菜": "아채",
-    "橄榄菜": "올리브채",
-    "鱼腥草": "어성초",
-    "金银花": "인동덩굴꽃",
-    "槐花": "회화나무꽃",
-    "萝卜苗": "무순",
-    "马兰头": "마란두",
-    "西洋菜": "양배추",
-    "菊花菜": "국화채",
-    "夏枯草": "하기초",
-    "鸡骨草": "계골초",
-    "野苋菜": "들비름",
-    "香茅": "레몬그라스",
-    "红菜苔": "홍채태",
-    "罗勒": "바질",
-    "水芥": "물겨자",
-    "枸杞菜": "구기자잎",
-    "紫叶生菜": "자색상추",
-    "牛至": "오레가노",
-    "苦菊": "씀바귀",
-    "芦蒿": "쑥갓",
-    "穿心莲": "천심련",
-    "榆钱": "느릅나무열매",
-    "茴香苗": "회향순",
-    "孢子甘蓝": "방울양배추",
-    "蒿子杆": "쑥갓",
-    "艾蒿": "쑥",
-    "刺老芽": "두릅",
-    "清明菜": "청명채",
-    "苦苣菜": "씀바귀",
-    "豆腐果": "두부과",
-    "芝麻菜": "루콜라",
-    "紫草": "자초",
-    "小萝卜缨": "무청",
-    "新鲜芦荟": "신선한알로에",
-    "马郁兰": "마요람",
-    "苦细叶生菜": "잎상추",
-    "碱蓬菜": "염초",
-    "鲜红薯叶": "고구마잎",
-    "刺儿菜": "가시나물",
-    "刺楸": "가시오갈피",
-    "大巢菜": "완두",
-    "大蓟叶": "큰엉겅퀴잎",
-    "地肤": "지부",
-    "独行菜": "홀아비꽃대",
-    "胡枝子": "싸리",
-    "黄麻叶": "황마잎",
-    "碱蓬": "염초",
-    "牛蒡叶": "우엉잎",
-    "婆罗门参": "바라문참",
-    "掐不齐": "들콩",
-    "沙蓬子": "모래지치",
-    "山苦荬叶": "씀바귀잎",
-    "酸模": "수영",
-    "土三七": "토삼칠",
-    "小旋花": "메꽃",
-    "野菊": "들국화",
-    "茵陈蒿": "사철쑥",
-    "茴芹": "회향",
-    "酢浆草": "괭이밥",
-    "蕺菜": "제채",
-    "蒲公英叶": "민들레잎",
-    "食用大黄": "대황",
-    "梧桐子": "오동나무씨",
-    "豌豆": "완두콩",
-    "豆角": "강낭콩",
-    "茄子": "가지",
-    "青椒": "피망",
-    "西兰花": "브로콜리",
-    "西红柿": "토마토",
-    "黄花菜": "원추리",
-    "菜花": "콜리플라워",
-    "荷兰豆": "스위트피",
-    "豇豆": "동부",
-    "扁豆": "팥",
-    "红辣椒": "빨간고추",
-    "彩椒": "파프리카",
-    "甜椒": "파프리카",
-    "南瓜粉": "호박가루",
-    "玉米笋": "미니옥수수",
-    "青辣椒": "풋고추",
-    "樱桃番茄": "체리토마토",
-    "白瓜": "백참외",
-    "长茄子": "긴가지",
-    "节瓜": "절과",
-    "金瓜": "금과",
-    "佛手瓜": "불수박",
-    "茄瓜": "가지",
-    "笋瓜": "주키니호박",
-    "紫皮茄子": "자색가지",
-    "脆瓜": "아삭이오이",
-    "方瓜": "호박",
-    "葫子": "호리병박",
-    "蛇瓜": "뱀오이",
-    "迷你黄瓜": "미니오이",
-    "秋黄瓜": "가을오이",
-    "小红尖辣椒": "작은붉은고추",
-    "飞碟瓜": "UFO호박",
-    "奶柿子": "토마토",
-    "脱水甜椒": "건파프리카",
-    "金丝瓜": "금실호박",
-    "面西胡瓜": "애호박",
-    "仙人掌果": "선인장열매",
-    "黄瓜": "오이",
-    "冬瓜": "동아",
-    "苦瓜": "여주",
-    "南瓜": "호박",
-    "丝瓜": "수세미오이",
-    "西葫芦": "주키니호박",
-    "罗汉果": "라한과",
-    "辣椒": "고추",
-    "番茄": "토마토",
-    "四季豆": "강낭콩",
-    "刀豆": "칼콩",
-    "橄榄": "올리브",
-    "葫芦": "박",
-    "红腰豆": "붉은팥",
-    "银杏果": "은행",
-    "韭菜": "부추",
-    "生菜": "상추",
-    "土豆": "감자",
-    "红薯": "고구마",
-    "洋葱": "양파",
-    "胡萝卜": "당근",
-    "白萝卜": "무",
-    "竹笋": "죽순",
-    "魔芋": "곤약",
-    "山药": "마",
-    "茭白": "줄기",
-    "藕": "연근",
-    "荸荠": "마름",
-    "姜": "생강",
-    "冬笋": "겨울죽순",
-    "萝卜": "무",
-    "香芋": "토란",
-    "紫薯": "자색고구마",
-    "笋": "죽순",
-    "小葱": "실파",
-    "菱角": "마름",
-    "马蹄": "마름",
-    "木薯": "카사바",
-    "红萝卜": "홍당무",
-    "春笋": "봄죽순",
-    "大蒜": "마늘",
-    "首乌": "하수오",
-    "大葱": "대파",
-    "韭苔": "부추꽃대",
-    "甘薯": "고구마",
-    "青萝卜": "청무",
-    "樱桃萝卜": "알타리무",
-    "韭黄": "노란부추",
-    "水萝卜": "물무",
-    "心里美萝卜": "속붉은무",
-    "青蒜": "마늘쫑",
-    "苤蓝": "콜라비",
-    "慈菇": "벗풀",
-    "藕带": "어린연근",
-    "球茎茴香": "알로에",
-    "蒜黄": "노란마늘",
-    "大薯": "마",
-    "紫土豆": "자색감자",
-    "芥菜头": "갓뿌리",
-    "薤": "달래",
-    "葛": "갈근",
-    "甜菜根": "비트",
-    "根芹": "뿌리셀러리",
-    "地笋": "땅죽순",
-    "蘑菇": "버섯",
-    "草菇": "풀버섯",
-    "香菇": "표고버섯",
-    "平菇": "느타리버섯",
-    "金针菇": "팽이버섯",
-    "口蘑": "양송이버섯",
-    "杏鲍菇": "새송이버섯",
-    "猴头菇": "노루궁뎅이버섯",
-    "滑子菇": "싸리버섯",
-    "黑木耳": "목이버섯",
-    "银耳": "흰목이버섯",
-    "竹荪": "대나무버섯",
-    "木耳": "목이버섯",
-    "菌菇": "버섯",
-    "冬菇": "겨울버섯",
-    "牛肝菌": "우간버섯",
-    "茶树菇": "차버섯",
-    "灵芝": "영지버섯",
-    "鸡腿菇": "닭다리버섯",
-    "榛蘑": "개암버섯",
-    "白蘑菇": "흰버섯",
-    "元蘑": "원버섯",
-    "鸡油菌": "계유버섯",
-    "云耳": "목이버섯",
-    "双孢菇": "양송이버섯",
-    "蟹味菇": "게맛버섯",
-    "鲍鱼菇": "전복버섯",
-    "红蘑": "붉은버섯",
-    "袖珍菇": "느타리버섯",
-    "姬菇": "느타리버섯",
-    "羊肚菌": "곰보버섯",
-    "白玉菇": "백옥버섯",
-    "白灵菇": "백령버섯",
-    "松蘑": "송이버섯",
-    "凤尾菇": "봉황버섯",
-    "真姬菇": "진희버섯",
-    "鸡枞菌": "닭의버섯",
-    "地衣": "지의류",
-    "黄蘑": "노란버섯",
-    "洋菇": "양송이버섯",
-    "蟹腿菇": "게다리버섯",
-    "白牛肝菌": "흰우간버섯",
-    "双孢蘑菇": "양송이버섯",
-    "黑牛肝菌": "검은우간버섯",
-    "牛眼睛菌": "쇠눈버섯",
-    "青头菌": "푸른버섯",
-    "大红菇": "큰붉은버섯",
-    "普中红蘑": "보통붉은버섯",
-    "香杏丁蘑": "살구버섯",
-    "香杏片口蘑": "살구편버섯",
-    "珍珠白蘑": "진주흰버섯",
-    "北凤菌": "북봉버섯",
-    "干巴菌": "건파버섯",
-    "石耳": "석이버섯",
-    "牛肚菌": "양버섯",
-白菜 → 배추
-
-油菜 → 유채
-
-芹菜 → 셀러리 (или 미나리과의 근대? 보통 '셀러리' 사용)
-
-菠菜 → 시금치
-
-小白菜 → 청경채
-
-韭菜 → 부추
-
-生菜 → 상추
-
-茼蒿 → 쑥갓
-
-香菜 → 고수
-
-芦笋 → 아스파라거스
-
-苋菜 → 비름
-
-芥菜 → 갓
-
-豆苗 → 완두순
-
-莴笋 → 우손 (또는 상추대)
-
-茴香 → 회향
-
-蒜苗 → 마늘쫑
-
-芥兰 → 가이란 (또는 개량 배추)
-
-青菜 → 푸성귀 (또는 청경채)
-
-油麦菜 → 유맥채 (또는 상추의 일종)
-
-花椰菜 → 콜리플라워
-
-西芹 → 서양 셀러리
-
-紫苏 → 차조기
-
-莴苣 → 상추
-
-大白菜 → 배추
-
-紫甘蓝 → 자색 양배추
-
-甘蓝 → 양배추
-
-娃娃菜 → 어린 배추
-
-贡菜 → 궁차이 (중국 절임 반찬)
-
-芥蓝 → 가이란
-
-空心菜 → 공심채
-
-莴笋叶 → 우순 잎
-
-圆白菜 → 양배추
-
-莼菜 → 순채
-
-鸡毛菜 → 어린 청경채
-
-金针菜 → 원추리
-
-乌塌菜 → 우타차이 (또는 검정 배추)
-
-水芹 → 미나리
-
-豌豆苗 → 완두순
-
-黄心菜 → 노란 심 배추
-
-紫背天葵 → 자배천규 (중국 약초)
-
-儿菜 → 얼차이
-
-细香葱 → 쪽파
-
-豌豆尖 → 완두 순
+﻿    "小白菜": "bok choy",
+    "茼蒿": "Mugwort",
+    "香菜": "Coriander",
+    "芦笋": "asparagus",
+    "苋菜": "amaranth",
+    "芥菜": "Goddess",
+    "豆苗": "pea shoot",
+    "莴笋": "Uson",
+    "茴香": "fennel",
+    "蒜苗": "Garlic sprouts",
+    "芥兰": "Guyan",
+    "青菜": "bok choy",
+    "油麦菜": "milkweed",
+    "花椰菜": "cauliflower",
+    "西芹": "Western celery",
+    "紫苏": "shisogi",
+    "莴苣": "lettuce",
+    "大白菜": "cabbage",
+    "紫甘蓝": "purple cabbage",
+    "甘蓝": "cabbage",
+    "娃娃菜": "young cabbage",
+    "贡菜": "Gungchai",
+    "芥蓝": "Guyan",
+    "空心菜": "Gongsimchae",
+    "莴笋叶": "Woosun Leaf",
+    "圆白菜": "cabbage",
+    "莼菜": "Soonchae",
+    "鸡毛菜": "baby bok choy",
+    "金针菜": "daylily",
+    "乌塌菜": "Uttachai",
+    "水芹": "water parsley",
+    "豌豆苗": "pea shoot",
+    "黄心菜": "yellow cabbage",
+    "紫背天葵": "Jabae Cheon-gyu",
+    "儿菜": "Erchai",
+    "细香葱": "chives",
+    "豌豆尖": "pea shoot",
+    "菜苔": "Chaetae",
+    "观音菜": "Gwaneumchae",
+    "苦菜": "Write a comment",
+    "冬寒菜": "Donghanchae",
+    "盖菜": "difference",
+    "紫花豆": "Jahwadu",
+    "菊苣": "chicory",
+    "结球甘蓝": "cabbage",
+    "落葵": "Nakgyu",
+    "甜菜叶": "Swiss chard leaves",
+    "豆瓣菜": "water parsley",
+    "牛蒡": "burdock",
+    "百合": "lily",
+    "玫瑰花": "rose flower",
+    "菊花": "chrysanthemum",
+    "桂花": "Osmanthus",
+    "马齿苋": "purslane",
+    "车前草": "plantain",
+    "香椿": "Chazugi",
+    "冬菜": "Dongchai",
+    "蚕蛹": "silkworm pupa",
+    "荠菜": "shepherd's purse",
+    "蕨菜": "fern",
+    "芽菜": "Achae",
+    "橄榄菜": "olive greens",
+    "鱼腥草": "Houttuynia cordata",
+    "金银花": "honeysuckle flower",
+    "槐花": "Pagoda tree flower",
+    "萝卜苗": "radish",
+    "马兰头": "Marandu",
+    "西洋菜": "cabbage",
+    "菊花菜": "chrysanthemum",
+    "夏枯草": "Hagicho",
+    "鸡骨草": "Gyegolcho",
+    "野苋菜": "wild amaranth",
+    "香茅": "Lemongrass",
+    "红菜苔": "Hong Chae-tae",
+    "罗勒": "basil",
+    "水芥": "Let's bite",
+    "枸杞菜": "Wolfberry leaves",
+    "紫叶生菜": "purple lettuce",
+    "牛至": "oregano",
+    "苦菊": "Write a comment",
+    "芦蒿": "Mugwort",
+    "穿心莲": "Cheonsimryeon",
+    "榆钱": "elm fruit",
+    "茴香苗": "fennel shoot",
+    "孢子甘蓝": "Brussels Sprouts",
+    "蒿子杆": "Mugwort",
+    "艾蒿": "Mugwort",
+    "刺老芽": "Aralia",
+    "清明菜": "Cheongmyeongchae",
+    "苦苣菜": "Write a comment",
+    "豆腐果": "Tofu Department",
+    "芝麻菜": "arugula",
+    "紫草": "self-inflicted",
+    "小萝卜缨": "Mucheong",
+    "新鲜芦荟": "fresh aloe",
+    "马郁兰": "marjoram",
+    "苦细叶生菜": "leaf lettuce",
+    "碱蓬菜": "saltweed",
+    "鲜红薯叶": "sweet potato leaves",
+    "刺儿菜": "thorns",
+    "刺楸": "Gasiogalpi",
+    "大巢菜": "peas",
+    "大蓟叶": "Great Thistle Leaf",
+    "地肤": "branch",
+    "独行菜": "widower's flower stalk",
+    "胡枝子": "Ssari",
+    "黄麻叶": "jute leaves",
+    "碱蓬": "saltweed",
+    "牛蒡叶": "Burdock leaves",
+    "婆罗门参": "Brahmuncham",
+    "掐不齐": "field beans",
+    "沙蓬子": "tired of sand",
+    "山苦荬叶": "bitter leaf",
+    "酸模": "swimming",
+    "土三七": "Tosamchil",
+    "小旋花": "bindweed",
+    "野菊": "wild chrysanthemum",
+    "茵陈蒿": "Wormwood",
+    "茴芹": "fennel",
+    "酢浆草": "hoe",
+    "蕺菜": "jechae",
+    "蒲公英叶": "dandelion leaves",
+    "食用大黄": "Rhubarb",
+    "梧桐子": "Paulownia tree seeds",
+    "豌豆": "peas",
+    "豆角": "kidney beans",
+    "茄子": "eggplant",
+    "青椒": "green pepper",
+    "西兰花": "broccoli",
+    "西红柿": "tomato",
+    "黄花菜": "daylily",
+    "菜花": "cauliflower",
+    "荷兰豆": "sweet pea",
+    "豇豆": "eastern",
+    "扁豆": "Red beans",
+    "红辣椒": "red pepper",
+    "彩椒": "paprika",
+    "甜椒": "paprika",
+    "南瓜粉": "pumpkin powder",
+    "玉米笋": "mini corn",
+    "青辣椒": "green pepper",
+    "樱桃番茄": "cherry tomatoes",
+    "白瓜": "White melon",
+    "长茄子": "long branches",
+    "节瓜": "bow and",
+    "金瓜": "gold and",
+    "佛手瓜": "fire watermelon",
+    "茄瓜": "eggplant",
+    "笋瓜": "zucchini pumpkin",
+    "紫皮茄子": "purple eggplant",
+    "脆瓜": "Crunchy cucumber",
+    "方瓜": "pumpkin",
+    "葫子": "calabash",
+    "蛇瓜": "snake cucumber",
+    "迷你黄瓜": "mini cucumber",
+    "秋黄瓜": "Autumn cucumber",
+    "小红尖辣椒": "small red pepper",
+    "飞碟瓜": "UFOpumpkin",
+    "奶柿子": "tomato",
+    "脱水甜椒": "dried paprika",
+    "金丝瓜": "golden thread pumpkin",
+    "面西胡瓜": "Zucchini",
+    "仙人掌果": "cactus fruit",
+    "黄瓜": "cucumber",
+    "冬瓜": "Donga",
+    "苦瓜": "Yeoju",
+    "南瓜": "pumpkin",
+    "丝瓜": "loofah cucumber",
+    "西葫芦": "zucchini pumpkin",
+    "罗汉果": "Lahan and",
+    "辣椒": "pepper",
+    "番茄": "tomato",
+    "四季豆": "kidney beans",
+    "刀豆": "Kalkong",
+    "橄榄": "olive",
+    "葫芦": "Park",
+    "红腰豆": "red bean",
+    "银杏果": "bank",
+    "韭菜": "chive",
+    "生菜": "lettuce",
+    "土豆": "potato",
+    "红薯": "sweet potato",
+    "洋葱": "onion",
+    "胡萝卜": "carrot",
+    "白萝卜": "Radish",
+    "竹笋": "bamboo shoots",
+    "魔芋": "Konjac",
+    "山药": "Do",
+    "茭白": "stem",
+    "藕": "lotus root",
+    "荸荠": "Water chestnuts",
+    "姜": "ginger",
+    "冬笋": "winter bamboo shoots",
+    "萝卜": "Radish",
+    "香芋": "taro",
+    "紫薯": "Purple sweet potato",
+    "笋": "bamboo shoots",
+    "小葱": "green onion",
+    "菱角": "Water chestnuts",
+    "马蹄": "Water chestnuts",
+    "木薯": "cassava",
+    "红萝卜": "blush",
+    "春笋": "spring bamboo shoots",
+    "大蒜": "garlic",
+    "首乌": "Hasoo",
+    "大葱": "green onion",
+    "韭苔": "Chive flower stalk",
+    "甘薯": "sweet potato",
+    "青萝卜": "Cheongmu",
+    "樱桃萝卜": "Altarimu",
+    "韭黄": "yellow chives",
+    "水萝卜": "water radish",
+    "心里美萝卜": "Red radish inside",
+    "青蒜": "Garlic sprouts",
+    "苤蓝": "kohlrabi",
+    "慈菇": "Friends",
+    "藕带": "young lotus root",
+    "球茎茴香": "aloe",
+    "蒜黄": "yellow garlic",
+    "大薯": "Do",
+    "紫土豆": "purple potato",
+    "芥菜头": "Capricorn",
+    "薤": "Soothe",
+    "葛": "galgeun",
+    "甜菜根": "bit",
+    "根芹": "root celery",
+    "地笋": "ground bamboo shoots",
+    "蘑菇": "mushroom",
+    "草菇": "grass mushrooms",
+    "香菇": "shiitake mushrooms",
+    "平菇": "Oyster Mushroom",
+    "金针菇": "Enoki Mushroom",
+    "口蘑": "Button Mushroom",
+    "杏鲍菇": "King oyster mushroom",
+    "猴头菇": "Helical mane mushroom",
+    "滑子菇": "Mushrooms",
+    "黑木耳": "Wood ear mushroom",
+    "银耳": "white wood ear mushroom",
+    "竹荪": "bamboo mushroom",
+    "木耳": "Wood ear mushroom",
+    "菌菇": "mushroom",
+    "冬菇": "winter mushrooms",
+    "牛肝菌": "beef liver mushroom",
+    "茶树菇": "tea mushrooms",
+    "灵芝": "reishi mushroom",
+    "鸡腿菇": "Chicken leg mushrooms",
+    "榛蘑": "hazelnut mushrooms",
+    "白蘑菇": "white mushroom",
+    "元蘑": "raw mushroom",
+    "鸡油菌": "thyme mushroom",
+    "云耳": "Wood ear mushroom",
+    "双孢菇": "Button Mushroom",
+    "蟹味菇": "Crab-flavored mushrooms",
+    "鲍鱼菇": "Abalone Mushroom",
+    "红蘑": "red mushroom",
+    "袖珍菇": "Oyster Mushroom",
+    "姬菇": "Oyster Mushroom",
+    "羊肚菌": "morel mushroom",
+    "白玉菇": "white jade mushroom",
+    "白灵菇": "Baengnyeong Mushroom",
+    "松蘑": "Pine mushroom",
+    "凤尾菇": "phoenix mushroom",
+    "真姬菇": "Jinhee Mushroom",
+    "鸡枞菌": "Chicken Mushroom",
+    "地衣": "lichen",
+    "黄蘑": "yellow mushroom",
+    "洋菇": "Button Mushroom",
+    "蟹腿菇": "crab leg mushrooms",
+    "白牛肝菌": "white beef liver mushroom",
+    "双孢蘑菇": "Button Mushroom",
+    "黑牛肝菌": "Black beef liver mushrooms",
+    "牛眼睛菌": "oyster mushroom",
+    "青头菌": "blue mushroom",
+    "大红菇": "big red mushroom",
+    "普中红蘑": "common red mushroom",
+    "香杏丁蘑": "Apricot Mushroom",
+    "香杏片口蘑": "Apricot mushrooms",
+    "珍珠白蘑": "pearl white mushroom",
+    "北凤菌": "Bukbong Mushroom",
+    "干巴菌": "dried green onion mushrooms",
+    "石耳": "Mushroom",
+    "牛肚菌": "sheep mushroom",
+白菜 → cabbage
+
+油菜 → rapeseed
+
+芹菜 → celery (или chard of the Apiaceae family? Normal 'celery' use)
+
+菠菜 → spinach
+
+小白菜 → bok choy
+
+韭菜 → chive
+
+生菜 → lettuce
+
+茼蒿 → Mugwort
+
+香菜 → Coriander
+
+芦笋 → asparagus
+
+苋菜 → amaranth
+
+芥菜 → Goddess
+
+豆苗 → pea shoot
+
+莴笋 → Uson (or lettuce leaves)
+
+茴香 → fennel
+
+蒜苗 → Garlic sprouts
+
+芥兰 → Guyan (or improved cabbage)
+
+青菜 → greens (or bok choy)
+
+油麦菜 → milkweed (or some type of lettuce)
+
+花椰菜 → cauliflower
+
+西芹 → western celery
+
+紫苏 → shisogi
+
+莴苣 → lettuce
+
+大白菜 → cabbage
+
+紫甘蓝 → purple cabbage
+
+甘蓝 → cabbage
+
+娃娃菜 → young cabbage
+
+贡菜 → Gungchai (chinese pickled side dish)
+
+芥蓝 → Guyan
+
+空心菜 → Gongsimchae
+
+莴笋叶 → Wushun leaves
+
+圆白菜 → cabbage
+
+莼菜 → Soonchae
+
+鸡毛菜 → baby bok choy
+
+金针菜 → daylily
+
+乌塌菜 → Uttachai (or black cabbage)
+
+水芹 → water parsley
+
+豌豆苗 → pea shoot
+
+黄心菜 → yellow core cabbage
+
+紫背天葵 → Jabae Cheon-gyu (chinese herbal medicine)
+
+儿菜 → Erchai
+
+细香葱 → chives
+
+豌豆尖 → pea shoot
 
-菜苔 → 채태 (채소 줄기)
+菜苔 → Chaetae (vegetable stem)
 
-观音菜 → 관음채
+观音菜 → Gwaneumchae
 
-苦菜 → 씀바귀
+苦菜 → Write a comment
 
-冬寒菜 → 동한채
+冬寒菜 → Donghanchae
 
-盖菜 → 겨자잎 (갓)
+盖菜 → mustard greens (Goddess)
 
-紫花豆 → 자화두
+紫花豆 → Jahwadu
 
-菊苣 → 치커리
+菊苣 → chicory
 
-结球甘蓝 → 양배추
+结球甘蓝 → cabbage
 
-落葵 → 낙규 (또는 목이)
+落葵 → Nakgyu (or sore throat)
 
-甜菜叶 → 근대잎
+甜菜叶 → Swiss chard leaves
 
-豆瓣菜 → 두판채 (미나리과)
+豆瓣菜 → Two Panchae (Apiaceae)
 
-蒜苔 → 마늘쫑
+蒜苔 → Garlic sprouts
 
-土豆 → 감자
+土豆 → potato
 
-红薯 → 고구마
+红薯 → sweet potato
 
-芋头 → 토란
+芋头 → taro
 
-洋葱 → 양파
+洋葱 → onion
 
-胡萝卜 → 당근
+胡萝卜 → carrot
 
-白萝卜 → 무
+白萝卜 → Radish
 
-竹笋 → 죽순
+竹笋 → bamboo shoots
 
-魔芋 → 곤약
+魔芋 → Konjac
 
-山药 → 마
+山药 → Do
 
-茭白 → 줄기 (또는 줄대)
+茭白 → stem (or line)
 
-藕 → 연근
+藕 → lotus root
 
-荸荠 → 마름 (или 알타리)
+荸荠 → Water chestnuts (или Altari)
 
-姜 → 생강
+姜 → ginger
 
-冬笋 → 겨울 죽순
+冬笋 → winter bamboo shoots
 
-萝卜 → 무
+萝卜 → Radish
 
-香芋 → 향토란
+香芋 → local food
 
-紫薯 → 자색 고구마
+紫薯 → purple sweet potato
 
-笋 → 죽순
+笋 → bamboo shoots
 
-小葱 → 실파
+小葱 → green onion
 
-菱角 → 마름
+菱角 → Water chestnuts
 
-马蹄 → 마름 (말발굽 모양)
+马蹄 → Water chestnuts (horseshoe shape)
 
-木薯 → 카사바
+木薯 → cassava
 
-红萝卜 → 홍당무 (빨간 무)
+红萝卜 → blush (red radish)
 
-春笋 → 봄 죽순
+春笋 → spring bamboo shoots
 
-大蒜 → 마늘
+大蒜 → garlic
 
-首乌 → 하수오
+首乌 → Hasoo
 
-大葱 → 대파
+大葱 → green onion
 
-韭苔 → 부추 꽃대
+韭苔 → chive flower stalk
 
-甘薯 → 고구마
+甘薯 → sweet potato
 
-青萝卜 → 청무 (푸른 무)
+青萝卜 → Cheongmu (green radish)
 
-樱桃萝卜 → 알타리무
+樱桃萝卜 → Altarimu
 
-韭黄 → 노란 부추
+韭黄 → yellow chives
 
-水萝卜 → 물무
+水萝卜 → water radish
 
-心里美萝卜 → 속붉은 무
+心里美萝卜 → red radish
 
-青蒜 → 마늘쫑
+青蒜 → Garlic sprouts
 
-苤蓝 → 콜라비
+苤蓝 → kohlrabi
 
-慈菇 → 벗풀 (또는 자고)
+慈菇 → Friends (or sleeping)
 
-藕带 → 어린 연근
+藕带 → young lotus root
 
-球茎茴香 → 구경 회향
+球茎茴香 → corm fennel
 
-蒜黄 → 노란 마늘
+蒜黄 → yellow garlic
 
-大薯 → 마 (참마)
+大薯 → Do (yam)
 
-紫土豆 → 자색 감자
+紫土豆 → purple potato
 
-芥菜头 → 갓뿌리
+芥菜头 → Capricorn
 
-薤 → 달래
+薤 → Soothe
 
-葛 → 갈근
+葛 → galgeun
 
-甜菜根 → 비트
+甜菜根 → bit
 
-根芹 → 뿌리 셀러리
+根芹 → root celery
 
-地笋 → 땅죽순
+地笋 → ground bamboo shoots
 
-蘑菇 → 버섯
+蘑菇 → mushroom
 
-草菇 → 풀버섯
+草菇 → grass mushrooms
 
-香菇 → 표고버섯
+香菇 → shiitake mushrooms
 
-平菇 → 느타리버섯
+平菇 → Oyster Mushroom
 
-金针菇 → 팽이버섯
+金针菇 → Enoki Mushroom
 
-口蘑 → 양송이버섯
+口蘑 → Button Mushroom
 
-杏鲍菇 → 새송이버섯
+杏鲍菇 → King oyster mushroom
 
-猴头菇 → 노루궁뎅이버섯
+猴头菇 → Helical mane mushroom
 
-滑子菇 → 싸리버섯
+滑子菇 → Mushrooms
 
-黑木耳 → 목이버섯
+黑木耳 → Wood ear mushroom
 
-银耳 → 흰 목이
+银耳 → white throat
 
-竹荪 → 대나무 버섯 (죽손)
+竹荪 → bamboo mushroom (bamboo hand)
 
-木耳 → 목이버섯
+木耳 → Wood ear mushroom
 
-菌菇 → 버섯
+菌菇 → mushroom
 
-冬菇 → 겨울 버섯 (표고)
+冬菇 → winter mushrooms (elevation)
 
-牛肝菌 → 우간 버섯
+牛肝菌 → beef liver mushroom
 
-茶树菇 → 차나무 버섯
+茶树菇 → tea tree mushroom
 
-灵芝 → 영지버섯
+灵芝 → reishi mushroom
 
-鸡腿菇 → 닭다리버섯
+鸡腿菇 → Chicken leg mushrooms
 
-榛蘑 → 개암버섯
+榛蘑 → hazelnut mushrooms
 
-白蘑菇 → 흰 양송이
+白蘑菇 → white button mushroom
 
-元蘑 → 원버섯
+元蘑 → raw mushroom
 
-鸡油菌 → 계유버섯
+鸡油菌 → thyme mushroom
 
-云耳 → 목이버섯
+云耳 → Wood ear mushroom
 
-双孢菇 → 양송이버섯
+双孢菇 → Button Mushroom
 
-蟹味菇 → 게맛버섯
+蟹味菇 → Crab-flavored mushrooms
 
-鲍鱼菇 → 전복버섯
+鲍鱼菇 → Abalone Mushroom
 
-红蘑 → 붉은 버섯
+红蘑 → red mushroom
 
-袖珍菇 → 소형 느타리
+袖珍菇 → small oyster
 
-姬菇 → 느타리
+姬菇 → oyster
 
-羊肚菌 → 곰보버섯
+羊肚菌 → morel mushroom
 
-白玉菇 → 백옥버섯
+白玉菇 → white jade mushroom
 
-白灵菇 → 백령버섯
+白灵菇 → Baengnyeong Mushroom
 
-松蘑 → 송이버섯
+松蘑 → Pine mushroom
 
-凤尾菇 → 봉황버섯
+凤尾菇 → phoenix mushroom
 
-真姬菇 → 진희버섯
+真姬菇 → Jinhee Mushroom
 
-鸡枞菌 → 닭의버섯
+鸡枞菌 → Chicken Mushroom
 
-地衣 → 지의류
+地衣 → lichen
 
-黄蘑 → 노란 버섯
+黄蘑 → yellow mushroom
 
-洋菇 → 양송이
+洋菇 → Button mushroom
 
-蟹腿菇 → 게다리버섯
+蟹腿菇 → crab leg mushrooms
 
-白牛肝菌 → 흰 우간버섯
+白牛肝菌 → white beef liver mushroom
 
-双孢蘑菇 → 양송이
+双孢蘑菇 → Button mushroom
 
-黑牛肝菌 → 검은 우간버섯
+黑牛肝菌 → black beef liver mushroom
 
-牛眼睛菌 → 소눈버섯
+牛眼睛菌 → oxeye mushroom
 
-青头菌 → 푸른대머리버섯
+青头菌 → blue bald mushroom
 
-大红菇 → 큰 붉은 버섯
+大红菇 → big red mushroom
 
-普中红蘑 → 보통 붉은 버섯
+普中红蘑 → common red mushroom
 
-香杏丁蘑 → 살구버섯
+香杏丁蘑 → Apricot Mushroom
 
-香杏片口蘑 → 살구조각 양송이
+香杏片口蘑 → Apricot-shaped button mushrooms
 
-珍珠白蘑 → 진주 흰 버섯
+珍珠白蘑 → pearl white mushroom
 
-北凤菌 → 북봉 버섯
+北凤菌 → Beibong Mushroom
 
-干巴菌 → 건파 버섯
+干巴菌 → dried green onion mushrooms
 
-石耳 → 석이버섯
+石耳 → Mushroom
 
-牛肚菌 → 양버섯
+牛肚菌 → sheep mushroom
 
-牛蒡 → 우엉
+牛蒡 → burdock
 
-百合 → 백합
+百合 → lily
 
-玫瑰花 → 장미꽃
+玫瑰花 → rose flower
 
-菊花 → 국화
+菊花 → chrysanthemum
 
-桂花 → 계화
+桂花 → Osmanthus
 
-马齿苋 → 쇠비름
+马齿苋 → purslane
 
-车前草 → 질경이
+车前草 → plantain
 
-香椿 → 차즈기 (또는 참죽나무 순)
+香椿 → Chazugi (Or bamboo shoots)
 
-冬菜 → 동채 (겨울 저장 채소)
+冬菜 → Dongchae (winter storage vegetables)
 
-蚕蛹 → 누에번데기
+蚕蛹 → silkworm pupa
 
-荠菜 → 냉이
+荠菜 → shepherd's purse
 
-蕨菜 → 고사리
+蕨菜 → fern
 
-芽菜 → 아채 (싹채소)
+芽菜 → Achae (sprout vegetables)
 
-橄榄菜 → 올리브 채소
+橄榄菜 → olive greens
 
-鱼腥草 → 어성초
+鱼腥草 → Houttuynia cordata
 
-金银花 → 인동덩굴 꽃
+金银花 → honeysuckle flower
 
-槐花 → 회화나무 꽃
+槐花 → prickly pear flower
 
-萝卜苗 → 무순
+萝卜苗 → radish
 
-马兰头 → 마란두
+马兰头 → Marandu
 
-西洋菜 → 양배추 (但 실제로는 미나리과 수생채소)
+西洋菜 → cabbage (但 Actually, it is an aquatic vegetable of the Apiaceae family.)
 
-菊花菜 → 국화채 (국화잎)
+菊花菜 → chrysanthemum (chrysanthemum leaves)
 
-夏枯草 → 하초
+夏枯草 → hacho
 
-鸡骨草 → 계골초
+鸡骨草 → Gyegolcho
 
-野苋菜 → 들비름
+野苋菜 → wild amaranth
 
-香茅 → 레몬그라스
+香茅 → Lemongrass
 
-红菜苔 → 붉은 채태
+红菜苔 → red cabbage
 
-罗勒 → 바질
+罗勒 → basil
 
-水芥 → 물겨자
+水芥 → Let's bite
 
-枸杞菜 → 구기자잎
+枸杞菜 → Wolfberry leaves
 
-紫叶生菜 → 자주 상추
+紫叶生菜 → Lettuce often
 
-牛至 → 오레가노
+牛至 → oregano
 
-苦菊 → 씀바귀
+苦菊 → Write a comment
 
-芦蒿 → 쑥갓 (또는 물쑥)
+芦蒿 → Mugwort (or squirt)
 
-穿心莲 → 천심련
+穿心莲 → Cheonsimryeon
 
-榆钱 → 느릅나무 열매
+榆钱 → elm fruit
 
-茴香苗 → 회향 순
+茴香苗 → fennel shoot
 
-孢子甘蓝 → 방울 양배추
+孢子甘蓝 → Brussels sprouts
 
-蒿子杆 → 쑥갓 줄기
+蒿子杆 → daisy stem
 
-艾蒿 → 쑥
+艾蒿 → Mugwort
 
-刺老芽 → 두릅
+刺老芽 → Aralia
 
-清明菜 → 청명채
+清明菜 → Cheongmyeongchae
 
-苦苣菜 → 씀바귀
+苦苣菜 → Write a comment
 
-豆腐果 → 두부과 (콩과일)
+豆腐果 → Tofu Department (soybean fruit)
 
-芝麻菜 → 루꼴라
+芝麻菜 → arugula
 
-紫草 → 자초
+紫草 → self-inflicted
 
-小萝卜缨 → 무청
+小萝卜缨 → Mucheong
 
-新鲜芦荟 → 신선한 알로에
+新鲜芦荟 → fresh aloe
 
-马郁兰 → 마요람
+马郁兰 → marjoram
 
-苦细叶生菜 → 쓴잎 상추
+苦细叶生菜 → bitter leaf lettuce
 
-碱蓬菜 → 염초 (소금쟁이)
+碱蓬菜 → saltweed (water strider)
 
-鲜红薯叶 → 고구마 잎
+鲜红薯叶 → sweet potato leaves
 
-刺儿菜 → 가시나물
+刺儿菜 → thorns
 
-刺楸 → 가시오갈피
+刺楸 → Gasiogalpi
 
-大巢菜 → 큰 완두 (야생 완두)
+大巢菜 → big pea (wild peas)
 
-大蓟叶 → 큰 엉겅퀴 잎
+大蓟叶 → large thistle leaf
 
-地肤 → 지부 (또는 비자루)
+地肤 → branch (or visa jar)
 
-独行菜 → 독행채 (홀아비꽃대)
+独行菜 → Dokhaengchae (widower's flower stalk)
 
-胡枝子 → 싸리
+胡枝子 → Ssari
 
-黄麻叶 → 황마 잎
+黄麻叶 → jute leaves
 
-碱蓬 → 염초
+碱蓬 → saltweed
 
-牛蒡叶 → 우엉 잎
+牛蒡叶 → burdock leaves
 
-婆罗门参 → 승려참 (바라문참)
+婆罗门参 → monk (Brahmuncham)
 
-掐不齐 → 들콩
+掐不齐 → field beans
 
-沙蓬子 → 모래지치
+沙蓬子 → tired of sand
 
-山苦荬叶 → 산씀바귀 잎
+山苦荬叶 → wild leaf
 
-酸模 → 수영
+酸模 → swimming
 
-土三七 → 토삼칠
+土三七 → Tosamchil
 
-小旋花 → 메꽃
+小旋花 → bindweed
 
-野菊 → 들국화
+野菊 → wild chrysanthemum
 
-茵陈蒿 → 사철쑥 (인진쑥)
+茵陈蒿 → Wormwood (Mugwort)
 
-茴芹 → 향회향
+茴芹 → fennel
 
-酢浆草 → 괭이밥
+酢浆草 → hoe
 
-蕺菜 → 제채 (어성초)
+蕺菜 → jechae (Houttuynia cordata)
 
-蒲公英叶 → 민들레 잎
+蒲公英叶 → dandelion leaf
 
-食用大黄 → 대황
+食用大黄 → Rhubarb
 
-梧桐子 → 오동나무 씨
+梧桐子 → paulownia tree seeds
 
-豌豆 → 완두콩
+豌豆 → peas
 
-豆角 → 강낭콩
+豆角 → kidney beans
 
-茄子 → 가지
+茄子 → eggplant
 
-青椒 → 풋고추
+青椒 → green pepper
 
-西兰花 → 브로콜리
+西兰花 → broccoli
 
-西红柿 → 토마토
+西红柿 → tomato
 
-黄花菜 → 원추리
+黄花菜 → daylily
 
-菜花 → 콜리플라워
+菜花 → cauliflower
 
-荷兰豆 → 네덜란드 완두 (스위트피)
+荷兰豆 → dutch peas (sweet pea)
 
-豇豆 → 동부 (긴 콩)
+豇豆 → eastern (long beans)
 
-扁豆 → 팥 (또는 렌틸콩)
+扁豆 → Red beans (or lentils)
 
-红辣椒 → 빨간 고추
+红辣椒 → red pepper
 
-彩椒 → 파프리카
+彩椒 → paprika
 
-甜椒 → 단고추 (파프리카)
+甜椒 → sweet pepper (paprika)
 
-南瓜粉 → 호박 가루
+南瓜粉 → pumpkin powder
 
-玉米笋 → 미니 옥수수
+玉米笋 → mini corn
 
-青辣椒 → 풋고추
+青辣椒 → green pepper
 
-樱桃番茄 → 체리 토마토
+樱桃番茄 → cherry tomatoes
 
-白瓜 → 흰 참외
+白瓜 → white melon
 
-长茄子 → 긴 가지
+长茄子 → long branches
 
-节瓜 → 마디 박
+节瓜 → Mardi Park
 
-金瓜 → 금박 (호박)
+金瓜 → gold leaf (pumpkin)
 
-佛手瓜 → 불수박
+佛手瓜 → fire watermelon
 
-茄瓜 → 가지
+茄瓜 → eggplant
 
-笋瓜 → 주키니호박
+笋瓜 → zucchini pumpkin
 
-紫皮茄子 → 자주 가지
+紫皮茄子 → go often
 
-脆瓜 → 아삭이 오이
+脆瓜 → crunchy cucumber
 
-方瓜 → 네모 박 (호박)
+方瓜 → square gourd (pumpkin)
 
-葫子 → 호리병 박
+葫子 → calabash gourd
 
-蛇瓜 → 뱀 오이
+蛇瓜 → snake cucumber
 
-迷你黄瓜 → 미니 오이
+迷你黄瓜 → mini cucumbers
 
-秋黄瓜 → 가을 오이
+秋黄瓜 → autumn cucumbers
 
-小红尖辣椒 → 작은 빨간 꽈리고추
+小红尖辣椒 → small red pepper
 
-飞碟瓜 → UFO 호박 (접시호박)
+飞碟瓜 → UFO pumpkin (plate pumpkin)
 
-奶柿子 → 우유 감 (토마토)
+奶柿子 → milk persimmon (tomato)
 
-脱水甜椒 → 탈수 파프리카
+脱水甜椒 → Dehydrated Paprika
 
-金丝瓜 → 금실 호박
+金丝瓜 → golden thread pumpkin
 
-面西胡瓜 → 호박 (애호박)
+面西胡瓜 → pumpkin (Zucchini)
 
-仙人掌果 → 선인장 열매
+仙人掌果 → cactus fruit
 
-黄瓜 → 오이
+黄瓜 → cucumber
 
-冬瓜 → 동아
+冬瓜 → Donga
 
-苦瓜 → 여주
+苦瓜 → Yeoju
 
-南瓜 → 호박
+南瓜 → pumpkin
 
-丝瓜 → 수세미외
+丝瓜 → Other than loofah
 
-西葫芦 → 호박 (주키니)
+西葫芦 → pumpkin (zucchini)
 
-罗汉果 → 라한과
+罗汉果 → Lahan and
 
-辣椒 → 고추
+辣椒 → pepper
 
-番茄 → 토마토
+番茄 → tomato
 
-四季豆 → 강낭콩
+四季豆 → kidney beans
 
-刀豆 → 칼콩
+刀豆 → Kalkong
 
-橄榄 → 올리브
+橄榄 → olive
 
-葫芦 → 박
+葫芦 → Park
 
-红腰豆 → 붉은 허리콩 (키드니빈)
+红腰豆 → red loin beans (Kidney Bean)
 
-银杏果 → 은행
+银杏果 → bank
 
-甜豆 → 단완두
+甜豆 → sweet peas
 
-柿子椒 → 피망
+柿子椒 → green pepper
 
-秋葵 → 오크라
+秋葵 → Okra
 
-海底椰 → 바다 코코넛
+海底椰 → sea coconut
 
-白豆 → 흰 콩
+白豆 → white beans
 
-瓠瓜 → 박
+瓠瓜 → Park
 
-川贝 → 천패 (부추속 식물)
+川贝 → a thousand losses (allium plant)
 
-羊角椒 → 양뿔 고추
+羊角椒 → ram's horn pepper
 
-雪里蕻 → 눈 속 갓 (절임용)
+雪里蕻 → lamp in the snow (For pickling)
 
-榨菜 → 즈차이 (중국 절임)
+榨菜 → Zchai (chinese pickles)
 
-泡菜 → 김치 (또는 절임 배추)
+泡菜 → kimchi (or pickled cabbage)
 
-梅干菜 → 매실 건채 (중국 절임)
+梅干菜 → Dried plums (chinese pickles)
 
-酸菜 → 신 김치
+酸菜 → sour kimchi
 
-咸菜 → 짠 반찬
+咸菜 → salty side dish
 
-辣白菜 → 매운 배추 김치
+辣白菜 → spicy cabbage kimchi
 
-玉兰片 → 옥란편 (죽순 가공품)
+玉兰片 → Okran edition (Processed bamboo shoots)
 
-萝卜干 → 무 말랭이
+萝卜干 → dried radish
 
-纳豆 → 낫토
+纳豆 → Natto
 
-干笋 → 마른 죽순
+干笋 → dried bamboo shoots
 
-酸笋 → 신 죽순
+酸笋 → sour bamboo shoots
 
-干黄花 → 마른 원추리
+干黄花 → dry daylily
 
-熏笋 → 훈제 죽순
+熏笋 → smoked bamboo shoots
 
-干蕨菜 → 마른 고사리
+干蕨菜 → dry fern
 
-泡包菜 → 절임 양배추
+泡包菜 → pickled cabbage
 
-泡萝卜 → 무 절임
+泡萝卜 → pickled radish
 
-茄子干 → 가지 말랭이
+茄子干 → dried eggplant
 
-酸豇豆 → 신 동부
+酸豇豆 → new eastern
 
-倒笃菜 → 도독채 (중국 절임)
+倒笃菜 → Dodokchae (chinese pickles)
 
-豇豆干 → 마른 동부
+豇豆干 → dry cowpea
 
-咸黄瓜 → 짠 오이
+咸黄瓜 → salty cucumber
 
-腌笋 → 절인 죽순
+腌笋 → pickled bamboo shoots
 
-冬腌菜 → 겨울 절임 채소
+冬腌菜 → winter pickled vegetables
 
-四川贡菜 → 쓰촨 궁차이
+四川贡菜 → Sichuan Gongchai
 
-贵州盐菜 → 구이저우 소금 절임
+贵州盐菜 → Guizhou salt pickles
 
-罐装莼菜 → 통조림 순채
+罐装莼菜 → canned sunchae
 
-桃仁 → 복숭아 씨
+桃仁 → peach seed
 
-茯苓 → 복령
+茯苓 → Bokryeong
 
-益母草 → 익모초
+益母草 → motherwort
 
-冬虫夏草 → 동충하초
+冬虫夏草 → Cordyceps sinensis
 
-黄芪 → 황기
+黄芪 → Astragalus
 
-当归 → 당귀
+当归 → Angelica
 
-甘草 → 감초
+甘草 → licorice
 
-陈皮 → 진피 (말린 귤껍질)
+陈皮 → dermis (dried tangerine peel)
 
-食用仙人掌 → 식용 선인장
+食用仙人掌 → edible cactus
 
-蜂蛹 → 벌 번데기
+蜂蛹 → bee pupa
 
-枸杞子 → 구기자
+枸杞子 → Wolfberry
 
-葛根 → 갈근
+葛根 → galgeun
 
-肉豆蔻 → 육두구
+肉豆蔻 → nutmeg
 
-砂仁 → 사인
+砂仁 → sign
 
-白芷 → 백지
+白芷 → blank paper
 
-肉桂 → 계피
+肉桂 → cinnamon
 
-藿香 → 곽향
+藿香 → Kwak Hyang
 
-红花 → 홍화
+红花 → safflower
 
-蝎子 → 전갈
+蝎子 → scorpion
 
-干薄荷 → 마른 박하
+干薄荷 → dried mint
 
-枣仁 → 대추 씨
+枣仁 → jujube seeds
 
-决明 → 결명자
+决明 → missing person
 
-鲜车前 → 신선한 질경이
+鲜车前 → fresh plantain
 
-铜芸 → 동운 (약초)
+铜芸 → Dongwoon (medicinal herbs)
 
-高良姜 → 고량강
+高良姜 → Goryang River
 
-虎杖 → 호장
+虎杖 → boss
 
-木榧 → 목비 (나무 열매)
+木榧 → wooden monument (tree fruit)
 
-猪肉 → 돼지고기
+猪肉 → pork
 
-里脊 → 안심
+里脊 → relieved
 
-培根 → 베이컨
+培根 → bacon
 
-排骨 → 갈비
+排骨 → ribs
 
-猪蹄 → 돼지 발
+猪蹄 → pig feet
 
-猪肚 → 돼지 위
+猪肚 → pig stomach
 
-五花肉 → 삼겹살
+五花肉 → pork belly
 
-猪头肉 → 돼지 머리 고기
+猪头肉 → pig head meat
 
-猪排 → 돼지 등갈비
+猪排 → Pork Back Ribs
 
-猪心 → 돼지 심장
+猪心 → pig heart
 
-猪肝 → 돼지 간
+猪肝 → pork liver
 
-腊肉 → 훈제 고기 (라육)
+腊肉 → smoked meat (Rayuk)
 
-猪血 → 돼지 선지
+猪血 → pork blood
 
-火腿肠 → 햄 소시지
+火腿肠 → ham sausage
 
-熏肉 → 훈제 고기
+熏肉 → smoked meat
 
-猪脑 → 돼지 뇌
+猪脑 → pig brain
 
-肥肉 → 기름기 많은 고기
+肥肉 → fatty meat
 
-肉丸 → 고기 완자
+肉丸 → meatballs
 
-瘦肉 → 살코기
+瘦肉 → lean meat
 
-叉烧肉 → 차슈
+叉烧肉 → Char siu
 
-猪脚 → 돼지 족발
+猪脚 → pig's feet
 
-猪骨 → 돼지 뼈
+猪骨 → pork bones
 
-肥肠 → 곱창 (돼지 창자)
+肥肠 → Gopchang (pig intestines)
 
-卤肉 → 조림 고기 (卤肉)
+卤肉 → stewed meat (卤肉)
 
-棒骨 → 허벅지 뼈
+棒骨 → thigh bone
 
-金华火腿 → 진화 햄
+金华火腿 → evolution ham
 
-咸肉 → 짠 고기
+咸肉 → salty meat
 
-午餐肉 → 런천미트
+午餐肉 → luncheon meat
 
-腰花 → 돼지 콩팥
+腰花 → pork kidney
 
-猪腰 → 돼지 요
+猪腰 → Pig
 
-猪瘦肉 → 돼지 살코기
+猪瘦肉 → pork meat
 
-酱肉 → 장조림
+酱肉 → Jangjorim
 
-猪舌 → 돼지 혀
+猪舌 → pig tongue
 
-猪肉末 → 돼지 간 고기
+猪肉末 → pork liver meat
 
-猪大肠 → 돼지 큰 창자
+猪大肠 → pig large intestine
 
-猪肉片 → 돼지고기 얇은 썰기
+猪肉片 → thinly sliced pork
 
-肥猪肉 → 기름진 돼지고기
+肥猪肉 → fatty pork
 
-猪皮 → 돼지 껍질
+猪皮 → pork rinds
 
-猪大排 → 돼지 등뼈
+猪大排 → pig spine
 
-猪扇骨 → 돼지 어깨 뼈
+猪扇骨 → pork shoulder bone
 
-后臀尖 → 돼지 볼기살
+后臀尖 → pork butt
 
-猪肉丁 → 돼지고기 깍둑썰기
+猪肉丁 → Dice Pork
 
-猪肺 → 돼지 허파
+猪肺 → pig lung
 
-腔骨 → 가슴 뼈
+腔骨 → breast bone
 
-猪腿肉 → 돼지 다리살
+猪腿肉 → pork leg meat
 
-猪耳 → 돼지 귀
+猪耳 → pig ears
 
-猪小排 → 돼지 작은 갈비
+猪小排 → pork small ribs
 
-脆皮肠 → 바삭창자 소시지
+脆皮肠 → Crispy intestine sausage
 
-梅花肉 → 돼지 목살
+梅花肉 → pork shoulder
 
-猪肉丝 → 돼지고기 채
+猪肉丝 → Pork fillet
 
-猪龙骨 → 돼지 등뼈
+猪龙骨 → pig spine
 
-肉松 → 고기 가루
+肉松 → meat powder
 
-猪小肠 → 돼지 작은 창자
+猪小肠 → pig small intestine
 
-肋条肉 → 갈비살
+肋条肉 → rib meat
 
-猪尾巴 → 돼지 꼬리
+猪尾巴 → pig tail
 
-酱肘子 → 장조림 족발
+酱肘子 → Jangjorim Jokbal
 
-肥瘦猪肉 → 기름과 살 섞인 돼지고기
+肥瘦猪肉 → Pork mixed with fat and meat
 
-腊肠 → 라창 (중국식 소시지)
+腊肠 → Lachang (chinese sausage)
 
-酱骨头 → 장조림 뼈
+酱骨头 → Jangjorim Bone
 
-猪腱子肉 → 돼지 힘줄 살
+猪腱子肉 → pork tendon meat
 
-猪软骨 → 돼지 연골
+猪软骨 → pig cartilage
 
-猪头皮 → 돼지 머리 껍질
+猪头皮 → pig head rind
 
-猪肾 → 돼지 콩팥
+猪肾 → pork kidney
 
-猪外脊肉 → 돼지 외등심
+猪外脊肉 → pork loin
 
-猪横利 → 돼지 횡격막
+猪横利 → pig diaphragm
 
-猪脾 → 돼지 지라
+猪脾 → pig spleen
 
-猪蹄筋 → 돼지 발 힘줄
+猪蹄筋 → pig foot tendons
 
-风肉 → 풍건 고기
+风肉 → air dried meat
 
-后肘猪肉 → 뒷다리 돼지고기
+后肘猪肉 → hind leg pork
 
-前肘猪肉 → 앞다리 돼지고기
+前肘猪肉 → front leg pork
 
-里脊猪肉 → 돼지 안심
+里脊猪肉 → pork tenderloin
 
-奶脯猪肉 → 돼지 젖가슴살
+奶脯猪肉 → pork breast
 
-硬肋 → 단단한 갈비
+硬肋 → hard ribs
 
-良杂大猪 → 잡종 큰 돼지
+良杂大猪 → crossbreed large pig
 
-猪脖 → 돼지 목
+猪脖 → pig neck
 
-猪肘棒 → 돼지 팔뚝
+猪肘棒 → pig forearm
 
-猪通脊 → 돼지 통등심
+猪通脊 → pork loin
 
-猪硬肋肉 → 단단한 갈비살
+猪硬肋肉 → firm rib meat
 
-羊肉 → 양고기
+羊肉 → lamb
 
-羊排 → 양 갈비
+羊排 → lamb ribs
 
-牛蛙 → 개구리
+牛蛙 → frog
 
-羊血 → 양 선지
+羊血 → Sheep blood
 
-腊羊肉 → 훈제 양고기
+腊羊肉 → smoked lamb
 
-羊板筋 → 양 등뼈 힘줄
+羊板筋 → sheep spine tendon
 
-羊肉干 → 양고기 말랭이
+羊肉干 → dried lamb
 
-羊腿 → 양 다리
+羊腿 → sheep legs
 
-羊腩 → 양 배부위
+羊腩 → Sheep's abdomen
 
-羊肉片 → 양고기 얇은 썰기
+羊肉片 → thinly sliced lamb
 
-羊肉馅 → 양고기 소
+羊肉馅 → lamb beef
 
-羊脆骨肉 → 양 연골 고기
+羊脆骨肉 → sheep cartilage meat
 
-羊肚 → 양 위
+羊肚 → Sheep stomach
 
-冻羊肉 → 냉동 양고기
+冻羊肉 → frozen lamb
 
-羊骨 → 양 뼈
+羊骨 → sheep bones
 
-羊蝎子 → 양 등뼈
+羊蝎子 → sheep spine
 
-熟羊肉 → 익힌 양고기
+熟羊肉 → cooked lamb
 
-羊肝 → 양 간
+羊肝 → Sheep liver
 
-羊脑 → 양 뇌
+羊脑 → sheep brain
 
-山羊肉 → 염소고기
+山羊肉 → goat meat
 
-羊肾 → 양 콩팥
+羊肾 → sheep kidney
 
-羊肺 → 양 허파
+羊肺 → sheep lung
 
-炸羊肉串 → 튀긴 양꼬치
+炸羊肉串 → fried lamb skewers
 
-烤羊肉串 → 구운 양꼬치
+烤羊肉串 → Grilled Lamb Skewers
 
-羊心 → 양 심장
+羊心 → sheep heart
 
-羊蹄筋 → 양 발 힘줄
+羊蹄筋 → tendons of both feet
 
-羊颈肉 → 양 목살
+羊颈肉 → lamb neck
 
-羊里脊肉 → 양 안심
+羊里脊肉 → sheep tenderloin
 
-羊瘦肉 → 양 살코기
+羊瘦肉 → lamb meat
 
-羊胸脯肉 → 양 가슴살
+羊胸脯肉 → lamb breast
 
-冻山羊肉 → 냉동 염소고기
+冻山羊肉 → frozen goat meat
 
-上脑羊肉 → 양 목덜미살
+上脑羊肉 → lamb neck meat
 
-腰窝羊肉 → 양 허리 부위
+腰窝羊肉 → both waist area
 
-羊前腿羊肉 → 양 앞다리
+羊前腿羊肉 → sheep forelimbs
 
-后腿羊肉 → 양 뒷다리
+后腿羊肉 → sheep hind legs
 
-青羊肉 → 푸른 양고기 (어린 양)
+青羊肉 → green lamb (lamb)
 
-羊大肠 → 양 큰 창자
+羊大肠 → sheep large intestine
 
-羊舌 → 양 혀
+羊舌 → sheep tongue
 
-生羊肉串 → 생 양꼬치
+生羊肉串 → raw lamb skewers
 
-羊肉手抓 → 손으로 먹는 양고기
+羊肉手抓 → lamb eaten with hands
 
-烧羊肉 → 조린 양고기
+烧羊肉 → stewed lamb
 
-羊腰窝肉 → 양 허리 부위
+羊腰窝肉 → both waist area
 
-瘦羊肉 → 양 살코기
+瘦羊肉 → lamb meat
 
-牛肉 → 쇠고기
+牛肉 → beef
 
-牛腩 → 소 양지
+牛腩 → beef brisket
 
-牛排 → 소 등심 (스테이크)
+牛排 → beef sirloin (steak)
 
-牛肚 → 소 위
+牛肚 → cow stomach
 
-酱牛肉 → 장조림 쇠고기
+酱牛肉 → Jangjorim beef
 
-牛肉干 → 쇠고기 말랭이
+牛肉干 → dried beef
 
-牛杂 → 소 내장
+牛杂 → beef intestines
 
-牛肺 → 소 허파
+牛肺 → cow lung
 
-牛肉丝 → 쇠고기 채
+牛肉丝 → beef fillet
 
-牛里脊 → 소 안심
+牛里脊 → beef tenderloin
 
-牛筋 → 소 힘줄
+牛筋 → beef tendon
 
-牛尾 → 소 꼬리
+牛尾 → ox tail
 
-瘦牛肉 → 쇠고기 살코기
+瘦牛肉 → beef lean meat
 
-牛肝 → 소 간
+牛肝 → beef liver
 
-牛骨 → 소 뼈
+牛骨 → cow bones
 
-牛里脊肉 → 소 안심
+牛里脊肉 → beef tenderloin
 
-卤牛肉 → 조린 쇠고기
+卤牛肉 → stewed beef
 
-牛肉末 → 쇠고기 간 고기
+牛肉末 → ground beef
 
-肥牛片 → 기름진 쇠고기 얇은 썰기
+肥牛片 → thinly sliced fatty beef
 
-牛百叶 → 소 벌집 위
+牛百叶 → Above the cow beehive
 
-牛腱子肉 → 소 힘줄살
+牛腱子肉 → beef tendon meat
 
-牛肉松 → 쇠고기 가루
+牛肉松 → beef powder
 
-五花牛肉 → 삼겹 소고기
+五花牛肉 → Pork belly beef
 
-牛肋条肉 → 소 갈비살
+牛肋条肉 → beef ribs
 
-牛腱子 → 소 힘줄
+牛腱子 → beef tendon
 
-牛舌 → 소 혀
+牛舌 → cow tongue
 
-牛霖 → 소 볼기살
+牛霖 → beef buttocks
 
-牛蹄筋 → 소 발 힘줄
+牛蹄筋 → cow foot tendon
 
-牛心 → 소 심장
+牛心 → cow heart
 
-牛头 → 소 머리
+牛头 → cow head
 
-肥瘦牛肉 → 기름과 살 섞인 소고기
+肥瘦牛肉 → Beef mixed with fat and meat
 
-腑肋牛肉 → 내장 주변 소고기
+腑肋牛肉 → beef around the intestines
 
-后腿牛肉 → 뒷다리 소고기
+后腿牛肉 → hind leg beef
 
-里脊牛肉 → 안심 소고기
+里脊牛肉 → tenderloin beef
 
-前腿牛肉 → 앞다리 소고기
+前腿牛肉 → front leg of beef
 
-前腱牛肉 → 앞다리 힘줄
+前腱牛肉 → forelimb tendon
 
-背部牛肉 → 등심
+背部牛肉 → Sirloin
 
-臀部牛肉 → 볼기살
+臀部牛肉 → cheek meat
 
-肩部牛肉 → 어깨살
+肩部牛肉 → shoulder meat
 
-胸部牛肉 → 가슴살
+胸部牛肉 → breast meat
 
-腹部牛肉 → 배 부위
+腹部牛肉 → stomach area
 
-膝圆牛肉 → 무릎 둥근살
+膝圆牛肉 → round knee
 
-股内牛肉 → 허벅지 안쪽
+股内牛肉 → inner thigh
 
-小腿牛肉 → 종아리살
+小腿牛肉 → calf meat
 
-后腱牛肉 → 뒷다리 힘줄
+后腱牛肉 → hind limb tendon
 
-牛大肠 → 소 큰 창자
+牛大肠 → cow large intestine
 
-牛脑 → 소 뇌
+牛脑 → cerebellum
 
-牛肾 → 소 콩팥
+牛肾 → beef kidney
 
-牛鞭 → 소 성기
+牛鞭 → cow penis
 
-咖哩牛肉干 → 카레 쇠고기 말랭이
+咖哩牛肉干 → curry beef mince
 
-牛臀肉 → 소 엉덩이살
+牛臀肉 → beef butt
 
-牛脑髓 → 소 골수
+牛脑髓 → bovine bone marrow
 
-牛心顶 → 소 심장 윗부분
+牛心顶 → upper part of beef heart
 
-狗肉 → 개고기
+狗肉 → dog meat
 
-驴肉 → 나귀고기
+驴肉 → donkey meat
 
-兔肉 → 토끼고기
+兔肉 → rabbit meat
 
-火腿 → 햄
+火腿 → ham
 
-香肠 → 소시지
+香肠 → sausage
 
-骆驼掌 → 낙타 발바닥
+骆驼掌 → camel sole
 
-五香驴肉 → 오향 나귀고기
+五香驴肉 → five-spice donkey meat
 
-鹿肉 → 사슴고기
+鹿肉 → venison
 
-酱驴肉 → 장조림 나귀고기
+酱驴肉 → Jangjorim Donkey Meat
 
-马肉 → 말고기
+马肉 → horse meat
 
-马心 → 말 심장
+马心 → horse heart
 
-野兔肉 → 산토끼고기
+野兔肉 → Rabbit meat
 
-驴鞭 → 나귀 성기
+驴鞭 → ass cunt
 
-卤驴肉 → 조린 나귀고기
+卤驴肉 → stewed donkey meat
 
-煮驴肉 → 삶은 나귀고기
+煮驴肉 → boiled donkey meat
 
-骆驼蹄 → 낙타 발굽
+骆驼蹄 → camel hoof
 
-驴骨 → 나귀 뼈
+驴骨 → donkey bone
 
-驴腿肉 → 나귀 다리살
+驴腿肉 → donkey leg meat
 
-鹿筋 → 사슴 힘줄
+鹿筋 → deer tendon
 
-虾皮 → 말린 새우 껍질
+虾皮 → dried shrimp shells
 
-虾酱 → 새우젓
+虾酱 → salted shrimp
 
-河虾 → 민물 새우
+河虾 → freshwater shrimp
 
-虾仁 → 새우 살
+虾仁 → shrimp meat
 
-虾米 → 마른 새우
+虾米 → dried shrimp
 
-龙虾 → 바닷가재
+龙虾 → lobster
 
-小龙虾 → 가재
+小龙虾 → crayfish
 
-海米 → 마른 중하
+海米 → skinny medium to low
 
-凤尾虾 → 봉황 꼬리 새우
+凤尾虾 → Phoenix Tail Shrimp
 
-虾丸 → 새우 완자
+虾丸 → Shrimp Balls
 
-皮皮虾 → 갯가재
+皮皮虾 → mantis shrimp
 
-甜虾 → 단 새우
+甜虾 → sweet shrimp
 
-基围虾 → 젓새우
+基围虾 → salted shrimp
 
-江虾 → 강 새우
+江虾 → river shrimp
 
-虾干 → 마른 새우
+虾干 → dried shrimp
 
-青虾 → 푸른 새우
+青虾 → blue shrimp
 
-草虾 → 풀 새우
+草虾 → grass shrimp
 
-九节虾 → 아홉마디 새우
+九节虾 → nine word shrimp
 
-北极虾 → 북극 새우
+北极虾 → arctic shrimp
 
-海虾 → 바다 새우
+海虾 → sea shrimp
 
-明虾 → 큰 새우
+明虾 → large shrimp
 
-对虾 → 대하
+对虾 → prawn
 
-冰鲜虾 → 냉장 새우
+冰鲜虾 → chilled shrimp
 
-海白虾 → 바다 흰 새우
+海白虾 → sea white shrimp
 
-濑尿虾 → 갯가재
+濑尿虾 → mantis shrimp
 
-南美虾 → 남아메리카 새우
+南美虾 → south american shrimp
 
-琵琶虾 → 비파새우
+琵琶虾 → Loquat Shrimp
 
-白米虾 → 쌀새우
+白米虾 → rice shrimp
 
-虾虎 → 새우호랑이
+虾虎 → Shrimp Tiger
 
-虾仔 → 새우 새끼
+虾仔 → shrimp chick
 
-斑节对虾 → 줄무늬 대하
+斑节对虾 → striped lobster
 
-虾脑酱 → 새우 머리 젓갈
+虾脑酱 → salted shrimp head
 
-长毛对虾 → 긴털 대하
+长毛对虾 → Longhaired prawn
 
-东方对虾 → 동양 대하
+东方对虾 → oriental prawns
 
-塘水虾 → 논 새우
+塘水虾 → rice field shrimp
 
-刺蛄 → 가시가재
+刺蛄 → spiny lobster
 
-螯虾 → 집게새우
+螯虾 → Claw shrimp
 
-虾仁肉丸 → 새우살 완자
+虾仁肉丸 → Shrimp Meat Balls
 
-南极虾 → 남극 새우
+南极虾 → Antarctic Shrimp
 
-嘎巴虾 → 딱딱새우
+嘎巴虾 → Crackle shrimp
 
-活蜢虾 → 산 메뚜기새우
+活蜢虾 → Mountain grasshopper shrimp
 
-蟹肉 → 게살
+蟹肉 → crab meat
 
-海蟹 → 바다 게
+海蟹 → sea crab
 
-蟹黄 → 게 알 (내장)
+蟹黄 → crab roe (Built-in)
 
-花蟹 → 꽃게
+花蟹 → crab
 
-帝王蟹 → 킹크랩
+帝王蟹 → king crab
 
-大闸蟹 → 중국 참게
+大闸蟹 → chinese crab
 
-梭子蟹 → 꽃게 (바다)
+梭子蟹 → crab (sea)
 
-河蟹 → 민물 게
+河蟹 → freshwater crab
 
-蓝蟹 → 파란 게
+蓝蟹 → blue crab
 
-冬蟹 → 겨울 게
+冬蟹 → winter crab
 
-青蟹 → 푸른 게
+青蟹 → blue crab
 
-蟹足棒 → 게 막대 (가공품)
+蟹足棒 → crab rod (processed products)
 
-飞蟹 → 나는 게
+飞蟹 → flying crab
 
-锯缘青蟹 → 톱니 푸른 게
+锯缘青蟹 → sawtooth blue crab
 
-兰花蟹 → 난초 게
+兰花蟹 → orchid crab
 
-邓金斯蟹 → 던지네스 게
+邓金斯蟹 → dungeness crab
 
-田鸡 → 개구리
+田鸡 → frog
 
-草鱼 → 풀 잉어
+草鱼 → grass carp
 
-鲤鱼 → 잉어
+鲤鱼 → carp
 
-鲫鱼 → 붕어
+鲫鱼 → crucian carp
 
-鲈鱼 → 농어
+鲈鱼 → sea bass
 
-黑鱼 → 가물치
+黑鱼 → snakehead
 
-鲢鱼 → 백련
+鲢鱼 → white lotus
 
-青鱼 → 청어
+青鱼 → herring
 
-鲳鱼 → 병어
+鲳鱼 → bottlefish
 
-鲶鱼 → 메기
+鲶鱼 → catfish
 
-泥鳅 → 미꾸라지
+泥鳅 → Loach
 
-银鱼 → 빙어
+银鱼 → Smelt
 
-武昌鱼 → 무창어
+武昌鱼 → Muchang fish
 
-鲑鱼 → 연어
+鲑鱼 → salmon
 
-雪蛤 → 눈개구리 (산란관)
+雪蛤 → snow frog (ovipositor)
 
-甲鱼 → 자라
+甲鱼 → grow up
 
-舌鳎 → 서대
+舌鳎 → Seodae
 
-湟鱼 → 황어
+湟鱼 → Dace
 
-黄鳝 → 드렁허리
+黄鳝 → sloppy waist
 
-鲮鱼 → 링어 (잉어과)
+鲮鱼 → Ringer (carp family)
 
-鳐鱼 → 홍어
+鳐鱼 → skate
 
-鳊鱼 → 비단잉어
+鳊鱼 → koi
 
-罗非鱼 → 틸라피아
+罗非鱼 → tilapia
 
-鲥鱼 → 시어
+鲥鱼 → sear
 
-水蛇 → 물뱀
+水蛇 → water snake
 
-鮰鱼 → 회어 (메기류)
+鮰鱼 → raw fish (catfish)
 
-白条鱼 → 흰 줄 잉어
+白条鱼 → white line carp
 
-鳜鱼 → 쏘가리
+鳜鱼 → Mandarin fish
 
-鲇鱼 → 메기
+鲇鱼 → catfish
 
-鳙鱼 → 대두어
+鳙鱼 → soybean
 
-鳟鱼 → 송어
+鳟鱼 → trout
 
-黄颡鱼 → 황상어 (동자개)
+黄颡鱼 → yellow shark (Dongjagae)
 
-黄姑鱼 → 황고기 (민어과)
+黄姑鱼 → yellow meat (Croaker family)
 
-鲟鱼 → 철갑상어
+鲟鱼 → sturgeon
 
-虹鳟鱼 → 무지개 송어
+虹鳟鱼 → rainbow trout
 
-鲚鱼 → 제어 (뱅어)
+鲚鱼 → control (whitebait)
 
-鲆 → 가자미
+鲆 → flounder
 
-中国鲎 → 중국 투구게
+中国鲎 → Chinese horseshoe crab
 
-鳗鲡 → 뱀장어
+鳗鲡 → eel
 
-鳡鱼 → 간어 (큰 잉어)
+鳡鱼 → liverfish (big carp)
 
-胡子鲇 → 수염 메기
+胡子鲇 → bearded catfish
 
-乌鳢 → 가물치
+乌鳢 → snakehead
 
-鲒花 → 계화 (잉어류)
+鲒花 → Osmanthus (carp)
 
-赤眼鳟 → 붉은 눈 송어
+赤眼鳟 → red eye trout
 
-黄鳝丝 → 드렁허리 채
+黄鳝丝 → With sloppy waist
 
-尖嘴白 → 뾰족입 흰물고기
+尖嘴白 → pointy mouth whitefish
 
-口头鱼 → 입어
+口头鱼 → Put it on
 
-参鱼 → 참어
+参鱼 → finfish
 
-狗母鱼 → 개어미
+狗母鱼 → dog mother
 
-鲐鱼 → 고등어
+鲐鱼 → mackerel
 
-鲷 → 도미
+鲷 → sea bream
 
-鲽 → 가자미
+鲽 → flounder
 
-油抒 → 기름 자
+油抒 → oil ruler
 
-庐山石鸡 → 루산 돌닭 (개구리)
+庐山石鸡 → Lushan stone chicken (frog)
 
-带鱼 → 갈치
+带鱼 → Cutlassfish
 
-黄鱼 → 황어 (참조기)
+黄鱼 → Dace (reference machine)
 
-鳕鱼 → 대구
+鳕鱼 → Daegu
 
-鲅鱼 → 고등어
+鲅鱼 → mackerel
 
-金枪鱼 → 참치
+金枪鱼 → tuna
 
-鳗鱼 → 장어
+鳗鱼 → eel
 
-三文鱼 → 연어
+三文鱼 → salmon
 
-墨鱼 → 오징어
+墨鱼 → squid
 
-沙丁鱼 → 정어리
+沙丁鱼 → sardines
 
-鲨鱼 → 상어
+鲨鱼 → shark
 
-鱼丸 → 생선 완자
+鱼丸 → fish balls
 
-目鱼 → 오징어
+目鱼 → squid
 
-明太鱼 → 명태
+明太鱼 → Pollack
 
-秋刀鱼 → 꽁치
+秋刀鱼 → saury
 
-鱼子酱 → 캐비아
+鱼子酱 → caviar
 
-鱼排 → 생선 스테이크
+鱼排 → fish steak
 
-海鳗 → 바다 장어
+海鳗 → sea eel
 
-多宝鱼 → 터봇
+多宝鱼 → Turbot
 
-比目鱼 → 가자미
+比目鱼 → flounder
 
-鲷鱼 → 도미
+鲷鱼 → sea bream
 
-多春鱼 → 뱅어 (빙어)
+多春鱼 → whitebait (Smelt)
 
-鱼片干 → 생선포 말랭이
+鱼片干 → dried fish wrap
 
-沙尖鱼 → 모래 끝 물고기
+沙尖鱼 → sand tip fish
 
-石斑鱼 → 바리
+石斑鱼 → Bari
 
-凤尾鱼 → 멸치
+凤尾鱼 → anchovies
 
-海鲫鱼 → 바다 붕어
+海鲫鱼 → sea crucian carp
 
-沙钻鱼 → 모래 뚫이
+沙钻鱼 → sand hole
 
-鲭鱼 → 고등어
+鲭鱼 → mackerel
 
-龙利鱼 → 서대
+龙利鱼 → Seodae
 
-木鱼花 → 가쓰오부시
+木鱼花 → Katsuobushi
 
-鳘鱼 → 민어
+鳘鱼 → croaker
 
-金枪鱼罐头 → 참치 통조림
+金枪鱼罐头 → canned tuna
 
-丝丁鱼 → 실 물고기
+丝丁鱼 → thread fish
 
-鮸鱼 → 민어
+鮸鱼 → croaker
 
-金线鱼 → 금줄 물고기
+金线鱼 → gold line fish
 
-乌贼 → 오징어
+乌贼 → squid
 
-龙俐鱼 → 서대
+龙俐鱼 → Seodae
 
-鲻鱼 → 숭어
+鲻鱼 → mullet
 
-梭鱼 → 노래미
+梭鱼 → songmi
 
-红娘鱼 → 빨간 아가씨 물고기
+红娘鱼 → red lady fish
 
-丁香鱼 → 정향 물고기 (멸치류)
+丁香鱼 → clove fish (anchovies)
 
-鳓鱼 → 래어 (전어)
+鳓鱼 → Rare (shad)
 
-老板鱼 → 보스 물고기 (가오리)
+老板鱼 → boss fish (stingray)
 
-虱目鱼 → 이목 물고기
+虱目鱼 → attention fish
 
-白姑鱼 → 흰 아가씨 물고기
+白姑鱼 → white lady fish
 
-梅童鱼 → 매동어
+梅童鱼 → maedongeo
 
-金鳇鱼 → 금황어
+金鳇鱼 → golden dace
 
-颚针鱼 → 악침어 (꽁치류)
+颚针鱼 → bad bite (saury)
 
-蛇鲻 → 뱀치
+蛇鲻 → snake fish
 
-堤鱼 → 둑 물고기
+堤鱼 → bank fish
 
-黄鲂 → 노란 가오리
+黄鲂 → yellow stingray
 
-绿鳍马面豚 → 초록 지느러미 말얼굴복
+绿鳍马面豚 → green fin horse face suit
 
-鲑鱼籽酱 → 연어 알 젓갈
+鲑鱼籽酱 → Salted salmon roe
 
-鱼奇油 → 생선 기름
+鱼奇油 → fish oil
 
-金鲨鱼翅 → 금상어 지느러미
+金鲨鱼翅 → gold shark fin
 
-箭鱼 → 화살 물고기 (청새치)
+箭鱼 → arrow fish (marlin)
 
-午餐鱼 → 점심 물고기 (통조림)
+午餐鱼 → lunch fish (canned food)
 
-蛤蜊 → 바지락
+蛤蜊 → clams
 
-牡蛎 → 굴
+牡蛎 → oyster
 
-鲍鱼 → 전복
+鲍鱼 → abalone
 
-鱿鱼 → 오징어
+鱿鱼 → squid
 
-章鱼 → 문어
+章鱼 → octopus
 
-海蜇 → 해파리
+海蜇 → jellyfish
 
-海参 → 해삼
+海参 → sea cucumber
 
-海带 → 다시마
+海带 → Kelp
 
-干贝 → 마른 가리비 살
+干贝 → dried scallop meat
 
-田螺 → 논우렁이
+田螺 → Rice snail
 
-紫菜 → 김
+紫菜 → Kim
 
-琼脂 → 한천
+琼脂 → agar
 
-鲜贝 → 신선한 가리비
+鲜贝 → fresh scallops
 
-蛏子 → 맛조개
+蛏子 → Flavored clam
 
-鱼干 → 마른 생선
+鱼干 → dried fish
 
-生蚝 → 생굴
+生蚝 → raw oysters
 
-海苔 → 김
+海苔 → Kim
 
-海胆 → 성게
+海胆 → sea urchin
 
-扇贝 → 가리비
+扇贝 → scallops
 
-鱼饼 → 생선 묵
+鱼饼 → fish jelly
 
-北极贝 → 북극 가리비
+北极贝 → arctic scallops
 
-红螺 → 붉은 소라
+红螺 → red conch
 
-墨鱼丸 → 오징어 완자
+墨鱼丸 → Squid Balls
 
-赤贝 → 붉은 가리비
+赤贝 → red scallops
 
-海螺 → 소라
+海螺 → conch
 
-螺 → 소라류
+螺 → conches
 
-文蛤 → 대합
+文蛤 → clam
 
-海蜇皮 → 해파리 껍질
+海蜇皮 → jellyfish shell
 
-蚝豉 → 마른 굴
+蚝豉 → dried oysters
 
-海虹 → 홍합
+海虹 → mussels
 
-石螺 → 돌 소라
+石螺 → stone conch
 
-蟹柳 → 게 살 (가공)
+蟹柳 → crab meat (processing)
 
-干海带 → 마른 다시마
+干海带 → dried kelp
 
-日月贝 → 해와 달 가리비
+日月贝 → sun and moon scallops
 
-蚝干 → 마른 굴
+蚝干 → dried oysters
 
-干鱿鱼 → 마른 오징어
+干鱿鱼 → dried squid
 
-海蜇头 → 해파리 머리
+海蜇头 → jellyfish head
 
-干紫菜 → 마른 김
+干紫菜 → dried seaweed
 
-干海参 → 마른 해삼
+干海参 → dried sea cucumber
 
-干银鱼 → 마른 빙어
+干银鱼 → dried smelt
 
-干墨鱼 → 마른 오징어
+干墨鱼 → dried squid
 
-螺蛳 → 우렁이
+螺蛳 → snail
 
-河蚌 → 민물 조개
+河蚌 → freshwater clams
 
-肉螺 → 살 소라
+肉螺 → sal conch
 
-海蛎干 → 마른 바다 굴
+海蛎干 → dried sea oysters
 
-香螺 → 향 소라
+香螺 → incense conch
 
-鸟贝 → 새 조개
+鸟贝 → bird clam
 
-鱼肉松 → 생선 가루
+鱼肉松 → fish powder
 
-鱼柳 → 생선 살 (필레)
+鱼柳 → fish fillet (fillet)
 
-花蛤蜊 → 꽃 바지락
+花蛤蜊 → flower clam
 
-海蚌 → 바다 가리비
+海蚌 → sea scallops
 
-海兔 → 바다 토끼 (갯민숭이)
+海兔 → sea rabbit (sea slug)
 
-河蚬 → 재첩
+河蚬 → clam
 
-墨鱼圈 → 오징어 링
+墨鱼圈 → squid rings
 
-鸳鸯贝 → 원앙 가리비
+鸳鸯贝 → Mandarin Duck Scallops
 
-干扇贝 → 마른 가리비
+干扇贝 → dried scallops
 
-干苔菜 → 마른 김
+干苔菜 → dried seaweed
 
-蛏干 → 마른 맛조개
+蛏干 → dried clams
 
-干裙带菜 → 마른 미역
+干裙带菜 → dried seaweed
 
-黄蚬 → 노란 재첩
+黄蚬 → yellow clam
 
-干贻贝 → 마른 홍합
+干贻贝 → dried mussels
 
-鲜贻贝 → 신선한 홍합
+鲜贻贝 → fresh mussels
 
-毛蛤蜊 → 털 바지락
+毛蛤蜊 → fur clam
 
-泥蚶 → 꼬막
+泥蚶 → cockle
 
-银蚶 → 은빛 꼬막
+银蚶 → silver cockle
 
-黄螺 → 노란 소라
+黄螺 → yellow conch
 
-沙蛤蜊 → 모래 바지락
+沙蛤蜊 → sand clams
 
-秋蛤蜊 → 가을 바지락
+秋蛤蜊 → autumn clams
 
-杂色蛤蜊 → 잡색 바지락
+杂色蛤蜊 → variegated clams
 
-文蛤丸 → 대합 완자
+文蛤丸 → clam meat
 
-香海螺 → 향기로운 소라
+香海螺 → fragrant conch
 
-罐头鲍鱼 → 통조림 전복
+罐头鲍鱼 → canned abalone
 
-夏威夷贝 → 하와이 가리비
+夏威夷贝 → Hawaiian Scallops
 
-雪螺肉 → 눈 소라 살
+雪螺肉 → snow conch flesh
 
-甲鱼蛋 → 자라 알
+甲鱼蛋 → grow egg
 
-乌鱼蛋 → 숭어 알
+乌鱼蛋 → mullet roe
 
-海冻菜 → 한천
+海冻菜 → agar
 
-干螺旋藻 → 마른 스피루리나
+干螺旋藻 → dried spirulina
 
-水浸海参 → 물에 불린 해삼
+水浸海参 → Sea cucumber soaked in water
 
-浸鱿鱼 → 불린 오징어
+浸鱿鱼 → Soaked Squid
 
-干发菜 → 마른 파래
+干发菜 → dried seaweed
 
-浸海带 → 불린 다시마
+浸海带 → Soaked Kelp
 
-海带菜 → 다시마
+海带菜 → Kelp
 
-鱼板 → 생선묵 (어묵)
+鱼板 → fish cake (fish cake)
 
-大米 → 쌀
+大米 → rice
 
-糯米 → 찹쌀
+糯米 → glutinous rice
 
-黑米 → 검은 쌀
+黑米 → black rice
 
-小米 → 조
+小米 → Joe
 
-小麦 → 밀
+小麦 → wheat
 
-玉米 → 옥수수
+玉米 → corn
 
-西米 → 사고
+西米 → accident
 
-薏米 → 율무
+薏米 → coix
 
-燕麦 → 귀리
+燕麦 → oats
 
-高粱 → 수수
+高粱 → sorghum
 
-芡实 → 끈끈이
+芡实 → sticky
 
-米线 → 쌀국수
+米线 → rice noodles
 
-红糟 → 붉은 지게미
+红糟 → red lees
 
-燕麦片 → 귀리 가루
+燕麦片 → oat flour
 
-荞麦 → 메밀
+荞麦 → Buckwheat
 
-年糕 → 떡
+年糕 → rice cake
 
-白粥 → 흰 죽
+白粥 → white porridge
 
-寿司饭 → 초밥 밥
+寿司饭 → sushi rice
 
-凉粉 → 녹두묵
+凉粉 → mung bean jelly
 
-小米粥 → 조 죽
+小米粥 → Joe porridge
 
-锅巴 → 누룽지
+锅巴 → Nurungji
 
-大麦 → 보리
+大麦 → barley
 
-香米 → 향미
+香米 → flavor
 
-糯米饭 → 찹쌀밥
+糯米饭 → glutinous rice
 
-黄米 → 노란 기장
+黄米 → yellow millet
 
-紫米 → 자색 쌀
+紫米 → purple rice
 
-芸豆 → 강낭콩
+芸豆 → kidney beans
 
-糙米 → 현미
+糙米 → brown rice
 
-甜玉米 → 단 옥수수
+甜玉米 → sweet corn
 
-玉米粒 → 옥수수 알
+玉米粒 → corn kernels
 
-籼米 → 인디카 쌀
+籼米 → indica rice
 
-麸皮 → 밀기울
+麸皮 → bran
 
-粳米 → 자포니카 쌀
+粳米 → japonica rice
 
-玉米渣 → 옥수수 가루
+玉米渣 → cornmeal
 
-白米饭 → 흰밥
+白米饭 → white rice
 
-红曲米 → 홍곡미
+红曲米 → Red grain rice
 
-梗米 → 메벼
+梗米 → buckwheat
 
-鲜玉米 → 생 옥수수
+鲜玉米 → raw corn
 
-老玉米 → 오래된 옥수수
+老玉米 → old corn
 
-稻米 → 벼쌀
+稻米 → rice
 
-玉米糁 → 옥수수 조각
+玉米糁 → corn flakes
 
-高粱米 → 수수쌀
+高粱米 → sorghum rice
 
-大黄米 → 큰 노란 기장
+大黄米 → big yellow badge
 
-糯米圆子 → 찹쌀 경단
+糯米圆子 → glutinous rice dumplings
 
-玉米脆片 → 옥수수 시리얼
+玉米脆片 → corn cereal
 
-青稞 → 청보리
+青稞 → green barley
 
-紫玉米 → 자색 옥수수
+紫玉米 → purple corn
 
-黄玉米 → 노란 옥수수
+黄玉米 → yellow corn
 
-黑玉米 → 검은 옥수수
+黑玉米 → black corn
 
-粳米粥 → 메벼 죽
+粳米粥 → buckwheat porridge
 
-小麦蛋白片 → 밀 단백질 조각
+小麦蛋白片 → wheat protein flakes
 
-白糟 → 흰 지게미
+白糟 → white lees
 
-小麦仁 → 밀 알
+小麦仁 → wheat grain
 
-紫红糯米 → 자주 찹쌀
+紫红糯米 → often glutinous rice
 
-黑大麦 → 검은 보리
+黑大麦 → black barley
 
-带皮糜子 → 껍질 벗기지 않은 기장
+带皮糜子 → unpeeled millet
 
-五谷香 → 오곡 향
+五谷香 → Five Grain Incense
 
-早籼 → 이른 인디카 쌀
+早籼 → Early Indica Rice
 
-晚籼 → 늦 인디카 쌀
+晚籼 → late indica rice
 
-特等晚籼 → 특등 늦 인디카
+特等晚籼 → Special Late Indica
 
-红籼稻谷 → 붉은 인디카 벼
+红籼稻谷 → red indica rice
 
-香大米 → 향미
+香大米 → flavor
 
-优糯米 → 우량 찹쌀
+优糯米 → Superior glutinous rice
 
-早糯谷 → 이른 찹쌀 벼
+早糯谷 → early glutinous rice
 
-粳糯米 → 자포니카 찹쌀
+粳糯米 → Japonica glutinous rice
 
-籼糯米 → 인디카 찹쌀
+籼糯米 → Indica glutinous rice
 
-蒸米饭 → 찐밥
+蒸米饭 → steamed rice
 
-籼米粥 → 인디카 쌀 죽
+籼米粥 → indica rice porridge
 
-粳米饭 → 자포니카 밥
+粳米饭 → japonica rice
 
-籼米饭 → 인디카 밥
+籼米饭 → indica rice
 
-糙米饭 → 현미밥
+糙米饭 → brown rice
 
-意大利米 → 이탈리아 쌀
+意大利米 → italian rice
 
-越南米皮 → 월남 쌀 껍질
+越南米皮 → Vietnamese rice husk
 
-荞麦面 → 메밀국수
+荞麦面 → buckwheat noodles
 
-玉米面 → 옥수수 가루
+玉米面 → cornmeal
 
-面条 → 국수
+面条 → noodles
 
-意大利面 → 파스타
+意大利面 → pasta
 
-米粉 → 쌀국수
+米粉 → rice noodles
 
-粉丝 → 당면
+粉丝 → Vermicelli
 
-小麦面粉 → 밀가루
+小麦面粉 → flour
 
-藕粉 → 연근 가루
+藕粉 → lotus root powder
 
-淀粉 → 전분
+淀粉 → starch
 
-粉条 → 당면
+粉条 → Vermicelli
 
-油面筋 → 기름에 튀긴 밀단백
+油面筋 → Wheat protein fried in oil
 
-水面筋 → 삶은 밀단백
+水面筋 → boiled wheat protein
 
-面包屑 → 빵가루
+面包屑 → breadcrumbs
 
-吐司 → 식빵
+吐司 → bread
 
-起司 → 치즈
+起司 → cheese
 
-油条 → 튀긴 밀가루 막대
+油条 → fried flour bars
 
-乌冬面 → 우동
+乌冬面 → Udon
 
-方便面 → 라면
+方便面 → Ramen
 
-河粉 → 쌀국수
+河粉 → rice noodles
 
-凉面 → 냉면
+凉面 → cold noodles
 
-烧饼 → 구운 밀떡
+烧饼 → Baked wheat rice cake
 
-绿豆面 → 녹두 가루
+绿豆面 → mung bean powder
 
-手擀面 → 손국수
+手擀面 → hand noodles
 
-烙饼 → 부침 개떡
+烙饼 → Ups and downs
 
-油饼 → 기름 떡
+油饼 → oil rice cake
 
-烤麸 → 삶은 밀단백
+烤麸 → boiled wheat protein
 
-面团 → 반죽
+面团 → dough
 
-凉皮 → 냉피 (밀가루 껍질)
+凉皮 → cold blood (flour husk)
 
-春卷皮 → 춘권 피
+春卷皮 → spring roll blood
 
-粘米粉 → 찹쌀 가루
+粘米粉 → glutinous rice powder
 
-玉米淀粉 → 옥수수 전분
+玉米淀粉 → corn starch
 
-馄饨皮 → 만두피
+馄饨皮 → Dumpling skin
 
-中筋面粉 → 중력 밀가루
+中筋面粉 → gravity flour
 
-面包粉 → 빵용 가루
+面包粉 → bread flour
 
-小米面 → 조 가루
+小米面 → millet powder
 
-饺子皮 → 교자 피
+饺子皮 → gyoza blood
 
-豌豆淀粉 → 완두콩 전분
+豌豆淀粉 → pea starch
 
-荷叶饼 → 연잎 떡
+荷叶饼 → lotus leaf rice cake
 
-切面 → 썬 국수
+切面 → sliced noodles
 
-红薯粉条 → 고구마 당면
+红薯粉条 → sweet potato vermicelli
 
-蝴蝶面 → 나비 국수
+蝴蝶面 → butterfly noodles
 
-荞麦粉 → 메밀 가루
+荞麦粉 → buckwheat flour
 
-挂面 → 당면
+挂面 → Vermicelli
 
-全麦粉 → 통밀 가루
+全麦粉 → whole wheat flour
 
-玉米面粉 → 옥수수 가루
+玉米面粉 → cornmeal
 
-蕨根粉 → 고사리 뿌리 가루
+蕨根粉 → fern root powder
 
-速冻水饺 → 급랭 만두
+速冻水饺 → quick frozen dumplings
 
-绿豆粉丝 → 녹두 당면
+绿豆粉丝 → mung bean vermicelli
 
-蛋糕粉 → 케이크 가루
+蛋糕粉 → cake powder
 
-富强粉 → 고급 밀가루
+富强粉 → high grade flour
 
-银丝面 → 은실 국수
+银丝面 → silver thread noodles
 
-饺子粉 → 만두 가루
+饺子粉 → dumpling powder
 
-汤圆粉 → 경단 가루
+汤圆粉 → dumpling powder
 
-黄米面 → 노란 기장 가루
+黄米面 → yellow millet powder
 
-花卷 → 꽃말이
+花卷 → flower language
 
-土豆粉条 → 감자 당면
+土豆粉条 → potato vermicelli
 
-面筋 → 밀단백
+面筋 → wheat protein
 
-高筋面粉 → 강력 밀가루
+高筋面粉 → strong flour
 
-低筋面粉 → 박력 밀가루
+低筋面粉 → cake flour
 
-粉皮 → 녹두 묵
+粉皮 → mung bean jelly
 
-白面 → 흰 밀가루
+白面 → white flour
 
-薏米面 → 율무 가루
+薏米面 → coix powder
 
-干切面 → 마른 썬 국수
+干切面 → dry sliced noodles
 
-莜麦面 → 귀리 가루
+莜麦面 → oat flour
 
-蚕豆淀粉 → 잠두 전분
+蚕豆淀粉 → fava bean starch
 
-特一粉 → 특등 밀가루
+特一粉 → special flour
 
-紫米面 → 자색 쌀 가루
+紫米面 → purple rice powder
 
-团粉 → 전분
+团粉 → starch
 
-豌豆粉丝 → 완두 당면
+豌豆粉丝 → pea vermicelli
 
-马铃薯粉 → 감자 전분
+马铃薯粉 → potato starch
 
-通心面 → 마카로니
+通心面 → macaroni
 
-黄豆面粉 → 콩 가루
+黄豆面粉 → soybean powder
 
-白玉米面 → 흰 옥수수 가루
+白玉米面 → white cornmeal
 
-魔芋精粉 → 곤약 정제 가루
+魔芋精粉 → Konjac Refined Powder
 
-黄玉米面 → 노란 옥수수 가루
+黄玉米面 → yellow cornmeal
 
-大米淀粉 → 쌀 전분
+大米淀粉 → rice starch
 
-小麦胚粉 → 밀 배아 가루
+小麦胚粉 → wheat germ powder
 
-苦荞麦粉 → 쓴 메밀 가루
+苦荞麦粉 → bitter buckwheat flour
 
-高梁面面条 → 수수 가루 국수
+高梁面面条 → Sorghum Flour Noodles
 
-马铃薯全粉 → 감자 완전 가루
+马铃薯全粉 → potato powder
 
-桂花藕粉 → 계화 연근 가루
+桂花藕粉 → Osmanthus lotus root powder
 
-煎炸粉 → 튀김 가루
+煎炸粉 → Tempura Powder
 
-甘薯粉 → 고구마 가루
+甘薯粉 → sweet potato powder
 
-玉米面面条 → 옥수수 가루 국수
+玉米面面条 → cornmeal noodles
 
-籼米粉 → 인디카 쌀 가루
+籼米粉 → Indica Rice Powder
 
-虾蓉面 → 새우살 국수
+虾蓉面 → Shrimp Noodles
 
-龙须素面 → 용수수 면
+龙须素面 → Yongsoo cotton
 
-龙须鸡蛋面 → 용수수 계란 면
+龙须鸡蛋面 → Yongsoo Egg Noodles
 
-煮面条 → 삶은 국수
+煮面条 → boiled noodles
 
-空锅饼 → 빈 솥 떡
+空锅饼 → empty pot rice cake
 
-高蛋白豆米粉 → 고단백 콩 가루
+高蛋白豆米粉 → high protein soybean powder
 
-绿豆芽 → 녹두나물
+绿豆芽 → mung bean sprouts
 
-豆腐 → 두부
+豆腐 → tofu
 
-豆腐干 → 두부 말랭이
+豆腐干 → dried tofu
 
-豆浆 → 콩국
+豆浆 → bean soup
 
-臭豆腐 → 냄새나는 두부
+臭豆腐 → stinky tofu
 
-黄豆 → 메주콩
+黄豆 → soybeans
 
-毛豆 → 풋콩
+毛豆 → green beans
 
-青豆 → 푸른 콩
+青豆 → green beans
 
-绿豆 → 녹두
+绿豆 → green beans
 
-红豆 → 팥
+红豆 → Red beans
 
-小豆 → 작은 팥
+小豆 → small red beans
 
-蚕豆 → 잠두
+蚕豆 → fava beans
 
-黑豆 → 검은 콩
+黑豆 → black beans
 
-黄豆芽 → 콩나물
+黄豆芽 → bean sprouts
 
-赤小豆 → 적팥
+赤小豆 → red bean
 
-腐竹 → 두부 껍질
+腐竹 → tofu skin
 
-豆皮 → 두부 껍질
+豆皮 → tofu skin
 
-日本豆腐 → 일본 두부 (계란 두부)
+日本豆腐 → japanese tofu (egg tofu)
 
-黄豆粉 → 콩 가루
+黄豆粉 → soybean powder
 
-香干 → 향 두부 말랭이
+香干 → Dried incense tofu
 
-豆腐脑 → 두부 흰죽
+豆腐脑 → Tofu white porridge
 
-豆沙 → 팥소
+豆沙 → Red bean paste
 
-腐乳 → 두부 젓갈
+腐乳 → tofu salted fish
 
-豆奶 → 콩 우유
+豆奶 → soy milk
 
-豆腐皮 → 두부 껍질
+豆腐皮 → tofu skin
 
-豆腐丝 → 두부 채
+豆腐丝 → Tofu strips
 
-甜豆浆 → 단 콩국
+甜豆浆 → sweet bean soup
 
-红豆沙 → 팥소
+红豆沙 → Red bean paste
 
-油豆腐 → 두부 튀김
+油豆腐 → fried tofu
 
-豆渣 → 비지
+豆渣 → Busy
 
-油豆角 → 기름 강낭콩
+油豆角 → oil kidney beans
 
-鹰嘴豆 → 병아리콩
+鹰嘴豆 → chickpeas
 
-冻豆腐 → 냉동 두부
+冻豆腐 → frozen tofu
 
-四棱豆 → 네모콩
+四棱豆 → square bean
 
-素鸡 → 채식 닭 (두부 가공)
+素鸡 → vegetarian chicken (Tofu processing)
 
-眉豆 → 눈썹콩
+眉豆 → eyebrow bean
 
-板豆腐 → 판 두부
+板豆腐 → plate tofu
 
-素肉丝 → 채식 고기 채
+素肉丝 → vegetarian meat fillet
 
-南豆腐 → 남두부 (연두부)
+南豆腐 → Southern tofu (soft tofu)
 
-北豆腐 → 북두부 (모두부)
+北豆腐 → northern tofu (Everyone)
 
-千张 → 천장 (두부껍질)
+千张 → ceiling (tofu skin)
 
-内脂豆腐 → 내지두부
+内脂豆腐 → tofu
 
-白芸豆 → 흰 강낭콩
+白芸豆 → white kidney beans
 
-麻豆腐 → 마두부
+麻豆腐 → Mad tofu
 
-长豇豆 → 긴 동부
+长豇豆 → long eastern
 
-红豆馅 → 팥소
+红豆馅 → Red bean paste
 
-脆豆腐 → 아삭두부
+脆豆腐 → Crunchy tofu
 
-龙牙豆 → 용아콩
+龙牙豆 → dragon beans
 
-素什锦 → 채식 잡채
+素什锦 → Vegetarian Japchae
 
-黑豆苗 → 검은 콩나물
+黑豆苗 → black bean sprouts
 
-红芸豆 → 붉은 강낭콩
+红芸豆 → red kidney beans
 
-白扁豆 → 흰 팥
+白扁豆 → white red beans
 
-豆粕 → 콩박
+豆粕 → Soybean meal
 
-豆腐卷 → 두부 말이
+豆腐卷 → tofu roll
 
-熏豆腐干 → 훈제 두부말랭이
+熏豆腐干 → Smoked dried tofu
 
-去皮蚕豆 → 껍질 벗긴 잠두
+去皮蚕豆 → peeled fava beans
 
-龙豆 → 용콩
+龙豆 → dragon bean
 
-素腊肠 → 채식 라창
+素腊肠 → Vegetarian Lachang
 
-红花豆 → 홍화콩
+红花豆 → safflower beans
 
-素火腿 → 채식 햄
+素火腿 → vegetarian ham
 
-卤豆腐干 → 조린 두부말랭이
+卤豆腐干 → Boiled dried tofu
 
-白豆角 → 흰 강낭콩
+白豆角 → white kidney beans
 
-素大肠 → 채식 창자 (두부 가공)
+素大肠 → vegetarian intestines (Tofu processing)
 
-黑豆豆芽 → 검은 콩나물
+黑豆豆芽 → black bean sprouts
 
-素肚 → 채식 위
+素肚 → vegetarian stomach
 
-黑大豆干 → 검은 두부말랭이
+黑大豆干 → dried black tofu
 
-小豆粥 → 팥죽
+小豆粥 → Red bean porridge
 
-荆豆 → 가시콩
+荆豆 → thorn beans
 
-木豆 → 콩 (카장)
+木豆 → beans (Kajang)
 
-带皮蚕豆 → 껍질 있는 잠두
+带皮蚕豆 → fava beans with skin
 
-马牙大豆 → 말이빨 콩
+马牙大豆 → soybean
 
-脑豆 → 뇌콩
+脑豆 → brain bean
 
-花豌豆 → 꽃 완두
+花豌豆 → flower pea
 
-垅船豆 → 두둑콩
+垅船豆 → bean
 
-生豆汁 → 생 콩국
+生豆汁 → raw bean soup
 
-酸豆奶 → 신 콩 우유
+酸豆奶 → soy soy milk
 
-豆浆粉 → 콩국 가루
+豆浆粉 → bean soup powder
 
-维维牌豆奶粉 → 웨이웨이 브랜드 콩 우유 가루
+维维牌豆奶粉 → Weiwei Brand Soybean Milk Powder
 
-多力牌豆奶粉 → 둬리 브랜드 콩 우유 가루
+多力牌豆奶粉 → Duori Brand Soybean Milk Powder
 
-大磨牌豆奶粉 → 다모 브랜드 콩 우유 가루
+大磨牌豆奶粉 → Damo Brand Soybean Milk Powder
 
-豆肝尖 → 콩 간 (두부 간)
+豆肝尖 → soybean liver (tofu liver)
 
-木绵豆腐 → 목면두부
+木绵豆腐 → Cotton tofu
 
-牛奶 → 소젖
+牛奶 → cow milk
 
-酸奶 → 요구르트 (북한: 신 우유)
+酸奶 → yogurt (north korea: sour milk)
 
-奶酪 → 치즈 (북한: 버터 또는 크림치즈)
+奶酪 → cheese (north korea: Butter or cream cheese)
 
-奶油 → 버터 (북한: 크림)
+奶油 → butter (north korea: cream)
 
-奶粉 → 젖가루
+奶粉 → milk powder
 
-羊奶 → 염소젖
+羊奶 → goat milk
 
-酥油 → 소 버터
+酥油 → cow butter
 
-黄油 → 버터
+黄油 → butter
 
-巧克力 → 초콜리트
+巧克力 → chocolate
 
-淡奶 → 연유 (연한 우유)
+淡奶 → condensed milk (light milk)
 
-奶片 → 우유 정
+奶片 → milk cream
 
-牛乳 → 소젖
+牛乳 → cow milk
 
-奶豆腐 → 우유 두부
+奶豆腐 → milk curd
 
-低脂奶酪 → 저지방 치즈
+低脂奶酪 → low fat cheese
 
-全脂奶粉 → 전지 젖가루
+全脂奶粉 → whole milk powder
 
-果粒酸奶 → 과일 알갱이 요구르트
+果粒酸奶 → fruit granular yogurt
 
-脱脂酸奶 → 탈지 요구르트
+脱脂酸奶 → skim yogurt
 
-炼乳 → 연유
+炼乳 → condensed milk
 
-全脂羊乳粉 → 전지 염소 젖가루
+全脂羊乳粉 → Full-fat goat milk powder
 
-羊乳酪 → 염소 치즈
+羊乳酪 → goat cheese
 
-鲜羊乳 → 신선한 염소젖
+鲜羊乳 → fresh goat milk
 
-人乳 → 사람 젖
+人乳 → human milk
 
-学生奶 → 학생 우유
+学生奶 → student milk
 
-牛乳粉 → 젖가루
+牛乳粉 → milk powder
 
-全脂加糖奶粉 → 전지 당 첨가 젖가루
+全脂加糖奶粉 → Full-fat sugar-added milk powder
 
-全脂牛奶粉 → 전지 젖가루
+全脂牛奶粉 → whole milk powder
 
-全脂速溶奶粉 → 전지 속용 젖가루
+全脂速溶奶粉 → Whole milk powder
 
-果料酸奶 → 과일 요구르트
+果料酸奶 → fruit yogurt
 
-调味酸奶 → 조미 요구르트
+调味酸奶 → Seasoned Yogurt
 
-脱脂奶豆腐 → 탈지 우유 두부
+脱脂奶豆腐 → skim milk curd
 
-普通契达干酪 → 보통 체다 치즈
+普通契达干酪 → regular cheddar cheese
 
-脱脂契达干酪 → 탈지 체다 치즈
+脱脂契达干酪 → skim cheddar cheese
 
-曲拉 → 곡라 (소젖 가루)
+曲拉 → Gokla (cow milk powder)
 
-全脂软酪 → 전지 연질 치즈
+全脂软酪 → full fat soft cheese
 
-酸酪蛋 → 신 치즈 알
+酸酪蛋 → sour cheese eggs
 
-中脂软酪 → 중지 연질 치즈
+中脂软酪 → stop soft cheese
 
-硬质干酪 → 경질 치즈
+硬质干酪 → hard cheese
 
-奶皮子 → 우유 껍질
+奶皮子 → milk rind
 
-脱脂甜炼乳 → 탈지 단 연유
+脱脂甜炼乳 → skim sweetened condensed milk
 
-中脂酸奶 → 중지 요구르트
+中脂酸奶 → stop yogurt
 
-奶疙瘩 → 우유 덩어리
+奶疙瘩 → lump of milk
 
-焦克奶油 → 자오커 버터
+焦克奶油 → Zhao Ke Butter
 
-鸡翅 → 닭날개
+鸡翅 → chicken wings
 
-鸡腿 → 닭다리
+鸡腿 → chicken leg
 
-鸡爪 → 닭발
+鸡爪 → chicken feet
 
-鸡杂 → 닭 내장
+鸡杂 → chicken intestines
 
-鸡胸脯肉 → 닭 가슴살
+鸡胸脯肉 → chicken breast
 
-乌鸡 → 검은 닭
+乌鸡 → black chicken
 
-鸡肉 → 닭고기
+鸡肉 → chicken
 
-鸡肝 → 닭간
+鸡肝 → chicken liver
 
-鸡肫 → 닭모래집
+鸡肫 → Chicken Sand House
 
-鸡心 → 닭심장
+鸡心 → chicken heart
 
-鸡丁 → 닭고기 깍둑썰기
+鸡丁 → Chicken diced
 
-鸡排 → 닭고기 스테이크
+鸡排 → chicken steak
 
-鸡块 → 닭고기 토막
+鸡块 → chicken pieces
 
-鸡丝 → 닭고기 채
+鸡丝 → chicken fillet
 
-烧鸡 → 구운 닭
+烧鸡 → grilled chicken
 
-乌骨鸡 → 검은 뼈 닭
+乌骨鸡 → black bone chicken
 
-土鸡 → 토종 닭
+土鸡 → native chicken
 
-光鸡 → 손질 닭
+光鸡 → trimming chicken
 
-三黄鸡 → 삼황 닭
+三黄鸡 → Samhwang Chicken
 
-母鸡 → 암탉
+母鸡 → hen
 
-鸡血 → 닭 피
+鸡血 → chicken blood
 
-鸡脆骨 → 닭 연골
+鸡脆骨 → chicken cartilage
 
-老母鸡 → 늙은 암탉
+老母鸡 → old hen
 
-仔鸡 → 어린 닭
+仔鸡 → young chicken
 
-鸡脖子 → 닭 목
+鸡脖子 → chicken neck
 
-鸡骨 → 닭 뼈
+鸡骨 → chicken bones
 
-走地鸡 → 방목 닭
+走地鸡 → free range chickens
 
-柴鸡 → 토종 닭
+柴鸡 → native chicken
 
-绿鸟鸡 → 녹색 새 닭
+绿鸟鸡 → green bird chicken
 
-肉鸡 → 육계
+肉鸡 → broiler
 
-鸡肉肠 → 닭고기 소시지
+鸡肉肠 → chicken sausage
 
-鸡肉丸 → 닭고기 완자
+鸡肉丸 → chicken meatballs
 
-小公鸡 → 작은 수탉
+小公鸡 → little rooster
 
-全鸡 → 온 닭
+全鸡 → whole chicken
 
-鸡叉 → 닭 갈비
+鸡叉 → chicken ribs
 
-野山鸡 → 산닭
+野山鸡 → mountain chicken
 
-鸡肉松 → 닭고기 가루
+鸡肉松 → chicken powder
 
-华青鸡 → 화칭 닭
+华青鸡 → Huaqing Chicken
 
-沙鸡 → 모래 닭
+沙鸡 → sand chicken
 
-本鸡 → 토종 닭
+本鸡 → native chicken
 
-鸡腰 → 닭 콩팥
+鸡腰 → chicken kidney
 
-油鸡 → 기름 닭
+油鸡 → oil chicken
 
-阉鸡 → 거세 닭
+阉鸡 → castrated chicken
 
-草公鸡 → 풀 수탉
+草公鸡 → full cock
 
-鸭肝 → 오리 간
+鸭肝 → duck liver
 
-鸭肉 → 오리고기
+鸭肉 → duck meat
 
-鸭脖 → 오리 목
+鸭脖 → duck neck
 
-鸭掌 → 오리 발
+鸭掌 → duck feet
 
-烤鸭 → 구운 오리
+烤鸭 → roast duck
 
-鸭舌 → 오리 혀
+鸭舌 → duck tongue
 
-鸭下巴 → 오리 아래 턱
+鸭下巴 → duck lower jaw
 
-鸭翅 → 오리 날개
+鸭翅 → duck wings
 
-鸭架 → 오리 뼈대
+鸭架 → duck skeleton
 
-板鸭 → 판오리
+板鸭 → pan duck
 
-老鸭 → 늙은 오리
+老鸭 → old duck
 
-鸭肫 → 오리 모래집
+鸭肫 → duck sand house
 
-酱鸭 → 장조림 오리
+酱鸭 → Jangjorim Duck
 
-鸭肠 → 오리 창자
+鸭肠 → duck intestines
 
-鸭腿 → 오리 다리
+鸭腿 → duck legs
 
-鸭血 → 오리 피
+鸭血 → duck blood
 
-鸭胗 → 오리 모래집
+鸭胗 → duck sand house
 
-咸鸭腿 → 짠 오리 다리
+咸鸭腿 → salty duck legs
 
-腊鸭腿 → 훈제 오리 다리
+腊鸭腿 → smoked duck leg
 
-光鸭 → 손질 오리
+光鸭 → trimming duck
 
-仔鸭 → 어린 오리
+仔鸭 → young duck
 
-鸭脯肉 → 오리 가슴살
+鸭脯肉 → duck breast
 
-腊鸭头 → 훈제 오리 머리
+腊鸭头 → smoked duck head
 
-鸭心 → 오리 심장
+鸭心 → duck heart
 
-腊鸭掌 → 훈제 오리 발
+腊鸭掌 → smoked duck feet
 
-鸭胸脯肉 → 오리 가슴살
+鸭胸脯肉 → duck breast
 
-鸭皮 → 오리 껍질
+鸭皮 → duck skin
 
-鸭胰 → 오리 이자
+鸭胰 → duck interest
 
-白鸭鸭血 → 흰 오리 피
+白鸭鸭血 → white duck blood
 
-公麻鸭 → 수컷 마오리
+公麻鸭 → male maori
 
-母麻鸭 → 암컷 마오리
+母麻鸭 → female Maori
 
-公麻鸭鸭肝 → 수컷 마오리 간
+公麻鸭鸭肝 → male Maori liver
 
-母麻鸭鸭肝 → 암컷 마오리 간
+母麻鸭鸭肝 → female Maori liver
 
-母麻鸭鸭血 → 암컷 마오리 피
+母麻鸭鸭血 → female Maori blood
 
-公麻鸭鸭肫 → 수컷 마오리 모래집
+公麻鸭鸭肫 → Male Maori Sand House
 
-母麻鸭鸭肫 → 암컷 마오리 모래집
+母麻鸭鸭肫 → Female Maori sand house
 
-公麻鸭鸭血 → 수컷 마오리 피
+公麻鸭鸭血 → male Maori blood
 
-腊鸭翼 → 훈제 오리 날개
+腊鸭翼 → smoked duck wings
 
-鸡蛋 → 닭알
+鸡蛋 → chicken egg
 
-鸭蛋 → 오리알
+鸭蛋 → duck egg
 
-鹌鹑蛋 → 메추리알
+鹌鹑蛋 → quail egg
 
-皮蛋 → 피단 (북한: 송화알)
+皮蛋 → pidan (north korea: Songhwa eggs)
 
-咸鸭蛋 → 짠 오리알
+咸鸭蛋 → salty duck eggs
 
-鹅蛋 → 거위알
+鹅蛋 → goose egg
 
-鸡蛋黄 → 닭알 노른자
+鸡蛋黄 → chicken egg yolk
 
-鸡蛋黄粉 → 닭알 노른자 가루
+鸡蛋黄粉 → Chicken egg yolk powder
 
-咸蛋 → 짠알
+咸蛋 → Salty grain
 
-松花蛋 → 송화알
+松花蛋 → Songhwa eggs
 
-卤蛋 → 조린알
+卤蛋 → boiled eggs
 
-煮鸡蛋 → 삶은 닭알
+煮鸡蛋 → boiled chicken eggs
 
-鸭蛋黄 → 오리알 노른자
+鸭蛋黄 → duck egg yolk
 
-鸡蛋白 → 닭알 흰자
+鸡蛋白 → chicken egg white
 
-鸽子蛋 → 비둘기알
+鸽子蛋 → pigeon egg
 
-土鸡蛋 → 토종 닭알
+土鸡蛋 → native chicken eggs
 
-海鸭蛋 → 바다 오리알
+海鸭蛋 → sea duck eggs
 
-乌鸡蛋 → 검은 닭알
+乌鸡蛋 → black chicken eggs
 
-鸭蛋白 → 오리알 흰자
+鸭蛋白 → duck egg white
 
-鹅蛋白 → 거위알 흰자
+鹅蛋白 → goose egg white
 
-鹅蛋黄 → 거위알 노른자
+鹅蛋黄 → goose egg yolk
 
-油煎荷包蛋 → 기름에 지진 계란 후라이
+油煎荷包蛋 → Fried eggs in oil
 
-煮荷包蛋 → 삶은 계란 후라이
+煮荷包蛋 → fried boiled egg
 
-白皮鸡蛋 → 흰 껍질 닭알
+白皮鸡蛋 → white shell chicken egg
 
-鸡蛋粉 → 닭알 가루
+鸡蛋粉 → chicken egg powder
 
-藏鸡蛋 → 티베트 닭알
+藏鸡蛋 → tibetan chicken eggs
 
-毛蛋 → 털알
+毛蛋 → hair
 
-鹅 → 거위
+鹅 → goose
 
-鹅肝 → 거위 간
+鹅肝 → goose liver
 
-鹅肉 → 거위고기
+鹅肉 → goose meat
 
-鹌鹑 → 메추리
+鹌鹑 → quail
 
-乳鸽 → 어린 비둘기
+乳鸽 → young pigeon
 
-烧鹅 → 구운 거위
+烧鹅 → roast goose
 
-鸽子 → 비둘기
+鸽子 → pigeon
 
-火鸡 → 칠면조
+火鸡 → turkey
 
-鸽 → 비둘기
+鸽 → pigeon
 
-火鸡腿 → 칠면조 다리
+火鸡腿 → turkey legs
 
-咸鹅 → 짠 거위
+咸鹅 → salty goose
 
-鹅胸肉 → 거위 가슴살
+鹅胸肉 → goose breast
 
-腊鹅 → 훈제 거위
+腊鹅 → smoked goose
 
-红烧乳鸽 → 간장조림 어린 비둘기
+红烧乳鸽 → Soy sauce braised young pigeon
 
-鹅肫 → 거위 모래집
+鹅肫 → goose sand house
 
-火鸡胸脯肉 → 칠면조 가슴살
+火鸡胸脯肉 → turkey breast
 
-火鸡肝 → 칠면조 간
+火鸡肝 → turkey liver
 
-火鸡肫 → 칠면조 모래집
+火鸡肫 → turkey litter box
 
-苹果 → 사과
+苹果 → apple
 
-香蕉 → 바나나
+香蕉 → banana
 
-柠檬 → 레몬
+柠檬 → lemon
 
-菠萝 → 파인애플
+菠萝 → pineapple
 
-草莓 → 딸기
+草莓 → strawberry
 
-山楂 → 산사
+山楂 → mountain temple
 
-梨 → 배
+梨 → ship
 
-杏 → 살구
+杏 → apricot
 
-李子 → 자두
+李子 → plums
 
-猕猴桃 → 다래
+猕猴桃 → Actinidia
 
-柚子 → 유자 (북한: 포멜로)
+柚子 → Yuzu (north korea: pomelo)
 
-芒果 → 망고
+芒果 → mango
 
-柿子 → 감
+柿子 → persimmon
 
-荔枝 → 여지
+荔枝 → Litchi
 
-石榴 → 석류
+石榴 → pomegranate
 
-葡萄 → 포도
+葡萄 → grapes
 
-樱桃 → 버찌
+樱桃 → cherries
 
-西瓜 → 수박
+西瓜 → watermelon
 
-木瓜 → 파파야
+木瓜 → papaya
 
-圣女果 → 방울토마토
+圣女果 → cherry tomatoes
 
-枣 → 대추
+枣 → jujube
 
-火龙果 → 용과
+火龙果 → dragon fruit
 
-椰子 → 코코넛
+椰子 → coconut
 
-无花果 → 무화과
+无花果 → fig
 
-红枣 → 붉은 대추
+红枣 → red jujube
 
-榴莲 → 두리안
+榴莲 → durian
 
-甘蔗 → 사탕수수
+甘蔗 → sugar cane
 
-黄桃 → 황도
+黄桃 → ecliptic
 
-槟榔 → 빈랑
+槟榔 → betel nut
 
-桔子 → 귤
+桔子 → Tangerine
 
-桑葚 → 오디
+桑葚 → mulberry
 
-杨梅 → 양매
+杨梅 → sheep sale
 
-菠萝蜜 → 잭프루트
+菠萝蜜 → jackfruit
 
-蓝莓 → 블루베리
+蓝莓 → blueberry
 
-哈密瓜 → 카사바 멜론
+哈密瓜 → cassava melon
 
-椰果 → 코코넛 젤리
+椰果 → coconut jelly
 
-西梅 → 서양자두
+西梅 → plum
 
-橙 → 오렌지
+橙 → orange
 
-雪莲子 → 눈 연자
+雪莲子 → eyes
 
-龙眼 → 용안
+龙眼 → longan
 
-枇杷 → 비파
+枇杷 → loquat
 
-金橘 → 금귤
+金橘 → kumquat
 
-梅 → 매실
+梅 → plum
 
-蔓越莓 → 크랜베리
+蔓越莓 → cranberry
 
-杨桃 → 별과일
+杨桃 → star fruit
 
-乌梅 → 검은 매실
+乌梅 → black plum
 
-牛油果 → 아보카도
+牛油果 → avocado
 
-香梨 → 향배
+香梨 → Hyangbae
 
-蛇果 → 사과 (레드 딜리셔스)
+蛇果 → apple (Red Delicious)
 
-香瓜 → 참외
+香瓜 → melon
 
-鸭梨 → 압배
+鸭梨 → Overwhelmed
 
-海棠果 → 해당화 열매
+海棠果 → sweet flower fruit
 
-杏子 → 살구
+杏子 → apricot
 
-沙棘 → 바다 갈매나무 열매
+沙棘 → sea buckthorn fruit
 
-百香果 → 패션 프루트 (시계꽃 열매)
+百香果 → passion fruit (passion fruit)
 
-西番莲 → 시계꽃
+西番莲 → passion flower
 
-桃 → 복숭아
+桃 → peach
 
-黑枣 → 검은 대추
+黑枣 → black jujube
 
-白兰瓜 → 바이란 멜론
+白兰瓜 → Byran Melon
 
-金丝枣 → 금실 대추
+金丝枣 → golden jujube
 
-布朗 → 자두 (플럼)
+布朗 → plums (plum)
 
-雪花梨 → 눈송이 배
+雪花梨 → snowflake pear
 
-沙果 → 모래사과
+沙果 → sand apple
 
-酒枣 → 술 대추
+酒枣 → liquor jujube
 
-甜瓜 → 멜론
+甜瓜 → melon
 
-鳄梨 → 아보카도
+鳄梨 → avocado
 
-芭蕉 → 파초
+芭蕉 → Basho
 
-青梅 → 푸른 매실
+青梅 → green plum
 
-金丝小枣 → 금실 작은 대추
+金丝小枣 → gold thread small jujube
 
-桑葚子 → 오디
+桑葚子 → mulberry
 
-库尔勒梨 → 쿠얼러 배
+库尔勒梨 → coeur pear
 
-莱阳梨 → 라이양 배
+莱阳梨 → Laiyang Bae
 
-酸枣 → 신 대추
+酸枣 → sour jujube
 
-醋栗 → 구스베리
+醋栗 → gooseberry
 
-酸柑 → 신 감귤
+酸柑 → sour tangerines
 
-海椰枣 → 바다 대추야자
+海椰枣 → sea date palm
 
-麦芽 → 보리 싹
+麦芽 → barley sprouts
 
-核桃 → 호두
+核桃 → walnut
 
-杏仁 → 살구 씨
+杏仁 → apricot seeds
 
-松子 → 잣
+松子 → pine nuts
 
-枸杞 → 구기자
+枸杞 → Wolfberry
 
-腰果 → 캐슈넛
+腰果 → cashew nuts
 
-松仁 → 잣알
+松仁 → pine nuts
 
-板栗 → 밤
+板栗 → night
 
-白果 → 은행
+白果 → bank
 
-花生仁 → 땅콩 알
+花生仁 → peanut eggs
 
-花生 → 땅콩
+花生 → peanut
 
-莲子 → 연밥
+莲子 → lotus rice
 
-芡实米 → 끈끈이쌀
+芡实米 → sticky rice
 
-松子仁 → 잣
+松子仁 → pine nuts
 
-栗子 → 밤
+栗子 → night
 
-南瓜子仁 → 호박씨 알
+南瓜子仁 → pumpkin seeds
 
-桂圆 → 용안 (건조)
+桂圆 → longan (dry)
 
-葡萄干 → 건포도
+葡萄干 → Raisins
 
-开心果 → 피스타치오
+开心果 → pistachio
 
-瓜子仁 → 씨앗 알
+瓜子仁 → seed egg
 
-榛子 → 개암
+榛子 → hazelnuts
 
-西瓜子 → 수박씨
+西瓜子 → watermelon seeds
 
-山核桃 → 산호두
+山核桃 → coral head
 
-果仁 → 견과 알
+果仁 → nuts egg
 
-桃脯 → 말린 복숭아
+桃脯 → dried peaches
 
-南瓜子 → 호박씨
+南瓜子 → pumpkin seeds
 
-干山楂 → 마른 산사
+干山楂 → dry mountain temple
 
-坚果碎 → 견과류 부스러기
+坚果碎 → Nut Crumbs
 
-夏威夷果 → 마카다미아
+夏威夷果 → macadamias
 
-葵花子 → 해바라기씨
+葵花子 → sunflower seeds
 
-栗子仁 → 밤 알
+栗子仁 → chestnut egg
 
-干枣 → 마른 대추
+干枣 → dried jujube
 
-干白果 → 마른 은행
+干白果 → dry bank
 
-西瓜子仁 → 수박씨 알
+西瓜子仁 → watermelon seeds
 
-葵花子仁 → 해바라기씨 알
+葵花子仁 → sunflower seeds
 
-熟坚果 → 익힌 견과류
+熟坚果 → cooked nuts
 
-干番茄 → 마른 토마토
+干番茄 → dried tomatoes
 
-芝麻籽 → 참깨
+芝麻籽 → sesame seeds
 
-橡实 → 도토리
+橡实 → acorn
 
-胡麻籽 → 아마씨
+胡麻籽 → flaxseed
 
-菠萝蜜子 → 잭프루트 씨
+菠萝蜜子 → jackfruit seeds
 
-毛核桃 → 털 호두
+毛核桃 → hair walnut
 
-香榧 → 향비 (열매)
+香榧 → Hyangbi (fruit)
 
-粥 → 죽
+粥 → porridge
 
-饺子 → 만두
+饺子 → dumplings
 
-面 → 국수
+面 → noodles
 
-饭 → 밥
+饭 → rice
 
-包子 → 찐빵
+包子 → steamed buns
 
-馒头 → 찐 밀가루 덩어리
+馒头 → lump of steamed flour
 
-馄饨 → 혼돈
+馄饨 → chaos
 
-汤圆 → 경단
+汤圆 → Dango
 
-粉 → 가루
+粉 → powder
 
-面包 → 빵
+面包 → bread
 
-饼干 → 과자
+饼干 → sweets
 
-蛋糕 → 케이크
+蛋糕 → cake
 
-糖果 → 사탕
+糖果 → candy
 
-披萨 → 피자
+披萨 → pizza
 
-派类 → 파이
+派类 → pie
 
-果冻 → 젤리
+果冻 → jelly
 
-布丁 → 푸딩
+布丁 → pudding
 
-挞类 → 타르트
+挞类 → tart
 
-花椒 → 산초
+花椒 → Sancho
 
-八角 → 팔각
+八角 → octagon
 
-胡椒粉 → 후춧가루
+胡椒粉 → black pepper
 
-丁香 → 정향
+丁香 → clove
 
-苦豆子 → 쓴 콩
+苦豆子 → bitter beans
 
-茴香籽 → 회향 씨
+茴香籽 → fennel seeds
 
-芥茉 → 겨자
+芥茉 → mustard
 
-干花椒叶 → 마른 산초 잎
+干花椒叶 → dry sancho leaves
 
-醋 → 식초
+醋 → vinegar
 
-甘蔗汁 → 사탕수수 즙
+甘蔗汁 → sugar cane juice
 
-咖啡豆 → 커피 콩
+咖啡豆 → coffee beans
 
-醪糟 → 막걸리 찌꺼기
+醪糟 → makgeolli residue
 
-精盐 → 정제 소금
+精盐 → refined salt
 
-茶水 → 차 물
+茶水 → tea water
 
-柿叶茶 → 감 잎차
+柿叶茶 → persimmon leaf tea
 
-酿水榄 → 절임 올리브
+酿水榄 → pickled olives
 
-湖盐 → 호수 소금
+湖盐 → lake salt
 
-芝麻酱 → 참깨 소스
+芝麻酱 → sesame sauce
 
-番茄酱 → 토마토 소스
+番茄酱 → tomato sauce
 
-甜面酱 → 단 된장
+甜面酱 → sweet soybean paste
 
-辣椒酱 → 고추장
+辣椒酱 → Gochujang
 
-沙拉酱 → 샐러드 드레싱
+沙拉酱 → salad dressing
 
-黄酱 → 황장 (된장)
+黄酱 → Hwangjang (soybean paste)
 
-白砂糖 → 흰 설탕
+白砂糖 → white sugar
 
-红糖 → 흑설탕 (북한: 갈색 설탕)
+红糖 → brown sugar (north korea: brown sugar)
 
-蜂蜜 → 꿀
+蜂蜜 → honey
 
-冰糖 → 정제 설탕 덩어리
+冰糖 → refined sugar lumps
 
-绵白糖 → 가루 설탕
+绵白糖 → powdered sugar
 
-花生油 → 땅콩 기름
+花生油 → peanut oil
 
-茶油 → 차 기름
+茶油 → tea oil
 
-猪油 → 돼지 기름
+猪油 → pork fat
 
-牛油 → 쇠기름
+牛油 → Beef fat
 
-酱油 → 간장
+酱油 → soy sauce
 
-芝麻油 → 참기름
+芝麻油 → sesame oil
 
-辣椒油 → 고추 기름
+辣椒油 → chili oil
 
-色拉油 → 샐러드 기름
+色拉油 → salad oil
 
-橄榄油 → 올리브 기름
+橄榄油 → olive oil
 
-菜籽油 → 채종유
+菜籽油 → rapeseed oil
 
-胡麻油 → 아마인유
+胡麻油 → linseed oil
 
-羊油 → 양기름
+羊油 → Sheep oil
 
-混合油 → 혼합 기름
+混合油 → mixed oil
 
-豆油 → 콩기름
+豆油 → soybean oil
 
-核桃油 → 호두기름
+核桃油 → Walnut oil
 
-大麻油 → 대마 기름
+大麻油 → hemp oil
 
-椰子油 → 코코넛 기름
+椰子油 → coconut oil
 
-棕榈油 → 팜 기름
+棕榈油 → palm oil
 
-小麦粉(标准粉) → 밀가루 (표준)
+小麦粉(标准粉) → flour (standard)
 
-小麦粉(富强粉,特一粉) → 밀가루 (특등)
+小麦粉(富强粉,特一粉) → flour (special)
 
-小麦粉(特二粉) → 밀가루 (특2등)
+小麦粉(特二粉) → flour (Special2etc.)
 
-挂面(均值) → 당면 (평균)
+挂面(均值) → Vermicelli (average)
 
-挂面(标准粉) → 당면 (표준)
+挂面(标准粉) → Vermicelli (standard)
 
-挂面(富强粉) → 당면 (특등)
+挂面(富强粉) → Vermicelli (special)
 
-挂面(精制龙须面) → 당면 (정제 용수수 면)
+挂面(精制龙须面) → Vermicelli (purified cane cotton)
 
-面条(均值) → 국수 (평균)
+面条(均值) → noodles (average)
 
-面条(标准粉,切面) → 국수 (표준, 썬 면)
+面条(标准粉,切面) → noodles (standard, sliced noodles)
 
-面条(特粉,切面) → 국수 (특등, 썬 면)
+面条(特粉,切面) → noodles (special, sliced noodles)
 
-面条(富强粉,煮) → 국수 (특등, 삶은 면)
+面条(富强粉,煮) → noodles (special, boiled noodles)
 
-面条(干切面) → 국수 (마른 썬 면)
+面条(干切面) → noodles (dry sliced noodles)
 
-面条(虾蓉面) → 국수 (새우살 면)
+面条(虾蓉面) → noodles (Shrimp Meat Noodles)
 
-通心面(通心粉) → 마카로니
+通心面(通心粉) → macaroni
 
-馒头(均值) → 찐빵 (평균)
+馒头(均值) → steamed buns (average)
 
-馒头(标准粉) → 찐빵 (표준)
+馒头(标准粉) → steamed buns (standard)
 
-馒头(富强粉) → 찐빵 (특등)
+馒头(富强粉) → steamed buns (special)
 
-烧饼(加糖) → 구운 밀떡 (당 첨가)
+烧饼(加糖) → Baked wheat rice cake (Added sugar)
 
-小麦面粉(标准粉) → 밀가루 (표준)
+小麦面粉(标准粉) → flour (standard)
 
-小麦面粉(富强粉，等一粉) → 밀가루 (특등)
+小麦面粉(富强粉，等一粉) → flour (special)
 
-小麦面粉(特制) → 밀가루 (특제)
+小麦面粉(特制) → flour (special)
 
-龙须面(素) → 용수수 면 (채식)
+龙须面(素) → Yongsoo cotton (vegetarian)
 
-龙须面(鸡蛋) → 용수수 면 (계란)
+龙须面(鸡蛋) → Yongsoo cotton (egg)
 
-面条(富强粉，切面) → 국수 (특등, 썬 면)
+面条(富强粉，切面) → noodles (special, sliced noodles)
 
-面条(富强粉，煮) → 국수 (특등, 삶은 면)
+面条(富强粉，煮) → noodles (special, boiled noodles)
 
-花卷(加牛奶) → 꽃말이 (우유 첨가)
+花卷(加牛奶) → flower language (Add milk)
 
-烙饼(标准粉) → 부침 개떡 (표준)
+烙饼(标准粉) → Ups and downs (standard)
 
-面筋(肉馅) → 밀단백 (고기 소)
+面筋(肉馅) → wheat protein (meat cow)
 
-稻米(均值) → 벼쌀 (평균)
+稻米(均值) → rice (average)
 
-粳米(标一) → 메벼쌀 (1등)
+粳米(标一) → buckwheat rice (1etc.)
 
-粳米(标二) → 메벼쌀 (2등)
+粳米(标二) → buckwheat rice (2etc.)
 
-粳米(标三) → 메벼쌀 (3등)
+粳米(标三) → buckwheat rice (3etc.)
 
-粳米(标四) → 메벼쌀 (4등)
+粳米(标四) → buckwheat rice (4etc.)
 
-粳米(特等) → 메벼쌀 (특등)
+粳米(特等) → buckwheat rice (special)
 
-籼米(标一) → 인디카쌀 (1등)
+籼米(标一) → Indica rice (1etc.)
 
-籼米(标准)(机米) → 인디카쌀 (표준, 기계 쌀)
+籼米(标准)(机米) → Indica rice (standard, machine rice)
 
-籼米(优标) → 인디카쌀 (우량)
+籼米(优标) → Indica rice (Excellent)
 
-早籼(标一) → 이른 인디카 (1등)
+早籼(标一) → early indica (1etc.)
 
-早籼(标二) → 이른 인디카 (2등)
+早籼(标二) → early indica (2etc.)
 
-早籼(特等) → 이른 인디카 (특등)
+早籼(特等) → early indica (special)
 
-晚籼(标一) → 늦 인디카 (1등)
+晚籼(标一) → late indica (1etc.)
 
-晚籼(标二) → 늦 인디카 (2등)
+晚籼(标二) → late indica (2etc.)
 
-晚籼(特等) → 늦 인디카 (특등)
+晚籼(特等) → late indica (special)
 
-籼稻谷(红) → 붉은 인디카 벼
+籼稻谷(红) → red indica rice
 
-糯米(江米)(均值) → 찹쌀 (평균)
+糯米(江米)(均值) → glutinous rice (average)
 
-紫红糯米[血糯米] → 자주 찹쌀
+紫红糯米[血糯米] → often glutinous rice
 
-米饭(蒸)(均值) → 밥 (찐, 평균)
+米饭(蒸)(均值) → rice (steamed, average)
 
-粳米饭(蒸) → 메벼밥 (찐)
+粳米饭(蒸) → buckwheat rice (steamed)
 
-籼米饭(蒸) → 인디카밥 (찐)
+籼米饭(蒸) → indicabob (steamed)
 
-籼米粉(排米粉) → 인디카 쌀가루
+籼米粉(排米粉) → Indica Rice Flour
 
-籼米粉(干,细) → 인디카 쌀가루 (마른, 가는)
+籼米粉(干,细) → Indica Rice Flour (dry, going)
 
-高蛋白豆米粉(籼米) → 고단백 콩 쌀가루 (인디카)
+高蛋白豆米粉(籼米) → High protein soybean rice flour (indica)
 
-粳米(极品精米) → 메벼쌀 (극품)
+粳米(极品精米) → buckwheat rice (superb)
 
-粳米(西域王米) → 메벼쌀 (서역 왕 쌀)
+粳米(西域王米) → buckwheat rice (Western King Rice)
 
-粳米(小站稻米) → 메벼쌀 (소참도 쌀)
+粳米(小站稻米) → buckwheat rice (Sochamdo Rice)
 
-玉米(鲜) → 옥수수 (생)
+玉米(鲜) → corn (raw)
 
-玉米(白,干) → 옥수수 (흰, 마른)
+玉米(白,干) → corn (white, dry)
 
-玉米(黄,干) → 옥수수 (노랑, 마른)
+玉米(黄,干) → corn (yellow, dry)
 
-玉米面(白) → 옥수수 가루 (흰)
+玉米面(白) → cornmeal (white)
 
-玉米面(黄) → 옥수수 가루 (노랑)
+玉米面(黄) → cornmeal (yellow)
 
-玉米面(强化豆粉) → 옥수수 가루 (강화 콩가루)
+玉米面(强化豆粉) → cornmeal (Fortified soybean flour)
 
-玉米糁(黄) → 옥수수 조각 (노랑)
+玉米糁(黄) → corn flakes (yellow)
 
-玉米笋(罐头) → 미니 옥수수 (통조림)
+玉米笋(罐头) → mini corn (canned food)
 
-玉米粒(黄,干) → 옥수수 알 (노랑, 마른)
+玉米粒(黄,干) → corn kernels (yellow, dry)
 
-玉米糁(白) → 옥수수 조각 (흰)
+玉米糁(白) → corn flakes (white)
 
-大麦(元麦) → 보리
+大麦(元麦) → barley
 
-肚里黄 → 두리황 (보리 품종)
+肚里黄 → Durihwang (barley varieties)
 
-大黄米(黍子) → 큰 노란 기장
+大黄米(黍子) → big yellow badge
 
-小米(黄) → 조 (노랑)
+小米(黄) → Joe (yellow)
 
-糜子(带皮) → 기장 (껍질 있음)
+糜子(带皮) → millet (Has shell)
 
-糜子米(炒米) → 기장쌀 (볶은 쌀)
+糜子米(炒米) → millet rice (roasted rice)
 
-荞麦(带皮) → 메밀 (껍질 있음)
+荞麦(带皮) → Buckwheat (Has shell)
 
-薏米(薏仁米,苡米) → 율무
+薏米(薏仁米,苡米) → coix
 
-高粱面面条 → 수수 가루 국수
+高粱面面条 → Sorghum Flour Noodles
 
-马铃薯(土豆,洋芋) → 감자
+马铃薯(土豆,洋芋) → potato
 
-马铃薯丁(脱水) → 감자 토막 (탈수)
+马铃薯丁(脱水) → potato slices (dehydration)
 
-甘薯(白心)(红皮山芋) → 고구마 (흰 속, 붉은 껍질)
+甘薯(白心)(红皮山芋) → sweet potato (white inside, red shell)
 
-甘薯(红心)(山芋,红薯) → 고구마 (붉은 속)
+甘薯(红心)(山芋,红薯) → sweet potato (red inside)
 
-甘薯片(白薯干) → 고구마 말랭이
+甘薯片(白薯干) → dried sweet potato
 
-甘薯粉(地瓜粉) → 고구마 가루
+甘薯粉(地瓜粉) → sweet potato powder
 
-马铃薯(烤) → 감자 (구운)
+马铃薯(烤) → potato (baked)
 
-马铃薯(蒸) → 감자 (찐)
+马铃薯(蒸) → potato (steamed)
 
-马铃薯(煮) → 감자 (삶은)
+马铃薯(煮) → potato (boiled)
 
-团粉(芡粉) → 전분
+团粉(芡粉) → starch
 
-魔芋精粉(鬼芋粉,南星粉) → 곤약 정제 가루
+魔芋精粉(鬼芋粉,南星粉) → Konjac Refined Powder
 
-淀粉(小麦) → 전분 (밀)
+淀粉(小麦) → starch (wheat)
 
-淀粉(大米) → 전분 (쌀)
+淀粉(大米) → starch (rice)
 
-淀粉(马铃薯) → 전분 (감자)
+淀粉(马铃薯) → starch (potato)
 
-淀粉(甘薯) → 전분 (고구마)
+淀粉(甘薯) → starch (sweet potato)
 
-黄豆(大豆) → 메주콩
+黄豆(大豆) → soybeans
 
-黑豆(黑大豆) → 검은 콩
+黑豆(黑大豆) → black beans
 
-青豆(青大豆) → 푸른 콩
+青豆(青大豆) → green beans
 
-豆腐花(豆腐粉) → 두부 꽃 (두부 가루)
+豆腐花(豆腐粉) → tofu flower (tofu powder)
 
-豆粕(膨化)(大豆蛋白) → 콩박 (팽화, 콩 단백질)
+豆粕(膨化)(大豆蛋白) → Soybean meal (swelling, soy protein)
 
-豆腐(均值) → 두부 (평균)
+豆腐(均值) → tofu (average)
 
-豆腐(北豆腐) → 북두부
+豆腐(北豆腐) → northern tofu
 
-豆腐(南豆腐) → 남두부
+豆腐(南豆腐) → Southern tofu
 
-豆腐(内酯) → 내지두부
+豆腐(内酯) → tofu
 
-豆腐脑(老豆腐) → 두부 흰죽 (묵은 두부)
+豆腐脑(老豆腐) → Tofu white porridge (aged tofu)
 
-豆奶(豆乳) → 콩 우유
+豆奶(豆乳) → soy milk
 
-豆汁(生) → 콩국 (생)
+豆汁(生) → bean soup (raw)
 
-豆腐丝(干) → 두부 채 (마른)
+豆腐丝(干) → Tofu strips (dry)
 
-豆腐丝(油) → 두부 채 (기름)
+豆腐丝(油) → Tofu strips (oil)
 
-枝竹 → 지죽 (두부 껍질)
+枝竹 → Damn it (tofu skin)
 
-千张(百页) → 천장
+千张(百页) → ceiling
 
-豆腐干(均值) → 두부 말랭이 (평균)
+豆腐干(均值) → dried tofu (average)
 
-豆腐干(菜干) → 두부 말랭이 (채소 말랭이)
+豆腐干(菜干) → dried tofu (dried vegetables)
 
-豆腐干(臭干) → 두부 말랭이 (냄새나는 말랭이)
+豆腐干(臭干) → dried tofu (smelly dried fish)
 
-豆腐干(酱油干) → 두부 말랭이 (간장 말랭이)
+豆腐干(酱油干) → dried tofu (Soy sauce dried fish)
 
-豆腐干(熏干) → 두부 말랭이 (훈제)
+豆腐干(熏干) → dried tofu (smoked)
 
-素鸡丝卷 → 채식 닭고기 채 말이
+素鸡丝卷 → vegetarian chicken fillet
 
-炸素虾 → 튀긴 채식 새우
+炸素虾 → fried vegetarian shrimp
 
-豆奶粉(维维牌) → 콩 우유 가루 (웨이웨이)
+豆奶粉(维维牌) → soy milk powder (Weiwei)
 
-豆奶粉(多力牌) → 콩 우유 가루 (둬리)
+豆奶粉(多力牌) → soy milk powder (Duori)
 
-豆奶粉(大磨牌) → 콩 우유 가루 (다모)
+豆奶粉(大磨牌) → soy milk powder (hair)
 
-豆浆(甜) → 콩국 (단)
+豆浆(甜) → bean soup (sweet)
 
-豆腐干(卤干) → 두부 말랭이 (조린)
+豆腐干(卤干) → dried tofu (stewed)
 
-豆腐干(蒲包干) → 두부 말랭이 (부대 말랭이)
+豆腐干(蒲包干) → dried tofu (bag roll)
 
-豆腐干(香干) → 두부 말랭이 (향)
+豆腐干(香干) → dried tofu (incense)
 
-豆腐干(小香干) → 작은 향 두부 말랭이
+豆腐干(小香干) → small dried tofu
 
-绿豆饼 → 녹두 전병
+绿豆饼 → mung bean pancakes
 
-赤小豆(小豆,红小豆) → 적팥
+赤小豆(小豆,红小豆) → red bean
 
-花豆(红) → 꽃콩 (붉은)
+花豆(红) → flower beans (red)
 
-花豆(紫) → 꽃콩 (자주)
+花豆(紫) → flower beans (often)
 
-芸豆(白) → 강낭콩 (흰)
+芸豆(白) → kidney beans (white)
 
-芸豆(红) → 강낭콩 (붉은)
+芸豆(红) → kidney beans (red)
 
-芸豆(虎皮) → 강낭콩 (호피)
+芸豆(虎皮) → kidney beans (leopard print)
 
-芸豆(杂,带皮) → 강낭콩 (잡, 껍질 있음)
+芸豆(杂,带皮) → kidney beans (Job, Has shell)
 
-蚕豆(带皮) → 잠두 (껍질 있음)
+蚕豆(带皮) → fava beans (Has shell)
 
-蚕豆(去皮) → 잠두 (껍질 벗김)
+蚕豆(去皮) → fava beans (peeling)
 
-蚕豆(烤) → 잠두 (구운)
+蚕豆(烤) → fava beans (baked)
 
-蚕豆(炸)(开花豆) → 잠두 (튀긴, 꽃콩)
+蚕豆(炸)(开花豆) → fava beans (fried, flower beans)
 
-蚕豆(煮) → 잠두 (삶은)
+蚕豆(煮) → fava beans (boiled)
 
-扁豆(白) → 팥 (흰)
+扁豆(白) → Red beans (white)
 
-眉豆(饭豇豆) → 눈썹콩
+眉豆(饭豇豆) → eyebrow bean
 
-豇豆(紫) → 동부 (자주)
+豇豆(紫) → eastern (often)
 
-豌豆(花) → 완두 (꽃)
+豌豆(花) → peas (flower)
 
-木豆(扭豆,豆蓉) → 목두
+木豆(扭豆,豆蓉) → head
 
-豇豆(煮) → 동부 (삶은)
+豇豆(煮) → eastern (boiled)
 
-豌豆(煮) → 완두 (삶은)
+豌豆(煮) → peas (boiled)
 
-鹰嘴豆(桃豆) → 병아리콩
+鹰嘴豆(桃豆) → chickpeas
 
-白萝卜(莱菔) → 무
+白萝卜(莱菔) → Radish
 
-变萝卜(红皮萝卜) → 변형무 (붉은 껍질)
+变萝卜(红皮萝卜) → Modified radish (red shell)
 
-红旦旦萝卜 → 붉은 알 무
+红旦旦萝卜 → red egg radish
 
-红心萝卜 → 붉은 속 무
+红心萝卜 → red radish
 
-花叶萝卜 → 꽃잎 무
+花叶萝卜 → petal radish
 
-水萝卜(脆萝卜) → 물무 (아삭 무)
+水萝卜(脆萝卜) → water radish (crunchy radish)
 
-小水萝卜(算盘子,红皮萝卜) → 작은 물무 (주판알, 붉은 껍질)
+小水萝卜(算盘子,红皮萝卜) → small water radish (Abacus egg, red shell)
 
-胡萝卜(红)(金笋,丁香萝卜) → 당근
+胡萝卜(红)(金笋,丁香萝卜) → carrot
 
-胡萝卜(黄) → 노란 당근
+胡萝卜(黄) → yellow carrots
 
-胡萝卜(脱水) → 탈수 당근
+胡萝卜(脱水) → Dehydrated Carrots
 
-芥菜头(大头菜,水芥) → 갓뿌리
+芥菜头(大头菜,水芥) → Capricorn
 
-苤蓝(玉蔓菁,球茎甘蓝) → 콜라비
+苤蓝(玉蔓菁,球茎甘蓝) → kohlrabi
 
-甜菜根(甜菜头,糖萝卜) → 비트
+甜菜根(甜菜头,糖萝卜) → bit
 
-白萝卜(菜菔) → 무
+白萝卜(菜菔) → Radish
 
-白萝卜(圆) → 동근 무
+白萝卜(圆) → Donggeun radish
 
-根芹(根洋芹，球根塘蒿) → 뿌리 셀러리
+根芹(根洋芹，球根塘蒿) → root celery
 
-紫菜头 → 자색 비트
+紫菜头 → purple beet
 
-扁豆(月亮菜) → 팥 (달팥)
+扁豆(月亮菜) → Red beans (Sweet red beans)
 
-豆角(白) → 강낭콩 (흰)
+豆角(白) → kidney beans (white)
 
-龙牙豆(玉豆) → 용아콩
+龙牙豆(玉豆) → dragon beans
 
-毛豆(青豆,菜用大豆) → 풋콩
+毛豆(青豆,菜用大豆) → green beans
 
-四季豆(菜豆) → 강낭콩
+四季豆(菜豆) → kidney beans
 
-豌豆(带荚)(回回豆) → 완두 (꼬투리)
+豌豆(带荚)(回回豆) → peas (pod)
 
-油豆角(多花菜豆) → 기름 강낭콩
+油豆角(多花菜豆) → oil kidney beans
 
-豇豆(长) → 긴 동부
+豇豆(长) → long eastern
 
-发芽豆 → 싹 난 콩
+发芽豆 → sprouted beans
 
-四凌豆(杨桃豆，翅豆) → 사릉콩
+四凌豆(杨桃豆，翅豆) → Sarungkong
 
-甜脆荷兰豆(甜豆) → 단 완두
+甜脆荷兰豆(甜豆) → sweet peas
 
-茄子(均值) → 가지 (평균)
+茄子(均值) → eggplant (average)
 
-茄子(绿皮) → 가지 (푸른 껍질)
+茄子(绿皮) → eggplant (blue shell)
 
-茄子(圆) → 가지 (동근)
+茄子(圆) → eggplant (round)
 
-茄子(紫皮,长) → 가지 (자주, 긴)
+茄子(紫皮,长) → eggplant (often, long)
 
-番茄(西红柿) → 토마토
+番茄(西红柿) → tomato
 
-番茄(整个,罐头) → 토마토 (통조림)
+番茄(整个,罐头) → tomato (canned food)
 
-奶柿子[西红柿] → 우유 감 (토마토)
+奶柿子[西红柿] → milk persimmon (tomato)
 
-辣椒(红,尖,干) → 고추 (붉은, 뾰족, 마른)
+辣椒(红,尖,干) → pepper (red, pointed, dry)
 
-辣椒(红,小) → 고추 (붉은, 작은)
+辣椒(红,小) → pepper (red, small)
 
-辣椒(青,尖) → 고추 (푸른, 뾰족)
+辣椒(青,尖) → pepper (blue, pointed)
 
-甜椒(灯笼椒,柿子椒) → 단고추 (파프리카)
+甜椒(灯笼椒,柿子椒) → sweet pepper (paprika)
 
-甜椒(脱水) → 탈수 파프리카
+甜椒(脱水) → Dehydrated Paprika
 
-秋葵(黄秋葵,羊角豆) → 오크라
+秋葵(黄秋葵,羊角豆) → Okra
 
-菜瓜(生瓜,白瓜) → 참외 (생과, 백과)
+菜瓜(生瓜,白瓜) → melon (fresh fruit, encyclopedia)
 
-佛手瓜(棒瓜,菜肴梨) → 불수박
+佛手瓜(棒瓜,菜肴梨) → fire watermelon
 
-葫芦(长瓜,蒲瓜,瓠瓜) → 박
+葫芦(长瓜,蒲瓜,瓠瓜) → Park
 
-葫芦条(干) → 박 말랭이
+葫芦条(干) → dried gourd
 
-黄瓜(胡瓜) → 오이
+黄瓜(胡瓜) → cucumber
 
-节瓜(毛瓜) → 절과
+节瓜(毛瓜) → bow and
 
-金丝瓜(裸瓣瓜) → 금실 호박
+金丝瓜(裸瓣瓜) → golden thread pumpkin
 
-苦瓜(凉瓜,癞瓜) → 여주
+苦瓜(凉瓜,癞瓜) → Yeoju
 
-南瓜(倭瓜,番瓜) → 호박
+南瓜(倭瓜,番瓜) → pumpkin
 
-蛇瓜(蛇豆,大豆角) → 뱀 오이
+蛇瓜(蛇豆,大豆角) → snake cucumber
 
-笋瓜(生瓜) → 주키니 호박
+笋瓜(生瓜) → zucchini
 
-小西胡瓜 → 작은 서호박
+小西胡瓜 → small pumpkin
 
-茄子(白皮，长) → 가지 (흰 껍질, 긴)
+茄子(白皮，长) → eggplant (white shell, long)
 
-茄子(紫皮，圆) → 가지 (자주, 동근)
+茄子(紫皮，圆) → eggplant (often, round)
 
-香瓜茄 → 향참외
+香瓜茄 → Scented melon
 
-樱桃番茄(小西红柿) → 방울 토마토
+樱桃番茄(小西红柿) → cherry tomatoes
 
-辣椒(小红尖辣椒) → 고추 (작은 붉은 뾰족)
+辣椒(小红尖辣椒) → pepper (small red point)
 
-辣椒(小红尖辣椒,干) → 고추 (작은 붉은 뾰족, 마른)
+辣椒(小红尖辣椒,干) → pepper (small red point, dry)
 
-黄金西葫芦 → 황금 주키니 호박
+黄金西葫芦 → golden zucchini
 
-黄茎瓜 → 노란 줄기 호박
+黄茎瓜 → yellow stem pumpkin
 
-迷你黄瓜(荷兰乳黄瓜) → 미니 오이
+迷你黄瓜(荷兰乳黄瓜) → mini cucumbers
 
-秋黄瓜(旱黄瓜) → 가을 오이
+秋黄瓜(旱黄瓜) → autumn cucumbers
 
-南瓜(粟面) → 호박 (좁쌀 표면)
+南瓜(粟面) → pumpkin (millet surface)
 
-大蒜(蒜头) → 마늘 (쪽마늘)
+大蒜(蒜头) → garlic (clove garlic)
 
-大蒜(脱水) → 탈수 마늘
+大蒜(脱水) → dehydrated garlic
 
-大蒜(紫皮) → 마늘 (자주 껍질)
+大蒜(紫皮) → garlic (often bark)
 
-大葱(红皮) → 대파 (붉은 껍질)
+大葱(红皮) → green onion (red shell)
 
-分葱(四季葱,菜葱) → 쪽파
+分葱(四季葱,菜葱) → chives
 
-细香葱(香葱,四季葱) → 실파
+细香葱(香葱,四季葱) → green onion
 
-洋葱(葱头) → 양파
+洋葱(葱头) → onion
 
-洋葱(白皮,脱水) → 양파 (흰 껍질, 탈수)
+洋葱(白皮,脱水) → onion (white shell, dehydration)
 
-洋葱(紫皮,脱水) → 양파 (자주, 탈수)
+洋葱(紫皮,脱水) → onion (often, dehydration)
 
-韭黄(韭芽) → 노란 부추
+韭黄(韭芽) → yellow chives
 
-薤(皎头) → 달래
+薤(皎头) → Soothe
 
-薤白(小根蒜,山蒜,团蒜) → 달래 흰 부분
+薤白(小根蒜,山蒜,团蒜) → the white part
 
-大白菜(均值) → 배추 (평균)
+大白菜(均值) → cabbage (average)
 
-大白菜(白梗)(黄芽白) → 배추 (흰 줄기)
+大白菜(白梗)(黄芽白) → cabbage (white stem)
 
-大白菜(青白口) → 배추 (청백 입)
+大白菜(青白口) → cabbage (blue and white mouth)
 
-大白菜(小白口) → 배추 (소백 입)
+大白菜(小白口) → cabbage (Sobaek Mouth)
 
-白菜(脱水) → 탈수 배추
+白菜(脱水) → dehydrated cabbage
 
-酸白菜(酸菜) → 신 배추 (동북 신김치)
+酸白菜(酸菜) → sour cabbage (Northeast sour kimchi)
 
-白菜薹(菜薹,菜心) → 배추 꽃대
+白菜薹(菜薹,菜心) → cabbage flower stalk
 
-红菜薹(紫菜薹) → 붉은 채태
+红菜薹(紫菜薹) → red cabbage
 
-瓢儿白(瓢儿菜) → 표아백
+瓢儿白(瓢儿菜) → Pyo Ah Baek
 
-乌菜(乌塌菜,塌棵菜) → 오채
+乌菜(乌塌菜,塌棵菜) → Five vegetables
 
-油菜(黑) → 유채 (검은)
+油菜(黑) → rapeseed (black)
 
-油菜(脱水) → 탈수 유채
+油菜(脱水) → dehydrated rapeseed
 
-油菜(小) → 작은 유채
+油菜(小) → small rapeseed
 
-油菜薹(菜薹) → 유채 꽃대
+油菜薹(菜薹) → rape flower stalk
 
-甘蓝(圆白菜,卷心菜) → 양배추
+甘蓝(圆白菜,卷心菜) → cabbage
 
-菜花(花椰菜) → 콜리플라워
+菜花(花椰菜) → cauliflower
 
-菜花(脱水)(脱水花椰菜) → 탈수 콜리플라워
+菜花(脱水)(脱水花椰菜) → Dehydrated Cauliflower
 
-芥菜(雪里红,雪菜) → 갓
+芥菜(雪里红,雪菜) → Goddess
 
-芥菜(大叶)(盖菜) → 갓 (큰 잎)
+芥菜(大叶)(盖菜) → Goddess (large leaves)
 
-芥菜(茎用)(青头菜) → 갓 (줄기용)
+芥菜(茎用)(青头菜) → Goddess (For stem)
 
-芥菜(小叶)(小芥菜) → 갓 (작은 잎)
+芥菜(小叶)(小芥菜) → Goddess (small leaves)
 
-芥蓝(甘蓝菜,盖蓝菜) → 가이란
+芥蓝(甘蓝菜,盖蓝菜) → Guyan
 
-菠菜(赤根菜) → 시금치
+菠菜(赤根菜) → spinach
 
-菠菜(脱水) → 탈수 시금치
+菠菜(脱水) → Dehydrated Spinach
 
-冬寒菜(冬苋菜,冬葵) → 동한채
+冬寒菜(冬苋菜,冬葵) → Donghanchae
 
-观达菜(根达菜,牛皮菜) → 근대
+观达菜(根达菜,牛皮菜) → modern
 
-胡萝卜缨(红) → 당근 잎 (붉은)
+胡萝卜缨(红) → carrot leaves (red)
 
-苦菜(节节花,拒马菜) → 씀바귀
+苦菜(节节花,拒马菜) → Write a comment
 
-萝卜缨(白) → 무청 (흰)
+萝卜缨(白) → Mucheong (white)
 
-萝卜缨(青) → 무청 (푸른)
+萝卜缨(青) → Mucheong (blue)
 
-萝卜缨(小萝卜) → 작은 무청
+萝卜缨(小萝卜) → small radish
 
-落葵(木耳菜,软浆菜) → 낙규
+落葵(木耳菜,软浆菜) → Nakgyu
 
-芹菜(白茎)(旱芹,药芹) → 셀러리 (흰 줄기)
+芹菜(白茎)(旱芹,药芹) → celery (white stem)
 
-芹菜茎 → 셀러리 줄기
+芹菜茎 → celery stalk
 
-芹菜叶 → 셀러리 잎
+芹菜叶 → celery leaves
 
-生菜(牛俐)(油麦菜) → 상추
+生菜(牛俐)(油麦菜) → lettuce
 
-生菜(叶用莴苣) → 잎상추
+生菜(叶用莴苣) → leaf lettuce
 
-香菜(芫荽) → 고수
+香菜(芫荽) → Coriander
 
-香菜(脱水) → 탈수 고수
+香菜(脱水) → dehydrated coriander
 
-苋菜(绿) → 비름 (푸른)
+苋菜(绿) → amaranth (blue)
 
-苋菜(紫)(红苋) → 비름 (자주)
+苋菜(紫)(红苋) → amaranth (often)
 
-茼蒿(蓬蒿菜,艾菜) → 쑥갓
+茼蒿(蓬蒿菜,艾菜) → Mugwort
 
-茴香(小茴香) → 회향
+茴香(小茴香) → fennel
 
-荠菜(蓟菜,菱角菜) → 냉이
+荠菜(蓟菜,菱角菜) → shepherd's purse
 
-莴笋(莴苣) → 우손
+莴笋(莴苣) → Uson
 
-莴笋叶(莴苣叶) → 우순 잎
+莴笋叶(莴苣叶) → Wushun leaves
 
-西兰花(绿菜花) → 브로콜리
+西兰花(绿菜花) → broccoli
 
-蕹菜(空心菜,藤藤菜) → 공심채
+蕹菜(空心菜,藤藤菜) → Gongsimchae
 
-白笋(干) → 흰 죽순 (마른)
+白笋(干) → white bamboo shoots (dry)
 
-鞭笋(马鞭笋) → 채찍 죽순
+鞭笋(马鞭笋) → whip bamboo shoots
 
-黑笋(干) → 검은 죽순 (마른)
+黑笋(干) → black bamboo shoots (dry)
 
-毛笋(毛竹笋) → 털 죽순
+毛笋(毛竹笋) → hairy bamboo shoots
 
-百合(干) → 백합 (마른)
+百合(干) → lily (dry)
 
-百合(脱水) → 탈수 백합
+百合(脱水) → dehydrated lilies
 
-金针菜(黄花菜) → 원추리
+金针菜(黄花菜) → daylily
 
-芦笋(石刁柏,龙须菜) → 아스파라거스
+芦笋(石刁柏,龙须菜) → asparagus
 
-大白菜(白口) → 배추 (백구)
+大白菜(白口) → cabbage (Baekgu)
 
-大白菜(青口) → 배추 (청구)
+大白菜(青口) → cabbage (claim)
 
-小白菜(青菜) → 청경채
+小白菜(青菜) → bok choy
 
-奶白菜 → 우유 배추
+奶白菜 → milk cabbage
 
-乌塌菜(塌菜,塌棵菜) → 우타차이
+乌塌菜(塌菜,塌棵菜) → Uttachai
 
-油菜心 → 유채 심
+油菜心 → rape seed
 
-结球甘蓝(绿)(圆白菜) → 양배추 (푸른)
+结球甘蓝(绿)(圆白菜) → cabbage (blue)
 
-结球甘蓝(紫) → 자색 양배추
+结球甘蓝(紫) → purple cabbage
 
-抱子甘蓝 → 방울 양배추
+抱子甘蓝 → Brussels sprouts
 
-羽衣甘蓝 → 케일
+羽衣甘蓝 → Kale
 
-芥蓝(甘蓝菜，盖蓝菜) → 가이란
+芥蓝(甘蓝菜，盖蓝菜) → Guyan
 
-番杏(新西兰菠菜，夏菠菜) → 번행초
+番杏(新西兰菠菜，夏菠菜) → Bunhaengcho
 
-樱桃萝卜缨 → 알타리 무청
+樱桃萝卜缨 → Altari Mucheong
 
-白凤菜 → 백봉채
+白凤菜 → Baekbongchae
 
-紫背天葵(红风菜，血皮菜) → 자배천규
+紫背天葵(红风菜，血皮菜) → Jabae Cheon-gyu
 
-芹菜(茎) → 셀러리 (줄기)
+芹菜(茎) → celery (stem)
 
-西芹(西洋芹菜，美芹) → 서양 셀러리
+西芹(西洋芹菜，美芹) → western celery
 
-叶甜菜(白梗) → 잎 근대 (흰 줄기)
+叶甜菜(白梗) → leaves chard (white stem)
 
-球茎茴香(甜茴香，意大利茴香) → 구경 회향
+球茎茴香(甜茴香，意大利茴香) → corm fennel
 
-芦笋(紫) → 자색 아스파라거스
+芦笋(紫) → purple asparagus
 
-结球菊苣 → 결구 치커리
+结球菊苣 → Finished chicory
 
-软化白菊苣 → 연화 흰 치커리
+软化白菊苣 → lotus white chicory
 
-慈菇(乌芋,白地果) → 벗풀
+慈菇(乌芋,白地果) → Friends
 
-豆瓣菜(西洋菜,水田芥) → 미나리
+豆瓣菜(西洋菜,水田芥) → water parsley
 
-菱角(老)(龙角) → 마름 (늙은)
+菱角(老)(龙角) → Water chestnuts (old)
 
-蒲菜(香蒲,甘蒲,野茭白) → 부들
+蒲菜(香蒲,甘蒲,野茭白) → cattail
 
-水芹菜 → 물 미나리
+水芹菜 → water parsley
 
-茭白(茭笋,茭粑) → 줄대
+茭白(茭笋,茭粑) → line
 
-荸荠(马蹄,地栗) → 마름
+荸荠(马蹄,地栗) → Water chestnuts
 
-莼菜(瓶装)(花案菜) → 순채 (병조림)
+莼菜(瓶装)(花案菜) → Soonchae (Bottled food)
 
-大薯(参薯) → 큰 마
+大薯(参薯) → big yam
 
-豆薯(凉薯,地瓜,沙葛) → 둥근 마
+豆薯(凉薯,地瓜,沙葛) → round hemp
 
-葛(葛署,粉葛) → 갈근
+葛(葛署,粉葛) → galgeun
 
-山药(薯蓣,大薯) → 마
+山药(薯蓣,大薯) → Do
 
-山药(干) → 마른 마
+山药(干) → dry hemp
 
-芋头(芋艿,毛芋) → 토란
+芋头(芋艿,毛芋) → taro
 
-槟榔芋 → 빈랑 토란
+槟榔芋 → betel nut
 
-姜(黄姜) → 생강
+姜(黄姜) → ginger
 
-姜(干) → 마른 생강
+姜(干) → dried ginger
 
-姜(子姜)(嫩姜) → 어린 생강
+姜(子姜)(嫩姜) → young ginger
 
-洋姜(菊芋,鬼子姜) → 뚱딴지
+洋姜(菊芋,鬼子姜) → Fat guy
 
-芋头(芋艿，毛芋) → 토란
+芋头(芋艿，毛芋) → taro
 
-芋头(煮) → 삶은 토란
+芋头(煮) → boiled taro
 
-白花菜 → 흰 꽃 채소
+白花菜 → white flower vegetable
 
-白花桔梗 → 흰 꽃 도라지
+白花桔梗 → white flower bellflower
 
-白沙蒿(沙蒿) → 흰 모래 쑥
+白沙蒿(沙蒿) → white sand mugwort
 
-白沙蒿籽(沙蒿籽) → 흰 모래 쑥 씨
+白沙蒿籽(沙蒿籽) → white sand mugwort seeds
 
-白薯叶(甘薯叶) → 고구마 잎
+白薯叶(甘薯叶) → sweet potato leaves
 
-百里香 → 백리향
+百里香 → thyme
 
-败酱(胭脂麻) → 패장
+败酱(胭脂麻) → defeat
 
-扁蓄菜(竹节草) → 편욱채
+扁蓄菜(竹节草) → Pyeonwookchae
 
-朝鲜蓟 → 아티초크
+朝鲜蓟 → artichoke
 
-刺儿菜(小蓟,蓟蓟菜) → 가시나물
+刺儿菜(小蓟,蓟蓟菜) → thorns
 
-达乌里胡枝子(牛枝子,豆豆苗) → 다우리 싸리
+达乌里胡枝子(牛枝子,豆豆苗) → Dauri Ssari
 
-达乌里胡枝子籽(牛枝子籽,豆豆) → 다우리 싸리 씨
+达乌里胡枝子籽(牛枝子籽,豆豆) → Mr. Dauri Ssari
 
-大玻璃草叶(大车前) → 큰 질경이 잎
+大玻璃草叶(大车前) → large plantain leaves
 
-大巢菜(野苕子,野豌豆) → 큰 완두
+大巢菜(野苕子,野豌豆) → big pea
 
-大蓟叶(飞廉叶) → 큰 엉겅퀴 잎
+大蓟叶(飞廉叶) → large thistle leaf
 
-地肤(益明,扫帚苗) → 지부
+地肤(益明,扫帚苗) → branch
 
-地笋(地古牛,地瓜儿苗叶) → 땅죽순
+地笋(地古牛,地瓜儿苗叶) → ground bamboo shoots
 
-豆腐柴 → 두부나무
+豆腐柴 → tofu tree
 
-独行菜(宽) → 독행채 (넓은)
+独行菜(宽) → Dokhaengchae (wide)
 
-番杏(夏菠菜,新西兰菠菜) → 번행초
+番杏(夏菠菜,新西兰菠菜) → Bunhaengcho
 
-胡枝子(山豆子) → 싸리
+胡枝子(山豆子) → Ssari
 
-槐花(洋槐花,豆槐花) → 회화나무 꽃
+槐花(洋槐花,豆槐花) → prickly pear flower
 
-碱蓬(棉蓬,猪毛菜) → 염초
+碱蓬(棉蓬,猪毛菜) → saltweed
 
-苦苦菜 → 쓰라린 씀바귀
+苦苦菜 → bitter words
 
-轮叶党参 → 윤엽 당귀
+轮叶党参 → Yunyeop Angelica
 
-罗勒(兰香) → 바질
+罗勒(兰香) → basil
 
-马齿苋(长寿菜,瓜子菜) → 쇠비름
+马齿苋(长寿菜,瓜子菜) → purslane
 
-马兰头(马兰,鸡儿肠,路边菊) → 마란두
+马兰头(马兰,鸡儿肠,路边菊) → Marandu
 
-麦瓶草(米瓦罐) → 병풀
+麦瓶草(米瓦罐) → Centella asiatica
 
-爬景天(石头菜) → 바위채송화
+爬景天(石头菜) → rock pine flower
 
-喷瓜 → 분과
+喷瓜 → division
 
-婆罗门参(白) → 흰 바라문참
+婆罗门参(白) → white brahmuncham
 
-婆罗门参(黑)(鸦葱) → 검은 바라문참
+婆罗门参(黑)(鸦葱) → black brahmuncham
 
-蒲公英叶(黄花苗叶,孛孛丁叶) → 민들레 잎
+蒲公英叶(黄花苗叶,孛孛丁叶) → dandelion leaf
 
-掐不齐(鸡眼草,牛黄草) → 들콩
+掐不齐(鸡眼草,牛黄草) → field beans
 
-清明菜(鼠曲菜) → 청명채
+清明菜(鼠曲菜) → Cheongmyeongchae
 
-沙参叶(白参) → 사삼 잎
+沙参叶(白参) → Four ginseng leaves
 
-沙蓬子(沙米) → 모래지치
+沙蓬子(沙米) → tired of sand
 
-山苦荬叶(启明菜叶) → 산씀바귀 잎
+山苦荬叶(启明菜叶) → wild leaf
 
-食用黄麻 → 식용 황마
+食用黄麻 → edible jute
 
-汤菜 → 국 채소
+汤菜 → soup vegetables
 
-土三七(景天三七) → 토삼칠
+土三七(景天三七) → Tosamchil
 
-歪头菜(草豆,二叶萩) → 외두채
+歪头菜(草豆,二叶萩) → Oeduchae
 
-梧桐子(瓢儿果) → 오동나무 씨
+梧桐子(瓢儿果) → paulownia tree seeds
 
-夏枯草(铁色草) → 하초
+夏枯草(铁色草) → hacho
 
-香椿(香椿芽) → 차즈기
+香椿(香椿芽) → Chazugi
 
-小旋花(狗儿蔓) → 메꽃
+小旋花(狗儿蔓) → bindweed
 
-鸭跖草(竹叶菜,淡竹叶) → 닭발풀
+鸭跖草(竹叶菜,淡竹叶) → chicken feet paste
 
-野葱(沙葱,麦葱) → 산달래
+野葱(沙葱,麦葱) → Azalea
 
-野韭菜(山韭) → 산부추
+野韭菜(山韭) → mountain chives
 
-野蒜(小蒜,野葱) → 달래
+野蒜(小蒜,野葱) → Soothe
 
-野苋菜(假苋菜) → 들비름
+野苋菜(假苋菜) → wild amaranth
 
-茵陈蒿(茵陈) → 사철쑥
+茵陈蒿(茵陈) → Wormwood
 
-鱼腥草(蕺菜,臭菜) → 어성초
+鱼腥草(蕺菜,臭菜) → Houttuynia cordata
 
-珍珠花菜 → 진주 꽃 채소
+珍珠花菜 → pearl flower vegetable
 
-紫花桔梗 → 자주 도라지
+紫花桔梗 → Bellflower often
 
-紫萼香茶菜 → 자주 꽃받침 향차
+紫萼香茶菜 → calyx-scented tea
 
-苣荬菜(尖叶)(取荬菜,苦麻子) → 씀바귀
+苣荬菜(尖叶)(取荬菜,苦麻子) → Write a comment
 
-苜蓿(草头,金花菜) → 자주개자리
+苜蓿(草头,金花菜) → alfalfa
 
-苜蓿籽(紫苜蓿籽) → 자주개자리 씨
+苜蓿籽(紫苜蓿籽) → alfalfa seeds
 
-荞菜(野荞) → 메밀채
+荞菜(野荞) → buckwheat salad
 
-蒌蒿 → 루하오 (쑥갓)
+蒌蒿 → luhao (Mugwort)
 
-蕨菜(龙头菜,如意菜) → 고사리
+蕨菜(龙头菜,如意菜) → fern
 
-蕨菜(脱水) → 탈수 고사리
+蕨菜(脱水) → dehydrated fern
 
-蕨麻(鹅绒委陵菜) → 말린 고사리
+蕨麻(鹅绒委陵菜) → dried fern
 
-枸杞菜(枸杞,地骨) → 구기자잎
+枸杞菜(枸杞,地骨) → Wolfberry leaves
 
-酢浆草(酸酸草,酸溜溜) → 괭이밥
+酢浆草(酸酸草,酸溜溜) → hoe
 
-苦苣菜(苦菜，天精菜) → 씀바귀
+苦苣菜(苦菜，天精菜) → Write a comment
 
-苜蓿(草头，金花菜) → 자주개자리
+苜蓿(草头，金花菜) → alfalfa
 
-鱼腥草(叶)(蕺菜，臭菜) → 어성초 잎
+鱼腥草(叶)(蕺菜，臭菜) → Houttuynia cordata leaves
 
-鱼腥草(根) → 어성초 뿌리
+鱼腥草(根) → Houttuynia cordata root
 
-草菇(大黑头细花草) → 풀버섯
+草菇(大黑头细花草) → grass mushrooms
 
-大红菇(干)(草质红菇) → 큰 붉은 버섯 (마른)
+大红菇(干)(草质红菇) → big red mushroom (dry)
 
-地衣(水浸) → 지의류 (물에 불린)
+地衣(水浸) → lichen (soaked in water)
 
-冬菇(干)(毛柄金线菌) → 겨울 버섯 (마른)
+冬菇(干)(毛柄金线菌) → winter mushrooms (dry)
 
-猴头菇(罐装) → 노루궁뎅이버섯 (통조림)
+猴头菇(罐装) → Helical mane mushroom (canned food)
 
-黄蘑(干) → 노란 버섯 (마른)
+黄蘑(干) → yellow mushroom (dry)
 
-黄蘑(水发) → 노란 버섯 (물에 불린)
+黄蘑(水发) → yellow mushroom (soaked in water)
 
-金针菇(智力菇) → 팽이버섯
+金针菇(智力菇) → Enoki Mushroom
 
-金针菇(罐装) → 팽이버섯 (통조림)
+金针菇(罐装) → Enoki Mushroom (canned food)
 
-口蘑(白蘑) → 양송이버섯
+口蘑(白蘑) → Button Mushroom
 
-蘑菇(鲜蘑) → 버섯 (생)
+蘑菇(鲜蘑) → mushroom (raw)
 
-蘑菇(干) → 버섯 (마른)
+蘑菇(干) → mushroom (dry)
 
-木耳(干)(黑木耳,云耳) → 목이버섯 (마른)
+木耳(干)(黑木耳,云耳) → Wood ear mushroom (dry)
 
-木耳(水发)(黑木耳,云耳) → 목이버섯 (물에 불린)
+木耳(水发)(黑木耳,云耳) → Wood ear mushroom (soaked in water)
 
-平菇(糙皮侧耳,青蘑) → 느타리버섯
+平菇(糙皮侧耳,青蘑) → Oyster Mushroom
 
-普中红蘑(干) → 보통 붉은 버섯 (마른)
+普中红蘑(干) → common red mushroom (dry)
 
-双孢蘑菇(洋蘑菇) → 양송이버섯
+双孢蘑菇(洋蘑菇) → Button Mushroom
 
-松蘑(干)(松口蘑,松茸) → 송이버섯 (마른)
+松蘑(干)(松口蘑,松茸) → Pine mushroom (dry)
 
-香菇(香蕈,冬菇) → 표고버섯
+香菇(香蕈,冬菇) → shiitake mushrooms
 
-香菇(干)(香蕈,冬菇) → 표고버섯 (마른)
+香菇(干)(香蕈,冬菇) → shiitake mushrooms (dry)
 
-香杏丁蘑(干,大) → 향 살구 버섯 (마른, 큰)
+香杏丁蘑(干,大) → fragrant chanterelle mushrooms (dry, big)
 
-香杏片口蘑(干) → 향 살구 조각 양송이 (마른)
+香杏片口蘑(干) → Incense Apricot Slices Button Mushrooms (dry)
 
-羊肚菌(干狼肚) → 곰보버섯 (마른)
+羊肚菌(干狼肚) → morel mushroom (dry)
 
-银耳(干)(白木耳) → 흰 목이버섯 (마른)
+银耳(干)(白木耳) → white wood ear mushroom (dry)
 
-珍珠白蘑(干) → 진주 흰 버섯 (마른)
+珍珠白蘑(干) → pearl white mushroom (dry)
 
-榛蘑(干)(假蜜环菌) → 개암버섯 (마른)
+榛蘑(干)(假蜜环菌) → hazelnut mushrooms (dry)
 
-榛蘑(水发) → 개암버섯 (물에 불린)
+榛蘑(水发) → hazelnut mushrooms (soaked in water)
 
-白蘑菇(双孢蘑菇，洋蘑菇) → 흰 양송이
+白蘑菇(双孢蘑菇，洋蘑菇) → white button mushroom
 
-北风菌(荷叶离褶伞，一窝羊) → 북풍 버섯
+北风菌(荷叶离褶伞，一窝羊) → North Wind Mushroom
 
-茶树菇(干)(柱状田头菇，茶新菇) → 차버섯 (마른)
+茶树菇(干)(柱状田头菇，茶新菇) → tea mushrooms (dry)
 
-红奶浆菌(多汁乳菇，谷熟菌) → 붉은 젖버섯
+红奶浆菌(多汁乳菇，谷熟菌) → red milk mushroom
 
-黄伞菇(干)(多脂鳞伞，黄丝菌) → 노란 우산버섯 (마른)
+黄伞菇(干)(多脂鳞伞，黄丝菌) → yellow umbrella mushroom (dry)
 
-鸡腿菇(干)(毛头鬼伞) → 닭다리버섯 (마른)
+鸡腿菇(干)(毛头鬼伞) → Chicken leg mushrooms (dry)
 
-鸡油菌(黄丝菌，杏菌) → 계유버섯
+鸡油菌(黄丝菌，杏菌) → thyme mushroom
 
-鸡枞(蚁枞, 伞把菇, 鸡枞菌) → 닭의버섯
+鸡枞(蚁枞, 伞把菇, 鸡枞菌) → Chicken Mushroom
 
-鸡枞(干) → 닭의버섯 (마른)
+鸡枞(干) → Chicken Mushroom (dry)
 
-鸡枞(油炸)(油鸡枞) → 닭의버섯 (튀김)
+鸡枞(油炸)(油鸡枞) → Chicken Mushroom (fried food)
 
-鸡枞花 → 닭의버섯 꽃
+鸡枞花 → Chicken Mushroom Flower
 
-白牛肝菌(美味牛肝菌) → 흰 우간버섯
+白牛肝菌(美味牛肝菌) → white beef liver mushroom
 
-黑牛肝菌(铜色牛肝菌) → 검은 우간버섯
+黑牛肝菌(铜色牛肝菌) → black beef liver mushroom
 
-黄皮牛肝菌(黄皮疣柄牛肝菌, 黄癞头) → 노랑 우간버섯
+黄皮牛肝菌(黄皮疣柄牛肝菌, 黄癞头) → yellow beef liver mushroom
 
-乳牛肝菌(干)(粘盖牛杆菌，松树菌) → 젖 우간버섯 (마른)
+乳牛肝菌(干)(粘盖牛杆菌，松树菌) → Milk liver mushrooms (dry)
 
-牛眼睛菌(马勃菌) → 소눈버섯
+牛眼睛菌(马勃菌) → oxeye mushroom
 
-平菇(糙皮侧耳，青蘑) → 느타리버섯
+平菇(糙皮侧耳，青蘑) → Oyster Mushroom
 
-青头菌(变绿红菇，绿菇) → 푸른대머리버섯
+青头菌(变绿红菇，绿菇) → blue bald mushroom
 
-松蘑(干)(松茸，松口蘑) → 송이버섯 (마른)
+松蘑(干)(松茸，松口蘑) → Pine mushroom (dry)
 
-血红菇(干) → 피 붉은 버섯 (마른)
+血红菇(干) → blood red mushroom (dry)
 
-元蘑(干)(亚侧耳，冬菇，黄磨) → 원버섯 (마른)
+元蘑(干)(亚侧耳，冬菇，黄磨) → raw mushroom (dry)
 
-竹荪(干)(竹笙, 竹参) → 대나무 버섯 (마른)
+竹荪(干)(竹笙, 竹参) → bamboo mushroom (dry)
 
-榛蘑(干)(小密环菌) → 개암버섯 (마른)
+榛蘑(干)(小密环菌) → hazelnut mushrooms (dry)
 
-发菜(干)(仙菜) → 파래 (마른)
+发菜(干)(仙菜) → green onion (dry)
 
-海带(江白菜) → 다시마
+海带(江白菜) → Kelp
 
-海带(干)(江白菜, 昆布) → 다시마 (마른)
+海带(干)(江白菜, 昆布) → Kelp (dry)
 
-海带(浸)(江白菜, 昆布) → 다시마 (불린)
+海带(浸)(江白菜, 昆布) → Kelp (called)
 
-海冻菜(石花菜, 冻菜) → 한천
+海冻菜(石花菜, 冻菜) → agar
 
-琼脂(紫菜胶洋粉) → 한천
+琼脂(紫菜胶洋粉) → agar
 
-苔菜(干)(苔条,条浒苔) → 김 (마른)
+苔菜(干)(苔条,条浒苔) → Kim (dry)
 
-紫菜(干) → 김 (마른)
+紫菜(干) → Kim (dry)
 
-螺旋藻(干) → 스피루리나 (마른)
+螺旋藻(干) → Spirulina (dry)
 
-裙带菜(干)(海芥菜, 海木耳) → 미역 (마른)
+裙带菜(干)(海芥菜, 海木耳) → seaweed (dry)
 
-山核桃(熟)(小核桃) → 산호두 (익힌, 작은 호두)
+山核桃(熟)(小核桃) → coral head (cooked, small walnuts)
 
-栗子(鲜)(板栗) → 밤 (생, 밤)
+栗子(鲜)(板栗) → night (raw, night)
 
-栗子(干) → 마른 밤
+栗子(干) → dry chestnuts
 
-栗子(熟)(板栗) → 삶은 밤
+栗子(熟)(板栗) → boiled chestnuts
 
-松子(生) → 잣 (생)
+松子(生) → pine nuts (raw)
 
-松子(炒) → 볶은 잣
+松子(炒) → roasted pine nuts
 
-杏仁(大) → 큰 살구씨
+杏仁(大) → large apricot seeds
 
-杏仁(炒) → 볶은 살구씨
+杏仁(炒) → Roasted Apricot Seeds
 
-杏仁(原味全部) → 살구씨 (원맛)
+杏仁(原味全部) → Apricot seeds (Original taste)
 
-杏仁(漂白后) → 표백한 살구씨
+杏仁(漂白后) → bleached apricot kernels
 
-杏仁(过油炸干) → 튀긴 살구씨 (말린)
+杏仁(过油炸干) → fried apricot seeds (dried)
 
-杏仁(烤干, 不加盐) → 구운 살구씨 (소금 없음)
+杏仁(烤干, 不加盐) → roasted apricot seeds (no salt)
 
-杏仁(烤干, 加盐) → 구운 살구씨 (소금 첨가)
+杏仁(烤干, 加盐) → roasted apricot seeds (Add salt)
 
-橡实(橡子, 青冈子) → 도토리
+橡实(橡子, 青冈子) → acorn
 
-榛子(干) → 마른 개암
+榛子(干) → dried hazelnuts
 
-榛子(炒) → 볶은 개암
+榛子(炒) → roasted hazelnuts
 
-栗子(北京密云)(板栗) → 밤 (베이징 미윈)
+栗子(北京密云)(板栗) → night (beijing miyun)
 
-栗子(河南)(板栗) → 밤 (허난)
+栗子(河南)(板栗) → night (Henan)
 
-栗子(山东)(板栗) → 밤 (산둥)
+栗子(山东)(板栗) → night (Shandong)
 
-栗子(河北迁西)(板栗) → 밤 (허베이 첸시)
+栗子(河北迁西)(板栗) → night (Hebei Qianxi)
 
-栗子(河北邢台)(板栗) → 밤 (허베이 싱타이)
+栗子(河北邢台)(板栗) → night (Hebei Xingtai)
 
-栗子仁(熟) → 삶은 밤 알
+栗子仁(熟) → boiled chestnut eggs
 
-松子(熟) → 익힌 잣
+松子(熟) → cooked pine nuts
 
-杏仁(熟, 带壳) → 익힌 살구씨 (껍질째)
+杏仁(熟, 带壳) → cooked apricot seeds (peeled)
 
-杏仁(熟, 去壳) → 익힌 살구씨 (껍질 벗김)
+杏仁(熟, 去壳) → cooked apricot seeds (peeling)
 
-腰果(熟) → 익힌 캐슈넛
+腰果(熟) → cooked cashew nuts
 
-榛子(熟) → 익힌 개암
+榛子(熟) → cooked hazelnuts
 
-榛子仁(熟) → 익힌 개암 알
+榛子仁(熟) → cooked hazelnuts
 
-开心果(熟) → 익힌 피스타치오
+开心果(熟) → Cooked Pistachios
 
-山核桃(熟) → 익힌 산호두
+山核桃(熟) → cooked coral beans
 
-香榧(熟) → 익힌 향비
+香榧(熟) → cooked incense
 
-花生(鲜)(落花生, 长生果) → 땅콩 (생)
+花生(鲜)(落花生, 长生果) → peanut (raw)
 
-花生(炒) → 볶은 땅콩
+花生(炒) → Roasted Peanuts
 
-花生仁(生) → 땅콩알 (생)
+花生仁(生) → peanut eggs (raw)
 
-花生仁(炒) → 볶은 땅콩알
+花生仁(炒) → Roasted Peanuts
 
-葵花子(生) → 해바라기씨 (생)
+葵花子(生) → sunflower seeds (raw)
 
-葵花子(炒) → 볶은 해바라기씨
+葵花子(炒) → Roasted Sunflower Seeds
 
-莲子(干) → 마른 연밥
+莲子(干) → dried lotus rice
 
-莲子(糖水罐头) → 연밥 (설탕물 통조림)
+莲子(糖水罐头) → lotus rice (canned sugar water)
 
-南瓜子(炒)(白瓜子) → 볶은 호박씨 (흰 호박씨)
+南瓜子(炒)(白瓜子) → Roasted Pumpkin Seeds (white pumpkin seeds)
 
-西瓜子(炒) → 볶은 수박씨
+西瓜子(炒) → Roasted Watermelon Seeds
 
-西瓜子(话梅) → 수박씨 (우메 절임)
+西瓜子(话梅) → watermelon seeds (Pickled Ume)
 
-芝麻籽(白) → 흰 참깨
+芝麻籽(白) → white sesame seeds
 
-芝麻籽(黑) → 검은 참깨
+芝麻籽(黑) → black sesame seeds
 
-芡实米(鲜)(鸡头米) → 끈끈이쌀 (생)
+芡实米(鲜)(鸡头米) → sticky rice (raw)
 
-芡实米(鸡头米) → 끈끈이쌀
+芡实米(鸡头米) → sticky rice
 
-花生仁(油炸) → 튀긴 땅콩알
+花生仁(油炸) → fried peanuts
 
-葵花子(奶油香瓜子) → 해바라기씨 (버터 향)
+葵花子(奶油香瓜子) → sunflower seeds (butter flavor)
 
-葵花籽(熟) → 익힌 해바라기씨
+葵花籽(熟) → Cooked Sunflower Seeds
 
-南瓜子(熟)(白瓜子) → 익힌 호박씨 (흰 호박씨)
+南瓜子(熟)(白瓜子) → Cooked Pumpkin Seeds (white pumpkin seeds)
 
-西瓜子(熟)(黑瓜子) → 익힌 수박씨 (검은 씨)
+西瓜子(熟)(黑瓜子) → Cooked Watermelon Seeds (black seed)
 
-猪肉(肥瘦)(均值) → 돼지고기 (기름과 살, 평균)
+猪肉(肥瘦)(均值) → pork (oil and flesh, average)
 
-猪肉(肥) → 돼지고기 (기름)
+猪肉(肥) → pork (oil)
 
-猪肉(后臀尖) → 돼지 볼기살
+猪肉(后臀尖) → pork butt
 
-猪肉(后肘) → 돼지 뒷다리
+猪肉(后肘) → pig hind legs
 
-猪肉(肋条肉) → 돼지 갈비살
+猪肉(肋条肉) → pork ribs
 
-猪肉(里脊) → 돼지 안심
+猪肉(里脊) → pork tenderloin
 
-猪肉(奶脯)(软五花, 猪夹心) → 돼지 젖가슴살 (연삼겹)
+猪肉(奶脯)(软五花, 猪夹心) → pork breast (Yeonsamgyeop)
 
-猪肉(奶面)(硬五花) → 돼지 젖가슴살 (딱딱삼겹)
+猪肉(奶面)(硬五花) → pork breast (Crispy pork belly)
 
-猪肉(前肘) → 돼지 앞다리
+猪肉(前肘) → pig front leg
 
-猪肉(瘦) → 돼지 살코기
+猪肉(瘦) → pork meat
 
-猪肉(腿) → 돼지 다리살
+猪肉(腿) → pork leg meat
 
-猪肉(猪脖) → 돼지 목살
+猪肉(猪脖) → pork shoulder
 
-猪胆肝 → 돼지 쓸개 간
+猪胆肝 → pig gall liver
 
-猪舌(口条) → 돼지 혀
+猪舌(口条) → pig tongue
 
-猪肾(猪腰子) → 돼지 콩팥
+猪肾(猪腰子) → pork kidney
 
-宫爆肉丁(罐头) → 궁보육정 (통조림)
+宫爆肉丁(罐头) → Gungbo Yukjeong (canned food)
 
-酱汁肉 → 소스 고기
+酱汁肉 → sauce meat
 
-腊肉(培根) → 라육 (베이컨)
+腊肉(培根) → Rayuk (bacon)
 
-腊肉(生) → 라육 (생)
+腊肉(生) → Rayuk (raw)
 
-卤猪杂 → 조린 돼지 내장
+卤猪杂 → stewed pork intestines
 
-珍珠里脊丝(罐头) → 진주 안심 채 (통조림)
+珍珠里脊丝(罐头) → pearl tenderloin (canned food)
 
-猪肝(卤煮) → 조린 돼지 간
+猪肝(卤煮) → stewed pork liver
 
-猪肉(清蒸) → 찐 돼지고기
+猪肉(清蒸) → braised pork
 
-猪蹄(熟) → 익힌 돼지 발
+猪蹄(熟) → cooked pork feet
 
-猪肘棒(熟) → 익힌 돼지 팔뚝
+猪肘棒(熟) → cooked pork forearm
 
-猪肉松(均值) → 돼지고기 가루 (평균)
+猪肉松(均值) → pork powder (average)
 
-福建式肉松 → 푸젠식 고기가루
+福建式肉松 → Fujian style meat powder
 
-太仓肉松 → 타이창 고기가루
+太仓肉松 → Taicang meat powder
 
-茶肠 → 차 소시지
+茶肠 → tea sausage
 
-大腊肠 → 큰 라창
+大腊肠 → big rachang
 
-大肉肠 → 큰 고기 소시지
+大肉肠 → big meat sausage
 
-蛋清肠 → 계란 흰자 소시지
+蛋清肠 → egg white sausage
 
-风干肠 → 풍건 창자
+风干肠 → air-dried intestines
 
-儿童肠 → 어린이 소시지
+儿童肠 → children sausage
 
-广东香肠 → 광둥식 향 소시지
+广东香肠 → Cantonese flavored sausage
 
-红果肠 → 붉은 열매 소시지
+红果肠 → red fruit sausage
 
-松江肠 → 쑹장 소시지
+松江肠 → Songjiang Sausage
 
-蒜肠 → 마늘 소시지
+蒜肠 → garlic sausage
 
-香肠(罐头) → 소시지 (통조림)
+香肠(罐头) → sausage (canned food)
 
-小红肠 → 작은 빨간 소시지
+小红肠 → small red sausage
 
-小泥肠 → 작은 반죽 소시지
+小泥肠 → small dough sausages
 
-午餐肠 → 점심 소시지
+午餐肠 → lunch sausage
 
-午餐肚 → 점심 파테
+午餐肚 → lunch pâté
 
-方腿 → 네모 다리
+方腿 → square leg
 
-圆腿 → 둥근 다리
+圆腿 → round legs
 
-猪肉(前臀尖, 杜长大猪) → 돼지 앞볼기살 (두창대종)
+猪肉(前臀尖, 杜长大猪) → pork loin (smallpox)
 
-猪肉(前臀尖, 良杂猪) → 돼지 앞볼기살 (양잡종)
+猪肉(前臀尖, 良杂猪) → pork loin (sheep hybrid)
 
-猪肉(硬肋, 杜长大猪) → 돼지 단단한 갈비 (두창대종)
+猪肉(硬肋, 杜长大猪) → pork hard ribs (smallpox)
 
-猪肉(硬肋, 良杂猪) → 돼지 단단한 갈비 (양잡종)
+猪肉(硬肋, 良杂猪) → pork hard ribs (sheep hybrid)
 
-猪肉(痛脊, 杜长大猪) → 돼지 등뼈 (두창대종)
+猪肉(痛脊, 杜长大猪) → pig spine (smallpox)
 
-猪肉(通脊, 良杂猪) → 돼지 등뼈 (양잡종)
+猪肉(通脊, 良杂猪) → pig spine (sheep hybrid)
 
-猪小排(杜长大猪) → 돼지 작은 갈비 (두창대종)
+猪小排(杜长大猪) → pork small ribs (smallpox)
 
-猪小排(良杂猪) → 돼지 작은 갈비 (양잡종)
+猪小排(良杂猪) → pork small ribs (sheep hybrid)
 
-火腿心全精肉 → 햄 심 전정육
+火腿心全精肉 → Ham heart whole meat
 
-火腿心肉 → 햄 심 고기
+火腿心肉 → ham core meat
 
-酱排骨 → 장조림 갈비
+酱排骨 → Jangjorim ribs
 
-香糟肉块 → 향 주머니 고기 토막
+香糟肉块 → Sachet Meat Piece
 
-熏烤小里脊 → 훈제 구운 소안심
+熏烤小里脊 → Smoked Grilled Beef Tenderloin
 
-猪肉脯 → 돼지고기 포
+猪肉脯 → Pork Pho
 
-扒猪脸 → 삶은 돼지 얼굴
+扒猪脸 → boiled pig face
 
-热狗肠 → 핫도그 소시지
+热狗肠 → hot dog sausage
 
-火腿(云南) → 햄 (윈난)
+火腿(云南) → ham (Yunnan)
 
-三明治火腿 → 샌드위치 햄
+三明治火腿 → sandwich ham
 
-牛肉(肥瘦)(均值) → 쇠고기 (기름과 살, 평균)
+牛肉(肥瘦)(均值) → beef (oil and flesh, average)
 
-牛肉(腑肋) → 쇠고기 (양지)
+牛肉(腑肋) → beef (brisket)
 
-牛肉(后腿) → 쇠고기 (뒷다리)
+牛肉(后腿) → beef (hind legs)
 
-牛肉(后腱) → 쇠고기 (뒷다리 힘줄)
+牛肉(后腱) → beef (hind limb tendon)
 
-牛肉(里脊) → 쇠고기 (안심)
+牛肉(里脊) → beef (relieved)
 
-牛肉(前腿) → 쇠고기 (앞다리)
+牛肉(前腿) → beef (front legs)
 
-牛肉(前腱) → 쇠고기 (앞다리 힘줄)
+牛肉(前腱) → beef (forelimb tendon)
 
-牛肉(瘦) → 쇠고기 (살코기)
+牛肉(瘦) → beef (lean meat)
 
-牛蹄筋(泡发) → 소발 힘줄 (불린)
+牛蹄筋(泡发) → small foot tendon (called)
 
-牛鞭(泡发) → 소 성기 (불린)
+牛鞭(泡发) → cow penis (called)
 
-煨牛肉(罐头) → 끓인 쇠고기 (통조림)
+煨牛肉(罐头) → stewed beef (canned food)
 
-牛蹄筋(熟) → 익힌 소발 힘줄
+牛蹄筋(熟) → cooked beef tendon
 
-牛肉(背部肉)(上脑) → 쇠고기 (등심, 목덜미)
+牛肉(背部肉)(上脑) → beef (Sirloin, nape)
 
-牛肉(里脊肉)(牛柳) → 쇠고기 안심
+牛肉(里脊肉)(牛柳) → beef tenderloin
 
-牛肉(臀部肉)(紫盖, 白板) → 쇠고기 볼기살
+牛肉(臀部肉)(紫盖, 白板) → Beef Butt Meat
 
-牛肉(肩部肉)(肩肉) → 쇠고기 어깨살
+牛肉(肩部肉)(肩肉) → beef shoulder
 
-牛肉(胸部肉)(牛胸) → 쇠고기 가슴살
+牛肉(胸部肉)(牛胸) → beef breast
 
-牛肉(腹部肉)(牛腩) → 쇠고기 양지
+牛肉(腹部肉)(牛腩) → beef brisket
 
-牛肉(膝圆肉)(和尚头) → 쇠고기 무릎 둥근살
+牛肉(膝圆肉)(和尚头) → beef knee round
 
-牛肉(股内肉)(针扒, 米龙, 黄瓜条) → 쇠고기 허벅지 안쪽살
+牛肉(股内肉)(针扒, 米龙, 黄瓜条) → beef thigh inner meat
 
-牛肉(小腿肉)(牛展, 牛腱子) → 쇠고기 종아리살 (힘줄)
+牛肉(小腿肉)(牛展, 牛腱子) → beef calf (tendon)
 
-牛百叶(黑) → 소 벌집위 (검은)
+牛百叶(黑) → On the cow beehive (black)
 
-牛肉(清香) → 쇠고기 (맑은 향)
+牛肉(清香) → beef (clear scent)
 
-牛腱子(香叶) → 소 힘줄 (향 잎)
+牛腱子(香叶) → beef tendon (incense leaves)
 
-羊肉(肥瘦)(均值) → 양고기 (기름과 살, 평균)
+羊肉(肥瘦)(均值) → lamb (oil and flesh, average)
 
-羊肉(冻) → 냉동 양고기
+羊肉(冻) → frozen lamb
 
-羊肉(后腿) → 양 뒷다리
+羊肉(后腿) → sheep hind legs
 
-羊肉(颈) → 양 목살
+羊肉(颈) → lamb neck
 
-羊肉(里脊) → 양 안심
+羊肉(里脊) → sheep tenderloin
 
-羊肉(前腿) → 양 앞다리
+羊肉(前腿) → sheep forelimbs
 
-羊肉(青羊) → 푸른 양고기
+羊肉(青羊) → green lamb
 
-羊肉(瘦) → 양 살코기
+羊肉(瘦) → lamb meat
 
-羊肉(胸脯) → 양 가슴살
+羊肉(胸脯) → lamb breast
 
-山羊肉(冻) → 냉동 염소고기
+山羊肉(冻) → frozen goat meat
 
-羊蹄筋(生) → 양발 힘줄 (생)
+羊蹄筋(生) → tendons of both feet (raw)
 
-羊蹄筋(泡发) → 양발 힘줄 (불린)
+羊蹄筋(泡发) → tendons of both feet (called)
 
-羊肉(熟) → 익힌 양고기
+羊肉(熟) → cooked lamb
 
-羊肉串(电烤) → 양꼬치 (전기 구이)
+羊肉串(电烤) → lamb skewers (electric grill)
 
-羊肉串(烤) → 양꼬치 (숯불 구이)
+羊肉串(烤) → lamb skewers (charcoal grill)
 
-羊肉串(炸) → 튀긴 양꼬치
+羊肉串(炸) → fried lamb skewers
 
-手抓羊肉 → 손으로 먹는 양고기
+手抓羊肉 → lamb eaten with hands
 
-山羊肉(酱) → 장조림 염소고기
+山羊肉(酱) → Jangjorim goat meat
 
-羊肉(上脑) → 양 목덜미살
+羊肉(上脑) → lamb neck meat
 
-羊肉(腰窝) → 양 허리 부위
+羊肉(腰窝) → both waist area
 
-烤羊肉(五香) → 구운 양고기 (오향)
+烤羊肉(五香) → roast lamb (five spice)
 
-羊肉串(生) → 생 양꼬치
+羊肉串(生) → raw lamb skewers
 
-驴肉(瘦) → 나귀고기 (살코기)
+驴肉(瘦) → donkey meat (lean meat)
 
-驴肉(酱) → 장조림 나귀고기
+驴肉(酱) → Jangjorim Donkey Meat
 
-驴肉(卤) → 조린 나귀고기
+驴肉(卤) → stewed donkey meat
 
-驴肉(煮) → 삶은 나귀고기
+驴肉(煮) → boiled donkey meat
 
-驴肉(五香) → 오향 나귀고기
+驴肉(五香) → five-spice donkey meat
 
-马肉(卤) → 조린 말고기
+马肉(卤) → stewed horse meat
 
-兔肉(野) → 산토끼고기
+兔肉(野) → Rabbit meat
 
-鹿肉(梅花鹿) → 사슴고기 (꽃사슴)
+鹿肉(梅花鹿) → venison (deer)
 
-鸡(均值) → 닭고기 (평균)
+鸡(均值) → chicken (average)
 
-鸡(土鸡, 家养) → 닭 (토종, 집에서 기른)
+鸡(土鸡, 家养) → chicken (native, home grown)
 
-母鸡(一年内) → 암탉 (1년 이내)
+母鸡(一年内) → hen (1within a year)
 
-肉鸡(肥) → 육계 (기름진)
+肉鸡(肥) → broiler (oily)
 
-鸡肝(肉鸡) → 닭간 (육계)
+鸡肝(肉鸡) → chicken liver (broiler)
 
-鸡肫(鸡胗) → 닭모래집
+鸡肫(鸡胗) → Chicken Sand House
 
-扒鸡 → 찜닭
+扒鸡 → Jjimdak
 
-烤鸡 → 구운 닭
+烤鸡 → grilled chicken
 
-肯德基(炸鸡) → 켄터키 프라이드 치킨 (튀긴 닭)
+肯德基(炸鸡) → Kentucky Fried Chicken (fried chicken)
 
-卤煮鸡 → 조린 닭
+卤煮鸡 → stewed chicken
 
-瓦罐鸡汤(肉) → 질그릇 닭국 (고기)
+瓦罐鸡汤(肉) → earthenware chicken soup (meat)
 
-瓦罐鸡汤(汤) → 질그릇 닭국 (국물)
+瓦罐鸡汤(汤) → earthenware chicken soup (soup)
 
-鸡块(带浆粉) → 닭고기 토막 (반죽 가루 포함)
+鸡块(带浆粉) → chicken pieces (Contains dough powder)
 
-扒鸡(五香脱骨) → 찜닭 (오향, 뼈 발라짐)
+扒鸡(五香脱骨) → Jjimdak (five spice, bone peeling)
 
-童子鸡(熟) → 익힌 어린 닭
+童子鸡(熟) → cooked young chicken
 
-鸭(均值) → 오리고기 (평균)
+鸭(均值) → duck meat (average)
 
-鸭肝(公麻鸭) → 오리 간 (수컷 마오리)
+鸭肝(公麻鸭) → duck liver (male maori)
 
-鸭肝(母麻鸭) → 오리 간 (암컷 마오리)
+鸭肝(母麻鸭) → duck liver (female Maori)
 
-鸭舌(鸭条) → 오리 혀
+鸭舌(鸭条) → duck tongue
 
-鸭血(白鸭) → 오리 피 (흰 오리)
+鸭血(白鸭) → duck blood (white duck)
 
-鸭血(公麻鸭) → 오리 피 (수컷 마오리)
+鸭血(公麻鸭) → duck blood (male maori)
 
-鸭血(母麻鸭) → 오리 피 (암컷 마오리)
+鸭血(母麻鸭) → duck blood (female Maori)
 
-鸭肫(公麻鸭) → 오리 모래집 (수컷 마오리)
+鸭肫(公麻鸭) → duck sand house (male maori)
 
-鸭肫(母麻鸭) → 오리 모래집 (암컷 마오리)
+鸭肫(母麻鸭) → duck sand house (female Maori)
 
-北京烤鸭 → 베이징 덕
+北京烤鸭 → Peking Duck
 
-北京填鸭 → 베이징 인공 사육 오리
+北京填鸭 → Beijing artificially reared ducks
 
-红烧鸭(罐头) → 간장조림 오리 (통조림)
+红烧鸭(罐头) → Soy Sauce Stewed Duck (canned food)
 
-酱鸭(加梅菜,罐头) → 장조림 오리 (매실채 첨가, 통조림)
+酱鸭(加梅菜,罐头) → Jangjorim Duck (Add plum salad, canned food)
 
-盐水鸭(熟) → 소금물 오리 (익힌)
+盐水鸭(熟) → salt water duck (cooked)
 
-鸭豉片 → 오리 두반장 조각
+鸭豉片 → Slice of duck bean paste
 
-烤鸭(全聚德牌) → 구운 오리 (취안쥐더 브랜드)
+烤鸭(全聚德牌) → roast duck (Quanjude Brand)
 
-鹅(均值) → 거위고기 (평균)
+鹅(均值) → goose meat (average)
 
-乳鸽(红烧) → 어린 비둘기 (간장조림)
+乳鸽(红烧) → young pigeon (Soy sauce stew)
 
-牛乳(均值) → 소젖 (평균)
+牛乳(均值) → cow milk (average)
 
-牛乳粉(多维奶粉) → 젖가루 (다비타민)
+牛乳粉(多维奶粉) → milk powder (multivitamin)
 
-酸奶(均值) → 요구르트 (평균)
+酸奶(均值) → yogurt (average)
 
-酸奶(高蛋白) → 고단백 요구르트
+酸奶(高蛋白) → high protein yogurt
 
-酸奶(脱脂) → 탈지 요구르트
+酸奶(脱脂) → skim yogurt
 
-酸奶(中脂) → 중지 요구르트
+酸奶(中脂) → stop yogurt
 
-奶酪(干酪) → 치즈
+奶酪(干酪) → cheese
 
-奶豆腐(脱脂) → 우유 두부 (탈지)
+奶豆腐(脱脂) → milk curd (skim)
 
-奶豆腐(鲜) → 신선한 우유 두부
+奶豆腐(鲜) → fresh milk curd
 
-奶疙瘩(奶酪干, 干酸奶) → 우유 덩어리 (치즈 말랭이, 마른 요구르트)
+奶疙瘩(奶酪干, 干酸奶) → lump of milk (dried cheese, dry yogurt)
 
-契达干酪(普通) → 체다 치즈 (보통)
+契达干酪(普通) → Cheddar Cheese (Normal)
 
-契达干酪(脱脂) → 탈지 체다 치즈
+契达干酪(脱脂) → skim cheddar cheese
 
-奶油(焦克) → 버터 (자오커)
+奶油(焦克) → butter (Zhao Ke)
 
-奶油(食品工业) → 버터 (식품 공업용)
+奶油(食品工业) → butter (For food industry)
 
-黄油渣 → 버터 찌꺼기
+黄油渣 → butter residue
 
-白脱(食品工业)(牛油, 黄油) → 버터 (식품 공업용)
+白脱(食品工业)(牛油, 黄油) → butter (For food industry)
 
-炼乳(甜,罐头) → 연유 (단, 통조림)
+炼乳(甜,罐头) → condensed milk (sweet, canned food)
 
-鸡蛋(均值) → 닭알 (평균)
+鸡蛋(均值) → chicken egg (average)
 
-鸡蛋(白皮) → 흰 껍질 닭알
+鸡蛋(白皮) → white shell chicken egg
 
-鸡蛋(红皮) → 붉은 껍질 닭알
+鸡蛋(红皮) → red shell chicken eggs
 
-鸡蛋(土鸡) → 토종 닭알
+鸡蛋(土鸡) → native chicken eggs
 
-鸡蛋白(乌骨鸡) → 닭알 흰자 (검은 뼈 닭)
+鸡蛋白(乌骨鸡) → chicken egg white (black bone chicken)
 
-鸡蛋黄(乌骨鸡) → 닭알 노른자 (검은 뼈 닭)
+鸡蛋黄(乌骨鸡) → chicken egg yolk (black bone chicken)
 
-鸡蛋粉(全蛋粉) → 닭알 가루 (전란 가루)
+鸡蛋粉(全蛋粉) → chicken egg powder (whole egg powder)
 
-松花蛋(鸡蛋) → 송화알 (닭알)
+松花蛋(鸡蛋) → Songhwa eggs (chicken egg)
 
-乌鸡蛋(绿皮) → 검은 닭알 (푸른 껍질)
+乌鸡蛋(绿皮) → black chicken eggs (blue shell)
 
-鸡蛋(煮) → 삶은 닭알
+鸡蛋(煮) → boiled chicken eggs
 
-荷包蛋(油煎) → 계란 후라이 (기름 지짐)
+荷包蛋(油煎) → fried egg (oil spill)
 
-荷包蛋(煮) → 삶은 계란 후라이
+荷包蛋(煮) → fried boiled egg
 
-松花蛋(鸭蛋)(皮蛋) → 송화알 (오리알)
+松花蛋(鸭蛋)(皮蛋) → Songhwa eggs (duck egg)
 
-咸鸭蛋(煮) → 짠 오리알 (삶은)
+咸鸭蛋(煮) → salty duck eggs (boiled)
 
-鹅蛋(煮) → 삶은 거위알
+鹅蛋(煮) → boiled goose egg
 
-白条鱼(裸鱼) → 흰줄 물고기
+白条鱼(裸鱼) → white line fish
 
-草鱼(白鲩, 草包鱼) → 풀 잉어
+草鱼(白鲩, 草包鱼) → grass carp
 
-赤眼鳟(金目鱼) → 붉은 눈 송어
+赤眼鳟(金目鱼) → red eye trout
 
-感鱼(猴鱼) → 간어
+感鱼(猴鱼) → liverfish
 
-胡子鲇(塘虱(鱼)) → 수염 메기
+胡子鲇(塘虱(鱼)) → bearded catfish
 
-黄颡鱼(戈牙鱼, 黄鳍鱼) → 황상어
+黄颡鱼(戈牙鱼, 黄鳍鱼) → yellow shark
 
-黄鳝(鳝鱼) → 드렁허리
+黄鳝(鳝鱼) → sloppy waist
 
-鲤鱼(鲤拐子) → 잉어
+鲤鱼(鲤拐子) → carp
 
-罗非鱼(莫桑比克)(非洲黑鲫鱼) → 틸라피아 (모잠비크)
+罗非鱼(莫桑比克)(非洲黑鲫鱼) → tilapia (Mozambique)
 
-青鱼(青皮鱼, 青鳞鱼, 青混) → 청어
+青鱼(青皮鱼, 青鳞鱼, 青混) → herring
 
-乌鳢(黑鱼, 石斑鱼, 生鱼) → 가물치
+乌鳢(黑鱼, 石斑鱼, 生鱼) → snakehead
 
-银鱼(面条鱼) → 빙어
+银鱼(面条鱼) → Smelt
 
-湟鱼(裸鲤鱼) → 황어
+湟鱼(裸鲤鱼) → Dace
 
-湟鱼(裸鱼) → 황어
+湟鱼(裸鱼) → Dace
 
-鲇鱼(胡子鲇, 鲢胡, 旺虾) → 메기
+鲇鱼(胡子鲇, 鲢胡, 旺虾) → catfish
 
-鲢鱼(白鲢, 胖子, 连子鱼) → 백련
+鲢鱼(白鲢, 胖子, 连子鱼) → white lotus
 
-鲫鱼(喜头鱼, 海附鱼) → 붕어
+鲫鱼(喜头鱼, 海附鱼) → crucian carp
 
-鲮鱼(雪鲮) → 링어
+鲮鱼(雪鲮) → Ringer
 
-鳊鱼(鲂鱼, 武昌鱼) → 비단잉어
+鳊鱼(鲂鱼, 武昌鱼) → koi
 
-鳗鲡(鳗鱼, 河鳗) → 뱀장어
+鳗鲡(鳗鱼, 河鳗) → eel
 
-鳙鱼(胖头鱼, 摆佳鱼, 花鲢鱼) → 대두어
+鳙鱼(胖头鱼, 摆佳鱼, 花鲢鱼) → soybean
 
-鳜鱼(桂鱼, 花鲫鱼) → 쏘가리
+鳜鱼(桂鱼, 花鲫鱼) → Mandarin fish
 
-鳟鱼(红鳟鱼) → 송어
+鳟鱼(红鳟鱼) → trout
 
-参鱼(蓝圆参, 边鱼) → 참어
+参鱼(蓝圆参, 边鱼) → finfish
 
-带鱼(白带鱼, 刀鱼) → 갈치
+带鱼(白带鱼, 刀鱼) → Cutlassfish
 
-丁香鱼(干) → 마른 정향 물고기
+丁香鱼(干) → dried clove fish
 
-狗母鱼(大头狗母鱼) → 개어미
+狗母鱼(大头狗母鱼) → dog mother
 
-海鲫鱼(九九鱼) → 바다 붕어
+海鲫鱼(九九鱼) → sea crucian carp
 
-海鳗(鲫勾) → 바다 장어
+海鳗(鲫勾) → sea eel
 
-红娘鱼(翼红娘鱼) → 빨간 아가씨 물고기
+红娘鱼(翼红娘鱼) → red lady fish
 
-黄姑鱼(黄婆鸡(鱼)) → 황고기
+黄姑鱼(黄婆鸡(鱼)) → yellow meat
 
-黄鱼(大黄花鱼) → 큰 참조기
+黄鱼(大黄花鱼) → big reference machine
 
-黄鱼(小黄花鱼) → 작은 참조기
+黄鱼(小黄花鱼) → small reference machine
 
-黄鲂(赤虹, 老板鱼) → 노란 가오리
+黄鲂(赤虹, 老板鱼) → yellow stingray
 
-金线鱼(红三鱼) → 금줄 물고기
+金线鱼(红三鱼) → gold line fish
 
-绿鳍马面豚(面包鱼, 橡皮鱼) → 초록 지느러미 말얼굴복
+绿鳍马面豚(面包鱼, 橡皮鱼) → green fin horse face suit
 
-梅童鱼(大头仔鱼, 丁珠鱼) → 매동어
+梅童鱼(大头仔鱼, 丁珠鱼) → maedongeo
 
-沙丁鱼(沙鲻) → 정어리
+沙丁鱼(沙鲻) → sardines
 
-沙钻鱼(多鳞喜, 沙梭, 麦穗鱼) → 모래 뚫이
+沙钻鱼(多鳞喜, 沙梭, 麦穗鱼) → sand hole
 
-蛇鲻(沙梭鱼) → 뱀치
+蛇鲻(沙梭鱼) → snake fish
 
-舌鳎(花纹舌头, 舌头鱼) → 서대
+舌鳎(花纹舌头, 舌头鱼) → Seodae
 
-油抒(香梭鱼) → 기름 자
+油抒(香梭鱼) → oil ruler
 
-颚针鱼(针量鱼) → 악침어
+颚针鱼(针量鱼) → bad bite
 
-鲅鱼(马鲛鱼, 燕鲅鱼, 巴鱼) → 고등어 (삼치)
+鲅鱼(马鲛鱼, 燕鲅鱼, 巴鱼) → mackerel (mackerel)
 
-鲅鱼(咸)(咸马胶) → 짠 고등어
+鲅鱼(咸)(咸马胶) → salty mackerel
 
-鲆(片口鱼, 比目鱼) → 가자미
+鲆(片口鱼, 比目鱼) → flounder
 
-鲈鱼(鲈花) → 농어
+鲈鱼(鲈花) → sea bass
 
-鲐鱼(青鲐鱼, 鲐巴鱼, 青砖鱼) → 고등어
+鲐鱼(青鲐鱼, 鲐巴鱼, 青砖鱼) → mackerel
 
-鲑鱼(大麻哈鱼) → 연어
+鲑鱼(大麻哈鱼) → salmon
 
-鲑鱼籽酱(大麻哈鱼籽酱) → 연어 알 젓갈
+鲑鱼籽酱(大麻哈鱼籽酱) → Salted salmon roe
 
-鲚鱼(大)(大凤尾鱼) → 큰 멸치
+鲚鱼(大)(大凤尾鱼) → large anchovies
 
-鲚鱼(小)(小凤尾鱼) → 작은 멸치
+鲚鱼(小)(小凤尾鱼) → small anchovies
 
-鲨鱼(真鲨, 白斑角鲨) → 상어
+鲨鱼(真鲨, 白斑角鲨) → shark
 
-鲳鱼(平鱼, 银鲳, 刺鲳) → 병어
+鲳鱼(平鱼, 银鲳, 刺鲳) → bottlefish
 
-鲷(黑鲷,铜盆鱼, 大目鱼) → 도미
+鲷(黑鲷,铜盆鱼, 大目鱼) → sea bream
 
-鲻鱼(白眼棱鱼) → 숭어
+鲻鱼(白眼棱鱼) → mullet
 
-鲽(比目鱼, 凸眼鱼) → 가자미
+鲽(比目鱼, 凸眼鱼) → flounder
 
-鳐鱼(夫鱼) → 홍어
+鳐鱼(夫鱼) → skate
 
-鳓鱼(快鱼, 力鱼) → 전어
+鳓鱼(快鱼, 力鱼) → shad
 
-鳕鱼(鳕狭, 明太鱼) → 대구
+鳕鱼(鳕狭, 明太鱼) → Daegu
 
-鱼奇油(鱼露, 虾油) → 생선 기름 (어로, 새우 기름)
+鱼奇油(鱼露, 虾油) → fish oil (fishing, shrimp oil)
 
-双髻鱼 → 쌍망치 물고기
+双髻鱼 → double hammer fish
 
-金鲨鱼翅(干) → 마른 금상어 지느러미
+金鲨鱼翅(干) → dried gold shark fin
 
-草鱼(黑) → 풀 잉어 (검은)
+草鱼(黑) → grass carp (black)
 
-凤尾鱼(熟) → 익힌 멸치
+凤尾鱼(熟) → cooked anchovies
 
-箭鱼(炸) → 튀긴 화살 물고기
+箭鱼(炸) → fried arrow fish
 
-金枪鱼(盐水浸) → 참치 (소금물 불린)
+金枪鱼(盐水浸) → tuna (soaked in salt water)
 
-金枪鱼(油浸) → 참치 (기름 불린)
+金枪鱼(油浸) → tuna (oil soaked)
 
-鲮鱼(豆豉, 熟) → 링어 (검은콩, 익힌)
+鲮鱼(豆豉, 熟) → Ringer (black beans, cooked)
 
-鳗鱼(红烧) → 간장조림 장어
+鳗鱼(红烧) → Soy Sauce Stewed Eel
 
-鲭鱼(烤, 150℃, 10分) → 고등어 (구이, 150℃, 10분)
+鲭鱼(烤, 150℃, 10分) → mackerel (grilled, 150℃, 10minutes)
 
-鲭鱼(烤, 150℃, 20分) → 고등어 (구이, 150℃, 20분)
+鲭鱼(烤, 150℃, 20分) → mackerel (grilled, 150℃, 20minutes)
 
-鲭鱼(烤, 150℃, 30分) → 고등어 (구이, 150℃, 30분)
+鲭鱼(烤, 150℃, 30分) → mackerel (grilled, 150℃, 30minutes)
 
-鲭鱼(烤, 180℃, 10分) → 고등어 (구이, 180℃, 10분)
+鲭鱼(烤, 180℃, 10分) → mackerel (grilled, 180℃, 10minutes)
 
-鲭鱼(烤, 210℃, 10分) → 고등어 (구이, 210℃, 10분)
+鲭鱼(烤, 210℃, 10分) → mackerel (grilled, 210℃, 10minutes)
 
-鲭鱼(炸) → 튀긴 고등어
+鲭鱼(炸) → fried mackerel
 
-鲭鱼(蒸) → 찐 고등어
+鲭鱼(蒸) → Steamed Mackerel
 
-鲭鱼(煮) → 삶은 고등어
+鲭鱼(煮) → boiled mackerel
 
-沙丁鱼(茄汁, 熟) → 정어리 (토마토 소스, 익힌)
+沙丁鱼(茄汁, 熟) → sardines (tomato sauce, cooked)
 
-沙丁鱼(盐水浸) → 정어리 (소금물 불린)
+沙丁鱼(盐水浸) → sardines (soaked in salt water)
 
-沙丁鱼(油浸) → 정어리 (기름 불린)
+沙丁鱼(油浸) → sardines (oil soaked)
 
-鳕鱼(烤) → 구운 대구
+鳕鱼(烤) → baked cod
 
-鳕鱼(炸) → 튀긴 대구
+鳕鱼(炸) → fried cod
 
-白米虾(水虾米) → 쌀새우 (물 새우)
+白米虾(水虾米) → rice shrimp (water shrimp)
 
-斑节对虾(草虾) → 줄무늬 대하
+斑节对虾(草虾) → striped lobster
 
-长毛对虾(大虾, 白露虾) → 긴털 대하
+长毛对虾(大虾, 白露虾) → Longhaired prawn
 
-东方对虾(中国对虾) → 동양 대하
+东方对虾(中国对虾) → oriental prawns
 
-江虾(沼虾) → 강 새우
+江虾(沼虾) → river shrimp
 
-塘水虾(草虾) → 논 새우
+塘水虾(草虾) → rice field shrimp
 
-虾米(海米, 虾仁) → 마른 새우
+虾米(海米, 虾仁) → dried shrimp
 
-虾仁(红) → 붉은 새우 살
+虾仁(红) → red shrimp meat
 
-踞缘青蟹(青蟹) → 톱니 푸른 게
+踞缘青蟹(青蟹) → sawtooth blue crab
 
-海蟹(小) → 작은 바다 게
+海蟹(小) → small sea crab
 
-鲍鱼(杂色鲍) → 전복 (잡색)
+鲍鱼(杂色鲍) → abalone (variegated)
 
-鲍鱼(干) → 마른 전복
+鲍鱼(干) → dried abalone
 
-蛏干(蛏子缢, 蛏青子) → 마른 맛조개
+蛏干(蛏子缢, 蛏青子) → dried clams
 
-河蚬(蚬子) → 재첩
+河蚬(蚬子) → clam
 
-牡蛎(海蛎子) → 굴
+牡蛎(海蛎子) → oyster
 
-泥蚶(血蚶, 珠蚶) → 꼬막
+泥蚶(血蚶, 珠蚶) → cockle
 
-扇贝(鲜) → 신선한 가리비
+扇贝(鲜) → fresh scallops
 
-扇贝(干)(干贝) → 마른 가리비 (말린 가리비 살)
+扇贝(干)(干贝) → dried scallops (dried scallop meat)
 
-银蚶(蚶子) → 은빛 꼬막
+银蚶(蚶子) → silver cockle
 
-贻贝(鲜)(淡菜, 壳菜) → 신선한 홍합
+贻贝(鲜)(淡菜, 壳菜) → fresh mussels
 
-贻贝(干)(淡菜, 壳菜) → 마른 홍합
+贻贝(干)(淡菜, 壳菜) → dried mussels
 
-蛤蜊(均值) → 바지락 (평균)
+蛤蜊(均值) → clams (average)
 
-螺(均值) → 소라 (평균)
+螺(均值) → conch (average)
 
-黄螺(东风螺) → 노란 소라
+黄螺(东风螺) → yellow conch
 
-海蚌(西施舌) → 바다 가리비 (서시혀)
+海蚌(西施舌) → sea scallops (Slowly)
 
-海参(干) → 마른 해삼
+海参(干) → dried sea cucumber
 
-海参(水浸) → 물에 불린 해삼
+海参(水浸) → Sea cucumber soaked in water
 
-墨鱼(曼氏无针乌贼) → 오징어
+墨鱼(曼氏无针乌贼) → squid
 
-墨鱼(干)(曼氏无针乌贼) → 마른 오징어
+墨鱼(干)(曼氏无针乌贼) → dried squid
 
-乌贼(鲜)(鱿鱼, 台湾枪乌贼) → 오징어 (생)
+乌贼(鲜)(鱿鱼, 台湾枪乌贼) → squid (raw)
 
-鱿鱼(干)(台湾枪乌贼) → 마른 오징어
+鱿鱼(干)(台湾枪乌贼) → dried squid
 
-鱿鱼(水浸) → 물에 불린 오징어
+鱿鱼(水浸) → squid soaked in water
 
-章鱼(真蛸) → 문어
+章鱼(真蛸) → octopus
 
-章鱼(八爪鱼)(八角鱼) → 문어
+章鱼(八爪鱼)(八角鱼) → octopus
 
-母乳化奶粉 → 모유화 젖가루
+母乳化奶粉 → Breastfeeding Milk Powder
 
-婴儿奶粉 → 젖먹이 젖가루
+婴儿奶粉 → milk powder
 
-豆奶粉 → 콩 우유 가루
+豆奶粉 → soy milk powder
 
-钙质糕粉 → 칼슘 떡 가루
+钙质糕粉 → calcium rice cake powder
 
-健儿粉 → 건강 어린이 가루
+健儿粉 → health children powder
 
-莲子健儿粉 → 연밥 건강 어린이 가루
+莲子健儿粉 → lotus rice health children powder
 
-乳儿糕 → 젖먹이 떡
+乳儿糕 → baby rice cake
 
-婴儿奶糕 → 젖먹이 우유 떡
+婴儿奶糕 → Milk rice cake for breastfeeding
 
-营养乳儿糕 → 영양 젖먹이 떡
+营养乳儿糕 → Nutritional baby rice cake
 
-艾窝窝 → 아이워우 (찹쌀 경단)
+艾窝窝 → I wow (glutinous rice dumplings)
 
-白水羊头 → 흰 물 양 머리
+白水羊头 → white water sheep head
 
-茶汤 → 차 죽
+茶汤 → tea porridge
 
-炒肝 → 볶은 간
+炒肝 → roasted liver
 
-春卷 → 춘권
+春卷 → spring roll
 
-豆腐脑(带卤) → 두부 흰죽 (국물 있음)
+豆腐脑(带卤) → Tofu white porridge (There is soup)
 
-灌肠 → 순대 (간 충전)
+灌肠 → sundae (Liver filling)
 
-煎饼 → 지짐 부침개
+煎饼 → Jijim Pancake
 
-焦圈 → 바삭 고리
+焦圈 → crispy ring
 
-京八件 → 베이징 8가지 과자
+京八件 → 8 kinds of Beijing snacks
 
-栗羊羹 → 밤 양갱
+栗羊羹 → chestnut jelly
 
-凉粉(带调料) → 묵 (양념 포함)
+凉粉(带调料) → jelly (Condiments included)
 
-龙虾片 → 바닷가재 조각
+龙虾片 → lobster pieces
 
-驴打滚 → 당고
+驴打滚 → Dango
 
-美味香酥卷 → 맛있는 향 바삭 말이
+美味香酥卷 → Delicious fragrant crispy rolls
 
-蜜麻花(糖耳朵) → 꿀 참깨 꼬아 (설탕 귀)
+蜜麻花(糖耳朵) → Honey Sesame Twist (sugar ears)
 
-蜜三刀 → 꿀 세 칼
+蜜三刀 → three swords of honey
 
-面窝 → 면 둥지
+面窝 → cotton nest
 
-酿皮 → 양피
+酿皮 → sheepskin
 
-青稞炒面 → 볶은 청보리 가루
+青稞炒面 → Roasted green barley powder
 
-热干面 → 말린 국수
+热干面 → dried noodles
 
-三刀蜜 → 세 칼 꿀
+三刀蜜 → three knife honey
 
-三鲜豆皮 → 삼선 두부 껍질
+三鲜豆皮 → Samseon Tofu Skin
 
-汤泡 → 국물 발효
+汤泡 → broth fermentation
 
-甜胚子 → 단 배아
+甜胚子 → sweet embryo
 
-甜醅 → 단 발효
+甜醅 → sweet fermentation
 
-豌豆黄 → 완두콩 황
+豌豆黄 → pea yellow
 
-香油炒面 → 참기름 볶음 가루
+香油炒面 → Sesame oil stir-fried powder
 
-油茶 → 기름 차
+油茶 → oil car
 
-油炸豆瓣 → 튀긴 콩
+油炸豆瓣 → fried beans
 
-油炸豆花 → 튀긴 두부 꽃
+油炸豆花 → fried tofu flowers
 
-炸糕 → 튀긴 떡
+炸糕 → fried rice cake
 
-糌粑(稞麦熟品) → 찐바 (익힌 보리품)
+糌粑(稞麦熟品) → Jjinba (cooked barley)
 
-春卷(素馅) → 춘권 (채식 소)
+春卷(素馅) → spring roll (vegetarian stuffing)
 
-黑芝麻汤圆 → 검은 깨 경단
+黑芝麻汤圆 → black sesame dumplings
 
-过桥米线 → 과교 미선
+过桥米线 → Gwagyo Miseon
 
-蛋糕(均值) → 케이크 (평균)
+蛋糕(均值) → cake (average)
 
-蛋糕(黄蛋糕) → 노란 케이크
+蛋糕(黄蛋糕) → yellow cake
 
-蛋清蛋糕 → 흰자 케이크
+蛋清蛋糕 → egg white cake
 
-宫廷蛋糕 → 궁중 케이크
+宫廷蛋糕 → palace cake
 
-老年蛋糕 → 노년 케이크
+老年蛋糕 → old age cake
 
-奶油蛋糕 → 버터 케이크
+奶油蛋糕 → butter cake
 
-西式蛋糕 → 서양식 케이크
+西式蛋糕 → western style cake
 
-月饼(百寿宴点) → 월병 (백수 연회 과자)
+月饼(百寿宴点) → moon cake (unemployed banquet snacks)
 
-月饼(豆沙) → 월병 (팥소)
+月饼(豆沙) → moon cake (Red bean paste)
 
-月饼(奶油果馅) → 월병 (버터 과일 소)
+月饼(奶油果馅) → moon cake (butter fruit filling)
 
-月饼(奶油松仁) → 월병 (버터 잣 소)
+月饼(奶油松仁) → moon cake (butter pine nut filling)
 
-月饼(唐王赏月) → 월병 (당왕 월상)
+月饼(唐王赏月) → moon cake (Dangwang Wolsang)
 
-月饼(五仁) → 월병 (오인)
+月饼(五仁) → moon cake (misidentification)
 
-月饼(香油果馅) → 월병 (참기름 과일 소)
+月饼(香油果馅) → moon cake (sesame oil fruit filling)
 
-月饼(枣泥) → 월병 (대추 소)
+月饼(枣泥) → moon cake (jujube stuffing)
 
-板油酥饼 → 판기름 바삭 전병
+板油酥饼 → Pan-oil crispy pancakes
 
-蛋黄酥 → 노른자 바삭
+蛋黄酥 → yolk crispy
 
-蛋麻脆 → 계란 참깨 바삭
+蛋麻脆 → Egg Sesame Crispy
 
-德庆酥 → 더칭 바삭
+德庆酥 → Duching crispy
 
-鹅油卷 → 거위 기름 말이
+鹅油卷 → goose fat roll
 
-凤尾酥 → 봉황 꼬리 바삭
+凤尾酥 → phoenix tail crunchy
 
-福来酥 → 푸라이 바삭
+福来酥 → Purai Basak
 
-核桃薄脆 → 호두 박력
+核桃薄脆 → walnut strength
 
-黑麻香酥 → 검은 깨 향 바삭
+黑麻香酥 → Black sesame flavor crunchy
 
-黑洋酥 → 검은 양 바삭
+黑洋酥 → black sheep crispy
 
-混糖糕点 → 혼합 설탕 과자
+混糖糕点 → mixed sugar cookies
 
-鸡腿酥 → 닭다리 바삭
+鸡腿酥 → Crispy chicken legs
 
-夹心酥饼 → 샌드위치 바삭 전병
+夹心酥饼 → Sandwich crispy pancakes
 
-江米条 → 찹쌀 막대
+江米条 → glutinous rice sticks
 
-金钱酥 → 돈전 바삭
+金钱酥 → Donjeon crispy
 
-京式黄酥 → 베이징식 노란 바삭
+京式黄酥 → Beijing style yellow crispy
 
-开口笑 → 웃음
+开口笑 → laughter
 
-廖花糖 → 료화 사탕
+廖花糖 → Ryohwa Candy
 
-绿豆糕 → 녹두떡
+绿豆糕 → mung bean rice cake
 
-麻烘糕 → 마가루 떡
+麻烘糕 → Magaru rice cake
 
-麻花 → 꽈배기
+麻花 → Twisted Twist
 
-麻香糕 → 깨 향 떡
+麻香糕 → Sesame flavored rice cake
 
-米花糖 → 튀긴 쌀 사탕
+米花糖 → fried rice candy
 
-起酥 → 바삭
+起酥 → crispy
 
-水晶饼 → 수정 전병
+水晶饼 → Crystal Jeonbyeong
 
-酥皮糕点 → 바삭 껍질 과자
+酥皮糕点 → crispy crust snacks
 
-桃酥 → 호두 바삭
+桃酥 → Walnuts Crispy
 
-硬皮糕点 → 단단한 껍질 과자
+硬皮糕点 → hard shell cookies
 
-芝麻桃酥 → 참깨 호두 바삭
+芝麻桃酥 → Sesame Walnut Crispy
 
-状元饼 → 장원 전병
+状元饼 → Jangwon Jeonbyeong
 
-茯苓夹饼 → 복령 샌드위치 전병
+茯苓夹饼 → Bokryeong Sandwich Jeonbyeong
 
-蛋糕(巧克力) → 케이크 (초콜릿)
+蛋糕(巧克力) → cake (chocolate)
 
-蛋糕(水果) → 케이크 (과일)
+蛋糕(水果) → cake (fruit)
 
-月饼(蛋黄) → 월병 (노른자)
+月饼(蛋黄) → moon cake (yolk)
 
-月饼(桂花板栗) → 월병 (계화 밤)
+月饼(桂花板栗) → moon cake (osmanthus chestnut)
 
-月饼(奶油莲芸) → 월병 (버터 연밥)
+月饼(奶油莲芸) → moon cake (butter lotus rice)
 
-沙琪玛蛋酥 → 사치마 계란 바삭
+沙琪玛蛋酥 → Sachima Egg Crispy
 
-香橙水果馅饼 → 향 오렌지 과일 파이
+香橙水果馅饼 → Flavored Orange Fruit Pie
 
-上校鸡块(肯德基) → 대령 닭고기 토막 (KFC)
+上校鸡块(肯德基) → Colonel Chicken Piece (KFC)
 
-香辣鸡翅(肯德基) → 매운 닭날개 (KFC)
+香辣鸡翅(肯德基) → spicy chicken wings (KFC)
 
-新奥尔良烤翅(肯德基) → 뉴올리언스 구운 날개 (KFC)
+新奥尔良烤翅(肯德基) → New Orleans Baked Wings (KFC)
 
-劲爆鸡米花(肯德基) → 폭발 닭고기 팝콘 (KFC)
+劲爆鸡米花(肯德基) → exploding chicken popcorn (KFC)
 
-甜玉米籽粒(肯德基) → 단 옥수수 알 (KFC)
+甜玉米籽粒(肯德基) → sweet corn kernels (KFC)
 
-薯条(肯德基) → 감자 튀김 (KFC)
+薯条(肯德基) → french fries (KFC)
 
-比萨饼(夹奶酪) → 피자 (치즈 샌드위치)
+比萨饼(夹奶酪) → pizza (cheese sandwich)
 
-比萨饼(夹奶酪, 肉和蔬菜) → 피자 (치즈, 고기, 채소 샌드위치)
+比萨饼(夹奶酪, 肉和蔬菜) → pizza (cheese, meat, Vegetable Sandwich)
 
-三明治(夹火腿, 干酪) → 샌드위치 (햄, 치즈)
+三明治(夹火腿, 干酪) → sandwich (ham, cheese)
 
-三明治(夹鸡蛋, 干酪) → 샌드위치 (계란, 치즈)
+三明治(夹鸡蛋, 干酪) → sandwich (egg, cheese)
 
-三明治(夹鸡肉片, 无调料酱) → 샌드위치 (닭고기 조각, 소스 없음)
+三明治(夹鸡肉片, 无调料酱) → sandwich (chicken pieces, no source)
 
-三明治(夹烤牛肉片) → 샌드위치 (구운 쇠고기 조각)
+三明治(夹烤牛肉片) → sandwich (grilled beef slices)
 
-三明治(夹鱼肉片) → 샌드위치 (생선살 조각)
+三明治(夹鱼肉片) → sandwich (pieces of fish fillet)
 
-干酪汉堡包(夹熏肉, 加调料酱) → 치즈 햄버거 (훈제 고기 샌드위치, 소스 첨가)
+干酪汉堡包(夹熏肉, 加调料酱) → cheese burger (smoked meat sandwich, Add sauce)
 
-干酪汉堡包(普通型, 夹单层肉饼, 无调料酱) → 치즈 햄버거 (보통형, 단층 고기 패티, 소스 없음)
+干酪汉堡包(普通型, 夹单层肉饼, 无调料酱) → cheese burger (Normal type, single layer meat patty, no source)
 
-干酪汉堡包(普通型, 夹奶酪, 单层肉饼, 加调料酱) → 치즈 햄버거 (보통형, 치즈, 단층 고기 패티, 소스 첨가)
+干酪汉堡包(普通型, 夹奶酪, 单层肉饼, 加调料酱) → cheese burger (Normal type, cheese, single layer meat patty, Add sauce)
 
-干酪汉堡包(普通型, 夹奶酪, 单层肉饼, 加调料酱和蔬菜) → 치즈 햄버거 (보통형, 치즈, 단층 고기 패티, 소스와 채소 첨가)
+干酪汉堡包(普通型, 夹奶酪, 单层肉饼, 加调料酱和蔬菜) → cheese burger (Normal type, cheese, single layer meat patty, Add sauce and vegetables)
 
-干酪汉堡包(普通型, 夹奶酪, 双层肉饼, 双层面包, 加调料酱和蔬菜) → 치즈 햄버거 (보통형, 치즈, 이중 고기 패티, 이중 빵, 소스와 채소 첨가)
+干酪汉堡包(普通型, 夹奶酪, 双层肉饼, 双层面包, 加调料酱和蔬菜) → cheese burger (Normal type, cheese, double meat patty, double bread, Add sauce and vegetables)
 
-汉堡包(普通型, 夹肉饼, 加调料酱和蔬菜) → 햄버거 (보통형, 고기 패티, 소스와 채소 첨가)
+汉堡包(普通型, 夹肉饼, 加调料酱和蔬菜) → hamburger (Normal type, meat patty, Add sauce and vegetables)
 
-热狗(原味) → 핫도그 (원맛)
+热狗(原味) → hot dog (Original taste)
 
-蛋片 → 계란 조각
+蛋片 → egg pieces
 
-麦片 → 보리 가루
+麦片 → barley flour
 
-玉米片(即食粥) → 옥수수 조각 (즉석 죽)
+玉米片(即食粥) → corn flakes (instant porridge)
 
-面包(均值) → 빵 (평균)
+面包(均值) → bread (average)
 
-多维面包 → 다비타민 빵
+多维面包 → multivitamin bread
 
-法式牛角面包 → 프랑스식 크루아상
+法式牛角面包 → French Croissant
 
-法式配餐面包 → 프랑스식 식사 빵
+法式配餐面包 → french meal bread
 
-果料面包 → 과일 빵
+果料面包 → fruit bread
 
-黄油面包 → 버터 빵
+黄油面包 → butter bread
 
-乐斯美面包 → 르스메이 빵
+乐斯美面包 → Ruth May Bread
 
-麦胚面包 → 밀 배아 빵
+麦胚面包 → wheat germ bread
 
-麦维面包 → 밀 비타민 빵
+麦维面包 → wheat vitamin bread
 
-维生素面包 → 비타민 빵
+维生素面包 → vitamin bread
 
-咸面包 → 짠 빵
+咸面包 → salty bread
 
-椰圈面包 → 코코넛 고리 빵
+椰圈面包 → Coconut Ring Bread
 
-桦榕面包 → 화용 빵
+桦榕面包 → Hwayong Bread
 
-饼干(均值) → 과자 (평균)
+饼干(均值) → sweets (average)
 
-VC饼干 → 비타민 C 과자
+VC饼干 → vitamins C sweets
 
-饼干(强化锌)(富锌饼干) → 과자 (아연 강화)
+饼干(强化锌)(富锌饼干) → sweets (zinc reinforcement)
 
-补血饼干 → 조혈 과자
+补血饼干 → hematopoietic snacks
 
-儿童营养饼干 → 어린이 영양 과자
+儿童营养饼干 → children's nutritional snacks
 
-钙奶饼干 → 칼슘 우유 과자
+钙奶饼干 → calcium milk cookies
 
-钙王饼干 → 칼슘 왕 과자
+钙王饼干 → Calcium King Cookies
 
-高蛋白饼干 → 고단백 과자
+高蛋白饼干 → high protein snacks
 
-奶油饼干 → 버터 과자
+奶油饼干 → butter cookies
 
-军用压缩饼干 → 군용 압축 과자
+军用压缩饼干 → military compressed snacks
 
-牛奶饼干 → 우유 과자
+牛奶饼干 → milk cookies
 
-曲奇饼 → 쿠키
+曲奇饼 → cookies
 
-苏打饼干 → 소다 과자
+苏打饼干 → soda snacks
 
-维夫饼干 → 웨하스
+维夫饼干 → Wafers
 
-早餐奶 → 아침 우유
+早餐奶 → morning milk
 
-黑芝麻糊粉 → 검은 깨 죽 가루
+黑芝麻糊粉 → black sesame porridge powder
 
-麦片(原味香奶) → 보리 가루 (원맛 향 우유)
+麦片(原味香奶) → barley flour (Original flavored milk)
 
-燕麦片(果仁, 甜) → 귀리 가루 (견과, 단)
+燕麦片(果仁, 甜) → oat flour (nuts, sweet)
 
-苦荞麦片(无糖) → 쓴 메밀 조각 (무당)
+苦荞麦片(无糖) → bitter buckwheat flakes (shaman)
 
-玉米片 → 옥수수 조각
+玉米片 → corn flakes
 
-玉米片(低钠) → 옥수수 조각 (저나트륨)
+玉米片(低钠) → corn flakes (low sodium)
 
-鸡汁味干脆面(面饼+调味料) → 닭고기 맛 바삭 면 (면+조미료)
+鸡汁味干脆面(面饼+调味料) → Chicken flavored crispy noodles (cotton+seasoning)
 
-海鲜味方便面(面饼+调味料+油料) → 해산물 맛 라면 (면+조미료+기름)
+海鲜味方便面(面饼+调味料+油料) → Seafood flavored ramen (cotton+seasoning+oil)
 
-海鲜味方便面(面饼+调味料) → 해산물 맛 라면 (면+조미료)
+海鲜味方便面(面饼+调味料) → Seafood flavored ramen (cotton+seasoning)
 
-油料(海鲜味方便面) → 기름 (해산물 맛 라면)
+油料(海鲜味方便面) → oil (Seafood flavored ramen)
 
-红烧牛肉方便面(面饼+调味料+蔬菜+肉酱) → 간장조림 쇠고기 라면 (면+조미료+채소+고기 소스)
+红烧牛肉方便面(面饼+调味料+蔬菜+肉酱) → Soy Sauce Stewed Beef Ramen (cotton+seasoning+vegetables+meat sauce)
 
-红烧牛肉方便面(面饼+调味料+蔬菜) → 간장조림 쇠고기 라면 (면+조미료+채소)
+红烧牛肉方便面(面饼+调味料+蔬菜) → Soy Sauce Stewed Beef Ramen (cotton+seasoning+vegetables)
 
-肉酱(红烧牛肉方便面) → 고기 소스 (간장조림 쇠고기 라면)
+肉酱(红烧牛肉方便面) → meat sauce (Soy Sauce Stewed Beef Ramen)
 
-鳕鱼方便面(面饼+调味料+珍料+调味油+蔬菜) → 대구 라면 (면+조미료+진료+조미유+채소)
+鳕鱼方便面(面饼+调味料+珍料+调味油+蔬菜) → Daegu Ramen (cotton+seasoning+medical treatment+seasoned oil+vegetables)
 
-鳕鱼方便面(面饼+调味料+蔬菜) → 대구 라면 (면+조미료+채소)
+鳕鱼方便面(面饼+调味料+蔬菜) → Daegu Ramen (cotton+seasoning+vegetables)
 
-油酱料(珍料+调味油料, 鳕鱼方便面) → 기름 소스 (진료+조미유, 대구 라면)
+油酱料(珍料+调味油料, 鳕鱼方便面) → oil sauce (medical treatment+seasoned oil, Daegu Ramen)
 
-铁板牛肉炒面(面饼+汤料+蔬菜+调味酱) → 철판 쇠고기 볶음면 (면+국물+채소+소스)
+铁板牛肉炒面(面饼+汤料+蔬菜+调味酱) → Teppan Beef Fried Noodles (cotton+soup+vegetables+source)
 
-铁板牛肉炒面(面饼+汤料+蔬菜) → 철판 쇠고기 볶음면 (면+국물+채소)
+铁板牛肉炒面(面饼+汤料+蔬菜) → Teppan Beef Fried Noodles (cotton+soup+vegetables)
 
-调味酱(铁板牛肉炒面) → 소스 (철판 쇠고기 볶음면)
+调味酱(铁板牛肉炒面) → source (Teppan Beef Fried Noodles)
 
-玉米红烧牛肉味方便面(面饼+调味料+蔬菜+肉酱) → 옥수수 간장조림 쇠고기 맛 라면 (면+조미료+채소+고기 소스)
+玉米红烧牛肉味方便面(面饼+调味料+蔬菜+肉酱) → Beef flavored ramen stewed in corn and soy sauce (cotton+seasoning+vegetables+meat sauce)
 
-玉米红烧牛肉味方便面(面饼+调味料+蔬菜) → 옥수수 간장조림 쇠고기 맛 라면 (면+조미료+채소)
+玉米红烧牛肉味方便面(面饼+调味料+蔬菜) → Beef flavored ramen stewed in corn and soy sauce (cotton+seasoning+vegetables)
 
-肉酱(玉米红烧牛肉味方便面) → 고기 소스 (옥수수 간장조림 쇠고기 맛 라면)
+肉酱(玉米红烧牛肉味方便面) → meat sauce (Beef flavored ramen stewed in corn and soy sauce)
 
-海鲜鸡汁味米线(米线+调味料+蔬菜+肉酱) → 해산물 닭고기 맛 쌀국수 (쌀국수+조미료+채소+고기 소스)
+海鲜鸡汁味米线(米线+调味料+蔬菜+肉酱) → Seafood Chicken Flavored Rice Noodles (rice noodles+seasoning+vegetables+meat sauce)
 
-海鲜鸡汁味米线(米线+调味料+蔬菜) → 해산물 닭고기 맛 쌀국수 (쌀국수+조미료+채소)
+海鲜鸡汁味米线(米线+调味料+蔬菜) → Seafood Chicken Flavored Rice Noodles (rice noodles+seasoning+vegetables)
 
-肉酱(海鲜鸡汁味米线) → 고기 소스 (해산물 닭고기 맛 쌀국수)
+肉酱(海鲜鸡汁味米线) → meat sauce (Seafood Chicken Flavored Rice Noodles)
 
-冬菜虾仁馄饨 → 겨울채 새우살 혼돈
+冬菜虾仁馄饨 → Winter Shrimp Meat Confusion
 
-韭菜合子 → 부추 합자
+韭菜合子 → Leek Ligature
 
-糯米饭团 → 찹쌀밥 덩어리
+糯米饭团 → lump of glutinous rice
 
-什锦炒饭 → 잡채 볶음밥
+什锦炒饭 → Japchae Fried Rice
 
-虾仁炒饭 → 새우살 볶음밥
+虾仁炒饭 → Shrimp Meat Fried Rice
 
-面包条(白) → 빵 막대 (흰)
+面包条(白) → bread sticks (white)
 
-葡萄干面包 → 건포도 빵
+葡萄干面包 → Raisin Bread
 
-饼干(三明治) → 과자 (샌드위치)
+饼干(三明治) → sweets (sandwich)
 
-饼干(夹心) → 과자 (샌드위치)
+饼干(夹心) → sweets (sandwich)
 
-饼干(甜酥夹心) → 과자 (단 바삭 샌드위치)
+饼干(甜酥夹心) → sweets (sweet crispy sandwich)
 
-饼干(苏打夹心) → 과자 (소다 샌드위치)
+饼干(苏打夹心) → sweets (soda sandwich)
 
-饼干(咸) → 과자 (짠)
+饼干(咸) → sweets (salty)
 
-曲奇饼(加奶油) → 쿠키 (버터 첨가)
+曲奇饼(加奶油) → cookies (Add butter)
 
-早茶饼 → 아침 차 과자
+早茶饼 → morning tea snacks
 
-饺子(素馅) → 만두 (채식 소)
+饺子(素馅) → dumplings (vegetarian stuffing)
 
-饺子(三鲜馅) → 만두 (삼선 소)
+饺子(三鲜馅) → dumplings (samseon cow)
 
-饺子(猪肉白菜陷) → 만두 (돼지고기 배추 소)
+饺子(猪肉白菜陷) → dumplings (pork cabbage stuffing)
 
-饺子(猪肉韭菜馅) → 만두 (돼지고기 부추 소)
+饺子(猪肉韭菜馅) → dumplings (Pork Chive Stuffing)
 
-饺子(猪肉芹菜陷) → 만두 (돼지고기 셀러리 소)
+饺子(猪肉芹菜陷) → dumplings (Pork Celery Stuffing)
 
-饺子(猪肉茴香馅) → 만두 (돼지고기 회향 소)
+饺子(猪肉茴香馅) → dumplings (Pork and Fennel Stuffing)
 
-饺子(猪肉香菇馅) → 만두 (돼지고기 표고버섯 소)
+饺子(猪肉香菇馅) → dumplings (Pork Shiitake Mushroom Stuffing)
 
-饺子(猪肉虾仁馅) → 만두 (돼지고기 새우살 소)
+饺子(猪肉虾仁馅) → dumplings (pork shrimp beef)
 
-饺子(鸡肉蘑菇馅) → 만두 (닭고기 버섯 소)
+饺子(鸡肉蘑菇馅) → dumplings (Chicken Mushroom Stuffing)
 
-饺子(海鳗猪肉馅) → 만두 (바다 장어 돼지고기 소)
+饺子(海鳗猪肉馅) → dumplings (sea eel pork stuffing)
 
-饺子(海鳗虾仁馅) → 만두 (바다 장어 새우살 소)
+饺子(海鳗虾仁馅) → dumplings (Sea eel shrimp fillet)
 
-包子(三鲜馅) → 찐빵 (삼선 소)
+包子(三鲜馅) → steamed buns (samseon cow)
 
-包子(猪肉馅) → 찐빵 (돼지고기 소)
+包子(猪肉馅) → steamed buns (pork beef)
 
-菠萝豆 → 파인애플 콩
+菠萝豆 → pineapple beans
 
-空心果 → 빈 과일
+空心果 → empty fruit
 
-马铃薯片(油炸)(油炸土豆片) → 감자 조각 (튀긴, 튀긴 감자 조각)
+马铃薯片(油炸)(油炸土豆片) → potato slices (fried, fried potato slices)
 
-酥香兰花豆 → 바삭 향 난화콩
+酥香兰花豆 → Crispy fragrant naanhwa beans
 
-米饼(鸡蛋牛奶味) → 쌀 전병 (계란 우유 맛)
+米饼(鸡蛋牛奶味) → rice pancake (egg milk flavor)
 
-雪米饼 → 눈 쌀 전병
+雪米饼 → snow rice pancake
 
-蛋酥卷 → 계란 바삭 말이
+蛋酥卷 → Egg crispy
 
-巧克力派 → 초콜릿 파이
+巧克力派 → chocolate pie
 
-法式卷饼 → 프랑스식 말이 전병
+法式卷饼 → French horse pancake
 
-立体脆 → 입체 바삭
+立体脆 → three dimensional crispy
 
-粟米脆 → 조 바삭
+粟米脆 → Joe Bassic
 
-通心脆 → 마카로니 바삭
+通心脆 → Macaroni Crispy
 
-洋葱圈 → 양파 고리
+洋葱圈 → onion rings
 
-虾片 → 새우 조각
+虾片 → shrimp slices
 
-锅巴(豆香) → 누룽지 (콩 향)
+锅巴(豆香) → Nurungji (bean flavor)
 
-锅巴(小米) → 누룽지 (조)
+锅巴(小米) → Nurungji (Joe)
 
-香菇片 → 표고버섯 조각
+香菇片 → shiitake mushroom pieces
 
-薯片(烧烤味) → 감자 조각 (구이 맛)
+薯片(烧烤味) → potato slices (grilled taste)
 
-薯片(香辣味) → 감자 조각 (향 매운 맛)
+薯片(香辣味) → potato slices (incense spicy taste)
 
-薯圈 → 감자 고리
+薯圈 → potato rings
 
-怪味胡豆 → 이상한 맛 후두
+怪味胡豆 → strange taste larynx
 
-奶油五香豆 → 버터 오향 콩
+奶油五香豆 → butter five spice beans
 
-夹心米果 → 샌드위치 쌀 과자
+夹心米果 → Sandwich Rice Cookies
 
-乐芙球 → 러푸 공
+乐芙球 → lufu ball
 
-玉米花 → 옥수수 꽃
+玉米花 → corn flower
 
-果仁脆枣 → 견과 바삭 대추
+果仁脆枣 → nut crunchy jujube
 
-空心脆枣 → 빈 바삭 대추
+空心脆枣 → empty crispy jujube
 
-鱼肉粒 → 생선살 알갱이
+鱼肉粒 → fish fillet
 
-果冻(草莓水果冻) → 젤리 (딸기 과일 젤리)
+果冻(草莓水果冻) → jelly (strawberry fruit jelly)
 
-果冻(蒟蒻冻) → 젤리 (곤약 젤리)
+果冻(蒟蒻冻) → jelly (Konjac Jelly)
 
-果冻(蒟蒻椰果冻) → 젤리 (곤약 코코넛 젤리)
+果冻(蒟蒻椰果冻) → jelly (Konjac Coconut Jelly)
 
-果冻(AD钙果冻) → 젤리 (AD 칼슘 젤리)
+果冻(AD钙果冻) → jelly (AD calcium jelly)
 
-可口可乐 → 코카콜라
+可口可乐 → coca cola
 
-橙汁汽水 → 오렌지 주스 탄산음료
+橙汁汽水 → orange juice soda
 
-柠檬汽水 → 레몬 탄산음료
+柠檬汽水 → lemon soda
 
-VC橘汁 → 비타민 C 귤 주스
+VC橘汁 → vitamins C tangerine juice
 
-浓缩橘汁 → 농축 귤 주스
+浓缩橘汁 → Concentrated Tangerine Juice
 
-橘子汁 → 귤 주스
+橘子汁 → tangerine juice
 
-红果汁 → 붉은 과일 주스
+红果汁 → red fruit juice
 
-柠檬汁 → 레몬 주스
+柠檬汁 → lemon juice
 
-沙棘果汁 → 바다 갈매나무 열매 주스
+沙棘果汁 → sea buckthorn fruit juice
 
-乌梅汁 → 검은 매실 주스
+乌梅汁 → black plum juice
 
-原汁沙棘 → 원액 바다 갈매나무
+原汁沙棘 → Undiluted sea buckthorn
 
-苹果果肉饮料 → 사과 과육 음료
+苹果果肉饮料 → apple pulp drink
 
-芒果汁饮料 → 망고 주스 음료
+芒果汁饮料 → mango juice drink
 
-沙棘果浆 → 바다 갈매나무 과육
+沙棘果浆 → sea buckthorn pulp
 
-山楂果肉饮料 → 산사 과육 음료
+山楂果肉饮料 → hawthorn pulp drink
 
-酸枣果汁饮料 → 신 대추 주스 음료
+酸枣果汁饮料 → sour jujube juice drink
 
-西番莲汁饮料 → 시계꽃 주스 음료
+西番莲汁饮料 → Passionflower Juice Drink
 
-西柚汁饮料 → 자몽 주스 음료
+西柚汁饮料 → grapefruit juice drink
 
-椰子汁饮料 → 코코넛 주스 음료
+椰子汁饮料 → coconut juice drink
 
-杏仁椰汁饮料 → 살구씨 코코넛 주스 음료
+杏仁椰汁饮料 → Apricot seed coconut juice drink
 
-胡萝卜汁饮料 → 당근 주스 음료
+胡萝卜汁饮料 → carrot juice drink
 
-果味奶 → 과일 맛 우유
+果味奶 → fruit flavored milk
 
-AD钙奶 → AD 칼슘 우유
+AD钙奶 → AD calcium milk
 
-酸乳饮料 → 요구르트 음료
+酸乳饮料 → yogurt drink
 
-酸乳饮料(发酵) → 요구르트 음료 (발효)
+酸乳饮料(发酵) → yogurt drink (fermentation)
 
-巧克力豆奶 → 초콜릿 콩 우유
+巧克力豆奶 → chocolate soy milk
 
-杏仁露 → 살구씨 로션
+杏仁露 → Apricot seed lotion
 
-茶砖(砖茶) → 차 전 (벽돌차)
+茶砖(砖茶) → Before tea (brick car)
 
-茶砖(小) → 차 전 (작은)
+茶砖(小) → Before tea (small)
 
-红茶 → 홍차
+红茶 → black tea
 
-花茶 → 화차
+花茶 → freight car
 
-甲级龙井 → 갑급 용정
+甲级龙井 → A-level dragon
 
-绿茶 → 녹차
+绿茶 → green tea
 
-石榴花茶 → 석류꽃 차
+石榴花茶 → pomegranate flower tea
 
-铁观音茶 → 철관음 차
+铁观音茶 → Tie Guanyin Tea
 
-珠茶 → 구슬 차
+珠茶 → bead tea
 
-大麦茶 → 보리차
+大麦茶 → barley tea
 
-大麦茶水 → 보리차 물
+大麦茶水 → barley tea water
 
-葡萄酒(均值) → 포도주 (평균)
+葡萄酒(均值) → wine (average)
 
-啤酒(均值) → 맥주 (평균)
+啤酒(均值) → beer (average)
 
-白葡萄酒 → 백포도주
+白葡萄酒 → white wine
 
-红葡萄酒 → 적포도주
+红葡萄酒 → red wine
 
-黄酒 → 황주
+黄酒 → Hwangju
 
-江米酒 → 찹쌀 술
+江米酒 → glutinous rice alcohol
 
-茅台酒(53%) → 마오타이주 (53%)
+茅台酒(53%) → Maotai Province (53%)
 
-五粮液(52%) → 우량예 (52%)
+五粮液(52%) → Excellent example (52%)
 
-伏特加 → 보드카
+伏特加 → vodka
 
-威士忌 → 위스키
+威士忌 → whiskey
 
-二锅头(58度) → 얼궈터우 (58도)
+二锅头(58度) → Erguotou (58degrees)
 
-古井贡酒(浓香型, 38%) → 구징궁주 (농향형, 38%)
+古井贡酒(浓香型, 38%) → Gujing Palace Lord (Thick scent type, 38%)
 
-汾酒(清香型, 53%) → 펀주 (청향형, 53%)
+汾酒(清香型, 53%) → funju (Fresh type, 53%)
 
-剑南春(浓香型, 38%) → 젠난춘 (농향형, 38%)
+剑南春(浓香型, 38%) → jiannanchun (Thick scent type, 38%)
 
-蜜酒 → 꿀 술
+蜜酒 → mead
 
-苹果酒(干型) → 사과주 (드라이)
+苹果酒(干型) → cider (dry)
 
-苹果酒(甜) → 사과주 (단)
+苹果酒(甜) → cider (sweet)
 
-鸡尾酒 → 칵테일
+鸡尾酒 → cocktail
 
-果汁朗姆酒(9.9%) → 과일 주스 럼주 (9.9%)
+果汁朗姆酒(9.9%) → fruit juice rum (9.9%)
 
-曼哈顿酒(30.6%) → 맨해튼 (30.6%)
+曼哈顿酒(30.6%) → manhattan (30.6%)
 
-酸味威士忌(16.8%) → 신맛 위스키 (16.8%)
+酸味威士忌(16.8%) → sour whiskey (16.8%)
 
-麦芽糖 → 엿
+麦芽糖 → fucked
 
-花生牛轧糖 → 땅콩 누가
+花生牛轧糖 → peanut nougat
 
-胶姆糖 → 껌
+胶姆糖 → gum
 
-马蹄软糖 → 마름 연질 사탕
+马蹄软糖 → water chestnut soft candy
 
-棉花糖 → 솜사탕
+棉花糖 → cotton candy
 
-奶糖 → 우유 사탕
+奶糖 → milk candy
 
-泡泡糖 → 풍선껌
+泡泡糖 → bubble gum
 
-巧克力(酒芯) → 초콜릿 (술 중심)
+巧克力(酒芯) → chocolate (liquor center)
 
-巧克力(维夫)(朱古力威化) → 초콜릿 (웨하스)
+巧克力(维夫)(朱古力威化) → chocolate (Wafers)
 
-山楂球 → 산사 공
+山楂球 → mountain lion
 
-什锦糖果 → 잡채 사탕
+什锦糖果 → Japchae candy
 
-水晶糖 → 수정 사탕
+水晶糖 → crystal candy
 
-酥糖 → 바삭 사탕
+酥糖 → crunchy candy
 
-酸三色糖 → 신 삼색 사탕
+酸三色糖 → sour tricolor candy
 
-鲜桃果汁糖 → 신선한 복숭아 과일 주스 사탕
+鲜桃果汁糖 → fresh peach fruit juice candy
 
-芝麻南糖 → 참깨 남당
+芝麻南糖 → Sesame Namdang
 
-夹心糖 → 샌드위치 사탕
+夹心糖 → sandwich candy
 
-水果味软糖 → 과일 맛 연질 사탕
+水果味软糖 → fruit flavored soft candy
 
-牛奶糖 → 우유 사탕
+牛奶糖 → milk candy
 
-酸奶软糖 → 요구르트 연질 사탕
+酸奶软糖 → yogurt soft candy
 
-太妃糖 → 토피
+太妃糖 → toffee
 
-花生芝麻糖 → 땅콩 참깨 사탕
+花生芝麻糖 → Peanut Sesame Candy
 
-四味粽子糖 → 네 맛 경단 사탕
+四味粽子糖 → four flavor dumpling candy
 
-巧克力(充气) → 초콜릿 (기포)
+巧克力(充气) → chocolate (air bubbles)
 
-巧克力(果仁) → 초콜릿 (견과)
+巧克力(果仁) → chocolate (nuts)
 
-巧克力(黑) → 초콜릿 (검은)
+巧克力(黑) → chocolate (black)
 
-巧克力(牛奶) → 초콜릿 (우유)
+巧克力(牛奶) → chocolate (milk)
 
-海棠脯 → 해당화포
+海棠脯 → The artillery
 
-李广杏脯 → 리광 살구포
+李广杏脯 → Li Guang Apricot
 
-南瓜果脯 → 호박 과일포
+南瓜果脯 → pumpkin fruit wrap
 
-苹果脯 → 사과포
+苹果脯 → apple wrap
 
-青梅果脯 → 푸른 매실포
+青梅果脯 → blue plum blossoms
 
-西瓜脯 → 수박포
+西瓜脯 → watermelon wrap
 
-杏脯 → 살구포
+杏脯 → Apricot wrap
 
-金糕 → 금 떡
+金糕 → gold rice cake
 
-金糕条(山楂条) → 금 떡 막대 (산사 막대)
+金糕条(山楂条) → gold bread stick (hawthorn rod)
 
-山楂果丹皮 → 산사 과일 껍질
+山楂果丹皮 → hawthorn fruit peel
 
-冰糖酸角 → 정제 설탕 신 각
+冰糖酸角 → refined sugar
 
-甘草杏 → 감초 살구
+甘草杏 → licorice apricot
 
-清凉杏肉 → 시원한 살구 살
+清凉杏肉 → cool apricot flesh
 
-雪梅 → 눈 매화
+雪梅 → snow plum blossom
 
-九制梅肉 → 구제 매실 살
+九制梅肉 → salvaged plum flesh
 
-九制应子 → 구제 잉자
+九制应子 → relief
 
-梅脯 → 매실포
+梅脯 → Plum wrap
 
-阿胶枣 → 아교 대추
+阿胶枣 → glue jujube
 
-黑贡枣 → 검은 공물 대추
+黑贡枣 → black tribute jujube
 
-野酸枣 → 야생 신 대추
+野酸枣 → wild sour jujube
 
-多味山楂 → 여러 맛 산사
+多味山楂 → Multi-flavored mountain temple
 
-山楂脯 → 산사포
+山楂脯 → mountain sandpaper
 
-地瓜干 → 고구마 말랭이
+地瓜干 → dried sweet potato
 
-九制西梅 → 구제 서양자두
+九制西梅 → salvaged plums

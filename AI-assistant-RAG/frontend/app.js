@@ -1,4 +1,4 @@
-const form = document.querySelector("#chatForm");
+﻿const form = document.querySelector("#chatForm");
 const input = document.querySelector("#questionInput");
 const messages = document.querySelector("#messages");
 const statusText = document.querySelector("#statusText");
@@ -9,10 +9,10 @@ async function checkHealth() {
     const response = await fetch("/api/health");
     const data = await response.json();
     statusText.textContent = data.ready
-      ? `벡토르자료기지 준비됨. ${data.chunks}개 청크 색인.`
-      : "벡토르자료기지가 준비되지 않았습니다. 색인 스크립트를 실행하세요.";
+      ? `Vector data base is ready. ${data.chunks}dog chunk index.`
+      : "Vector data base is not ready. Run the index script.";
   } catch {
-    statusText.textContent = "백엔드에 접속할 수 없습니다.";
+    statusText.textContent = "Unable to connect to backend.";
   }
 }
 
@@ -72,12 +72,12 @@ async function ask(question) {
     });
     const data = await response.json();
     if (!response.ok) {
-      addMessage("assistant", data.error || "요청이 실패했습니다.");
+      addMessage("assistant", data.error || "request failed.");
       return;
     }
     addMessage("assistant", data.answer, data.sources || []);
   } catch {
-    addMessage("assistant", "백엔드에 접속할 수 없습니다.");
+    addMessage("assistant", "Unable to connect to backend.");
   } finally {
     input.disabled = false;
     form.querySelector("button").disabled = false;

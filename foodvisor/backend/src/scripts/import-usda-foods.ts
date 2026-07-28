@@ -1,4 +1,4 @@
-import "dotenv/config";
+﻿import "dotenv/config";
 import { mkdir, readFile, writeFile } from "fs/promises";
 import path from "path";
 import { connectDatabase } from "../db.js";
@@ -240,11 +240,11 @@ function normalizeFood(food: FdcFood) {
     cholesterolMg: cholesterol,
     sugar,
     glycemicIndex,
-    oiliness: fat >= 20 ? "매우 높음" : fat >= 10 ? "높음" : fat >= 3 ? "보통" : "낮음",
+    oiliness: fat >= 20 ? "very high" : fat >= 10 ? "high" : fat >= 3 ? "Normal" : "low",
     oilinessScore: fat >= 20 ? 5 : fat >= 10 ? 4 : fat >= 3 ? 2 : 0,
     vitamins: { vitaminA, vitaminB1, vitaminB2, vitaminB3, vitaminB6, vitaminB12, vitaminC, vitaminD, vitaminE, vitaminK, folate },
     minerals: { calcium, iron, magnesium, potassium, sodium, zinc },
-    bestTimeToEat: protein >= 15 ? ["점심", "저녁", "운동 후"] : carbs >= 20 ? ["아침", "점심", "운동 전"] : ["간식"],
+    bestTimeToEat: protein >= 15 ? ["lunch", "dinner", "After exercise"] : carbs >= 20 ? ["morning", "lunch", "before exercise"] : ["snack"],
     goodPairings: [],
     avoidPairings: sodium > 400 ? ["extra salt"] : [],
     cautionGroups: allergens(food).map((item) => `${item} allergy`),

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { BadgeCheck, ClipboardCheck, Pencil, Plus, RefreshCw, Search, ShieldAlert, Target, Users, X } from "lucide-react";
 import { FormEvent, useEffect, useMemo, useState } from "react";
@@ -49,14 +49,14 @@ type NutrientSummary = {
 };
 
 const referenceLabels: Record<string, string> = {
-  EER: "에네르기 필요량",
-  EAR: "평균필요량",
-  RNI: "권장섭취량",
-  AI: "충분섭취량",
-  UL: "상한섭취량",
-  AMDR: "에네르기비률",
-  PI: "예방섭취량",
-  SPL: "특정제한량"
+  EER: "energy needs",
+  EAR: "Average Requirement",
+  RNI: "Recommended intake amount",
+  AI: "Sufficient intake amount",
+  UL: "upper intake limit",
+  AMDR: "Energy ratio",
+  PI: "Preventive intake amount",
+  SPL: "Specific limit amount"
 };
 
 const referenceTone: Record<string, string> = {
@@ -69,62 +69,62 @@ const referenceTone: Record<string, string> = {
 };
 
 const populationLabels: Record<string, string> = {
-  general: "일반",
-  infant: "젖먹이",
-  child: "어린이",
-  adolescent: "청소년",
-  adult: "성인",
-  senior: "로인",
-  pregnant: "임신부",
-  lactating: "젖먹이는 녀성"
+  general: "general",
+  infant: "breastfeeding",
+  child: "children",
+  adolescent: "youth",
+  adult: "adult",
+  senior: "Loin",
+  pregnant: "pregnant woman",
+  lactating: "breastfeeding woman"
 };
 
 const genderLabels: Record<string, string> = {
-  all: "전체",
-  male: "남성",
-  female: "녀성"
+  all: "all",
+  male: "male",
+  female: "woman"
 };
 
 const lifeStageLabels: Record<string, string> = {
-  general: "일반",
-  pregnant: "임신",
-  lactating: "수유"
+  general: "general",
+  pregnant: "pregnancy",
+  lactating: "lactation"
 };
 
 const nutrientKoLabels: Record<string, string> = {
-  biotin: "비오틴",
-  calcium: "칼시움",
-  carbs: "탄수화물",
-  chloride: "염소",
-  choline: "콜린",
-  chromium: "크롬",
-  copper: "동",
-  energyKcal: "에네르기",
-  fat: "지방",
-  folate: "엽산",
-  iodine: "요드",
-  iron: "철분",
-  magnesium: "마그네시움",
-  molybdenum: "몰리브덴",
-  niacin: "나이아신",
-  niacinamide: "나이아신아미드",
-  pantothenicAcid: "판토텐산",
-  potassium: "칼리움",
-  protein: "단백질",
-  selenium: "셀렌",
-  sodium: "나트리움",
-  vitaminA: "비타민 A",
-  vitaminB1: "비타민 B1",
-  vitaminB2: "비타민 B2",
-  vitaminB6: "비타민 B6",
-  vitaminB12: "비타민 B12",
-  vitaminC: "비타민 C",
-  vitaminD: "비타민 D",
-  vitaminE: "비타민 E",
-  vitaminK: "비타민 K",
-  zinc: "아연",
-  n3PolyunsaturatedFattyAcid: "n-3 다가불포화지방산",
-  n6PolyunsaturatedFattyAcid: "n-6 다가불포화지방산"
+  biotin: "biotin",
+  calcium: "Calcium",
+  carbs: "carbohydrates",
+  chloride: "goat",
+  choline: "Colin",
+  chromium: "chrome",
+  copper: "Dong",
+  energyKcal: "energy",
+  fat: "fat",
+  folate: "folic acid",
+  iodine: "Yod",
+  iron: "iron",
+  magnesium: "Magnesium",
+  molybdenum: "molybdenum",
+  niacin: "niacin",
+  niacinamide: "Niacinamide",
+  pantothenicAcid: "pantothenic acid",
+  potassium: "Calium",
+  protein: "protein",
+  selenium: "selenium",
+  sodium: "Sodium",
+  vitaminA: "vitamins A",
+  vitaminB1: "vitamins B1",
+  vitaminB2: "vitamins B2",
+  vitaminB6: "vitamins B6",
+  vitaminB12: "vitamins B12",
+  vitaminC: "vitamins C",
+  vitaminD: "vitamins D",
+  vitaminE: "vitamins E",
+  vitaminK: "vitamins K",
+  zinc: "zinc",
+  n3PolyunsaturatedFattyAcid: "n-3 Polyunsaturated fatty acids",
+  n6PolyunsaturatedFattyAcid: "n-6 Polyunsaturated fatty acids"
 };
 
 const defaultSource = "Chinese Dietary Reference Intakes WST578";
@@ -149,11 +149,11 @@ function valueText(rule: NutrientRule) {
 }
 
 function ageText(rule: NutrientRule) {
-  if (rule.ageGroup) return rule.ageGroup.replace("～", "세부터");
-  if (rule.ageMin != null && rule.ageMax != null) return `${rule.ageMin}-${rule.ageMax}세`;
-  if (rule.ageMin != null) return `${rule.ageMin}세부터`;
-  if (rule.ageMax != null) return `${rule.ageMax}세까지`;
-  return "전체";
+  if (rule.ageGroup) return rule.ageGroup.replace("～", "From three years old");
+  if (rule.ageMin != null && rule.ageMax != null) return `${rule.ageMin}-${rule.ageMax}three`;
+  if (rule.ageMin != null) return `${rule.ageMin}From three years old`;
+  if (rule.ageMax != null) return `${rule.ageMax}up to three`;
+  return "all";
 }
 
 function splitTags(value: FormDataEntryValue | null) {
@@ -214,7 +214,7 @@ function uniqueOptions(items: NutrientRule[], key: keyof NutrientRule) {
 }
 
 function nutrientDisplayName(item?: Pick<NutrientSummary, "key" | "label">) {
-  if (!item) return "영양소를 선택하십시오";
+  if (!item) return "Choose your nutrients";
   return nutrientKoLabels[item.key] ?? item.label;
 }
 
@@ -250,7 +250,7 @@ export default function NutrientIntakeRulesManager({ embedded = false }: Nutrien
       setItems(all);
       setSelectedNutrient((current) => current || (all.find((item) => item.nutrientKey === "energyKcal")?.nutrientKey ?? all[0]?.nutrientKey ?? ""));
     } catch (err) {
-      setError(err instanceof Error ? err.message : "영양섭취기준을 불러오지 못했습니다.");
+      setError(err instanceof Error ? err.message : "Failed to load nutritional intake guidelines.");
     } finally {
       setLoading(false);
     }
@@ -338,7 +338,7 @@ export default function NutrientIntakeRulesManager({ embedded = false }: Nutrien
       await load();
       setSelectedNutrient(nutrientKey);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "영양섭취기준 저장에 실패했습니다.");
+      setError(err instanceof Error ? err.message : "Failed to save nutritional intake guidelines.");
     } finally {
       setSaving(false);
     }
@@ -348,12 +348,12 @@ export default function NutrientIntakeRulesManager({ embedded = false }: Nutrien
     <section className={embedded ? "nutrient-rules-page is-embedded" : "page nutrient-rules-page"}>
       {embedded ? null : (
         <PageHeader
-          title="영양소 섭취기준"
-          subtitle="나이, 성별, 임신/수유, 활동수준에 따르는 에네르기와 영양소 기준을 한눈에 봅니다."
+          title="Nutrient intake standards"
+          subtitle="age, gender, pregnancy/lactation, View energy and nutrient standards at a glance according to your activity level.."
           action={(
             <div className="nutrient-actions">
-              <button className="primary" type="button" onClick={() => setEditing(blankRule(selectedNutrient, summaries))}><Plus size={16} /> 새 기준</button>
-              <button type="button" onClick={load} aria-label="새로고침"><RefreshCw size={16} /></button>
+              <button className="primary" type="button" onClick={() => setEditing(blankRule(selectedNutrient, summaries))}><Plus size={16} /> new standards</button>
+              <button type="button" onClick={load} aria-label="refresh"><RefreshCw size={16} /></button>
             </div>
           )}
         />
@@ -362,21 +362,21 @@ export default function NutrientIntakeRulesManager({ embedded = false }: Nutrien
       {embedded ? (
         <div className="nutrient-embedded-head">
           <div>
-            <p>WST578 기준표</p>
-            <h2>나이와 성별에 따르는 영양소 섭취기준</h2>
+            <p>WST578 rubric</p>
+            <h2>Nutrient intake standards according to age and gender</h2>
           </div>
           <div className="nutrient-actions">
-            <button className="primary" type="button" onClick={() => setEditing(blankRule(selectedNutrient, summaries))}><Plus size={16} /> 새 기준</button>
-            <button type="button" onClick={load} aria-label="새로고침"><RefreshCw size={16} /></button>
+            <button className="primary" type="button" onClick={() => setEditing(blankRule(selectedNutrient, summaries))}><Plus size={16} /> new standards</button>
+            <button type="button" onClick={load} aria-label="refresh"><RefreshCw size={16} /></button>
           </div>
         </div>
       ) : null}
 
       <section className="nutrient-summary-strip">
-        <div><ClipboardCheck size={18} /><strong>{items.length}</strong><span>전체 기준</span></div>
-        <div><Target size={18} /><strong>{summaries.length}</strong><span>영양소</span></div>
-        <div><BadgeCheck size={18} /><strong>{verifiedCount}</strong><span>검증됨</span></div>
-        <div><Users size={18} /><strong>{selectedSummary?.count ?? 0}</strong><span>선택 영양소</span></div>
+        <div><ClipboardCheck size={18} /><strong>{items.length}</strong><span>overall criteria</span></div>
+        <div><Target size={18} /><strong>{summaries.length}</strong><span>nutrients</span></div>
+        <div><BadgeCheck size={18} /><strong>{verifiedCount}</strong><span>Verified</span></div>
+        <div><Users size={18} /><strong>{selectedSummary?.count ?? 0}</strong><span>select nutrients</span></div>
       </section>
 
       {error ? <p className="error">{error}</p> : null}
@@ -385,14 +385,14 @@ export default function NutrientIntakeRulesManager({ embedded = false }: Nutrien
         <aside className="nutrient-sidebar-panel">
           <div className="nutrient-sidebar-title">
             <div>
-              <p>영양소 목록</p>
-              <strong>{nutrientOptions.length}개</strong>
+              <p>Nutrients List</p>
+              <strong>{nutrientOptions.length}dog</strong>
             </div>
             <span>{loading ? "..." : `${summaries.length}`}</span>
           </div>
           <label className="search-field">
             <Search size={16} />
-            <input value={nutrientQuery} onChange={(event) => setNutrientQuery(event.target.value)} placeholder="영양소 검색" />
+            <input value={nutrientQuery} onChange={(event) => setNutrientQuery(event.target.value)} placeholder="Nutrient Search" />
           </label>
           <div className="nutrient-list">
             {nutrientOptions.map((item) => (
@@ -418,7 +418,7 @@ export default function NutrientIntakeRulesManager({ embedded = false }: Nutrien
                 </div>
               </button>
             ))}
-            {!nutrientOptions.length ? <p className="nutrient-list-empty">검색된 영양소가 없습니다.</p> : null}
+            {!nutrientOptions.length ? <p className="nutrient-list-empty">No nutrients found.</p> : null}
           </div>
         </aside>
 
@@ -428,24 +428,24 @@ export default function NutrientIntakeRulesManager({ embedded = false }: Nutrien
               <p>{selectedSummary?.key ?? "nutrient"}</p>
               <h2>{nutrientDisplayName(selectedSummary)}</h2>
             </div>
-            <span>{loading ? "불러오는 중..." : `${selectedItems.length}개 기준 표시`}</span>
+            <span>{loading ? "Loading..." : `${selectedItems.length}dog standard display`}</span>
           </div>
 
           <div className="nutrient-filter-row">
-            <select value={referenceType} onChange={(event) => setReferenceType(event.target.value)} aria-label="기준종류">
-              <option value="">모든 기준종류</option>
+            <select value={referenceType} onChange={(event) => setReferenceType(event.target.value)} aria-label="Standard type">
+              <option value="">All standard types</option>
               {referenceOptions.map((value) => <option key={value} value={value}>{referenceLabels[value] ?? value}</option>)}
             </select>
-            <select value={populationGroup} onChange={(event) => setPopulationGroup(event.target.value)} aria-label="대상">
-              <option value="">모든 대상</option>
+            <select value={populationGroup} onChange={(event) => setPopulationGroup(event.target.value)} aria-label="target">
+              <option value="">all targets</option>
               {populationOptions.map((value) => <option key={value} value={value}>{populationLabels[value] ?? value}</option>)}
             </select>
-            <select value={gender} onChange={(event) => setGender(event.target.value)} aria-label="성별">
-              <option value="">모든 성별</option>
+            <select value={gender} onChange={(event) => setGender(event.target.value)} aria-label="gender">
+              <option value="">all genders</option>
               {genderOptions.map((value) => <option key={value} value={value}>{genderLabels[value] ?? value}</option>)}
             </select>
-            <select value={lifeStage} onChange={(event) => setLifeStage(event.target.value)} aria-label="생리단계">
-              <option value="">모든 단계</option>
+            <select value={lifeStage} onChange={(event) => setLifeStage(event.target.value)} aria-label="menstrual stage">
+              <option value="">every step</option>
               {lifeStageOptions.map((value) => <option key={value} value={value}>{lifeStageLabels[value] ?? value}</option>)}
             </select>
           </div>
@@ -458,31 +458,31 @@ export default function NutrientIntakeRulesManager({ embedded = false }: Nutrien
                     <p>{type}</p>
                     <h3>{referenceLabels[type] ?? type}</h3>
                   </div>
-                  <span>{rules.length}개</span>
+                  <span>{rules.length}dog</span>
                 </header>
                 <div className="nutrient-rule-table-wrap">
                   <table className="nutrient-rule-table">
                     <thead>
                       <tr>
-                        <th>나이</th>
-                        <th>대상</th>
-                        <th>성별</th>
-                        <th>단계/활동</th>
-                        <th>기준값</th>
-                        <th>상태</th>
-                        <th>편집</th>
+                        <th>age</th>
+                        <th>target</th>
+                        <th>gender</th>
+                        <th>step/activity</th>
+                        <th>reference value</th>
+                        <th>status</th>
+                        <th>edit</th>
                       </tr>
                     </thead>
                     <tbody>
                       {rules.map((rule) => (
                         <tr key={rule._id ?? rule.ruleKey}>
                           <td>{ageText(rule)}</td>
-                          <td>{populationLabels[rule.populationGroup ?? ""] ?? rule.populationGroup ?? "일반"}</td>
+                          <td>{populationLabels[rule.populationGroup ?? ""] ?? rule.populationGroup ?? "general"}</td>
                           <td>{genderLabels[rule.gender ?? "all"] ?? rule.gender}</td>
                           <td>{lifeStageLabels[rule.lifeStage ?? "general"] ?? rule.lifeStage}{rule.physicalActivityLevel ? ` · ${rule.physicalActivityLevel}` : ""}</td>
                           <td><strong>{valueText(rule)}</strong></td>
-                          <td>{rule.doctor_verified ? <span className="badge ok"><BadgeCheck size={14} /> 검증</span> : <span className="badge"><ShieldAlert size={14} /> 확인필요</span>}</td>
-                          <td><button type="button" className="nutrient-edit-button" onClick={() => setEditing(rule)} aria-label="섭취기준 수정"><Pencil size={14} /> 수정</button></td>
+                          <td>{rule.doctor_verified ? <span className="badge ok"><BadgeCheck size={14} /> verification</span> : <span className="badge"><ShieldAlert size={14} /> Confirmation required</span>}</td>
+                          <td><button type="button" className="nutrient-edit-button" onClick={() => setEditing(rule)} aria-label="Modification of intake standards"><Pencil size={14} /> Edit</button></td>
                         </tr>
                       ))}
                     </tbody>
@@ -491,7 +491,7 @@ export default function NutrientIntakeRulesManager({ embedded = false }: Nutrien
               </article>
             ))}
 
-            {!loading && !grouped.length ? <p className="empty-row">조건에 맞는 영양섭취기준이 없습니다.</p> : null}
+            {!loading && !grouped.length ? <p className="empty-row">There are no nutritional intake standards suitable for the conditions..</p> : null}
           </div>
         </section>
       </section>
@@ -500,50 +500,50 @@ export default function NutrientIntakeRulesManager({ embedded = false }: Nutrien
         <Modal onClose={() => setEditing(null)}>
           <form className="editor nutrient-editor" onSubmit={submit}>
             <div className="modal-head">
-              <h2>{editing._id ? "섭취기준 수정" : "새 섭취기준 추가"}</h2>
-              <button type="button" onClick={() => setEditing(null)} aria-label="닫기"><X size={16} /></button>
+              <h2>{editing._id ? "Modification of intake standards" : "Addition of new intake standards"}</h2>
+              <button type="button" onClick={() => setEditing(null)} aria-label="close"><X size={16} /></button>
             </div>
             <div className="editor-grid">
-              <label>규칙 key<input name="ruleKey" defaultValue={editing.ruleKey ?? ""} placeholder="비우면 자동 생성" /></label>
-              <label>표준코드<input name="standardCode" defaultValue={editing.standardCode ?? "WST578"} required /></label>
-              <label>영양소 key<input name="nutrientKey" defaultValue={editing.nutrientKey ?? ""} required /></label>
-              <label>영양소 이름<input name="nutrientLabel" defaultValue={editing.nutrientLabel ?? ""} required /></label>
-              <label>기준종류<input name="referenceType" defaultValue={editing.referenceType ?? "RNI"} required /></label>
-              <label>단위<input name="unit" defaultValue={editing.unit ?? ""} required /></label>
-              <label>원자료값<input name="rawValue" defaultValue={editing.rawValue ?? ""} required /></label>
-              <label>비교식
+              <label>rules key<input name="ruleKey" defaultValue={editing.ruleKey ?? ""} placeholder="Automatically generated when empty" /></label>
+              <label>standard code<input name="standardCode" defaultValue={editing.standardCode ?? "WST578"} required /></label>
+              <label>nutrients key<input name="nutrientKey" defaultValue={editing.nutrientKey ?? ""} required /></label>
+              <label>nutrient name<input name="nutrientLabel" defaultValue={editing.nutrientLabel ?? ""} required /></label>
+              <label>Standard type<input name="referenceType" defaultValue={editing.referenceType ?? "RNI"} required /></label>
+              <label>unit<input name="unit" defaultValue={editing.unit ?? ""} required /></label>
+              <label>Raw data value<input name="rawValue" defaultValue={editing.rawValue ?? ""} required /></label>
+              <label>comparative expression
                 <select name="comparator" defaultValue={editing.comparator ?? "eq"}>
-                  <option value="eq">같음</option><option value="lt">미만</option><option value="lte">이하</option>
-                  <option value="gt">초과</option><option value="gte">이상</option><option value="range">범위</option>
+                  <option value="eq">Same as</option><option value="lt">less than</option><option value="lte">Below</option>
+                  <option value="gt">excess</option><option value="gte">more than</option><option value="range">range</option>
                 </select>
               </label>
-              <label>값<input name="value" type="number" step="any" defaultValue={editing.value ?? ""} /></label>
-              <label>최소값<input name="valueMin" type="number" step="any" defaultValue={editing.valueMin ?? ""} /></label>
-              <label>최대값<input name="valueMax" type="number" step="any" defaultValue={editing.valueMax ?? ""} /></label>
-              <label>나이구간<input name="ageGroup" defaultValue={editing.ageGroup ?? ""} required /></label>
-              <label>나이 최소<input name="ageMin" type="number" step="any" defaultValue={editing.ageMin ?? ""} /></label>
-              <label>나이 최대<input name="ageMax" type="number" step="any" defaultValue={editing.ageMax ?? ""} /></label>
-              <label>성별
+              <label>value<input name="value" type="number" step="any" defaultValue={editing.value ?? ""} /></label>
+              <label>minimum value<input name="valueMin" type="number" step="any" defaultValue={editing.valueMin ?? ""} /></label>
+              <label>maximum value<input name="valueMax" type="number" step="any" defaultValue={editing.valueMax ?? ""} /></label>
+              <label>Age range<input name="ageGroup" defaultValue={editing.ageGroup ?? ""} required /></label>
+              <label>Minimum age<input name="ageMin" type="number" step="any" defaultValue={editing.ageMin ?? ""} /></label>
+              <label>age max<input name="ageMax" type="number" step="any" defaultValue={editing.ageMax ?? ""} /></label>
+              <label>gender
                 <select name="gender" defaultValue={editing.gender ?? "all"}>
-                  <option value="all">전체</option><option value="male">남성</option><option value="female">녀성</option>
+                  <option value="all">all</option><option value="male">male</option><option value="female">woman</option>
                 </select>
               </label>
-              <label>생리단계<input name="lifeStage" defaultValue={editing.lifeStage ?? "general"} /></label>
-              <label>대상<input name="populationGroup" defaultValue={editing.populationGroup ?? "general"} /></label>
-              <label>활동수준<input name="physicalActivityLevel" defaultValue={editing.physicalActivityLevel ?? ""} /></label>
-              <label>의사 검증
+              <label>menstrual stage<input name="lifeStage" defaultValue={editing.lifeStage ?? "general"} /></label>
+              <label>target<input name="populationGroup" defaultValue={editing.populationGroup ?? "general"} /></label>
+              <label>activity level<input name="physicalActivityLevel" defaultValue={editing.physicalActivityLevel ?? ""} /></label>
+              <label>doctor verification
                 <select name="doctor_verified" defaultValue={String(Boolean(editing.doctor_verified))}>
-                  <option value="false">미검증</option><option value="true">검증</option>
+                  <option value="false">Not verified</option><option value="true">verification</option>
                 </select>
               </label>
-              <label className="wide-field">자료 출처<input name="dataSource" defaultValue={editing.dataSource ?? defaultSource} required /></label>
-              <label className="wide-field">출처 설명<textarea name="sourceNote" defaultValue={editing.sourceNote ?? ""} /></label>
-              <label className="wide-field">출처 파일<input name="sourceRefs" defaultValue={(editing.sourceRefs ?? []).join(", ")} /></label>
-              <label className="wide-field">태그<input name="tags" defaultValue={(editing.tags ?? []).join(", ")} /></label>
+              <label className="wide-field">data source<input name="dataSource" defaultValue={editing.dataSource ?? defaultSource} required /></label>
+              <label className="wide-field">Source Description<textarea name="sourceNote" defaultValue={editing.sourceNote ?? ""} /></label>
+              <label className="wide-field">source file<input name="sourceRefs" defaultValue={(editing.sourceRefs ?? []).join(", ")} /></label>
+              <label className="wide-field">tag<input name="tags" defaultValue={(editing.tags ?? []).join(", ")} /></label>
             </div>
             <div className="editor-actions">
-              <button type="button" onClick={() => setEditing(null)}>취소</button>
-              <button className="primary" type="submit" disabled={saving}>{saving ? "저장 중..." : "저장"}</button>
+              <button type="button" onClick={() => setEditing(null)}>Cancel</button>
+              <button className="primary" type="submit" disabled={saving}>{saving ? "Saving..." : "save"}</button>
             </div>
           </form>
         </Modal>

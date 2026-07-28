@@ -1,391 +1,391 @@
-# 트랜스포메르 완전 리해 안내서
-## 이 프로그람의 실제 코드로 배우는 트랜스포메르 — 초보자용
+﻿# Transformers Complete Understanding Guide
+## Transformer learning with the actual code of this program — For beginners
 
-> **읽기 전에:** 이 문서는 수학을 모르는 사람도 읽을 수 있도록 작성하였습니다.
-> 모든 설명은 `src/model/transformer.py`와 `src/inference/generate.py`의 실제 코드를 기준으로 합니다.
-
----
-
-## 차례
-
-1. [트랜스포메르가 왜 필요한가](#1-트랜스포메르가-왜-필요한가)
-2. [전체 흐름 한눈에 보기](#2-전체-흐름-한눈에-보기)
-3. [1단계 — 글자를 숫자로 바꾸기](#3-1단계--글자를-숫자로-바꾸기)
-4. [2단계 — 위치 정보 추가하기](#4-2단계--위치-정보-추가하기)
-5. [3단계 — 주의 기제 Q K V](#5-3단계--주의-기제-q-k-v)
-6. [4단계 — 주의 점수 행렬 계산](#6-4단계--주의-점수-행렬-계산)
-7. [5단계 — 인과적 가리개](#7-5단계--인과적-가리개)
-8. [6단계 — 다중 머리 주의](#8-6단계--다중-머리-주의)
-9. [7단계 — 전달 망](#9-7단계--전달-망)
-10. [8단계 — 블로크와 잔차 연결](#10-8단계--블로크와-잔차-연결)
-11. [9단계 — 8층 반복의 의미](#11-9단계--8층-반복의-의미)
-12. [10단계 — 글자 생성 과정](#12-10단계--글자-생성-과정)
-13. [온도와 표본추출](#13-온도와-표본추출)
-14. [이 모형의 규모와 한계](#14-이-모형의-규모와-한계)
+> **before reading:** This document was written so that even people who don't know math can read it..
+> All explanations are `src/model/transformer.py`Wow `src/inference/generate.py`Based on the actual code of.
 
 ---
 
-## 1. 트랜스포메르가 왜 필요한가
+## turn
 
-### 문제: 콤퓨터는 글자를 모른다
+1. [Why do you need a transformer?](#1-Transformers-why-Is it necessary?)
+2. [View the entire flow at a glance](#2-all-flow-At a glance-view)
+3. [1step — Convert letters to numbers](#3-1step--letters-by numbers-change)
+4. [2step — Add location information](#4-2step--location-information-Add)
+5. [3step — attention mechanism Q K V](#5-3step--caution-Mechanism-q-k-v)
+6. [4step — Calculate attention score matrix](#6-4step--caution-score-procession-calculation)
+7. [5step — causal screen](#7-5step--causal-shade)
+8. [6step — Multi-headed caution](#8-6step--multiple-head-caution)
+9. [7step — transmission network](#9-7step--pass on-net)
+10. [8step — Linking blocks and residuals](#10-8step--Block and-residual-connection)
+11. [9step — 8Meaning of layer repetition](#11-9step--8floor-repetitive-meaning)
+12. [10step — Character creation process](#12-10step--letters-create-course)
+13. [Temperature and Sampling](#13-temperature and-sampling)
+14. [Size and limitations of this model](#14-This-model-scale and-limit)
 
-콤퓨터는 0과 1만 안다. "김치"라는 글자를 보여줘도 콤퓨터는 그것이 음식인지, 동사인지, 사람 이름인지 전혀 알지 못한다.
+---
 
-그렇다면 어떻게 조선말로 대화하는 인공지능을 만들 수 있는가?
+## 1. Why do you need a transformer?
 
-**핵심 발상:** 모든 단어를 **숫자 목록(벡토르)**으로 바꾼다. 그 숫자들을 아주 정교하게 계산하면, 콤퓨터가 단어의 뜻과 문법을 "이해"하는 것처럼 동작하게 된다.
+### problem: Computers don't know letters
 
-트랜스포메르는 이 계산을 수행하는 **신경망 구조**이다.
+Computers only know 0 and 1. "kimchi"Even if you show the text, the computer doesn't know if it's food., Is it a verb?, I have no idea it's a person's name.
 
-### 트랜스포메르가 특별한 리유
+So how can we create an artificial intelligence that speaks Korean??
 
-트랜스포메르 이전에는 글자를 한 개씩 순서대로 처리했다. "김치를 담그는 방법" 을 처리하려면 "김치" → "를" → "담그는" → "방법" 순으로 하나씩 읽어야 했다.
+**core idea:** every word **list of numbers(vector)**change to. If you calculate those numbers very precisely,, The computer interprets the meaning and grammar of words. "understand"It behaves as if.
 
-트랜스포메르는 다르다. **모든 글자를 동시에** 보면서, 각 글자가 다른 모든 글자와 얼마나 관련 있는지를 한꺼번에 계산한다.
+Transformer performs this calculation **neural network structure**is.
+
+### Why Transformers are Special
+
+Before Transformer, letters were processed one by one in order.. "How to make kimchi" To process "kimchi" → "to" → "dipping" → "method" I had to read them one by one in order..
+
+Transformers are different. **all letters at the same time** While watching, Calculate how related each letter is to all other letters at once.
 
 ```
-기존 방식:  김치 → 를 → 담그는 → 방법  (순서대로, 느림)
+Conventional method:  kimchi → to → dipping → method  (in order, slow)
 
-트랜스포메르:
-  김치 ←→ 를
-  김치 ←→ 담그는        (모두 동시에 서로 비교)
-  김치 ←→ 방법
-  를   ←→ 담그는
+transformer:
+  kimchi ←→ to
+  kimchi ←→ dipping        (Compare them all at the same time)
+  kimchi ←→ method
+  to   ←→ dipping
   ...
 ```
 
-이것이 트랜스포메르가 강력한 핵심 리유다.
+This is the core reason why Transformers are strong..
 
 ---
 
-## 2. 전체 흐름 한눈에 보기
+## 2. View the entire flow at a glance
 
-사용자가 "김치 담그는 방법을 알려주오" 라고 입력하면:
+user "Please tell me how to make kimchi." If you type:
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│  입력: "김치 담그는 방법을 알려주오"                          │
+│  input: "Please tell me how to make kimchi."                          │
 └──────────────────────┬──────────────────────────────────────┘
                        │
                        ▼
 ┌─────────────────────────────────────────────────────────────┐
-│  [토크나이저]  글자 → 정수 번호 목록                          │
-│  "김치" → 342,  "담그는" → 156,  "방법" → 891  ...           │
+│  [tokenizer]  letters → list of integer numbers                          │
+│  "kimchi" → 342,  "dipping" → 156,  "method" → 891  ...           │
 └──────────────────────┬──────────────────────────────────────┘
                        │
                        ▼
 ┌─────────────────────────────────────────────────────────────┐
-│  [토큰 임베딩]  번호 → 512개 숫자의 벡토르                     │
-│  342 → [0.12, -0.34, 0.89, ..., 0.05]  (512개)              │
+│  [Token Embedding]  number → 512vector of dog numbers                     │
+│  342 → [0.12, -0.34, 0.89, ..., 0.05]  (512dog)              │
 └──────────────────────┬──────────────────────────────────────┘
                        │
                        ▼
 ┌─────────────────────────────────────────────────────────────┐
-│  [위치 임베딩]  "나는 몇번째 글자인가" 정보를 더함              │
+│  [Location Embedding]  "What letter am I?" Add information              │
 └──────────────────────┬──────────────────────────────────────┘
                        │
                        ▼
 ┌─────────────────────────────────────────────────────────────┐
-│  [블로크 × 8층]                                              │
-│   층마다:  층 정규화 → 주의 기제 → 잔차 연결                   │
-│            층 정규화 → 전달 망   → 잔차 연결                   │
+│  [block × 8floor]                                              │
+│   Every floor:  layer normalization → attention mechanism → Residual concatenation                   │
+│            layer normalization → transmission network   → Residual concatenation                   │
 └──────────────────────┬──────────────────────────────────────┘
                        │
                        ▼
 ┌─────────────────────────────────────────────────────────────┐
-│  [LM 머리]  마지막 위치의 벡토르 → 16,384개 후보 확률          │
+│  [LM head]  vector in last position → 16,384dog candidate probability          │
 └──────────────────────┬──────────────────────────────────────┘
                        │
                        ▼
 ┌─────────────────────────────────────────────────────────────┐
-│  [표본추출]  확률에 따라 다음 글자 하나 선택 → 입력에 추가      │
-│  위 과정을 최대 256번 반복하면 완성된 대답이 나온다             │
+│  [sampling]  Select the next letter based on probability → Append to input      │
+│  If you repeat the above process up to 256 times, you will get a complete answer.             │
 └─────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## 3. 1단계 — 글자를 숫자로 바꾸기
+## 3. 1step — Convert letters to numbers
 
-### 토크나이저가 하는 일
+### What a tokenizer does
 
-우리 프로그람은 먼저 글자를 정수 번호로 바꾼다.
+Our program first converts letters into integer numbers..
 
 ```python
-# src/tokenizer/tokenizer.py 에서 처리
-"김치를 담그는 방법" → [1, 342, 891, 156, 782, 2]
-#                       BOS  글자들...              EOS
+# src/tokenizer/tokenizer.py processed in
+"How to make kimchi" → [1, 342, 891, 156, 782, 2]
+#                       BOS  letters...              EOS
 ```
 
-- `1` = BOS (글 시작 표시)
-- `2` = EOS (글 끝 표시)
-- 나머지 = 단어 번호 (0~16,383 중 하나)
+- `1` = BOS (Post start indicator)
+- `2` = EOS (Show end of post)
+- the rest = word number (0~16,383 one of)
 
-### 토큰 임베딩 — 번호를 512개 숫자로
+### Token Embedding — number to 512 digits
 
 ```python
-# transformer.py 90행
+# transformer.py 90row
 self.tok_emb = nn.Embedding(cfg.vocab_size, cfg.n_embd)
-#                           어휘 수=16,384  차원=512
+#                           Vocabulary count=16,384  dimension=512
 ```
 
-`nn.Embedding` 은 **큰 표**다. 행 번호가 단어 번호이고, 각 행에 512개 숫자가 있다.
+`nn.Embedding` silver **big ticket**Everything. where the line number is the word number and, There are 512 numbers in each row.
 
 ```
-번호  │  숫자 1   숫자 2   숫자 3  ...  숫자 512
+number  │  Number 1 Number 2 Number 3  ...  number 512
 ──────┼──────────────────────────────────────────
   0   │  0.00    0.00    0.00  ...  0.00   ← PAD
   1   │  0.31   -0.12    0.87  ...  0.44   ← BOS
   2   │ -0.55    0.23   -0.11  ...  0.09   ← EOS
- 342  │  0.12   -0.34    0.89  ...  0.05   ← "김치"
- 891  │ -0.22    0.71    0.03  ...  0.44   ← "방법"
+ 342  │  0.12   -0.34    0.89  ...  0.05   ← "kimchi"
+ 891  │ -0.22    0.71    0.03  ...  0.44   ← "method"
  ...  │  ...
 16383 │  0.77   -0.41    0.12  ...  0.88
 ```
 
-처음에 이 512개 숫자는 무작위다. **훈련을 거치면서** 비슷한 뜻의 단어가 비슷한 숫자 패턴을 갖게 된다.
+Initially, these 512 numbers are random.. **While going through training** Words with similar meanings have similar number patterns.
 
 ```
-훈련 전:   "김치" 벡토르 ↔ "배추" 벡토르  →  거리가 멀다
-훈련 후:   "김치" 벡토르 ↔ "배추" 벡토르  →  거리가 가깝다  ← 둘 다 채소 식재료
-           "김치" 벡토르 ↔ "달리기" 벡토르 →  거리가 멀다    ← 관계없음
+before training:   "kimchi" vector ↔ "cabbage" vector  →  far away
+After training:   "kimchi" vector ↔ "cabbage" vector  →  the distance is close  ← Both vegetable ingredients
+           "kimchi" vector ↔ "running" vector →  far away    ← Not relevant
 ```
 
 ---
 
-## 4. 2단계 — 위치 정보 추가하기
+## 4. 2step — Add location information
 
-### 왜 위치 정보가 필요한가
+### Why do you need location information?
 
-트랜스포메르는 본래 순서를 모른다. 모든 글자를 **동시에** 보기 때문이다.
+Transformers don't know their original order.. all letters **at the same time** Because I see.
 
-"나는 밥을 먹는다"와 "먹는다 밥을 나는" 을 구분하지 못한다.
+"i eat rice"Wow "I eat rice" can't distinguish.
 
-그래서 위치 임베딩을 **더해준다**:
+So the location embedding **It adds**:
 
 ```python
-# transformer.py 91행
+# transformer.py 91row
 self.pos_emb = nn.Embedding(cfg.block_size, cfg.n_embd)
-#                           최대 위치=1,024  차원=512
+#                           maximum position=1,024  dimension=512
 ```
 
 ```python
-# transformer.py 132~133행
+# transformer.py 132~133row
 pos = torch.arange(T, device=idx.device, dtype=torch.long)
 x = self.drop(self.tok_emb(idx) + self.pos_emb(pos))
 ```
 
-실제로는 이렇게 더한다:
+In reality, we add it like this::
 
 ```
-"김치"는 위치 0번째  →  김치_벡토르 + 위치0_벡토르  =  최종_벡토르_A
-"를"은   위치 1번째  →  를_벡토르   + 위치1_벡토르  =  최종_벡토르_B
-"담그"는 위치 2번째  →  담그_벡토르 + 위치2_벡토르  =  최종_벡토르_C
+"kimchi"is position 0  →  kimchi_vector + location0_vector  =  final_vector_A
+"to"is the 1st position  →  to_vector   + location1_vector  =  final_vector_B
+"Soak"is position 2  →  Soak_vector + location2_vector  =  final_vector_C
 ```
 
-같은 단어라도 위치가 다르면 다른 벡토르가 된다.
+Even if the same word is in a different position, it becomes a different vector..
 
 ---
 
-## 5. 3단계 — 주의 기제 Q K V
+## 5. 3step — attention mechanism Q K V
 
-코드: `transformer.py` 25~57행 (`CausalSelfAttention`)
+code: `transformer.py` 25~57row (`CausalSelfAttention`)
 
-### 주의 기제란 무엇인가
+### What is an attention mechanism?
 
-**주의 기제(주의 기제)**는 "이 글자를 설명하려면 어떤 다른 글자들을 참고해야 하는가" 를 계산한다.
+**attention mechanism(attention mechanism)**is "What other letters should we refer to to explain this letter?" calculate.
 
-예: "그것" 이라는 대명사를 처리할 때 → 앞에 나온 "김치"를 참고해야 한다.
+yes: "it" When dealing with the pronoun → came before "kimchi"You should refer to.
 
-### Q, K, V — 세 가지 역할
+### Q, K, V — three roles
 
-각 단어 벡토르(512차원)를 세 가지로 변환한다:
+Each word vector(512dimension)Convert into three:
 
 ```python
-# transformer.py 34행
+# transformer.py 34row
 self.qkv = nn.Linear(cfg.n_embd, 3 * cfg.n_embd, bias=cfg.bias)
-#           512차원 입력  →  1,536차원 출력 (512 × 3)
+#           512Dimension input  →  1,536dimension output (512 × 3)
 ```
 
-이것을 세 조각으로 나눈다:
+Divide this into three pieces:
 
 ```python
-# transformer.py 41행
+# transformer.py 41row
 q, k, v = qkv.split(self.n_embd, dim=-1)
-# q = 앞 512개, k = 중간 512개, v = 뒤 512개
+# q = 512 front, k = Medium 512, v = back 512
 ```
 
-| 기호 | 조선말 이름 | 역할 |
+| symbol | Korean name | role |
 |------|------------|------|
-| **Q** | 질의 | "나는 어떤 정보가 필요한가?" |
-| **K** | 열쇠 | "나는 어떤 정보를 제공할 수 있는가?" |
-| **V** | 값   | "내가 실제로 전달할 내용" |
+| **Q** | query | "What information do I need?" |
+| **K** | key | "What information can I provide??" |
+| **V** | value   | "What I will actually convey" |
 
-### 도서관 비유로 이해하기
+### Understanding the library analogy
 
 ```
 ┌────────────────────────────────────────────┐
-│  도서관 검색 시스템                          │
+│  library search system                          │
 │                                            │
-│  Q (질의)  = 내가 찾는 책 제목              │
-│             예: "김치 담그는 방법"           │
+│  Q (query)  = The title of the book I'm looking for              │
+│             yes: "How to make kimchi"           │
 │                                            │
-│  K (열쇠)  = 책장의 각 책에 붙은 색인표      │
-│             책A: "김치, 배추, 발효"          │
-│             책B: "달리기, 근력, 운동"        │
-│             책C: "된장, 간장, 발효"          │
+│  K (key)  = Index tag attached to each book on the bookshelf      │
+│             bookA: "kimchi, cabbage, fermentation"          │
+│             bookB: "running, strength, exercise"        │
+│             bookC: "soybean paste, soy sauce, fermentation"          │
 │                                            │
-│  Q와 K를 비교 → 책A가 가장 잘 맞음          │
+│  QWow Kcompare → bookAis the best fit          │
 │                                            │
-│  V (값)    = 책A의 실제 내용을 꺼내온다      │
+│  V (value)    = bookABring out the actual contents of      │
 └────────────────────────────────────────────┘
 ```
 
 ---
 
-## 6. 4단계 — 주의 점수 행렬 계산
+## 6. 4step — Calculate attention score matrix
 
-"김치를 담그는" 4개 글자를 처리한다고 하자.
+"making kimchi" 4Let's say we're processing two letters..
 
-### 1단계: Q × Kᵀ 로 점수 계산
-
-```python
-# transformer.py 49~53행 (내부적으로 수행됨)
-# 점수 = Q × Kᵀ ÷ √64
-```
-
-각 글자의 Q와 모든 글자의 K를 곱한다 → (4×4) 점수 행렬이 나온다:
-
-```
-          김치의K  를의K  담그의K  는의K
-김치의Q  [ 8.2    1.1    3.4     0.8 ]
-를의Q    [ 0.5    7.9    0.3     2.1 ]
-담그의Q  [ 4.1    0.7    9.5     1.2 ]
-는의Q    [ 1.3    3.8    5.6     8.1 ]
-```
-
-숫자가 클수록 "이 두 글자는 서로 관련이 크다".
-
-### 2단계: 소프트막스로 확률로 변환
-
-각 행의 숫자를 0~1 사이로 바꾸고, 한 행의 합이 1이 되게 만든다:
-
-```
-          김치의K  를의K  담그의K  는의K   합계
-김치의Q  [ 0.83    0.03   0.12    0.02 ]  = 1.00
-를의Q    [ 0.05    0.87   0.04    0.04 ]  = 1.00
-담그의Q  [ 0.08    0.01   0.88    0.03 ]  = 1.00
-는의Q    [ 0.03    0.06   0.21    0.70 ]  = 1.00
-```
-
-→ "담그의Q" 행을 보면: "담그는" 은 자기 자신(K)에 가장 주목하고, "김치" 에도 조금 주목한다.
-
-### 3단계: 가중치 × V = 출력
-
-```
-출력_담그 = 0.08 × 김치_V + 0.01 × 를_V + 0.88 × 담그_V + 0.03 × 는_V
-```
-
-"담그는" 글자의 새로운 표현 = 주로 자기 자신, 거기에 "김치" 정보를 조금 섞은 것.
-
-이 계산을 코드 한 줄로 수행한다:
+### 1step: Q × Kᵀ Calculate score with
 
 ```python
-# transformer.py 49~53행
+# transformer.py 49~53row (Done internally)
+# score = Q × Kᵀ ÷ √64
+```
+
+of each letter Qand all letters KMultiply by → (4×4) A score matrix appears.:
+
+```
+          of kimchiK  ofK  of soakingK  ofK
+of kimchiQ  [ 8.2    1.1    3.4     0.8 ]
+ofQ    [ 0.5    7.9    0.3     2.1 ]
+of soakingQ  [ 4.1    0.7    9.5     1.2 ]
+ofQ    [ 1.3    3.8    5.6     8.1 ]
+```
+
+the bigger the number "These two letters are very related to each other".
+
+### 2step: Convert to probability with softmax
+
+Set the number in each row to 0~1 change between, Makes the sum of one row equal to 1:
+
+```
+          of kimchiK  ofK  of soakingK  ofK   total
+of kimchiQ  [ 0.83    0.03   0.12    0.02 ]  = 1.00
+ofQ    [ 0.05    0.87   0.04    0.04 ]  = 1.00
+of soakingQ  [ 0.08    0.01   0.88    0.03 ]  = 1.00
+ofQ    [ 0.03    0.06   0.21    0.70 ]  = 1.00
+```
+
+→ "of soakingQ" If you look at the row: "dipping" is oneself(K)Pay most attention to, "kimchi" Also pay a little attention to.
+
+### 3step: weight × V = output
+
+```
+output_Soak = 0.08 × kimchi_V + 0.01 × to_V + 0.88 × Soak_V + 0.03 × is_V
+```
+
+"dipping" new expressions of letters = mainly yourself, there "kimchi" a bit of information mixed up.
+
+Perform this calculation in one line of code:
+
+```python
+# transformer.py 49~53row
 y = F.scaled_dot_product_attention(
     q, k, v,
     dropout_p=self.dropout if self.training else 0.0,
-    is_causal=True,    # ← 미래 가리개 (아래 설명)
+    is_causal=True,    # ← future screen (Description below)
 )
 ```
 
 ---
 
-## 7. 5단계 — 인과적 가리개
+## 7. 5step — causal screen
 
-### 왜 가리개가 필요한가
+### Why do you need covers?
 
-훈련할 때 모형은 "다음 글자 맞추기" 를 한다.
+When training, the model "Next Scrabble" do.
 
-"김치를 담그는 **[?]**" 에서 `[?]` 가 "방법" 임을 맞춰야 한다.
+"making kimchi **[?]**" in `[?]` go "method" You have to get it right.
 
-그런데 만약 모형이 미래를 볼 수 있다면? "방법" 을 미리 보고 맞추면 아무것도 배우지 못한다.
+But if the model could see the future? "method" If you guess beforehand, you won't learn anything..
 
-그래서 `is_causal=True` 가 삼각형 가리개를 만든다:
+So `is_causal=True` makes a triangle shade:
 
 ```
-          김치   를   담그   는
-김치   [  ✓    ✗    ✗    ✗  ]  ← "김치" 는 자기 자신만 볼 수 있음
-를     [  ✓    ✓    ✗    ✗  ]  ← "를" 은 "김치"와 자신만 볼 수 있음
-담그   [  ✓    ✓    ✓    ✗  ]  ← "담그" 는 앞 3개까지
-는     [  ✓    ✓    ✓    ✓  ]  ← "는" 은 모두 볼 수 있음
+          making kimchi
+kimchi   [  ✓    ✗    ✗    ✗  ]  ← "kimchi" can only see itself
+to     [  ✓    ✓    ✗    ✗  ]  ← "to" silver "kimchi"and only you can see it
+Soak   [  ✓    ✓    ✓    ✗  ]  ← "Soak" Up to the first three
+is     [  ✓    ✓    ✓    ✓  ]  ← "is" can be seen by all
 
-✓ = 볼 수 있음  ✗ = 가리개로 막힘 (-∞ 로 채움)
+✓ = can see  ✗ = blocked by a screen (-∞ Fill with)
 ```
 
-이 삼각형 모양을 **하삼각 행렬 가리개**라 한다.
+This triangle shape **Lower triangle matrix screen**It is called.
 
-가리개가 있는 위치는 점수를 `-∞` (마이너스 무한대)로 만든다 → 소프트막스를 거치면 0이 된다 → 그 위치는 완전히 무시된다.
+Points are awarded for locations where there are blinds. `-∞` (minus infinity)made with → After going through softmax, it becomes 0. → The location is completely ignored.
 
 ---
 
-## 8. 6단계 — 다중 머리 주의
+## 8. 6step — Multi-headed caution
 
-### 하나의 주의로는 부족한 리유
+### The reason why one attention is not enough
 
-글자 사이의 관계에는 여러 종류가 있다:
+There are many types of relationships between letters.:
 
 ```
-"김치를 담그는 방법은 무엇인가"
+"How to make kimchi"
 
-문법 관계:  "방법"  ←→  "은" (주격 조사)
-의미 관계:  "담그는" ←→ "김치" (행위 대상)
-지시 관계:  "그것"  ←→  이전 문장의 명사
+grammatical relationships:  "method"  ←→  "silver" (nominative particle)
+meaning relationship:  "dipping" ←→ "kimchi" (object of action)
+referential relationship:  "it"  ←→  noun in previous sentence
 ```
 
-하나의 주의로는 이 모든 종류를 동시에 잘 잡기 어렵다.
+It is difficult to catch all these types well at the same time with one attention..
 
-### 8개 머리로 동시 분석
+### 8Simultaneous analysis with dog heads
 
 ```python
-# transformer.py 29~31행
+# transformer.py 29~31row
 self.n_head  = cfg.n_head                   # = 8
 self.head_dim = cfg.n_embd // cfg.n_head    # = 512 ÷ 8 = 64
 ```
 
-512차원을 8조각(64차원씩)으로 나눠 각 머리에 준다:
+5128 pieces of dimension(64Dimension by dimension)Divide into each head.:
 
 ```python
-# transformer.py 44~46행
+# transformer.py 44~46row
 q = q.view(B, T, self.n_head, self.head_dim).transpose(1, 2)
-#   형태: (묶음, 글자수, 512) → (묶음, 8, 글자수, 64)
+#   form: (bundle, number of characters, 512) → (bundle, 8, number of characters, 64)
 k = k.view(B, T, self.n_head, self.head_dim).transpose(1, 2)
 v = v.view(B, T, self.n_head, self.head_dim).transpose(1, 2)
 ```
 
-각 머리는 자기만의 Q, K, V 가중치로 **서로 다른 것**을 배운다:
+Each head has its own Q, K, V by weight **different things**learn:
 
 ```
-머리 1  →  문법 관계  ("주어-술어" 연결)
-머리 2  →  의미 관계  ("식재료-행위" 연결)
-머리 3  →  위치 근접  (가까운 글자끼리)
-머리 4  →  지시 관계  ("그것" ↔ 명사)
-머리 5~8 → 그 밖의 다양한 패턴
+head 1  →  grammatical relationships  ("given-predicate" connection)
+head 2  →  meaning relationship  ("ingredients-act" connection)
+head 3  →  location proximity  (letters that are close together)
+head 4  →  referential relationship  ("it" ↔ noun)
+head 5~8 → Various other patterns
 ```
 
-8개 머리의 결과를 합쳐서 다시 512차원으로:
+8By combining the results of the dog head, it becomes 512 dimensions again.:
 
 ```python
-# transformer.py 55~56행
-y = y.transpose(1, 2).contiguous().view(B, T, C)  # 8개 합치기 (B, T, 512)
-y = self.resid_dropout(self.proj(y))               # 512→512 선형 변환
+# transformer.py 55~56row
+y = y.transpose(1, 2).contiguous().view(B, T, C)  # 8Merge Dogs (B, T, 512)
+y = self.resid_dropout(self.proj(y))               # 512→512 linear transformation
 ```
 
 ---
 
-## 9. 7단계 — 전달 망
+## 9. 7step — transmission network
 
-코드: `transformer.py` 60~68행
+code: `transformer.py` 60~68row
 
 ```python
 class FeedForward(nn.Module):
@@ -397,365 +397,365 @@ class FeedForward(nn.Module):
         return self.dropout(self.fc2(F.gelu(self.fc1(x))))
 ```
 
-### 왜 2,048까지 늘렸다가 다시 줄이는가
+### why 2,048Do you increase it and then decrease it again?
 
-주의 기제는 글자들 사이의 **관계**를 계산한다.
-전달 망은 각 글자의 **내용**을 처리한다.
+The attention mechanism is between letters. **relationship**calculate.
+The transmission network is **content**handle.
 
 ```
 ┌──────────────────────────────────────────────┐
-│  전달 망의 역할                               │
+│  The role of the transmission network                               │
 │                                              │
-│  주의 기제 출력: "김치"에 관한 512개 숫자      │
+│  Attention mechanism output: "kimchi"512 numbers about      │
 │           ↓                                  │
-│  fc1: 512 → 2,048  (사고 공간 4배 확장)       │
+│  fc1: 512 → 2,048  (4x expansion of thinking space)       │
 │           ↓                                  │
-│  GELU: 비선형 처리  (복잡한 패턴 학습)         │
+│  GELU: Nonlinear processing  (Complex pattern learning)         │
 │           ↓                                  │
-│  fc2: 2,048 → 512  (압축하여 다음 층으로)     │
+│  fc2: 2,048 → 512  (Compress to the next layer)     │
 └──────────────────────────────────────────────┘
 ```
 
-**2,048으로 늘리는 리유:** 512차원에서는 표현할 수 없는 복잡한 관계를 임시로 더 넓은 공간에서 처리한다. 이 넓은 공간에 **사실적 지식**이 저장된다.
+**2,048Reason for increasing:** 512Complex relationships that cannot be expressed in one dimension are temporarily processed in a larger space.. in this wide space **factual knowledge**This is saved.
 
 ```
-례: 전달 망이 배우는 것
+example: What the transmission network learns
 
-"김치" + "담그다" → 재료(배추, 소금, 고춧가루)가 필요하다
-"단백질" + "운동" → 근육 성장에 관련됨
-"조선말" + "문법" → 조사 규칙
+"kimchi" + "soak" → material(cabbage, salt, red pepper powder)is needed
+"protein" + "exercise" → Involved in muscle growth
+"Joseon language" + "grammar" → investigation rules
 ```
 
-### GELU란 무엇인가
+### GELUWhat is
 
-GELU는 음수는 거의 무시하고 양수는 거의 그대로 통과시키는 함수다.
+GELUis a function that almost ignores negative numbers and passes positive numbers almost as is..
 
 ```
-입력 < 0:   출력 ≈ 0    (이 정보는 지금 필요 없음)
-입력 = 0:   출력 = 0
-입력 > 0:   출력 ≈ 입력 (이 정보는 중요함)
+input < 0:   output ≈ 0    (You don't need this information now)
+input = 0:   output = 0
+input > 0:   output ≈ input (This information is important)
 ```
 
-**선형 변환만 있으면 안 되는 리유:** 선형 함수를 100번 쌓아도 결국 선형 함수 하나와 같다. 비선형 함수(GELU)가 있어야 복잡한 지식을 표현할 수 있다.
+**Reason why you can’t just have a linear transformation:** Even if you stack a linear function 100 times, it still equals one linear function.. nonlinear function(GELU)Complex knowledge can be expressed only when there is.
 
 ---
 
-## 10. 8단계 — 블로크와 잔차 연결
+## 10. 8step — Linking blocks and residuals
 
-코드: `transformer.py` 71~82행
+code: `transformer.py` 71~82row
 
 ```python
 class Block(nn.Module):
     def __init__(self, cfg):
-        self.ln_1 = nn.LayerNorm(cfg.n_embd)   # 층 정규화 1
-        self.attn = CausalSelfAttention(cfg)    # 주의 기제
-        self.ln_2 = nn.LayerNorm(cfg.n_embd)   # 층 정규화 2
-        self.ffn  = FeedForward(cfg)            # 전달 망
+        self.ln_1 = nn.LayerNorm(cfg.n_embd)   # layer normalization 1
+        self.attn = CausalSelfAttention(cfg)    # attention mechanism
+        self.ln_2 = nn.LayerNorm(cfg.n_embd)   # layer normalization 2
+        self.ffn  = FeedForward(cfg)            # transmission network
 
     def forward(self, x):
-        x = x + self.attn(self.ln_1(x))        # ← 잔차 연결 1
-        x = x + self.ffn(self.ln_2(x))         # ← 잔차 연결 2
+        x = x + self.attn(self.ln_1(x))        # ← Residual concatenation 1
+        x = x + self.ffn(self.ln_2(x))         # ← Residual concatenation 2
         return x
 ```
 
-### 층 정규화 — 숫자를 안정시킨다
+### layer normalization — stabilize the numbers
 
-계산 도중 숫자가 너무 크거나 너무 작아지면 훈련이 불안정해진다.
+Training becomes unstable if numbers are too large or too small during calculation..
 
-층 정규화는 각 층의 숫자들을 **평균 0, 분산 1** 근처로 조정한다.
+Layer normalization means that the numbers in each layer are **average 0, variance 1** adjust nearby.
 
 ```
-층 정규화 전:  [0.0001, -523.0, 7823.5, -0.003, ...]  (크기가 들쭉날쭉)
-층 정규화 후:  [-0.12,   -1.54,   2.31,  -0.88, ...]  (크기가 안정됨)
+Before layer normalization:  [0.0001, -523.0, 7823.5, -0.003, ...]  (The size is jagged)
+After layer normalization:  [-0.12,   -1.54,   2.31,  -0.88, ...]  (size is stable)
 ```
 
-### 잔차 연결 — 기울기 소실을 막는다
+### Residual concatenation — Prevents tilt loss
 
-`x = x + self.attn(...)` 에서 `+` 가 핵심이다.
+`x = x + self.attn(...)` in `+` is the key.
 
-**없을 때:**
+**When there is no:**
 ```
-입력 → 주의기제 → 전달망 → 출력
-         ↑ 기울기가 여기서 작아짐
-         ↑ 8층을 지나면 거의 0이 됨 → 훈련 안 됨
-```
-
-**있을 때 (잔차 연결):**
-```
-입력 ─────────────────────────────→ ⊕ → 다음 층
-  └──→ 층정규화 → 주의기제 ─────────┘
-
-기울기가 잔차 경로를 통해 직접 흐름 → 8층도 안정적으로 훈련
+input → attention mechanism → transmission network → output
+         ↑ The slope gets smaller here
+         ↑ 8After passing the floor, it becomes almost 0. → not trained
 ```
 
-비유: 층마다 "원래 정보 + 새로 배운 것" 을 합친다. 원래 정보를 잃지 않으면서 새로운 것을 추가한다.
+**when there is (Residual concatenation):**
+```
+input ─────────────────────────────→ ⊕ → next floor
+  └──→ layer normalization → attention mechanism ─────────┘
+
+Gradient flows directly through residual path → 8Stable training on floors
+```
+
+metaphor: Every floor "original information + new thing learned" Combine. Add new information without losing the original information.
 
 ---
 
-## 11. 9단계 — 8층 반복의 의미
+## 11. 9step — 8Meaning of layer repetition
 
-코드: `transformer.py` 135~136행
+code: `transformer.py` 135~136row
 
 ```python
-for block in self.blocks:   # blocks = 8개 Block
+for block in self.blocks:   # blocks = 8dog Block
     x = block(x)
 ```
 
-8개 블로크를 차례로 통과하면서 표현이 점점 정교해진다:
+8As you pass through each block one by one, the expression becomes more and more elaborate.:
 
 ```
-입력: "김치를 담그는 방법은"  →  (1, 5, 512) 형태 벡토르
+input: "How to make kimchi"  →  (1, 5, 512) shape vector
 
 ┌──────────────────────────────────────────────────────────┐
-│  블로크 1층                                               │
-│  → 인접한 글자들 사이의 기초적 관계 파악                    │
-│  → "를" 이 "김치" 뒤에 온 조사임을 인식                    │
+│  Block 1st floor                                               │
+│  → Understand basic relationships between adjacent letters                    │
+│  → "to" This "kimchi" Recognize that this is an investigation that came later.                    │
 └──────────────────┬───────────────────────────────────────┘
                    │
-                   ▼ (1, 5, 512) — 형태는 그대로, 내용이 바뀜
+                   ▼ (1, 5, 512) — The shape is the same, Content has changed
 ┌──────────────────────────────────────────────────────────┐
-│  블로크 2층                                               │
-│  → 더 먼 글자 사이의 관계 파악                             │
-│  → "방법" 이 "담그는" 의 목적어임을 인식                   │
-└──────────────────┬───────────────────────────────────────┘
-                   │
-                   ▼
-┌──────────────────────────────────────────────────────────┐
-│  블로크 3~4층                                             │
-│  → 문법 구조 이해                                          │
-│  → 주어-술어-목적어 관계 파악                               │
+│  Block 2nd floor                                               │
+│  → Identify relationships between more distant letters                             │
+│  → "method" This "dipping" Recognize that it is the object of                   │
 └──────────────────┬───────────────────────────────────────┘
                    │
                    ▼
 ┌──────────────────────────────────────────────────────────┐
-│  블로크 5~6층                                             │
-│  → 의미적 관계 이해                                        │
-│  → "담그다" = 발효 과정이 필요한 조리법                      │
-│  → "김치" = 배추, 고춧가루, 소금이 필요                     │
+│  block 3~4floor                                             │
+│  → Understanding Grammar Structures                                          │
+│  → given-predicate-Identify object relationships                               │
 └──────────────────┬───────────────────────────────────────┘
                    │
                    ▼
 ┌──────────────────────────────────────────────────────────┐
-│  블로크 7~8층                                             │
-│  → 문맥 전체를 종합                                        │
-│  → 다음에 나올 글자를 결정하기 위한 최종 표현 생성           │
+│  block 5~6floor                                             │
+│  → Understanding Semantic Relationships                                        │
+│  → "soak" = Recipes that require a fermentation process                      │
+│  → "kimchi" = cabbage, red pepper powder, need salt                     │
+└──────────────────┬───────────────────────────────────────┘
+                   │
+                   ▼
+┌──────────────────────────────────────────────────────────┐
+│  block 7~8floor                                             │
+│  → Comprehensive context                                        │
+│  → Create a final expression to determine the next letter           │
 └──────────────────────────────────────────────────────────┘
                    │
-                   ▼ 최종: (1, 5, 512)
+                   ▼ final: (1, 5, 512)
 ```
 
 ---
 
-## 12. 10단계 — 글자 생성 과정
+## 12. 10step — Character creation process
 
-코드: `src/inference/generate.py`
+code: `src/inference/generate.py`
 
-### GPT가 다음 글자 확률을 계산하는 방법
+### GPTHow to calculate next letter probability
 
 ```python
-# transformer.py 148~149행 (추론 시)
-logits = self.lm_head(x[:, [-1], :])  # 마지막 위치만 → (1, 1, 16384)
+# transformer.py 148~149row (When inferring)
+logits = self.lm_head(x[:, [-1], :])  # Last position only → (1, 1, 16384)
 ```
 
-LM 머리(lm_head)는 512차원 벡토르를 받아 16,384개 숫자로 바꾼다.
-이 16,384개 숫자를 소프트막스로 확률로 변환한다.
+LM head(lm_head)receives a 512-dimensional vector of 16,384change to number.
+this 16,384Convert numbers to probabilities using softmax..
 
 ```
-어휘 번호  │  확률
+vocabulary number  │  probability
 ──────────┼──────────────────────────────
   0 (PAD) │  0.0000
   1 (BOS) │  0.0001
   2 (EOS) │  0.0023
   ...
- 342 (재료) │  0.0345
- 891 (먼저) │  0.2100   ← 높음
- 156 (준비) │  0.1850   ← 높음
- 782 (배추) │  0.1500   ← 높음
+ 342 (material) │  0.0345
+ 891 (first) │  0.2100   ← high
+ 156 (ready) │  0.1850   ← high
+ 782 (cabbage) │  0.1500   ← high
   ...
 ```
 
-### 한 글자씩 뽑아 추가하는 반복
+### Repeat by picking and adding one letter at a time
 
 ```python
-# generate.py 111~128행
-for _ in range(max_new_tokens):         # 최대 256번 반복
+# generate.py 111~128row
+for _ in range(max_new_tokens):         # Repeat up to 256 times
 
-    # 1. 모형 실행 → 16,384개 확률
+    # 1. Run the model → 16,384dog odds
     nxt = sample_token(model, idx, ...)
 
-    # 2. EOS가 나오면 글 끝
+    # 2. EOSWhen appears, the article ends
     if token_id == EOS_ID:
         break
 
-    # 3. 선택된 글자를 입력 끝에 추가
+    # 3. Add selected letters to the end of input
     idx = torch.cat([idx, nxt], dim=1)
-    #     이제 입력이 한 글자 길어짐
+    #     Input is now one character longer
 
-    # 4. 그 글자를 화면에 출력 (점진적으로)
+    # 4. Print the text on the screen (gradually)
     yield text[len(last_text):]
 ```
 
-단계별 례:
+Step-by-step example:
 
 ```
-반복 1:  입력: "김치를 담그는 방법은"  →  출력: "먼저"
-         입력이 됨: "김치를 담그는 방법은 먼저"
+repeat 1:  input: "How to make kimchi"  →  output: "first"
+         Entered: "How to make kimchi first"
 
-반복 2:  입력: "김치를 담그는 방법은 먼저"  →  출력: "배추를"
-         입력이 됨: "김치를 담그는 방법은 먼저 배추를"
+repeat 2:  input: "How to make kimchi first"  →  output: "cabbage"
+         Entered: "How to make kimchi: First, cut the cabbage."
 
-반복 3:  입력: "김치를 담그는 방법은 먼저 배추를"  →  출력: "준비합니다"
+repeat 3:  input: "How to make kimchi: First, cut the cabbage."  →  output: "Get ready"
          ...
 
-반복 N:  EOS 토큰이 나오면 멈춤
+repeat N:  EOS Stop when token appears
 ```
 
 ---
 
-## 13. 온도와 표본추출
+## 13. Temperature and Sampling
 
-### 온도 (Temperature)
-
-```python
-# generate.py 78행
-logits = logits / temperature   # temperature = 0.9 기본값
-```
-
-온도는 확률 분포의 **날카로움**을 조절한다.
-
-```
-temperature = 0.5 (낮음, 더 확실함):
-  후보1 "먼저"    →  0.72   ← 거의 항상 이것 선택
-  후보2 "우선"    →  0.18
-  후보3 "처음에"  →  0.07
-  후보4 기타     →  0.03
-
-temperature = 0.9 (기본값):
-  후보1 "먼저"    →  0.45
-  후보2 "우선"    →  0.28
-  후보3 "처음에"  →  0.17
-  후보4 기타     →  0.10
-
-temperature = 1.5 (높음, 더 무작위):
-  후보1 "먼저"    →  0.28
-  후보2 "우선"    →  0.25
-  후보3 "처음에"  →  0.24
-  후보4 기타     →  0.23
-```
-
-### Top-K 표본추출
+### temperature (Temperature)
 
 ```python
-# generate.py 36~38행
-# 상위 50개 후보만 남기고 나머지를 -∞ 로 만든다
+# generate.py 78row
+logits = logits / temperature   # temperature = 0.9 default
+```
+
+Temperature is a probability distribution **sharpness**adjust.
+
+```
+temperature = 0.5 (low, more certain):
+  candidate1 "first"    →  0.72   ← Almost always choose this
+  candidate2 "First of all"    →  0.18
+  candidate3 "at first"  →  0.07
+  candidate4 guitar     →  0.03
+
+temperature = 0.9 (default):
+  candidate1 "first"    →  0.45
+  candidate2 "First of all"    →  0.28
+  candidate3 "at first"  →  0.17
+  candidate4 guitar     →  0.10
+
+temperature = 1.5 (high, more random):
+  candidate1 "first"    →  0.28
+  candidate2 "First of all"    →  0.25
+  candidate3 "at first"  →  0.24
+  candidate4 guitar     →  0.23
+```
+
+### Top-K sampling
+
+```python
+# generate.py 36~38row
+# All but the top 50 candidates are left. -∞ made with
 top_k = 50
 kth = torch.topk(logits, top_k).values[..., -1, None]
 logits = torch.where(logits < kth, float("-inf"), logits)
 ```
 
-16,384개 중 확률이 낮은 16,334개를 아예 제거한다.
-엉뚱한 글자가 뽑힐 가능성을 원천 차단한다.
+16,38416 of the least likely,334Get rid of the dog altogether..
+Prevents the possibility of incorrect letters being selected.
 
-### Top-P 핵 표본추출
+### Top-P nuclear sampling
 
 ```python
-# generate.py 40~52행
-# 확률의 누적 합이 95%가 될 때까지의 후보만 남긴다
+# generate.py 40~52row
+# The cumulative sum of probabilities is 95%Only candidates left until .
 top_p = 0.95
 ```
 
 ```
-후보들을 확률 높은 순으로 정렬:
-  "먼저"    →  0.45  누적: 0.45
-  "우선"    →  0.28  누적: 0.73
-  "처음에"  →  0.17  누적: 0.90
-  "첫번째"  →  0.05  누적: 0.95  ← 여기까지 남김
-  이후 후보들은 모두 제거
+Sort candidates in order of probability:
+  "first"    →  0.45  cumulative: 0.45
+  "First of all"    →  0.28  cumulative: 0.73
+  "at first"  →  0.17  cumulative: 0.90
+  "first"  →  0.05  cumulative: 0.95  ← I leave it here
+  Afterwards, all candidates were eliminated.
 ```
 
-### 반복 벌점 (Repetition Penalty)
+### repetition penalty (Repetition Penalty)
 
 ```python
-# generate.py 21~29행, penalty = 1.15
+# generate.py 21~29row, penalty = 1.15
 score = torch.where(score < 0, score * penalty, score / penalty)
 ```
 
-이미 생성한 글자의 확률을 1.15로 나눈다 → 확률이 낮아짐.
+The probability of a letter already created is 1.15Divide by → probability decreases.
 
-**없을 때:**
+**When there is no:**
 ```
-"김치 김치 김치 김치 김치..." (같은 말 무한 반복)
+"kimchi kimchi kimchi kimchi kimchi..." (repeating the same words endlessly)
 ```
 
-**있을 때 (penalty = 1.15):**
+**when there is (penalty = 1.15):**
 ```
-"김치는 조선의 대표적인 발효 식품으로, 배추에 고춧가루..."
+"Kimchi is a representative fermented food of Joseon., Red pepper powder on cabbage..."
 ```
 
 ---
 
-## 14. 이 모형의 규모와 한계
+## 14. Size and limitations of this model
 
-### 매개변수 수 계산
+### Calculate number of parameters
 
 ```python
-# config.py 25~33행의 num_params_estimate() 함수
+# config.py 25~33row of num_params_estimate() function
 
-토큰 임베딩:    16,384 × 512  =  8,388,608
-위치 임베딩:     1,024 × 512  =    524,288
+Token Embedding:    16,384 × 512  =  8,388,608
+Location Embedding:     1,024 × 512  =    524,288
 
-블로크 1개:
-  주의 QKV:     512 × 1,536  =    786,432
-  주의 출력:    512 × 512    =    262,144
-  전달망 확장:  512 × 2,048  =  1,048,576
-  전달망 축소: 2,048 × 512   =  1,048,576
-  소계:                      =  3,145,728
+1 block:
+  caution QKV:     512 × 1,536  =    786,432
+  Attention output:    512 × 512    =    262,144
+  Delivery network expansion:  512 × 2,048  =  1,048,576
+  network reduction: 2,048 × 512   =  1,048,576
+  Subtotal:                      =  3,145,728
 
-블로크 8개:  3,145,728 × 8  = 25,165,824
+8 blocks:  3,145,728 × 8  = 25,165,824
 
-LM 머리: 가중치 공유(tie_weights=True) → 0 추가
+LM head: weight sharing(tie_weights=True) → 0 add
 
 ───────────────────────────────────────
-합계: 약 34,078,720 ≈ 3,400만 매개변수
+total: about 34,078,720 ≈ 3,400Only parameters
 ───────────────────────────────────────
 ```
 
-이 3,400만 개의 숫자가 조선말 료리법과 운동 지식을 담는다.
+this 3,400The number of 10,000 contains Korean cooking methods and exercise knowledge..
 
-### 왜 3,400만 매개변수인가
+### why 3,400Is it only a parameter?
 
-우리 그라픽 처리 장치(RTX 5070, 현현기억기 12 GB)에서 학습 가능한 규모다.
-더 큰 모형을 만들면 현현기억기 초과 오류가 발생한다.
-자세한 설명은 `explain.md` 참고.
+Our graphics processing unit(RTX 5070, Manifestation memory 12 GB)It is a scale that can be learned in.
+Creating larger models leads to manifest memory overflow errors..
+For detailed explanation `explain.md` Note.
 
-### 훈련과 추론의 차이
+### Difference between training and inference
 
 ```
-훈련 시: 모든 글자 위치의 손실을 동시에 계산
-  logits = self.lm_head(x)            # (B, T, 16384) — 모든 위치
+When training: Simultaneously calculate the loss of all letter positions
+  logits = self.lm_head(x)            # (B, T, 16384) — all locations
 
-추론 시: 마지막 위치만 계산 (기억기 절약)
-  logits = self.lm_head(x[:, [-1], :])  # (B, 1, 16384) — 마지막만
+When inferring: Count only the last position (memory saving)
+  logits = self.lm_head(x[:, [-1], :])  # (B, 1, 16384) — Only the last one
 ```
 
 ---
 
-## 핵심 정리표
+## key summary table
 
-| 구성 요소 | 하는 일 | 코드 위치 | 입출력 형태 |
+| component | What to do | code location | Input/Output Form |
 |----------|---------|----------|-----------|
-| 토큰 임베딩 | 번호 → 512차원 벡토르 | `transformer.py:90` | (B,T) → (B,T,512) |
-| 위치 임베딩 | 위치 정보 추가 | `transformer.py:91` | (B,T) → (B,T,512) |
-| 층 정규화 | 숫자 크기 안정화 | `transformer.py:74` | (B,T,512) → (B,T,512) |
-| QKV 선형 변환 | 512 → Q, K, V (각 512) | `transformer.py:34` | (B,T,512) → (B,T,1536) |
-| 다중 머리 분리 | 512 → 8개 × 64 | `transformer.py:44` | (B,T,512) → (B,8,T,64) |
-| 인과적 주의 | 미래 가리개 + 점수 계산 | `transformer.py:49` | (B,8,T,64) → (B,8,T,64) |
-| 머리 합치기 | 8×64 → 512 | `transformer.py:55` | (B,8,T,64) → (B,T,512) |
-| 잔차 연결 | 기울기 소실 방지 | `transformer.py:80` | (B,T,512) + (B,T,512) |
-| 전달 망 | 512 → 2048 → 512 | `transformer.py:60` | (B,T,512) → (B,T,512) |
-| LM 머리 | 512 → 16,384 확률 | `transformer.py:95` | (B,1,512) → (B,1,16384) |
-| 온도 조정 | 확률 날카로움 조절 | `generate.py:78` | 소프트막스 입력 스케일 |
-| Top-K/P | 불량 후보 제거 | `generate.py:33` | 낮은 확률 → -∞ |
-| 반복 벌점 | 반복 글자 억제 | `generate.py:22` | 기생성 토큰 확률 ÷ 1.15 |
+| Token Embedding | number → 512dimension vector | `transformer.py:90` | (B,T) → (B,T,512) |
+| Location Embedding | Add location information | `transformer.py:91` | (B,T) → (B,T,512) |
+| layer normalization | Number size stabilization | `transformer.py:74` | (B,T,512) → (B,T,512) |
+| QKV linear transformation | 512 → Q, K, V (512 each) | `transformer.py:34` | (B,T,512) → (B,T,1536) |
+| multiple head separation | 512 → 8dog × 64 | `transformer.py:44` | (B,T,512) → (B,8,T,64) |
+| causal attention | future screen + score calculation | `transformer.py:49` | (B,8,T,64) → (B,8,T,64) |
+| merge heads | 8×64 → 512 | `transformer.py:55` | (B,8,T,64) → (B,T,512) |
+| Residual concatenation | Prevent tilt loss | `transformer.py:80` | (B,T,512) + (B,T,512) |
+| transmission network | 512 → 2048 → 512 | `transformer.py:60` | (B,T,512) → (B,T,512) |
+| LM head | 512 → 16,384 probability | `transformer.py:95` | (B,1,512) → (B,1,16384) |
+| temperature adjustment | Probability Sharpness Control | `generate.py:78` | Softmax input scale |
+| Top-K/P | Eliminate bad candidates | `generate.py:33` | low probability → -∞ |
+| repetition penalty | Suppress repeated letters | `generate.py:22` | Parasitic Token Probability ÷ 1.15 |
 
-> **한 줄 요약:** 트랜스포메르는 "모든 글자가 다른 모든 글자를 동시에 참고하여 자신의 표현을 업데이트한다" 는 주의 기제를 8층 쌓은 것이다. 이 과정을 통해 문맥을 충분히 이해한 뒤, 다음에 나올 가장 자연스러운 글자를 예측한다.
+> **one line summary:** Transformer is "Every letter updates its expression by referencing all other letters simultaneously." is an eight-layered caution mechanism.. After fully understanding the context through this process,, Predict the most natural letter that will come next.

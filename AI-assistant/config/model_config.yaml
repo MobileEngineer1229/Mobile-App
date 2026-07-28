@@ -1,295 +1,295 @@
+﻿# =============================================================================
+# Joseon Dynasty artificial intelligence assistant — config file
 # =============================================================================
-# 조선말 인공지능 조수 — 설정 파일
-# =============================================================================
-# 이 파일은 모형 구조, 어표 분석기, 자료, 학습, 추론에 관한
-# 모든 매개변수를 담고 있습니다.
-# 변경 후에는 반드시 전처리와 학습을 다시 실행하십시오.
+# This file contains the model structure, ticket analyzer, material, learning, about reasoning
+# Contains all parameters.
+# Be sure to re-run preprocessing and training after changes..
 # =============================================================================
 
 
 # -----------------------------------------------------------------------------
-# 모형 구조 설정 (model)
+# Model structure settings (model)
 # -----------------------------------------------------------------------------
-# GPT 방식의 단방향 변환기(Transformer) 구조입니다.
-# 매개변수가 많을수록 표현력은 높아지지만 학습 시간과 기억 사용량이 늘어납니다.
+# GPT one-way converter(Transformer) It's a structure.
+# More parameters provide more expressive power, but also increase learning time and memory usage..
 model:
 
-  # 변환기 블록(층) 수
-  # - 6~8:  소형 모형 (30M 매개변수, 자료 1GB 미만)
-  # - 12:   중형 모형 (85M 매개변수, 자료 10~100GB)
-  # - 24:   대형 모형 (350M 매개변수, 자료 100GB 이상, RTX 5070으로 학습 가능)
+  # converter block(floor) number
+  # - 6~8:  miniature model (30M parameter, Data 1GB less than)
+  # - 12:   medium model (85M parameter, Data 10~100GB)
+  # - 24:   large model (350M parameter, material 100GB more than, RTX 5070You can learn with)
   n_layer: 8
 
-  # 주목 머리(Attention Head) 수
-  # - 반드시 n_embd의 약수여야 합니다 (예: n_embd=512이면 1,2,4,8,16 가능)
-  # - 머리가 많을수록 다양한 위치 관계를 동시에 학습합니다
-  # - 권장: n_embd를 n_head로 나누었을 때 64 이상이 되도록 설정
-  #   (예: n_embd=512, n_head=8 → 머리당 64차원)
+  # attention head(Attention Head) number
+  # - surely n_embdmust be a factor of (yes: n_embd=512If 1,2,4,8,16 possible)
+  # - The more heads there are, the more diverse positional relationships can be learned simultaneously.
+  # - recommended: n_embdto n_headSet to be 64 or more when divided by
+  #   (yes: n_embd=512, n_head=8 → 64 dimensions per head)
   n_head: 8
 
-  # 은닉 벡터 차원 (Hidden Dimension)
-  # - 모형 용량을 결정하는 핵심 매개변수입니다
-  # - 256:  매우 소형 (실험용)
-  # - 512:  소형 기본값 (30M 매개변수)
-  # - 768:  중형 (85M 매개변수, GPT-2 Small 수준)
-  # - 1024: 대형 (350M 매개변수, GPT-2 Medium 수준)
+  # Hidden vector dimension (Hidden Dimension)
+  # - These are the key parameters that determine model capacity.
+  # - 256:  very small (For experimental use)
+  # - 512:  small default (30M parameter)
+  # - 768:  medium size (85M parameter, GPT-2 Small level)
+  # - 1024: large (350M parameter, GPT-2 Medium level)
   n_embd: 512
 
-  # 순방향 신경망 내부 차원 (FFN Inner Dimension)
-  # - 일반적으로 n_embd × 4로 설정합니다
+  # Forward Neural Network Internal Dimensions (FFN Inner Dimension)
+  # - generally n_embd × 4Set it to
   # - n_embd=512 → ffn_dim=2048
   # - n_embd=768 → ffn_dim=3072
   ffn_dim: 2048
 
-  # 최대 문맥 길이 (어표 수)
-  # - 모형이 한 번에 처리할 수 있는 최대 어표 수입니다
-  # - 학습 자료 문서 평균 길이보다 길게 설정하십시오
-  # - 512:  단문 위주 자료에 적합
-  # - 1024: 기본값 (대부분의 경우 적합)
-  # - 2048: 긴 글 자료 (더 많은 기억 필요)
-  # - 주의: 자료가 block_size보다 적으면 자동으로 줄어듭니다
+  # maximum context length (number of tickets)
+  # - Maximum number of tickets the model can process at once
+  # - Make sure your study material document is longer than the average length
+  # - 512:  Suitable for short text-oriented materials
+  # - 1024: default (Suitable for most cases)
+  # - 2048: long text material (need more memory)
+  # - caution: data block_sizeIf it is less than that, it will automatically decrease.
   block_size: 1024
 
-  # 어휘 크기 (Vocabulary Size)
-  # - 전처리 후 meta.json의 값으로 자동 덮어씌워집니다
-  # - 이 값은 어표 분석기 학습에서도 사용됩니다
-  # - 2048~4096:  소규모 자료 (자동 조정됨)
-  # - 8192:       중규모 자료 (수백MB)
-  # - 16384:      대규모 자료 (수GB 이상) ← 권장
-  # - 32768:      초대규모 자료 (수십GB 이상)
+  # vocabulary size (Vocabulary Size)
+  # - After pretreatment meta.jsonIt is automatically overwritten with the value of
+  # - This value is also used in word mark analyzer training.
+  # - 2048~4096:  small data (Auto-adjusted)
+  # - 8192:       Mesoscale data (hundredsMB)
+  # - 16384:      large scale data (numberGB more than) ← recommended
+  # - 32768:      Super-scale data (dozensGB more than)
   vocab_size: 16384
 
-  # 탈락 비율 (Dropout Rate)
-  # - 학습 중 무작위로 일부 뉴런을 비활성화하여 과적합을 방지합니다
-  # - 0.0:   탈락 없음 (자료가 매우 많을 때)
-  # - 0.1:   기본값 (권장)
-  # - 0.2:   자료가 적을 때 과적합 방지 강화
+  # dropout rate (Dropout Rate)
+  # - Prevent overfitting by randomly disabling some neurons during training
+  # - 0.0:   No dropout (When there is a lot of data)
+  # - 0.1:   default (recommended)
+  # - 0.2:   Enhanced prevention of overfitting when data is small
   dropout: 0.1
 
-  # 편향 항 사용 여부 (Bias on Linear Layers)
-  # - false: 기억과 계산을 절약, 현대 대형 모형의 표준
-  # - true:  소형 모형에서 약간 유리할 수 있음
+  # Whether to use a bias term (Bias on Linear Layers)
+  # - false: Save memory and calculations, The standard for modern large models
+  # - true:  May have a slight advantage in small models
   bias: false
 
-  # 입출력 사영 가중치 공유 (Weight Tying)
-  # - true: 입력 삽입(Embedding)과 출력 선형층의 가중치를 공유
-  #   → 매개변수 수를 vocab_size × n_embd만큼 줄임 (약 8M 절감)
-  # - false: 별도 가중치 사용 (더 많은 기억 필요)
+  # Input/output projective weight sharing (Weight Tying)
+  # - true: Insert Input(Embedding)Share the weights of the output linear layer with
+  #   → number of parameters vocab_size × n_embdreduce by (about 8M savings)
+  # - false: Use separate weights (need more memory)
   tie_weights: true
 
 
 # -----------------------------------------------------------------------------
-# 어표 분석기 설정 (tokenizer)
+# Mark analyzer settings (tokenizer)
 # -----------------------------------------------------------------------------
-# SentencePiece BPE(두글자 쌍 부호화) 방식을 사용합니다.
-# 어표 분석기를 한 번 학습하면 모형 학습 전체 기간에 재사용합니다.
-# 나중에 어표 분석기를 바꾸면 기존 모형과 호환되지 않습니다.
+# SentencePiece BPE(Two-letter pair encoding) method is used.
+# Once you train a wordmark analyzer, you can reuse it throughout the entire model training period..
+# If you change the tag analyzer later, it will not be compatible with the existing model..
 tokenizer:
 
-  # 어표 분석기 어휘 크기
-  # - model.vocab_size와 동일하게 설정하십시오
-  # - 자료가 적으면 자동으로 줄어듭니다
+  # Vocabulary Analyzer Vocabulary Size
+  # - model.vocab_sizeSet it the same as
+  # - If there is less data, it will be automatically reduced.
   vocab_size: 16384
 
-  # SentencePiece 모형 방식
-  # - bpe:    두글자 쌍 부호화 (조선말에 가장 적합, 권장)
-  # - unigram: 단일 모형 (일부 경우 더 나은 압축률)
-  # - char:   글자 단위 (어휘 크기 매우 작음, 조합이 느림)
-  # - word:   단어 단위 (미지 단어 처리 취약)
+  # SentencePiece model method
+  # - bpe:    Two-letter pair encoding (Best suited for Korean language, recommended)
+  # - unigram: single model (Better compression ratio in some cases)
+  # - char:   character unit (Very small vocabulary size, Combination is slow)
+  # - word:   word unit (Weak processing of unknown words)
   model_type: bpe
 
-  # 글자 포함 비율 (Character Coverage)
-  # - 전체 글자 중 몇 %를 어휘에 포함할지 결정합니다
-  # - 0.9995: 조선말 권장값 (한글은 글자 수가 많아 높게 설정)
-  # - 0.9999: 희귀 글자까지 모두 포함
-  # - 1.0:    모든 글자 포함 (어휘 크기 증가)
+  # Letter inclusion ratio (Character Coverage)
+  # - some of the total letters %Decide whether to include it in your vocabulary
+  # - 0.9995: Recommended values for Korean language (Hangul has a large number of characters, so set it high.)
+  # - 0.9999: Includes all rare letters
+  # - 1.0:    Includes all letters (Increase vocabulary size)
   character_coverage: 0.9995
 
-  # 어표 분석기 모형 저장 경로 (checkpoints/ 기준 상대 경로)
-  # 결과: checkpoints/tokenizer/dprk_sp.model
+  # Tag analyzer model storage path (checkpoints/ Base relative path)
+  # result: checkpoints/tokenizer/dprk_sp.model
   #        checkpoints/tokenizer/dprk_sp.vocab
   output_prefix: tokenizer/dprk_sp
 
 
 # -----------------------------------------------------------------------------
-# 자료 설정 (data)
+# Material settings (data)
 # -----------------------------------------------------------------------------
 data:
 
-  # 원본 자료 폴더 경로 (프로젝트 루트 기준)
-  # 지원 형식: .txt .json .jsonl .pdf .docx .jpg .png .jpeg .bmp .gif .webp .tiff
-  # 하위 폴더까지 자동으로 탐색합니다
+  # Source material folder path (Based on project root)
+  # Supported Format: .txt .json .jsonl .pdf .docx .jpg .png .jpeg .bmp .gif .webp .tiff
+  # Automatically navigates to subfolders
   raw_dir: data/raw
 
-  # 전처리된 이진 자료 저장 폴더
-  # 내용: train.bin, val.bin, meta.json
+  # Preprocessed binary data storage folder
+  # content: train.bin, val.bin, meta.json
   processed_dir: data/processed
 
-  # 학습/검증 분리 비율
-  # - 0.95: 전체 문서의 95%를 학습용, 5%를 검증용으로 사용
-  # - 자료가 적으면 0.90으로 낮추어 검증 자료를 더 확보하십시오
-  # - 자료가 100만 문서 이상이면 0.99로 높여도 됩니다
+  # learning/Verification Separation Ratio
+  # - 0.95: 95 of total documents%For learning, 5%used for verification
+  # - 0 if there is little data.90Decrease to secure more verification data
+  # - 0 if the data is more than 1 million documents.99You can increase it to
   train_split: 0.95
 
 
 # -----------------------------------------------------------------------------
-# 학습 설정 (train)
+# Learning Settings (train)
 # -----------------------------------------------------------------------------
-# AdamW 최적화기 + 코사인 학습률 감쇠를 사용합니다.
+# AdamW optimizer + Uses cosine learning rate decay.
 train:
 
-  # 중간저장점 및 텐서보드 로그 저장 폴더
+  # Intermediate save point and TensorBoard log storage folder
   out_dir: checkpoints
 
-  # 소묶음 크기 (Micro Batch Size)
-  # - 그라픽 처리 장치 한 번의 순방향 계산에서 처리할 문서 수
-  # - RTX 5070 12GB에서 30M 모형 기준: 최대 32까지 가능
-  # - 85M 모형이면 8~16으로 줄이십시오 (기억 초과 방지)
-  # - 256M 모형이면 4로 줄이십시오
+  # Cow bundle size (Micro Batch Size)
+  # - Graphics Processing Unit Number of documents to be processed in one forward calculation
+  # - RTX 5070 12GBFrom 30M model basis: Up to 32 possible
+  # - 85M If it's a model, it's 8~16reduce to (Prevent memory overload)
+  # - 256M If it's a model, reduce it to 4
   batch_size: 16
 
-  # 기울기 누적 단계 수 (Gradient Accumulation Steps)
-  # - 실효 묶음 크기 = batch_size × grad_accum_steps × block_size
-  # - 현재: 16 × 4 × 1024 = 65,536 어표/최적화 단계
-  # - batch_size를 줄인 경우 이 값을 늘려 실효 묶음 크기를 유지하십시오
-  #   (예: batch_size=8, grad_accum_steps=8 → 같은 실효 크기)
+  # Gradient cumulative steps (Gradient Accumulation Steps)
+  # - Effective bundle size = batch_size × grad_accum_steps × block_size
+  # - present: 16 × 4 × 1024 = 65,536 tag/Optimization step
+  # - batch_sizeIf you reduce , increase this value to maintain the effective bundle size.
+  #   (yes: batch_size=8, grad_accum_steps=8 → same effective size)
   grad_accum_steps: 4
 
-  # 최대 학습률 (Peak Learning Rate)
-  # - AdamW의 학습률 상한값입니다
-  # - 3.0e-4: 소형 모형(30M) 기본값
-  # - 1.0e-4: 중형 모형(85M) 권장
-  # - 6.0e-5: 대형 모형(350M) 권장
-  # - 세밀 조정(Fine-tuning) 시: 원래 값의 1/10 (예: 3.0e-5)
+  # maximum learning rate (Peak Learning Rate)
+  # - AdamWis the upper bound on the learning rate of
+  # - 3.0e-4: miniature model(30M) default
+  # - 1.0e-4: medium model(85M) recommended
+  # - 6.0e-5: large model(350M) recommended
+  # - fine tuning(Fine-tuning) poetry: 1 of the original value/10 (yes: 3.0e-5)
   learning_rate: 3.0e-4
 
-  # 최솟값 학습률 (Minimum Learning Rate)
-  # - 코사인 감쇠의 하한값입니다 (보통 최대 학습률의 10%)
-  # - 학습 끝에 이 값으로 수렴합니다
+  # Minimum learning rate (Minimum Learning Rate)
+  # - This is the lower bound for cosine damping. (Usually 10 of the maximum learning rate%)
+  # - At the end of training, it converges to this value
   min_lr: 3.0e-5
 
-  # 온기 단계 수 (Warmup Steps)
-  # - 학습 초반에 학습률을 0에서 최대값까지 선형으로 올립니다
-  # - 갑작스러운 큰 기울기로 인한 불안정을 방지합니다
-  # - 전체 스텝의 1~2% 정도로 설정하십시오
-  # - max_steps=5000이면 100, max_steps=200000이면 2000
+  # number of warmth levels (Warmup Steps)
+  # - At the beginning of training, we linearly increase the learning rate from 0 to the maximum.
+  # - Prevents instability due to sudden large tilts
+  # - 1 of total steps~2% Please set it to about
+  # - max_steps=5000If it is 100, max_steps=200000If it's 2000
   warmup_steps: 100
 
-  # 전체 학습 스텝 수 (Total Training Steps)
-  # - 1 스텝 = grad_accum_steps번의 소묶음 처리 + 1번의 매개변수 갱신
-  # - 자료 크기에 따른 권장값:
-  #   1MB  미만: 1,000~5,000
+  # Total number of learning steps (Total Training Steps)
+  # - 1 step = grad_accum_stepsProcessing of bundles of cattle + 1Parameter update
+  # - Recommended values depending on data size:
+  #   1MB  less than: 1,000~5,000
   #   10MB:      5,000~20,000
   #   1GB:       50,000~100,000
   #   10GB:      100,000~300,000
   #   100GB:     500,000~1,000,000
-  # - 학습 손실이 더 이상 줄지 않으면 중단해도 됩니다
+  # - If learning loss no longer decreases, you can stop
   max_steps: 5000
 
-  # 가중치 감쇠 (Weight Decay)
-  # - 과적합 방지를 위한 L2 정규화 계수입니다
-  # - 0.1: 표준값 (GPT-3, nanoGPT 기본값)
+  # weight attenuation (Weight Decay)
+  # - To prevent overfitting L2 is the normalization coefficient
+  # - 0.1: standard value (GPT-3, nanoGPT default)
   weight_decay: 0.1
 
-  # AdamW 1차 모멘트 계수 (Beta1)
-  # - 기울기의 지수 이동 평균 계수입니다
-  # - 0.9: 표준값
+  # AdamW 1difference moment coefficient (Beta1)
+  # - is the exponential moving average coefficient of the slope
+  # - 0.9: standard value
   beta1: 0.9
 
-  # AdamW 2차 모멘트 계수 (Beta2)
-  # - 기울기 제곱의 지수 이동 평균 계수입니다
-  # - 0.95: GPT 계열 표준값 (일반 Adam의 0.999보다 낮음)
+  # AdamW 2difference moment coefficient (Beta2)
+  # - is the exponential moving average coefficient of the slope squared
+  # - 0.95: GPT Series standard value (general Adamof 0.999lower than)
   beta2: 0.95
 
-  # 기울기 절단값 (Gradient Clipping)
-  # - 기울기의 크기가 이 값을 초과하면 비율에 맞게 줄입니다
-  # - 폭발적 기울기(Exploding Gradient) 방지
-  # - 1.0: 표준값 (거의 바꿀 필요 없음)
+  # slope cutoff value (Gradient Clipping)
+  # - If the magnitude of the gradient exceeds this value, it is reduced proportionally.
+  # - explosive tilt(Exploding Gradient) prevent
+  # - 1.0: standard value (Almost no need to change)
   grad_clip: 1.0
 
-  # 검증 및 중간저장 주기 (스텝 단위)
-  # - 이 스텝마다 검증 손실을 계산하고 중간저장점을 저장합니다
-  # - 250: 기본값 (~2분마다 저장, RTX 5070 기준)
-  # - 100기가 자료 학습 시 1000으로 늘려도 됩니다
+  # Verification and intermediate storage cycle (step unit)
+  # - For each step, we calculate the verification loss and store the intermediate save points.
+  # - 250: default (~2Save every minute, RTX 5070 standard)
+  # - 100When learning Giga data, you can increase it to 1000.
   eval_interval: 250
 
-  # 검증 손실 계산에 사용할 소묶음 수
-  # - 많을수록 정확하지만 시간이 걸립니다
-  # - 50: 기본값 (충분히 안정적)
+  # Number of cows to use in calculating verification loss
+  # - The more the more accurate, but it takes time
+  # - 50: default (stable enough)
   eval_iters: 50
 
-  # 학습 손실 기록 주기 (스텝 단위)
-  # - 콘솔에 손실값을 출력하는 주기입니다
-  # - 10: 기본값
+  # Learning loss recording cycle (step unit)
+  # - This is the cycle of outputting loss values to the console.
+  # - 10: default
   log_interval: 10
 
-  # 생성 예시 출력 주기 (스텝 단위)
-  # - 이 스텝마다 모형이 실제로 생성하는 예시 문장을 출력합니다
-  # - 학습 진행 상황을 눈으로 확인하는 데 사용합니다
-  # - 500: 기본값
+  # Generation example output cycle (step unit)
+  # - For each of these steps, we output example sentences that the model actually generates.
+  # - Use to visually check learning progress
+  # - 500: default
   sample_interval: 500
 
-  # 보관할 최근 중간저장점 수
-  # - 이전 중간저장점을 자동으로 삭제하여 저장 공간을 절약합니다
-  # - _best, _final 꼬리표가 붙은 것은 항상 보존됩니다
-  # - 3: 최근 3개 보존 (디스크 절약 + 안전성 균형)
-  # - 강제 종료 후 복구를 위해 최소 3 이상을 권장합니다
+  # Number of recent intermediate savepoints to keep
+  # - Saves storage space by automatically deleting previous intermediate save points.
+  # - _best, _final Tagged items are always preserved
+  # - 3: Last 3 saved (disk saving + safety balance)
+  # - We recommend at least 3 for recovery after force quit
   ckpt_keep_last: 3
 
-  # 연산 정밀도 (dtype)
-  # - bfloat16: RTX 3090/4090/5070(Blackwell) 권장, 안정적이고 빠름
-  # - float16:  이전 GPU(V100 등), bfloat16 미지원 시 자동 선택됨
-  # - float32:  가장 안전하지만 2~3배 느리고 기억 2배 사용
+  # Operational precision (dtype)
+  # - bfloat16: RTX 3090/4090/5070(Blackwell) recommended, Stable and fast
+  # - float16:  Previous GPU(V100 etc.), bfloat16 Automatically selected if not supported
+  # - float32:  Safest but 2~3It's slower and uses twice as much memory.
   dtype: bfloat16
 
-  # torch.compile 사용 여부
-  # - true:  약 10~20% 속도 향상 (첫 실행 시 수 분 소요)
-  # - false: 기본값 (재현 가능성 높음, 디버깅 편리)
-  # - PyTorch 2.0+ 및 CUDA 필요, Windows에서 일부 제한 있음
+  # torch.compile Used or not
+  # - true:  about 10~20% speed up (First run takes minutes)
+  # - false: default (Highly reproducible, Convenient debugging)
+  # - PyTorch 2.0+ and CUDA need, WindowsThere are some restrictions in
   compile: false
 
 
 # -----------------------------------------------------------------------------
-# 추론 기본값 설정 (inference)
+# Setting inference defaults (inference)
 # -----------------------------------------------------------------------------
-# 학습된 모형으로 문장을 생성할 때 사용하는 기본값입니다.
-# 그라디오 화면의 슬라이더로 실시간 조정이 가능합니다.
+# This is the default value used when generating sentences with the learned model..
+# Real-time adjustment is possible with the slider on the Gradio screen..
 inference:
 
-  # 생성할 최대 어표 수 (Max New Tokens)
-  # - 한 번의 대화 응답에서 생성할 최대 어표 수입니다
-  # - 어표 ≈ 한글 1~2글자 또는 영어 단어의 일부
-  # - 128: 짧은 답변 (빠른 응답)
-  # - 256: 중간 길이 (기본값)
-  # - 512: 긴 답변 (더 자세한 설명)
+  # Maximum number of tickets to generate (Max New Tokens)
+  # - Maximum number of tokens to generate in one conversation response
+  # - tag ≈ Hangul 1~2letters or parts of English words
+  # - 128: short answer (quick response)
+  # - 256: medium length (default)
+  # - 512: long answer (more detailed explanation)
   default_max_new_tokens: 256
 
-  # 온도 (Temperature)
-  # - 다음 어표 선택의 무작위성을 조절합니다
-  # - 0.1~0.5: 일관되고 예측 가능한 출력 (사실 정보 답변에 적합)
-  # - 0.7~1.0: 균형 잡힌 출력 (기본값 0.9)
-  # - 1.0~1.5: 창의적이고 다양한 출력 (창작, 시 생성에 적합)
+  # temperature (Temperature)
+  # - Controls the randomness of the next note selection
+  # - 0.1~0.5: Consistent and predictable output (Good for factual information answers)
+  # - 0.7~1.0: balanced output (Default 0.9)
+  # - 1.0~1.5: Creative and diverse output (creation, Perfect for creating poetry)
   default_temperature: 0.9
 
-  # 상위 K 표본 추출 (Top-k Sampling)
-  # - 확률 높은 상위 K개 어표 중에서만 선택합니다
-  # - 낮을수록 일관성↑, 높을수록 다양성↑
-  # - 10~20: 매우 집중적인 출력
-  # - 50:    기본값 (균형)
-  # - 100+:  매우 다양한 출력
+  # top K sampling (Top-k Sampling)
+  # - High probability top KChoose only from the list of quotes
+  # - The lower the consistency↑, The higher the diversity↑
+  # - 10~20: Very focused output
+  # - 50:    default (balance)
+  # - 100+:  Very versatile output
   default_top_k: 50
 
-  # 핵 표본 추출 확률 (Top-p / Nucleus Sampling)
-  # - 누적 확률이 P에 도달할 때까지 어표를 추가하고 그 중에서 선택합니다
-  # - top_k와 함께 사용하면 두 조건 모두 적용됩니다
-  # - 0.85: 집중적인 출력
-  # - 0.95: 기본값
-  # - 1.0:  모든 어표 고려 (top_p 비활성화와 동일)
+  # Nuclear sampling probability (Top-p / Nucleus Sampling)
+  # - cumulative probability PAdd tags until you reach and select from them.
+  # - top_kWhen used with , both conditions apply
+  # - 0.85: focused output
+  # - 0.95: default
+  # - 1.0:  Consider all quotes (top_p Same as disable)
   default_top_p: 0.95
 
-  # 반복 억제 계수 (Repetition Penalty)
-  # - 이미 생성한 어표가 다시 선택될 확률을 이 값으로 나눕니다
-  # - 1.0:  억제 없음 (반복 허용)
-  # - 1.1~1.2: 약한 억제 (권장)
-  # - 1.3~1.5: 강한 억제 (단, 너무 높으면 문법 오류 증가)
+  # repetition suppression coefficient (Repetition Penalty)
+  # - The probability that an already created tag will be selected again is divided by this value.
+  # - 1.0:  no inhibitions (Allow repetition)
+  # - 1.1~1.2: weak inhibition (recommended)
+  # - 1.3~1.5: strong inhibition (sweet, Too high increases grammatical errors)
   default_repetition_penalty: 1.15

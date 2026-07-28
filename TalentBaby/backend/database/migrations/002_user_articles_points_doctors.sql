@@ -1,11 +1,11 @@
--- Migration 002: User Articles, Points, Doctor Profiles
--- 사용자 기사 투고 / 포인트 / 의사급수 시스템
+﻿-- Migration 002: User Articles, Points, Doctor Profiles
+-- Submit user articles / point / doctor water system
 
 -- 1. Add role column to users
 ALTER TABLE users ADD COLUMN IF NOT EXISTS role VARCHAR(20) DEFAULT 'user';
 -- roles: 'user', 'doctor', 'admin'
 
--- 2. User submitted articles (사용자 기사 투고)
+-- 2. User submitted articles (Submit user articles)
 CREATE TABLE IF NOT EXISTS user_articles (
     id SERIAL PRIMARY KEY,
     user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS user_articles (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- 3. Article comments & replies (기사 회답표 — parent_id로 대댓글 지원)
+-- 3. Article comments & replies (Article Reply Table — parent_idReply support with)
 CREATE TABLE IF NOT EXISTS user_article_comments (
     id SERIAL PRIMARY KEY,
     article_id INTEGER NOT NULL REFERENCES user_articles(id) ON DELETE CASCADE,
@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS user_article_comments (
     parent_id INTEGER REFERENCES user_article_comments(id) ON DELETE CASCADE, -- NULL = top-level comment
     content TEXT NOT NULL,
     like_count INTEGER DEFAULT 0,
-    is_doctor_comment BOOLEAN DEFAULT false, -- 의사가 작성한 경우 표시
+    is_doctor_comment BOOLEAN DEFAULT false, -- Indicate if completed by a physician
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS user_article_comment_likes (
     UNIQUE(comment_id, user_id)
 );
 
--- 6. User points balance (포인트 잔액)
+-- 6. User points balance (points balance)
 CREATE TABLE IF NOT EXISTS user_points (
     id SERIAL PRIMARY KEY,
     user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE UNIQUE,
@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS user_points (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- 7. Point transaction history (포인트 내역)
+-- 7. Point transaction history (Points Details)
 CREATE TABLE IF NOT EXISTS user_point_history (
     id SERIAL PRIMARY KEY,
     user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
@@ -73,18 +73,18 @@ CREATE TABLE IF NOT EXISTS user_point_history (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- 8. Doctor profiles (의사급수)
+-- 8. Doctor profiles (doctor level)
 CREATE TABLE IF NOT EXISTS doctor_profiles (
     id SERIAL PRIMARY KEY,
     user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE UNIQUE,
-    specialty VARCHAR(100) NOT NULL,    -- '소아과', '산부인과', '신생아과', '소아청소년과' etc.
+    specialty VARCHAR(100) NOT NULL,    -- 'pediatrics', 'obstetrics and gynecology', 'neonatology', 'Department of Pediatrics and Adolescents' etc.
     license_number VARCHAR(100),
     hospital VARCHAR(255),
-    grade VARCHAR(50) NOT NULL DEFAULT '인턴',
-    -- grade levels: '인턴'(1), '레지던트'(2), '전문의'(3), '교수'(4), '명예의사'(5)
+    grade VARCHAR(50) NOT NULL DEFAULT 'intern',
+    -- grade levels: 'intern'(1), 'resident'(2), 'specialist'(3), 'professor'(4), 'honorary doctor'(5)
     grade_level INTEGER DEFAULT 1 CHECK (grade_level BETWEEN 1 AND 5),
     bio TEXT,
-    verified BOOLEAN DEFAULT false,     -- admin 검증 여부
+    verified BOOLEAN DEFAULT false,     -- admin Verification?
     verified_at TIMESTAMP,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP

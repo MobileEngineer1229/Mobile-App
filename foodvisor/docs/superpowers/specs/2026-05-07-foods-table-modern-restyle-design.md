@@ -1,4 +1,4 @@
-# Foods Table — Modern Restyle + Vitamin Column
+﻿# Foods Table — Modern Restyle + Vitamin Column
 
 **Date:** 2026-05-07
 **Scope:** sub-project 1 of 4 (table UI only — DB updates, validation, NK language pass deferred to separate specs)
@@ -21,7 +21,7 @@ Apply to `globals.css`. No JSX changes for these unless noted.
 6. **Refined macro bar.** Add a 2px gap between P/F/C segments using `gap: 2px` on `.macro-bar`. Remove the `P 1.0g F 1.0g C 1.0g` text labels above the bar (the toolbar legend already explains; numbers still appear on hover via `title` attribute, which already exists).
 7. **Calorie cell.** Drop the two-weight split. `220` (single weight, tabular-nums) followed by tiny gray `kcal`.
 8. **Allergen chips toned down.** `#fef3c7 / #92400e` → `#fff7ed / #b45309` (less aggressive when 3+ chips appear).
-9. **Status column dedup.** The verified shield is already on the name cell. Replace the `.status-badge` chip in the status column with plain muted text (`검증` / `미검증`) — the shield stays as the visual anchor.
+9. **Status column dedup.** The verified shield is already on the name cell. Replace the `.status-badge` chip in the status column with plain muted text (`verification` / `Not verified`) — the shield stays as the visual anchor.
 10. **Sticky header polish.** Header background `rgba(248, 250, 252, 0.92)` + `backdrop-filter: blur(8px)` for subtle translucency on scroll.
 11. **Toolbar polish.** Drop the green focus ring on `.search-field` in favor of a solid border darken; tighten macro legend gaps.
 12. **CSS dedup.** `globals.css` currently defines the entire FoodsManager block twice (lines ~684–1118 and ~1122–1287). Consolidate into one block. Net ~150 fewer lines, no behavior change.
@@ -29,7 +29,7 @@ Apply to `globals.css`. No JSX changes for these unless noted.
 ## New Column 11: Vitamins
 
 **Position:** between "macros" (current col 6) and "sodium" (current col 7). Width: ~190px.
-**Header label:** `비타민`.
+**Header label:** `vitamins`.
 **Cell content:** for each vitamin where `value > 0`, render a colored chip with the vitamin's short label. Vitamins with value 0 or missing are not rendered.
 
 ### Chip component
@@ -57,17 +57,17 @@ function VitaminChips({ vitamins }: { vitamins?: Record<string, number> }) {
 
 | key | label | full (NK) | unit | bg | fg | class |
 |---|---|---|---|---|---|---|
-| `vitaminA` | A | 비타민 A | µg RAE | #fed7aa | `#9a3412` | `vit-A` |
-| `vitaminB1` | B1 | 비타민 B1 (티아민) | mg | #dbeafe` | `#1e40af` | `vit-B1` |
-| `vitaminB2` | B2 | 비타민 B2 (리보플라빈) | mg | `#fef9c3` | `#a16207` | `vit-B2` |
-| `vitaminB3` | B3 | 비타민 B3 (니아신) | mg | `#cffafe` | `#0e7490` | `vit-B3` |
-| `vitaminB6` | B6 | 비타민 B6 | mg | `#ccfbf1` | `#115e59` | `vit-B6` |
-| `vitaminB12` | B12 | 비타민 B12 | µg | `#fce7f3` | `#9f1239` | `vit-B12` |
-| `vitaminC` | C | 비타민 C | mg | `#dcfce7` | `#166534` | `vit-C` |
-| `vitaminD` | D | 비타민 D | µg | `#fef3c7` | `#a16207` | `vit-D` |
-| `vitaminE` | E | 비타민 E | mg | `#ecfccb` | `#3f6212` | `vit-E` |
-| `vitaminK` | K | 비타민 K | µg | `#bbf7d0` | `#14532d` | `vit-K` |
-| `folate` | F | 엽산 | µg | `#d9f99d` | `#365314` | `vit-F` |
+| `vitaminA` | A | vitamins A | µg RAE | #fed7aa | `#9a3412` | `vit-A` |
+| `vitaminB1` | B1 | vitamins B1 (thiamine) | mg | #dbeafe` | `#1e40af` | `vit-B1` |
+| `vitaminB2` | B2 | vitamins B2 (riboflavin) | mg | `#fef9c3` | `#a16207` | `vit-B2` |
+| `vitaminB3` | B3 | vitamins B3 (Niacin) | mg | `#cffafe` | `#0e7490` | `vit-B3` |
+| `vitaminB6` | B6 | vitamins B6 | mg | `#ccfbf1` | `#115e59` | `vit-B6` |
+| `vitaminB12` | B12 | vitamins B12 | µg | `#fce7f3` | `#9f1239` | `vit-B12` |
+| `vitaminC` | C | vitamins C | mg | `#dcfce7` | `#166534` | `vit-C` |
+| `vitaminD` | D | vitamins D | µg | `#fef3c7` | `#a16207` | `vit-D` |
+| `vitaminE` | E | vitamins E | mg | `#ecfccb` | `#3f6212` | `vit-E` |
+| `vitaminK` | K | vitamins K | µg | `#bbf7d0` | `#14532d` | `vit-K` |
+| `folate` | F | folic acid | µg | `#d9f99d` | `#365314` | `vit-F` |
 
 Order in the table follows the table above (A → folate). Stable ordering keeps the visual scannable.
 
@@ -106,14 +106,14 @@ Order in the table follows the table above (A → folate). Stable ordering keeps
 After adding the vitamin column the `<th>` width set becomes:
 
 ```
-이미지 64 · 식품명 180 · 중국어명 120 · 분류 130 · 칼로리 76 · 3대 영양소 220 · 비타민 190 · 나트륨 80 · 알레르겐 130 · 상태 90 · 작업 100
+Image 64 · Food name 180 · Chinese name 120 · Category 130 · Calories 76 · 3macronutrients 220 · Vitamin 190 · Sodium 80 · allergen 130 · status 90 · task 100
 ```
 
 Total ~1380px; current min-width: 900 stays — table scrolls horizontally on narrow viewports as today.
 
 ## Out of Scope (deferred to later specs)
 
-- Sub-project 2: switching all UI labels to NK Korean (vocabulary decisions like 비타민 ↔ 비따민, 칼로리 ↔ 열량 etc.)
+- Sub-project 2: switching all UI labels to NK Korean (vocabulary decisions like vitamins ↔ vitamins, calories ↔ calories etc.)
 - Sub-project 3: applying `reference.md` Chinese→Korean mappings to the foods collection
 - Sub-project 4: validating Mongo `foods` against `food_material.json` + `nutrient.json`
 - Edit modal restyling

@@ -362,7 +362,6 @@ res/
 │   ├── styles.xml         # 20+ text style variants
 │   └── themes.xml
 ├── values-night/          # Dark theme overrides — primary theme of this app
-├── values-ko/             # Korean translations
 ├── font/                  # Urbanist .ttf files
 ├── drawable/              # VectorDrawables (converted from Iconify SVGs)
 ├── layout/                # Portrait layouts
@@ -376,7 +375,7 @@ res/
 **Rules:**
 - **No hard-coded strings in layouts or Java code.** Every label goes in `strings.xml`. Lint rule should fail on `tools:ignore="HardcodedText"` abuse.
 - **No hard-coded colors.** Use `@color/<semantic_name>` so dark/light theming works.
-- Localization: when adding a string, add the Korean translation in `values-ko/strings.xml` in the same commit.
+- English is the current UI language. Add every label to `values/strings.xml`.
 
 ---
 
@@ -482,7 +481,7 @@ For feature `Foo`:
 2. **API** — add endpoints to `ApiService.java`, returning `Call<ApiResponse<...>>`.
 3. **Mock data** — add canned data + responses to `MockDataProvider` for demo mode.
 4. **Cache** — if the data is reused across screens, add a TTL'd cache field + getter/setter to `Globals`.
-5. **Strings** — add labels to `res/values/strings.xml` AND `res/values-ko/strings.xml`.
+5. **Strings** — add labels to `res/values/strings.xml`.
 6. **Layout** — `activity_foo.xml`, `item_foo.xml` (if list), `dialog_foo_*.xml` (if dialogs).
 7. **Adapter** — `FooListAdapter` if it's a list.
 8. **Activity** — `FooActivity extends AppCompatActivity` with API call + demo branch + cache check.

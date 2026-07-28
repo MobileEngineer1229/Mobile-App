@@ -1,4 +1,4 @@
-generator client {
+﻿generator client {
   provider = "prisma-client"
   output   = "../src/generated/prisma"
 }
@@ -554,7 +554,7 @@ model doctor_profiles {
   specialty      String    @db.VarChar(100)
   license_number String?   @db.VarChar(100)
   hospital       String?   @db.VarChar(255)
-  grade          String    @default("인턴") @db.VarChar(50)
+  grade          String    @default("intern") @db.VarChar(50)
   grade_level    Int?      @default(1)
   bio            String?
   verified       Boolean?  @default(false)

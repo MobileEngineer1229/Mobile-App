@@ -1,124 +1,124 @@
-# AI-assistant-RAG
+﻿# AI-assistant-RAG
 
-`AI-assistant-RAG`는 자기 콤퓨터 안의 문서들을 읽고, 그 문서 내용에 근거하여 질문에 답하는 오프라인 AI 챗봇입니다.
+`AI-assistant-RAG`reads documents on his computer, Offline to answer questions based on the contents of the document AI It's a chatbot.
 
-인터넷 API나 외부 서버에 질문을 보내지 않고, 프로젝트 폴더 안에 저장된 모델과 자료기지를 사용합니다.
+internet APIWithout sending the question to an external server, Use models and databases stored in the project folder..
 
-## 1. 이 프로젝트가 하는 일
+## 1. What this project does
 
-사용 흐름은 간단합니다.
+The usage flow is simple.
 
 ```text
-1. documents 폴더에 문서를 넣습니다.
-2. 색인 스크립트를 실행합니다.
-3. 문서가 작은 조각으로 나뉘고 벡토르자료기지에 저장됩니다.
-4. 웹 화면에서 질문합니다.
-5. AI가 관련 문서를 찾고, 그 근거를 바탕으로 답합니다.
+1. documents Put the document in the folder.
+2. Run the index script.
+3. The document is divided into small pieces and stored in the Vector database..
+4. Ask a question on the web screen.
+5. AILooking for related documentation, I will answer based on that evidence..
 ```
 
-현재 들어간 검색/답변 기술:
+Current search/answer technology:
 
-- Dense embedding retrieval: 문장의 의미를 벡토르로 바꾸어 검색합니다.
-- BM25 retrieval: 키워드가 정확히 맞는 문서를 찾습니다.
-- Hybrid search: 의미 검색과 키워드 검색을 함께 씁니다.
-- HyDE-style expansion: 질문과 가까운 근거를 확장해 더 잘 검색합니다.
-- Graph-style expansion: 문서 안에서 같이 나오는 단어 관계를 이용합니다.
-- Cross-encoder reranking: 찾은 후보 문서들을 다시 정밀하게 순위 매깁니다.
-- Local generator: 로컬 LLM으로 답변을 만들되, 근거가 약하면 안전하게 근거문 추출 답변으로 돌아갑니다.
+- Dense embedding retrieval: Search by changing the meaning of a sentence to vector..
+- BM25 retrieval: Find documents with exact keywords.
+- Hybrid search: Uses semantic search and keyword search together.
+- HyDE-style expansion: Search better by expanding on evidence closer to your question.
+- Graph-style expansion: Use word relationships that appear together in a document.
+- Cross-encoder reranking: The candidate documents found are re-ranked precisely..
+- Local generator: local LLMCreate an answer with, If the evidence is weak, you can safely return to the answer by extracting the evidence..
 
-## 2. 폴더 설명
+## 2. Folder Description
 
 ```text
 AI-assistant-RAG/
   app/
     main.py
-      웹 서버와 API가 들어 있습니다.
+      with web server APIcontains.
 
     rag/
       models.py
-        로컬 모델을 불러옵니다.
+        Load local model.
 
       store.py
-        벡토르자료기지 검색, BM25, graph expansion, reranking 로직입니다.
+        Vector Search Data Base, BM25, graph expansion, reranking It's logic.
 
       text.py
-        문서 읽기, 문서 자르기, 토큰화 로직입니다.
+        Read the document, Crop document, Tokenization logic.
 
   documents/
-    여기에 사용자가 문서를 넣습니다.
+    Here the user puts the document.
 
   frontend/
-    브라우저에서 보는 채팅 화면입니다.
+    This is the chat screen viewed in the browser..
 
   models/
-    다운로드된 AI 모델들이 저장됩니다.
-    처음 설치할 때 자동으로 만들어집니다.
+    downloaded AI Models are saved.
+    Created automatically when first installed.
 
   scripts/
     download_models.py
-      오프라인 실행에 필요한 모델을 models 폴더에 다운로드합니다.
+      Models required for offline execution models Download to folder.
 
     ingest_documents.py
-      documents 폴더의 문서를 읽어 벡토르자료기지를 만듭니다.
+      documents Create a vector database by reading the documents in the folder..
 
     run_server.py
-      웹 서버를 실행합니다.
+      Run the web server.
 
   storage/
     vector_store.db
-      생성된 SQLite 벡토르자료기지입니다.
+      created SQLite This is the Vector data base..
 ```
 
-## 3. 처음 설치하기
+## 3. Install for the first time
 
-아래 명령들은 PowerShell에서 실행합니다.
+The commands below are PowerShellRun from.
 
-먼저 프로젝트 폴더로 이동합니다.
+First go to your project folder.
 
 ```powershell
 cd E:\Github\Mobile\Mobile-App\AI-assistant-RAG
 ```
 
-Python 3.12 가상환경을 만듭니다.
+Python 3.12 Create a virtual environment.
 
 ```powershell
 py -3.12 -m venv .venv
 ```
 
-필요한 Python 패키지를 설치합니다.
+necessary Python Install the package.
 
 ```powershell
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
 ```
 
-AI 모델들을 프로젝트 안에 다운로드합니다.
+AI Download models into your project.
 
 ```powershell
 .\.venv\Scripts\python.exe scripts\download_models.py
 ```
 
-이 명령은 `models/` 폴더 안에 다음 모델들을 저장합니다.
+This command is `models/` Save the following models in the folder.
 
 ```text
-models/embedding   의미 검색용 모델
-models/reranker    검색 결과 재정렬 모델
-models/generator   로컬 답변 생성 모델
+models/embedding   A model for semantic search
+models/reranker    Search result reordering model
+models/generator   Local answer generation model
 ```
 
-모델 다운로드는 처음 한 번만 하면 됩니다. 이 단계에서는 인터넷이 필요합니다.
+You only need to download the model once for the first time. Internet is required for this step.
 
-## 4. 문서 넣기
+## 4. Load document
 
-질문에 답하게 만들 문서는 `documents/` 폴더에 넣습니다.
+Documents that will answer your questions `documents/` Put it in the folder.
 
-지원하는 파일 형식:
+Supported file formats:
 
 - `.txt`
 - `.md`
 - `.json`
 - `.jsonl`
 
-예:
+yes:
 
 ```text
 documents/company_guide.md
@@ -126,17 +126,17 @@ documents/food_rules.txt
 documents/workout_plan.jsonl
 ```
 
-문서를 추가하거나 수정한 뒤에는 반드시 다시 색인해야 합니다.
+You must re-index after adding or modifying documents.
 
-## 5. 문서 색인하기
+## 5. Indexing documents
 
-아래 명령을 실행합니다.
+Run the command below.
 
 ```powershell
 .\.venv\Scripts\python.exe scripts\ingest_documents.py
 ```
 
-성공하면 이런 식으로 출력됩니다.
+If successful, it will output something like this:.
 
 ```text
 [embed] encoding 6 chunk(s) with local embedding model...
@@ -149,71 +149,71 @@ Retrieval stack   : dense + BM25 + HyDE + graph + reranker
 Vector database   : ...\storage\vector_store.db
 ```
 
-이 과정에서 `storage/vector_store.db` 파일이 만들어집니다.
+In this process `storage/vector_store.db` The file is created.
 
-## 6. 서버 실행하기
+## 6. Running the server
 
-아래 명령을 실행합니다.
+Run the command below.
 
 ```powershell
 .\.venv\Scripts\python.exe scripts\run_server.py
 ```
 
-그 다음 브라우저에서 아래 주소를 엽니다.
+Then open the address below in your browser.
 
 ```text
 http://127.0.0.1:8010
 ```
 
-첫 질문은 조금 느릴 수 있습니다. 모델을 처음 메모리에 올리기 때문입니다.
+The first question might be a little slow. This is because the model is first loaded into memory..
 
-## 7. 오프라인으로 실행하기
+## 7. Run offline
 
-모델 다운로드와 패키지 설치가 끝난 뒤에는 인터넷 없이 실행할 수 있습니다.
+After downloading the model and installing the package, you can run it without internet..
 
-오프라인 실행 전 PowerShell에서 아래 환경변수를 설정합니다.
+Before running offline PowerShellSet the environment variables below:.
 
 ```powershell
 $env:HF_HUB_OFFLINE="1"
 $env:TRANSFORMERS_OFFLINE="1"
 ```
 
-그 다음 서버를 실행합니다.
+Then run the server.
 
 ```powershell
 .\.venv\Scripts\python.exe scripts\run_server.py
 ```
 
-## 8. 자주 쓰는 명령 모음
+## 8. Collection of frequently used commands
 
-프로젝트 폴더로 이동:
+Go to project folder:
 
 ```powershell
 cd E:\Github\Mobile\Mobile-App\AI-assistant-RAG
 ```
 
-문서 다시 색인:
+Re-index documents:
 
 ```powershell
 .\.venv\Scripts\python.exe scripts\ingest_documents.py
 ```
 
-서버 실행:
+run server:
 
 ```powershell
 .\.venv\Scripts\python.exe scripts\run_server.py
 ```
 
-API 상태 확인:
+API Check status:
 
 ```powershell
 Invoke-RestMethod -Uri "http://127.0.0.1:8010/api/health"
 ```
 
-질문 테스트:
+question test:
 
 ```powershell
-$body = @{ question = "새 문서는 어떻게 추가하는가?" } | ConvertTo-Json
+$body = @{ question = "How to add a new document?" } | ConvertTo-Json
 Invoke-RestMethod `
   -Uri "http://127.0.0.1:8010/api/chat" `
   -Method Post `
@@ -221,13 +221,13 @@ Invoke-RestMethod `
   -Body ([System.Text.Encoding]::UTF8.GetBytes($body))
 ```
 
-## 9. API 설명
+## 9. API Description
 
 ### GET `/api/health`
 
-서버와 자료기지 상태를 확인합니다.
+Check server and database status.
 
-응답 예:
+Example response:
 
 ```json
 {
@@ -243,122 +243,122 @@ Invoke-RestMethod `
 
 ### POST `/api/chat`
 
-질문을 보내면 답변과 근거 문서를 돌려줍니다.
+Send us a question and we'll send you back an answer and supporting documentation..
 
-요청:
+request:
 
 ```json
 {
-  "question": "새 문서는 어떻게 추가하는가?"
+  "question": "How to add a new document?"
 }
 ```
 
-응답에는 `answer`와 `sources`가 들어 있습니다.
+In response `answer`Wow `sources`contains.
 
 ### POST `/api/search`
 
-답변 생성 없이 검색 결과만 확인합니다.
+Only check search results without generating answers.
 
-요청:
+request:
 
 ```json
 {
-  "query": "운동 계획"
+  "query": "exercise plan"
 }
 ```
 
-## 10. 답변이 어떻게 만들어지는가
+## 10. How the answer is created
 
-사용자가 질문하면 내부에서는 다음 순서로 처리됩니다.
+When a user asks a question, it is processed internally in the following order:.
 
 ```text
-1. 질문을 벡토르로 변환합니다.
-2. 문서 벡토르와 비교해 의미가 가까운 문서를 찾습니다.
-3. BM25로 키워드가 맞는 문서를 찾습니다.
-4. 두 검색 결과를 합칩니다.
-5. 문서 단어 관계를 이용해 관련 문서를 더 찾습니다.
-6. cross-encoder reranker가 후보 문서를 다시 정렬합니다.
-7. 상위 문서 조각을 근거로 답변을 만듭니다.
-8. 근거가 약하거나 생성 답변이 불안하면 문서 추출 답변으로 대체합니다.
+1. Convert question to vector.
+2. Compare the document vector to find documents with similar meaning..
+3. BM25Find documents matching keywords with.
+4. Combines two search results.
+5. Find more related documents using document word relationships.
+6. cross-encoder rerankerReorder the candidate documents.
+7. Create answers based on parent document fragments.
+8. If the evidence is weak or the generated answer is unstable, it will be replaced with a document-extracted answer..
 ```
 
-그래서 일반 챗봇처럼 아무 말이나 지어내기보다, 문서 안에 있는 내용에 더 가깝게 답하게 됩니다.
+So, rather than making up random words like a regular chatbot,, Your answer will be closer to what is in the document.
 
-## 11. 문제 해결
+## 11. problem solving
 
-### `models/embedding` 또는 `models/reranker`가 없다고 나올 때
+### `models/embedding` or `models/reranker`When it says there is no
 
-모델 다운로드를 다시 실행합니다.
+Run the model download again.
 
 ```powershell
 .\.venv\Scripts\python.exe scripts\download_models.py
 ```
 
-### 질문해도 "자료기지가 비었다"고 나올 때
+### Even if I ask a question "The data base is empty."When you come out
 
-문서 색인을 다시 실행합니다.
+Rerun document index.
 
 ```powershell
 .\.venv\Scripts\python.exe scripts\ingest_documents.py
 ```
 
-### 브라우저가 열리지 않을 때
+### When the browser does not open
 
-서버가 실행 중인지 확인합니다.
+Make sure the server is running.
 
 ```powershell
 Invoke-RestMethod -Uri "http://127.0.0.1:8010/api/health"
 ```
 
-정상이라면 브라우저에서 직접 엽니다.
+If it's ok, open it directly in your browser.
 
 ```text
 http://127.0.0.1:8010
 ```
 
-### 포트 8010이 이미 사용 중일 때
+### When port 8010 is already in use
 
-이미 서버가 실행 중일 수 있습니다. 브라우저에서 먼저 확인합니다.
+You may already have a server running. Check in browser first.
 
 ```text
 http://127.0.0.1:8010
 ```
 
-다른 프로그램이 쓰고 있다면 `app/main.py`의 `DEFAULT_PORT` 값을 바꿔 실행할 수 있습니다.
+If another program is using `app/main.py`of `DEFAULT_PORT` You can change the value and run it.
 
-### 첫 답변이 느릴 때
+### When the first response is slow
 
-정상입니다. 첫 요청 때 embedding, reranker, generator 모델을 메모리에 올립니다. 두 번째 질문부터는 보통 더 빠릅니다.
+It's normal. When first requested embedding, reranker, generator Load the model into memory. The second question is usually faster.
 
-### 답변이 마음에 들지 않을 때
+### When you don't like the answer
 
-대부분 원인은 문서 부족입니다. `documents/` 폴더에 더 구체적인 문서를 넣고 다시 색인하십시오.
+The most common cause is lack of documentation.. `documents/` Put more specific documents in the folder and index it again.
 
 ```powershell
 .\.venv\Scripts\python.exe scripts\ingest_documents.py
 ```
 
-## 12. 개발자가 볼 파일
+## 12. Files for developers to view
 
-검색 알고리듬을 고치려면:
+To fix the search algorithm:
 
 ```text
 app/rag/store.py
 ```
 
-문서 읽기와 chunking을 고치려면:
+Reading documents and chunkingTo fix:
 
 ```text
 app/rag/text.py
 ```
 
-모델 로딩을 고치려면:
+To fix model loading:
 
 ```text
 app/rag/models.py
 ```
 
-프론트엔드를 고치려면:
+To fix the frontend:
 
 ```text
 frontend/index.html
@@ -366,16 +366,16 @@ frontend/styles.css
 frontend/app.js
 ```
 
-## 13. 현재 상태
+## 13. current status
 
-현재 프로젝트는 로컬 오프라인 RAG로 구성되어 있습니다.
+Current project is local offline RAGIt consists of.
 
 ```text
-embedding  준비됨
-reranker   준비됨
-generator  준비됨
+embedding  Ready
+reranker   Ready
+generator  Ready
 database   storage/vector_store.db
 server     http://127.0.0.1:8010
 ```
 
-실제 품질은 `documents/` 안에 들어가는 문서의 양과 품질에 크게 좌우됩니다.
+The actual quality is `documents/` It largely depends on the quantity and quality of the documents inside..

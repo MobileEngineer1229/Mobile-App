@@ -1,4 +1,4 @@
-import { createRequire } from "module";
+﻿import { createRequire } from "module";
 import type { Model as LinearModel } from "javascript-lp-solver";
 import { Food } from "../models/food.js";
 import { NutritionConstraint } from "../models/nutrition-constraint.js";
@@ -247,7 +247,7 @@ function chooseCandidates(pool: FoodCandidate[], constraints: ConstraintInput[],
     selected.set(String(food._id), food);
   };
 
-  // 조선말: foods 자료기지 안의 식품들 가운데서 영양소가 높은 후보들을 먼저 골라냅니다.
+  // Joseon language: foods Among the foods in the database, candidates with high nutrients are first selected..
   // English: Seed the LP candidate set with nutrient-dense foods for every lower-bound constraint.
   for (const constraint of constraints) {
     if (!constraint.lowerBound || constraint.isPercentOfCalories) continue;
@@ -263,7 +263,7 @@ function chooseCandidates(pool: FoodCandidate[], constraints: ConstraintInput[],
       .forEach(addFood);
   }
 
-  // 조선말: foods 자료기지의 일반 후보도 보태여 너무 특수한 음식만 남지 않게 합니다.
+  // Joseon language: foods General candidates from the data base are also added to ensure that only special foods are left behind..
   // English: Add a broad baseline so the solver can mix practical staples with dense nutrient sources.
   pool.slice(0, Math.min(pool.length, candidateLimit)).forEach(addFood);
 
@@ -322,7 +322,7 @@ export async function optimizeDiet(input: OptimizeDietInput = {}) {
         const fatCalories = foodNutrient(food, constraint.nutrientKey) * (constraint.caloriesPerGram || 9);
         const totalCalories = foodNutrient(food, "energyKcal");
 
-        // 조선말: 지방비률 제약은 9*지방(g) - 목표비률*열량 의 선형식으로 바꿉니다.
+        // Joseon language: The fat ratio constraint is 9*fat(g) - target ratio*Convert calories to a linear equation:.
         // English: Percent-of-calorie constraints are linearized as fatCalories - targetRatio * totalCalories.
         if (constraint.lowerBound) {
           variable[`${constraint.nutrientKey}PercentLower`] = fatCalories - totalCalories * (constraint.lowerBound / 100);

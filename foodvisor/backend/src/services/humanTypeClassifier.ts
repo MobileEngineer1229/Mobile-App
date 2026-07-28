@@ -1,4 +1,4 @@
-import { HumanTypeQA } from "../models/human-type-qa.js";
+﻿import { HumanTypeQA } from "../models/human-type-qa.js";
 
 type HumanType = "TE" | "SE" | "SY" | "TY";
 type ResultType = HumanType | "MIXED" | "REVIEW";
@@ -31,19 +31,19 @@ type QADoc = {
 };
 
 const typeLabels: Record<HumanType, string> = {
-  TE: "태음 경향",
-  SE: "소음 경향",
-  SY: "소양 경향",
-  TY: "태양 경향"
+  TE: "luni tendency",
+  SE: "noise tendency",
+  SY: "Literacy tendency",
+  TY: "solar trend"
 };
 
 const summaries: Record<ResultType, string> = {
-  TE: "체격과 저장 에너지가 강한 태음 경향입니다. 체중, 복부둘레, 나트륨, 포화지방 관리에 초점을 둡니다.",
-  SE: "소화와 체온 유지가 약한 소음 경향입니다. 따뜻하고 소화 쉬운 음식, 규칙적인 식사가 잘 맞는 편입니다.",
-  SY: "활동성과 열감이 강한 소양 경향입니다. 과열, 수면, 자극적인 음식, 당 부하를 조절하는 쪽이 좋습니다.",
-  TY: "상체 기운과 주도성이 강한 태양 경향입니다. 목/가슴 답답함, 과긴장, 무리한 자극식을 조심하는 쪽으로 봅니다.",
-  MIXED: "두 가지 이상 체질 점수가 비슷한 혼합 경향입니다. 응답을 보완하거나 전문가 검토가 필요합니다.",
-  REVIEW: "태양 경향 또는 특이 패턴이 있으나 핵심 근거가 부족합니다. 전문가 확인이 필요한 결과로 보관합니다."
+  TE: "The tendency is to have a strong physique and stored energy.. weight, abdominal circumference, sodium, Focus on managing saturated fat.",
+  SE: "Digestion and body temperature maintenance are weak and noise prone.. Warm, easy-to-digest food, I tend to eat well on a regular basis..",
+  SY: "It is a tendency to have a strong sense of activity and heat.. overheating, sleep, spicy food, It is better to control your sugar load..",
+  TY: "It is a solar tendency with strong upper body energy and initiative.. neck/chest tightness, hypertension, I think we should be careful about excessively stimulating foods..",
+  MIXED: "There is a tendency to mix two or more constitutions with similar constitution scores.. Your response needs supplementation or expert review.",
+  REVIEW: "There is a solar trend or unusual pattern but lacks core evidence. We keep the results as they require expert confirmation.."
 };
 
 function emptyScore(): Score {
@@ -157,7 +157,7 @@ export async function classifyHumanTypeAnswers(rawAnswers: HumanTypeAnswerInput[
     answers: normalizedAnswers,
     scores: roundedScores,
     resultType,
-    resultLabelKo: resultType in typeLabels ? typeLabels[resultType as HumanType] : resultType === "MIXED" ? "혼합 경향" : "검토 필요",
+    resultLabelKo: resultType in typeLabels ? typeLabels[resultType as HumanType] : resultType === "MIXED" ? "mixed tendency" : "Needs review",
     secondType,
     confidence,
     totalPossible: Number(totalPossible.toFixed(2)),

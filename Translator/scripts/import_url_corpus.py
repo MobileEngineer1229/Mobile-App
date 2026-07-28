@@ -1,4 +1,4 @@
-"""Import text from a URL into the Translator corpus workspace.
+﻿"""Import text from a URL into the Translator corpus workspace.
 
 This script is the entry point for the workflow:
 
@@ -235,11 +235,11 @@ def _ends_sentence(text: str) -> bool:
 def _is_fixed_standalone(text: str) -> bool:
     """Keep site labels and issue/date lines separate from article text."""
     normalized = text.strip()
-    if normalized in {"로동신문", "Rodong Sinmun"}:
+    if normalized in {"Rodong Newspaper", "Rodong Sinmun"}:
         return True
-    if re.search(r"[0-9０-９]{4}년\s+[0-9０-９]{1,2}월\s+[0-9０-９]{1,2}일", normalized):
+    if re.search(r"[0-9０-９]{4}year\s+[0-9０-９]{1,2}month\s+[0-9０-９]{1,2}work", normalized):
         return True
-    if re.fullmatch(r"\d+\s*면(?:\s*\[[^\]]+\])?", normalized):
+    if re.fullmatch(r"\d+\s*cotton(?:\s*\[[^\]]+\])?", normalized):
         return True
     return False
 
@@ -248,7 +248,7 @@ def _looks_like_credit_or_source(text: str) -> bool:
     normalized = text.strip()
     if normalized.startswith("【") and normalized.endswith("】"):
         return True
-    if "찍음" in normalized or normalized.startswith("본사기자"):
+    if "Taken" in normalized or normalized.startswith("Headquarters Reporter"):
         return True
     return False
 
@@ -275,13 +275,13 @@ def _starts_body_after_heading(text: str) -> bool:
     normalized = text.strip()
     return normalized.startswith(
         (
-            "경애하는",
-            "위대한",
-            "조선로동당",
-            "당 ",
-            "우리 ",
-            "오늘날",
-            "사회주의",
+            "dear",
+            "great",
+            "Korean Workers' Party",
+            "party ",
+            "us ",
+            "today",
+            "socialism",
         )
     )
 
@@ -296,7 +296,7 @@ def _split_embedded_standalone_lines(lines: list[str]) -> list[str]:
 
 def _split_leading_date_label(line: str) -> list[str]:
     match = re.match(
-        r"^([0-9０-９]{4}년\s+[0-9０-９]{1,2}월\s+[0-9０-９]{1,2}일)(\s+)(경애하는|위대한|조선로동당|우리\s+|당\s+)(.+)$",
+        r"^([0-9０-９]{4}year\s+[0-9０-９]{1,2}month\s+[0-9０-９]{1,2}work)(\s+)(dear|great|Korean Workers' Party|us\s+|party\s+)(.+)$",
         line,
     )
     if not match:
@@ -313,32 +313,32 @@ def _has_unclosed_quote(text: str) -> bool:
 def _looks_incomplete_phrase(text: str) -> bool:
     """Return true for fragments that are clearly waiting for the next line."""
     normalized = text.strip()
-    if normalized.startswith(("경애하는", "위대한")) and not _ends_sentence(normalized):
+    if normalized.startswith(("dear", "great")) and not _ends_sentence(normalized):
         return True
     incomplete_endings = (
-        "의",
-        "은",
-        "는",
-        "이",
-        "가",
-        "을",
-        "를",
-        "께서",
-        "께서는",
-        "께",
-        "에서",
-        "으로",
-        "로",
-        "고",
-        "며",
-        "하여",
-        "하시며",
-        "하신",
-        "내세우신",
-        "주신",
-        "라는데",
-        "는데",
-        "기간",
+        "of",
+        "silver",
+        "is",
+        "This",
+        "go",
+        "to",
+        "to",
+        "You",
+        "You are",
+        "To",
+        "in",
+        "to",
+        "by",
+        "Go",
+        "And",
+        "So",
+        "And",
+        "did",
+        "You put forward",
+        "given",
+        "They say",
+        "But",
+        "period",
     )
     return normalized.endswith(incomplete_endings)
 
@@ -349,8 +349,8 @@ def _looks_like_title_before_repeated_marker(previous: str, current: str) -> boo
     cur = current.strip()
     if len(prev) < 12 or len(prev) > 90:
         return False
-    return (prev.startswith("위대한") and cur.startswith("위대한")) or (
-        prev.startswith("경애하는") and cur.startswith("경애하는")
+    return (prev.startswith("great") and cur.startswith("great")) or (
+        prev.startswith("dear") and cur.startswith("dear")
     )
 
 

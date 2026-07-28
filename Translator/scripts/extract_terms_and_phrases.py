@@ -1,4 +1,4 @@
-"""Extract word and phrase candidates from collected corpus data.
+﻿"""Extract word and phrase candidates from collected corpus data.
 
 The output is not treated as a verified glossary. It is a candidate list for
 human review and future terminology work.
@@ -103,7 +103,7 @@ def _write_parallel_phrase_candidates() -> None:
 
 
 def _tokens(text: str) -> list[str]:
-    return re.findall(r"[\w가-힣А-Яа-я]+", text, flags=re.UNICODE)
+    return re.findall(r"[\wgo-HeheА-Яа-я]+", text, flags=re.UNICODE)
 
 
 def _useful_token(token: str) -> bool:

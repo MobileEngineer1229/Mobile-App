@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
@@ -31,7 +31,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   }
 
   return (
-    <LanguageContext.Provider value={{ lang, setLang, langLabel: lang === 'en' ? 'English' : '한국어' }}>
+    <LanguageContext.Provider value={{ lang, setLang, langLabel: lang === 'en' ? 'English' : 'Korean' }}>
       {children}
     </LanguageContext.Provider>
   );

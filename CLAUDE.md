@@ -1,4 +1,4 @@
-# CLAUDE.md
+﻿# CLAUDE.md
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
@@ -35,5 +35,5 @@ The full-stack app projects (TalentBaby, IoT, foodvisor, HeightIncrease) share a
 
 - **Backend**: Express + layered architecture (`routes → controllers → services → repositories`), JWT auth, Swagger UI at `/api-docs`. Standard scripts: `npm run dev` / `build` / `lint` / `migrate` / `seed`. Each backend uses a distinct port (see table above) — check the project's `.env`.
 - **Mobile**: native Android in Java (min SDK 24, target 33), Retrofit + OkHttp with a JWT `AuthInterceptor`, built with `./gradlew assembleDebug` from the project's `mobile/` (or `Smart-Home/`) directory. Emulator reaches a local backend at `http://10.0.2.2:<port>`; physical devices use the LAN IP.
-- **i18n**: all user-facing Android text goes through string resources, English (`res/values/strings.xml`) + Korean (`res/values-ko/`). Database seed data and content stays **English only**.
-- Some projects' documentation and data are in DPRK Korean (조선말) — this is intentional; match the existing language when editing those docs.
+- **i18n**: all user-facing Android text goes through the default English string resources (`res/values/strings.xml`). Database seed data and content stays **English only**.
+- Project documentation and data are maintained in English.

@@ -1,30 +1,30 @@
-# Environment Setup Guide
-# 환경 구성 안내서 — 조선말 인공지능 조수
+﻿# Environment Setup Guide
+# Environment Configuration Guide — Joseon Dynasty artificial intelligence assistant
 
 ---
 
-## Table of Contents / 목차
+## Table of Contents / table of contents
 
-1. [Computer Requirements by Model Size / 모형 규모별 콤퓨터 요구사양](#1-computer-requirements-by-model-size)
+1. [Computer Requirements by Model Size / Computer requirements by model size](#1-computer-requirements-by-model-size)
    - Small 30M · Medium 85M · Large 350M · XLarge 1B
    - **128GB VRAM (7B)** · **256GB VRAM (13B)** · **512GB VRAM (30B)** · **1TB VRAM (70B+)**
    - VRAM Quick Reference Table
-2. [Software Requirements / 소프트웨어 요구사양](#2-software-requirements)
-3. [Online Setup (First Time) / 온라인 초기 설치](#3-online-setup-first-time)
-4. [Offline Setup / 오프라인 설치](#4-offline-setup)
-5. [Raw Data Requirements / 학습 자료 요구사항](#5-raw-data-requirements)
-6. [Running the Pipeline / 실행 절차](#6-running-the-pipeline)
-7. [Activating the Environment / 가상환경 활성화](#7-activating-the-environment)
-8. [Troubleshooting / 문제 해결](#8-troubleshooting)
+2. [Software Requirements / Software Requirements](#2-software-requirements)
+3. [Online Setup (First Time) / Online initial installation](#3-online-setup-first-time)
+4. [Offline Setup / Offline installation](#4-offline-setup)
+5. [Raw Data Requirements / Study Material Requirements](#5-raw-data-requirements)
+6. [Running the Pipeline / execution procedure](#6-running-the-pipeline)
+7. [Activating the Environment / Activation of virtual environment](#7-activating-the-environment)
+8. [Troubleshooting / problem solving](#8-troubleshooting)
 
-> **AI 플래홈 비교 분석** (OpenAI, Gemini, Copilot, Claude, DeepSeek) →  
-> 별도 문서: [`docs/ai_platforms.md`](docs/ai_platforms.md)
+> **AI Platform comparative analysis** (OpenAI, Gemini, Copilot, Claude, DeepSeek) →  
+> separate document: [`docs/ai_platforms.md`](docs/ai_platforms.md)
 
 ---
 
 ## 1. Computer Requirements by Model Size
 
-### Model Size Overview / 모형 규모 개요
+### Model Size Overview / Model scale overview
 
 | Tier | Parameters | VRAM Needed | Use Case | Training Data |
 |------|------------|-------------|----------|---------------|
@@ -604,11 +604,11 @@ pip install --no-index --find-links wheels\ torch
 The preprocessor automatically recognizes these structures:
 
 ```jsonl
-{"text": "된장국은 조선의 전통 료리입니다."}
-{"question": "된장국 끓이는 법", "answer": "재료를 준비하고..."}
-{"content": "운동 후 단백질 섭취가 중요합니다."}
-{"title": "조선 료리", "content": "조선 료리는..."}
-{"body": "체육 계획을 세울 때는..."}
+{"text": "Soybean paste soup is a traditional dish from Joseon.."}
+{"question": "How to boil soybean paste soup", "answer": "prepare the ingredients..."}
+{"content": "Protein intake is important after exercise."}
+{"title": "Joseon cuisine", "content": "Joseon Ryori..."}
+{"body": "When making a sports plan..."}
 ```
 
 ### Data Volume by Model Size
@@ -622,7 +622,7 @@ The preprocessor automatically recognizes these structures:
 
 ### Data Quality Guidelines
 
-1. **Language:** Must be Korean text (조선말 preferred for this project)
+1. **Language:** Must be Korean text (Joseon language preferred for this project)
 2. **Encoding:** UTF-8 only — convert other encodings before placing in `data/raw/`
 3. **Minimum document length:** At least 10 characters per document
 4. **Duplicates:** Automatically removed by content hash (SHA-1)

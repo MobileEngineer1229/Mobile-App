@@ -1,6 +1,6 @@
-# DPRK Korean Food & Workout AI Assistant
+﻿# DPRK Korean Food & Workout AI Assistant
 
-A generative AI assistant trained **from scratch** on DPRK Korean (조선말) text. No pretrained foundation model is used — the entire neural network is trained on your own corpus using your local GPU.
+A generative AI assistant trained **from scratch** on DPRK Korean (Joseon language) text. No pretrained foundation model is used — the entire neural network is trained on your own corpus using your local GPU.
 
 ---
 
@@ -29,12 +29,12 @@ A generative AI assistant trained **from scratch** on DPRK Korean (조선말) te
 
 ## 1. What This Project Does
 
-This project builds a small language model (~30M parameters) that generates text in DPRK Korean (조선말). Unlike using an API such as ChatGPT, this model:
+This project builds a small language model (~30M parameters) that generates text in DPRK Korean (Joseon language). Unlike using an API such as ChatGPT, this model:
 
 - Runs entirely on your local machine (offline after training).
 - Is trained from scratch on data you provide — no third-party weights are used.
 - Specialises in the DPRK Korean dialect: vocabulary, orthography, and register.
-- Focuses on two domains: **food (료리)** and **workouts (운동)**.
+- Focuses on two domains: **food (Ryori)** and **workouts (exercise)**.
 - Is served through a three-tab chat interface in your browser.
 
 The project also supports general Q&A training data (`{"question": "...", "answer": "..."}` format) so the model learns the ask–answer interaction pattern.
@@ -130,7 +130,7 @@ AI-assistant/
 A language model cannot work with raw text. Text must be converted to integers (token IDs) first. The tokenizer defines the vocabulary — the set of all recognised "pieces" — and maps between text and IDs.
 
 **Why SentencePiece BPE?**
-Korean is an agglutinative language: suffixes attach to roots to express grammar. Simple word-splitting would produce thousands of unique words that each appear rarely. Byte-Pair Encoding (BPE) instead finds common sub-word units — for example `운동` (exercise) might be one token, while `운동하다`, `운동합니다` share the `운동` token plus grammatical suffixes. This means:
+Korean is an agglutinative language: suffixes attach to roots to express grammar. Simple word-splitting would produce thousands of unique words that each appear rarely. Byte-Pair Encoding (BPE) instead finds common sub-word units — for example `exercise` (exercise) might be one token, while `exercise`, `I exercise` share the `exercise` token plus grammatical suffixes. This means:
 - The vocabulary covers more text with fewer tokens.
 - Even words the model has seen only in one grammatical form are partly familiar.
 
@@ -138,7 +138,7 @@ SentencePiece trains on raw text with no pre-segmentation — it processes Korea
 
 **Training process (`train_tokenizer.py`):**
 1. Reads all `.txt` and `.jsonl` files from `data/raw/`.
-2. Q&A records (`{"question": "...", "answer": "..."}`) are converted to `질문: ...\n대답: ...` format.
+2. Q&A records (`{"question": "...", "answer": "..."}`) are converted to `question: ...\nanswer: ...` format.
 3. All text is normalised (NFKC Unicode normalisation, whitespace collapsed).
 4. Text is written to a temporary file.
 5. SentencePiece BPE trainer is called. It merges the most frequent character pairs iteratively until the target vocabulary size is reached.
@@ -158,8 +158,8 @@ SentencePiece trains on raw text with no pre-segmentation — it processes Korea
 ```python
 from src.tokenizer.tokenizer import load_tokenizer
 tok = load_tokenizer("checkpoints/tokenizer/dprk_sp.model")
-ids = tok.encode("된장국을 만드는 방법", add_bos=True)   # → [1, 234, 56, ...]
-text = tok.decode(ids)                                    # → "된장국을 만드는 방법"
+ids = tok.encode("How to make soybean paste soup", add_bos=True)   # → [1, 234, 56, ...]
+text = tok.decode(ids)                                    # → "How to make soybean paste soup"
 ```
 
 ---
@@ -361,14 +361,14 @@ prompt tokens → model → logits (one per vocab token)
 The base model is a text completer, not a chat model. The `ChatSession` class wraps it with a simple turn format:
 
 ```
-당신은 음식과 운동에 대해 안내하는 조선말 조수입니다.
-사용자: 된장국을 어떻게 만듭니까?
-조수: 된장국을 만들려면 멸치로 국물을 우려낸 다음...
-사용자: 두부는 얼마나 넣습니까?
-조수:
+You are my Korean assistant who guides you through food and exercise..
+user: How to make soybean paste soup?
+assistant: To make soybean paste soup, boil the broth with anchovies and then...
+user: How much tofu do you put in?
+assistant:
 ```
 
-The model then continues from `조수:` — generating the assistant's reply. This prompt format is also what the model should be trained on for best chat performance: training data in Q&A JSONL format is automatically converted to `질문: ...\n대답: ...` which teaches the model this pattern.
+The model then continues from `assistant:` — generating the assistant's reply. This prompt format is also what the model should be trained on for best chat performance: training data in Q&A JSONL format is automatically converted to `question: ...\nanswer: ...` which teaches the model this pattern.
 
 **Context window management:** When the conversation history grows longer than `block_size - max_new_tokens`, the oldest turns are dropped to keep the prompt within the model's context window.
 
@@ -382,9 +382,9 @@ The app loads the latest (or best) checkpoint and presents three tabs:
 
 | Tab | Korean | Purpose |
 |---|---|---|
-| 자유 대화 | Free conversation | General DPRK Korean chat |
-| 료리 추천 | Recipe recommendation | Ask for recipes and meal plans |
-| 운동 계획 | Workout plan | Ask for workout routines |
+| free conversation | Free conversation | General DPRK Korean chat |
+| Ryori Recommendation | Recipe recommendation | Ask for recipes and meal plans |
+| exercise plan | Workout plan | Ask for workout routines |
 
 Each tab has its own conversation history (isolated via `gr.State`) and a shared sidebar for sampling controls (temperature, top-k, top-p, repetition penalty, max tokens). Responses stream token-by-token.
 
@@ -478,24 +478,24 @@ Place all training files in `data/raw/`. The preprocessor accepts three formats 
 One document per file, or one document per line. UTF-8 encoding.
 
 ```
-된장국은 조선식 전통 국물 요리입니다.
-멸치와 다시마로 국물을 내고 된장을 풀어...
+Soybean paste soup is a traditional Korean soup dish..
+Make soup with anchovies and kelp and dissolve soybean paste....
 ```
 
 ### Free-text JSONL
 One JSON object per line. The `"text"` field is used directly.
 
 ```jsonl
-{"text": "료리법: 된장국\n재료: 된장 두 숟갈, 두부 반모...\n조리방법:\n1. 멸치를 씻어..."}
-{"text": "운동의 기본원칙\n첫째, 매일 꾸준히 하는것이 중요합니다..."}
+{"text": "Recipes: Miso soup\nmaterial: Two spoons of soybean paste, tofu half hair...\nCooking method:\n1. Wash the anchovies..."}
+{"text": "Basic principles of exercise\nfirst, It is important to keep doing it every day...."}
 ```
 
 ### Q&A JSONL (recommended for the ask–answer assistant)
-One JSON object per line with `"question"` and `"answer"` fields. These are automatically formatted as `질문: ...\n대답: ...` during tokenizer training and preprocessing.
+One JSON object per line with `"question"` and `"answer"` fields. These are automatically formatted as `question: ...\nanswer: ...` during tokenizer training and preprocessing.
 
 ```jsonl
-{"question": "된장국을 어떻게 만듭니까?", "answer": "멸치로 국물을 우려낸 다음 된장을 풀고 두부와 야채를 넣어 끓이면 됩니다."}
-{"question": "매일 하기 좋은 운동은 무엇입니까?", "answer": "매일 30분 걷기가 기본입니다. 집에서는 팔굽혀펴기와 앉았다 일어서기를 하십시오."}
+{"question": "How to make soybean paste soup?", "answer": "After making the broth with anchovies, add soybean paste and boil tofu and vegetables.."}
+{"question": "What are some good exercises to do every day??", "answer": "Walking 30 minutes every day is basic.. Do push-ups and sit-stands at home.."}
 ```
 
 **Data quality tips:**
@@ -842,142 +842,142 @@ TOTAL: ~4 GB ✓                    NEED: 8–9× more VRAM ✗
 
 ---
 
-### 10.7 Step-by-step calculation logic — 계산 론리 상세설명
-### (How every VRAM number is derived — 모든 기억용량 수치의 도출 방법)
+### 10.7 Step-by-step calculation logic — Detailed explanation of calculation logic
+### (How every VRAM number is derived — How to derive all memory capacity figures)
 
-> 이 절은 우의 모든 표에 나온 수치들이 어떻게 계산되는가를 단계별로 설명한다.  
-> 자기 모형의 크기에 맞게 직접 수치를 대입하여 정확한 추정치를 얻을 수 있다.  
+> This section explains step by step how the numbers in all the tables above are calculated..  
+> You can get an accurate estimate by directly substituting numbers according to the size of your model..  
 > *(This section derives every number in the tables above, step by step.  
 > Substitute your own model dimensions to get exact estimates.)*
 
 ---
 
 #### Calculation A — How many parameters does a GPT model have?
-#### 계산 A — GPT 모형의 매개변수 수 (전체 가중치 개수 계산)
-> **매개변수(parameter)** 란 모형이 학습을 통해 조정하는 모든 수치이다.  
-> 층마다 행렬곱(matrix multiplication)이 있고, 각 행렬의 원소 하나하나가 매개변수이다.  
+#### calculation A — GPT Number of parameters in the model (Calculate total number of weights)
+> **parameter(parameter)** is all the numbers that the model adjusts through learning..  
+> Matrix multiplication for each layer(matrix multiplication)There is, Each element of each matrix is a parameter..  
 > *(A parameter is any number the model adjusts during training — every element in every weight matrix.)*
 
-**A-1. Master formula — 전체 매개변수 수 공식**
+**A-1. Master formula — Total number of parameters formula**
 
 ```
-P = token_embedding                          ← 어휘 삽입표현 행렬 (각 단어에 벡터 하나)
-  + positional_embedding                     ← 위치 삽입표현 행렬 (각 위치에 벡터 하나)
-  + per_layer × n_layers                     ← 변환기 층마다 반복되는 가중치
-  + output_head                              ← 출력 사영 행렬 (가중치 공유시 0)
+P = token_embedding                          ← Vocabulary insertion matrix (One vector for each word)
+  + positional_embedding                     ← Positional insertion matrix (One vector at each position)
+  + per_layer × n_layers                     ← Weights repeated for each transformer layer
+  + output_head                              ← output projective matrix (0 when sharing weight)
 
 ────────────────────────────────────────────────────────
 token_embedding      = vocab_size × n_embd
-  ← 어휘목록 크기 × 은닉차원 = 단어마다 n_embd개 수치
+  ← Vocabulary size × Hidden dimension = every word n_embddog shame
   ← (vocabulary size × hidden dimension — one vector per word)
 
 positional_embedding = block_size × n_embd
-  ← 최대 문맥길이 × 은닉차원 = 위치마다 n_embd개 수치
+  ← maximum context length × Hidden dimension = per location n_embddog shame
   ← (max context length × hidden dimension — one vector per position)
 
 ────────────────────────────────────────────────────────
 per_layer = attention_projections + ffn_projections
 
   attention_projections = 4 × n_embd × n_embd
-    ← 주의기제에서 Q(질문), K(열쇠), V(값), O(출력) 사영 각각 n_embd×n_embd 행렬
+    ← In attention mechanism Q(question), K(key), V(value), O(output) projective respectively n_embd×n_embd procession
     ← (Query, Key, Value, Output projection — each is an n_embd×n_embd matrix)
     ← 4 projections × n_embd rows × n_embd columns
 
   ffn_projections = 2 × n_embd × ffn_dim
-    ← 전방향신경망: 확대 사영(n_embd→ffn_dim) + 축소 사영(ffn_dim→n_embd)
+    ← omnidirectional neural network: enlarged projection(n_embd→ffn_dim) + miniature projection(ffn_dim→n_embd)
     ← (Feed-forward network: up-projection expands, down-projection contracts)
     ← ffn_dim is typically 4 × n_embd
 
 ────────────────────────────────────────────────────────
 output_head:
   = 0                    when tie_weights = true
-    ← 출력 행렬을 token_embedding 행렬과 공유 → 추가 매개변수 없음
+    ← output matrix token_embedding Matrix and Share → No additional parameters
     ← (output matrix reuses token_embedding — saves vocab_size×n_embd params)
   = vocab_size × n_embd  when tie_weights = false
-    ← 별도의 출력 행렬 사용 → 추가 매개변수 발생
+    ← Use separate output matrices → Additional parameters occur
 ```
 
 ---
 
-**A-2. Worked example — Small config (기본 설정, ~30M 매개변수)**
+**A-2. Worked example — Small config (default settings, ~30M parameter)**
 
 ```
-────────── 설정값 (Config values) ──────────
-vocab_size  = 16,384   ← 어휘목록 크기 (SentencePiece BPE 16K)
-n_embd      =    512   ← 은닉차원 (hidden dimension)
-block_size  =  1,024   ← 최대 문맥길이 (max context length in tokens)
-n_layers    =      8   ← 변환기 층 수 (number of transformer blocks)
-ffn_dim     =  2,048   ← 전방향망 내부 차원 (= 4 × n_embd)
-tie_weights =   true   ← 출력 행렬을 입력 삽입표현과 공유
+────────── Setting value (Config values) ──────────
+vocab_size  = 16,384   ← Vocabulary size (SentencePiece BPE 16K)
+n_embd      =    512   ← Hidden dimension (hidden dimension)
+block_size  =  1,024   ← maximum context length (max context length in tokens)
+n_layers    =      8   ← converter layer number (number of transformer blocks)
+ffn_dim     =  2,048   ← Omni-directional network internal dimensions (= 4 × n_embd)
+tie_weights =   true   ← Share the output matrix with the input embedding expression
 
-────────── 단계별 계산 (Step-by-step) ──────────
+────────── Step by step calculation (Step-by-step) ──────────
 
-STEP 1: 어휘 삽입표현 (Token embedding matrix)
+STEP 1: Vocabulary insertion expression (Token embedding matrix)
   token_embedding = vocab_size × n_embd
                   = 16,384 × 512
                   = 8,388,608 params
-  ← 16,384개 단어 × 각 단어를 512차원 벡터로 표현
+  ← 16,384dog word × Each word is expressed as a 512-dimensional vector.
 
-STEP 2: 위치 삽입표현 (Positional embedding matrix)
+STEP 2: Position insertion expression (Positional embedding matrix)
   positional_embedding = block_size × n_embd
                        = 1,024 × 512
                        = 524,288 params
-  ← 최대 1,024개 위치 × 각 위치를 512차원 벡터로 표현
+  ← max 1,024dog location × Each position is expressed as a 512-dimensional vector.
 
-STEP 3: 층 하나의 매개변수 (Parameters per one transformer layer)
-  주의 사영 (Attention projections):
+STEP 3: layer one parameter (Parameters per one transformer layer)
+  projection of attention (Attention projections):
     = 4 × n_embd × n_embd
     = 4 × 512 × 512
     = 1,048,576 params
-    ← Q 행렬: 512×512 = 262,144
-    ← K 행렬: 512×512 = 262,144
-    ← V 행렬: 512×512 = 262,144
-    ← O 행렬: 512×512 = 262,144 (합계 1,048,576)
+    ← Q procession: 512×512 = 262,144
+    ← K procession: 512×512 = 262,144
+    ← V procession: 512×512 = 262,144
+    ← O procession: 512×512 = 262,144 (Total 1,048,576)
 
-  전방향망 (FFN projections):
+  omnidirectional network (FFN projections):
     = 2 × n_embd × ffn_dim
     = 2 × 512 × 2,048
     = 2,097,152 params
-    ← 확대 행렬(up): 512×2,048 = 1,048,576
-    ← 축소 행렬(down): 2,048×512 = 1,048,576
+    ← enlargement matrix(up): 512×2,048 = 1,048,576
+    ← reduction matrix(down): 2,048×512 = 1,048,576
 
-  층 하나 합계 (per_layer total):
+  One floor total (per_layer total):
     = 1,048,576 + 2,097,152
     = 3,145,728 params
 
-STEP 4: 전체 층 (All transformer layers)
+STEP 4: entire floor (All transformer layers)
   all_layers = n_layers × per_layer
              = 8 × 3,145,728
              = 25,165,824 params
 
-STEP 5: 출력 사영 (Output head)
-  output_head = 0   ← tie_weights = true 이므로 추가 없음
+STEP 5: output projection (Output head)
+  output_head = 0   ← tie_weights = true So no addition
 
-STEP 6: 합산 (Grand total)
+STEP 6: summation (Grand total)
   P = 8,388,608 + 524,288 + 25,165,824 + 0
     = 34,078,720
     ≈ 34M params
 
   ┌──────────────────────────────────────────────────┐
-  │ (참고: README의 "~30M"은 LayerNorm·편향 제외값)  │
+  │ (Note: READMEof "~30M"silver LayerNorm·bias exclusion value)  │
   │ Note: "~30M" in README excludes LayerNorm/bias   │
   └──────────────────────────────────────────────────┘
 ```
 
 ---
 
-**A-3. Worked example — Large config (~350M 매개변수)**
+**A-3. Worked example — Large config (~350M parameter)**
 
 ```
-────────── 설정값 ──────────
+────────── Setting value ──────────
 vocab_size  = 16,384
-n_embd      =  1,024   ← 은닉차원이 2배로 늘어남 (512 → 1,024)
+n_embd      =  1,024   ← Hidden dimension doubled (512 → 1,024)
 block_size  =  1,024
-n_layers    =     24   ← 층 수가 3배로 늘어남 (8 → 24)
-ffn_dim     =  4,096   ← 전방향망도 2배 (2,048 → 4,096)
+n_layers    =     24   ← Number of floors tripled (8 → 24)
+ffn_dim     =  4,096   ← Omnidirectional network is also doubled (2,048 → 4,096)
 tie_weights =   true
 
-────────── 계산 ──────────
+────────── calculation ──────────
 
 STEP 1: token_embedding
   = 16,384 × 1,024 = 16,777,216 params
@@ -987,7 +987,7 @@ STEP 2: positional_embedding
 
 STEP 3: per_layer
   attention = 4 × 1,024 × 1,024 = 4,194,304
-    ← n_embd이 2배이므로 행렬 면적은 4배 (512²→1024²)
+    ← n_embdSince this is twice, the matrix area is 4 times (512²→1024²)
     ← (doubling n_embd quadruples each attention matrix)
   FFN       = 2 × 1,024 × 4,096 = 8,388,608
   per_layer = 4,194,304 + 8,388,608 = 12,582,912
@@ -1004,161 +1004,161 @@ STEP 6: Grand total
   (README says ~350M — the 30M gap is LayerNorm weights, bias terms, rounding)
 
   ┌─────────────────────────────────────────────────────────────────────────┐
-  │ Small → Large 비교 (Comparison):                                        │
-  │   n_embd 2×, n_layers 3×  →  매개변수는 약 10× 증가 (34M → 320M)      │
+  │ Small → Large Compare (Comparison):                                        │
+  │   n_embd 2×, n_layers 3×  →  The parameters are about 10× increase (34M → 320M)      │
   │   n_embd doubled, n_layers tripled → params ~10× larger (34M → 320M)  │
-  │   이유: 주의 행렬이 n_embd²에 비례하므로 차원 2배 = 행렬 4배            │
+  │   reason: The procession of the Lord n_embd²Since it is proportional to , the dimension is doubled = matrix 4 times            │
   │   Why: attention matrix scales as n_embd², so 2× dim = 4× matrix size  │
   └─────────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-#### Calculation B — Training VRAM (훈련 도형처리장치 기억 계산)
-> **훈련** 은 모형 가중치뿐 아니라 경사도, 최적화기 상태, 그리고 역전파를 위한  
-> 모든 층의 활성화값을 동시에 기억장치에 보관해야 하므로 추론보다 훨씬 많은 기억이 필요하다.  
+#### Calculation B — Training VRAM (Training shape processing device memory calculation)
+> **training** is the model weights as well as the slope, Optimizer state, And for backpropagation  
+> Since the activation values of all layers must be stored in memory at the same time, much more memory is required than inference..  
 > *(Training keeps weights, gradients, optimizer states, AND all layer activations simultaneously —  
 > far more than inference which only needs weights.)*
 
-**B-1. Formula — 훈련 기억 공식**
+**B-1. Formula — training memory formula**
 
 ```
-훈련 기억 (Training VRAM) = 기반기억 + 활성화기억 + 부가비용
+training memory (Training VRAM) = based memory + activated memory + Additional costs
                            = Base Memory + Activation Memory + Overhead
 
 ══════════════════════════════════════════════════════════════
-[1] 기반기억 (Base Memory) = P × 12 bytes
-    ← 매개변수 하나당 12바이트 필요 이유:
+[1] based memory (Base Memory) = P × 12 bytes
+    ← Why do you need 12 bytes per parameter?:
 
   ┌─────────────────────────────┬───────┬──────────┬────────────────────────────────────────────┐
-  │ 구성 요소 (Component)        │ Bytes │ 자료형   │ 이유 (Why)                                 │
+  │ component (Component)        │ Bytes │ data type   │ reason (Why)                                 │
   ├─────────────────────────────┼───────┼──────────┼────────────────────────────────────────────┤
-  │ 모형 가중치 (Model weights)  │   2   │ bf16     │ 신경망 자체 — 추론에도 필요                │
+  │ model weights (Model weights)  │   2   │ bf16     │ neural network itself — Also needed for inference                │
   │                              │       │          │ The network itself — also needed at infer. │
   ├─────────────────────────────┼───────┼──────────┼────────────────────────────────────────────┤
-  │ 경사도 (Gradients)           │   2   │ bf16     │ 손실함수의 각 가중치에 대한 편미분          │
+  │ slope (Gradients)           │   2   │ bf16     │ Partial differentiation for each weight of the loss function          │
   │                              │       │          │ ∂Loss/∂w for every parameter               │
   ├─────────────────────────────┼───────┼──────────┼────────────────────────────────────────────┤
-  │ Adam 동량 (Momentum)         │   4   │ fp32     │ 과거 경사도의 지수이동평균 — 방향 기억      │
+  │ Adam equal amount (Momentum)         │   4   │ fp32     │ Exponential moving average of historical slope — direction memory      │
   │                              │       │          │ Exponential moving average of gradients    │
   ├─────────────────────────────┼───────┼──────────┼────────────────────────────────────────────┤
-  │ Adam 분산 (Variance)         │   4   │ fp32     │ 과거 경사도 제곱의 이동평균 — 크기 조절    │
+  │ Adam dispersion (Variance)         │   4   │ fp32     │ Moving average of historical slope squared — resize    │
   │                              │       │          │ Moving average of squared gradients        │
   ├─────────────────────────────┼───────┼──────────┼────────────────────────────────────────────┤
-  │ 합계 (Total per param)       │  12   │          │                                            │
+  │ total (Total per param)       │  12   │          │                                            │
   └─────────────────────────────┴───────┴──────────┴────────────────────────────────────────────┘
 
-  ← Adam이 fp32인 이유: 경사도 갱신에서 수치 정밀도가 필요하기 때문 (bf16으로는 소실됨)
+  ← AdamThis fp32Why?: Because numerical precision is required in gradient update (bf16It is lost by)
   ← (Adam uses fp32 because weight updates need precision — bf16 underflows on small changes)
 
 ══════════════════════════════════════════════════════════════
-[2] 활성화기억 (Activation Memory)
-    ← 역전파(backward pass)는 각 층의 출력값을 다시 필요로 한다.
-    ← 따라서 전방향계산(forward pass) 중 모든 층의 중간값을 보관해야 한다.
+[2] activated memory (Activation Memory)
+    ← Backpropagation(backward pass)requires the output value of each layer again..
+    ← Therefore, omnidirectional calculation(forward pass) The median of all layers must be kept..
     ← (Backprop needs each layer's output to compute gradients; store all during forward pass)
 
-  층 하나당 보관해야 하는 텐서 (Tensors kept per layer for backprop):
+  Tensors to store per layer (Tensors kept per layer for backprop):
   ┌────────────────────────────────────────────┬─────────────────────────────────┬──────────────────────────────┐
-  │ 텐서 이름 (Tensor)                          │ 원소 수 (Elements)              │ 이유 (Why stored)            │
+  │ tensor name (Tensor)                          │ number of elements (Elements)              │ reason (Why stored)            │
   ├────────────────────────────────────────────┼─────────────────────────────────┼──────────────────────────────┤
-  │ 층 입력 (Layer input — residual stream)     │ B × S × n_embd                 │ 잔류 연결 경사도 계산용       │
+  │ floor input (Layer input — residual stream)     │ B × S × n_embd                 │ For calculation of residual connection slope       │
   │                                            │                                 │ residual gradient            │
   ├────────────────────────────────────────────┼─────────────────────────────────┼──────────────────────────────┤
-  │ 주의 Q 행렬 (Attention Q)                   │ B × S × n_embd                 │ Q 사영 가중치 갱신용          │
+  │ caution Q procession (Attention Q)                   │ B × S × n_embd                 │ Q For projective weight update          │
   ├────────────────────────────────────────────┼─────────────────────────────────┼──────────────────────────────┤
-  │ 주의 K 행렬 (Attention K)                   │ B × S × n_embd                 │ K 사영 가중치 갱신용          │
+  │ caution K procession (Attention K)                   │ B × S × n_embd                 │ K For projective weight update          │
   ├────────────────────────────────────────────┼─────────────────────────────────┼──────────────────────────────┤
-  │ 주의 V 행렬 (Attention V)                   │ B × S × n_embd                 │ V 사영 가중치 갱신용          │
+  │ caution V procession (Attention V)                   │ B × S × n_embd                 │ V For projective weight update          │
   ├────────────────────────────────────────────┼─────────────────────────────────┼──────────────────────────────┤
-  │ 주의 출력 (Attention output)                │ B × S × n_embd                 │ O 사영 가중치 갱신용          │
+  │ Attention output (Attention output)                │ B × S × n_embd                 │ O For projective weight update          │
   ├────────────────────────────────────────────┼─────────────────────────────────┼──────────────────────────────┤
-  │ 전방향망 입력 (FFN input, after LayerNorm)  │ B × S × n_embd                 │ 층정규화 가중치 갱신용         │
+  │ Omnidirectional network input (FFN input, after LayerNorm)  │ B × S × n_embd                 │ For floor normalization weight update         │
   ├────────────────────────────────────────────┼─────────────────────────────────┼──────────────────────────────┤
-  │ 전방향망 은닉층 (FFN hidden, after GELU)    │ B × S × ffn_dim                │ 확대 가중치 갱신용             │
-  │                                            │ ← ffn_dim = 4 × n_embd 보통    │                              │
+  │ Omnidirectional network hidden layer (FFN hidden, after GELU)    │ B × S × ffn_dim                │ For update of enlarged weights             │
+  │                                            │ ← ffn_dim = 4 × n_embd Normal    │                              │
   └────────────────────────────────────────────┴─────────────────────────────────┴──────────────────────────────┘
 
-  공식 (Formula):
+  formula (Formula):
   Activation Memory = n_layers × B × S × (6 × n_embd + ffn_dim) × 2 bytes
-    ← 6 × n_embd: 6개 텐서(입력·Q·K·V·주의출력·FFN입력) 각각 n_embd 원소
-    ← ffn_dim:    FFN 은닉 텐서 하나 (보통 4 × n_embd)
-    ← × 2 bytes:  bf16 자료형 (원소당 2바이트)
-    ← × B × S:   일괄처리 크기(batch) × 련속렬 길이(sequence length)
+    ← 6 × n_embd: 6dog tensor(input·Q·K·V·Attention output·FFNinput) each n_embd element
+    ← ffn_dim:    FFN One hidden tensor (Normal 4 × n_embd)
+    ← × 2 bytes:  bf16 data type (2 bytes per element)
+    ← × B × S:   Batch size(batch) × Sequential row length(sequence length)
 
 ══════════════════════════════════════════════════════════════
-[3] 부가비용 (Overhead) ≈ 0.5 GB
-    ← CUDA 문맥, cuBLAS 완충기억기, 임시 작업공간 등
+[3] Additional costs (Overhead) ≈ 0.5 GB
+    ← CUDA context, cuBLAS buffer memory, Temporary work space, etc.
     ← (CUDA context, cuBLAS workspace, temporary buffers, fragmentation)
 ```
 
 ---
 
 **B-2. Worked example — Large config, batch_size = 8**
-**실례 — 대형 설정, 일괄처리 크기 8 (RTX 5070에서 훈련 가능한 최대 설정)**
+**Excuse me — large setting, Batch size 8 (RTX 5070Maximum trainable settings at)**
 
 ```
-────────── 설정값 ──────────
-P        = 320,000,000  ← 대략 3.2억 매개변수
-n_layers = 24           ← 변환기 층 24개
-n_embd   = 1,024        ← 은닉차원
-ffn_dim  = 4,096        ← 전방향망 내부 차원 (= 4 × 1,024)
-B        = 8            ← 일괄처리 크기 (sequences per GPU step)
-S        = 1,024        ← 문맥길이 (tokens per sequence)
+────────── Setting value ──────────
+P        = 320,000,000  ← about 3.2billion parameters
+n_layers = 24           ← 24 transducer layers
+n_embd   = 1,024        ← Hidden dimension
+ffn_dim  = 4,096        ← Omni-directional network internal dimensions (= 4 × 1,024)
+B        = 8            ← Batch size (sequences per GPU step)
+S        = 1,024        ← context length (tokens per sequence)
 
-────────── STEP 1: 기반기억 계산 ──────────
+────────── STEP 1: Based memory calculation ──────────
 Base Memory = P × 12 bytes
             = 320,000,000 × 12
             = 3,840,000,000 bytes
             ÷ 1,073,741,824 (bytes per GB)
             = 3.58 GB
 
-  세부 내역 (Breakdown):
-    가중치  (weights):   320M × 2 bytes = 640 MB  = 0.60 GB
-    경사도  (grads):     320M × 2 bytes = 640 MB  = 0.60 GB
-    Adam동량(momentum):  320M × 4 bytes = 1,280 MB = 1.19 GB
-    Adam분산(variance):  320M × 4 bytes = 1,280 MB = 1.19 GB
+  Details (Breakdown):
+    weight  (weights):   320M × 2 bytes = 640 MB  = 0.60 GB
+    slope  (grads):     320M × 2 bytes = 640 MB  = 0.60 GB
+    Adamequal amount(momentum):  320M × 4 bytes = 1,280 MB = 1.19 GB
+    Adamdispersion(variance):  320M × 4 bytes = 1,280 MB = 1.19 GB
     ─────────────────────────────────────────────────────
-    합계    (total):                               3.58 GB ✓
+    total    (total):                               3.58 GB ✓
 
-────────── STEP 2: 활성화기억 계산 ──────────
+────────── STEP 2: Active memory calculation ──────────
 Activation Memory = n_layers × B × S × (6 × n_embd + ffn_dim) × 2 bytes
 
-  내부 계산 (Inner calculation):
+  internal calculation (Inner calculation):
     6 × n_embd + ffn_dim
     = 6 × 1,024 + 4,096
     = 6,144 + 4,096
-    = 10,240   ← 층 하나의 bf16 원소 수 (per-layer elements per token per sequence item)
+    = 10,240   ← one floor bf16 number of elements (per-layer elements per token per sequence item)
 
-    B × S = 8 × 1,024 = 8,192  ← 일괄처리 내 전체 토큰 수 (total tokens in one batch)
+    B × S = 8 × 1,024 = 8,192  ← Total number of tokens in batch (total tokens in one batch)
 
-    한 층의 활성화 바이트 수 (bytes per layer):
+    Number of active bytes per layer (bytes per layer):
     = 8,192 × 10,240 × 2
     = 167,772,160 bytes
     = 160 MB
 
-    전체 층 (all 24 layers):
+    entire floor (all 24 layers):
     = 24 × 160 MB = 3,840 MB = 3.75 GB
-    ← 24개 층 모두의 중간값을 동시에 보관
+    ← 24Store the median of all layers simultaneously
 
-────────── STEP 3: 합산 ──────────
+────────── STEP 3: summation ──────────
 Total VRAM = Base + Activation + Overhead
            = 3.58 + 3.75 + 0.50
            = 7.83 GB
 
   ┌─────────────────────────────────────────────────┐
-  │ RTX 5070 (12 GB) 에서 훈련 가능 ✓               │
-  │ 여유 기억: 12 - 7.83 = 4.17 GB                  │
+  │ RTX 5070 (12 GB) Training available at ✓               │
+  │ spare memory: 12 - 7.83 = 4.17 GB                  │
   │ Can train on RTX 5070 (12 GB) with 4.17 GB free │
   └─────────────────────────────────────────────────┘
 ```
 
 ---
 
-**B-3. Same model, batch_size = 16 — 일괄처리 크기 16일 때**
+**B-3. Same model, batch_size = 16 — When batch size is 16**
 
 ```
 STEP 2 (changed):
-  B × S = 16 × 1,024 = 16,384 tokens  ← 일괄처리 2배 = 활성화도 2배
+  B × S = 16 × 1,024 = 16,384 tokens  ← Double batch processing = Activation is doubled
   Activation Memory = 24 × 16,384 × 10,240 × 2
                     = 24 × 335,544,320
                     = 8,053,063,680 bytes = 7.50 GB
@@ -1166,42 +1166,42 @@ STEP 2 (changed):
 Total = 3.58 + 7.50 + 0.50 = 11.58 GB
 
   ┌───────────────────────────────────────────────────────────────────┐
-  │ 아슬아슬하게 12 GB 초과 가능 — 기억 부족(OOM) 오류 가능성 있음  │
+  │ Just barely 12 GB can exceed — lack of memory(OOM) Error possible  │
   │ Tight fit — may OOM on 12 GB; reduce batch_size to 8 instead      │
-  │ 일괄처리 크기를 8로 줄이면 batch_size 8 예제처럼 안전하게 훈련   │
+  │ If you reduce the batch size to 8, batch_size 8 Train safely like an example   │
   └───────────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-**B-4. With gradient checkpointing — 경사도 검사점 기법 사용 시**
+**B-4. With gradient checkpointing — When using the gradient checkpoint technique**
 
 ```
-경사도 검사점이란? (What is gradient checkpointing?)
-  ← 역전파 중 필요한 중간값을 저장하지 않고 필요할 때 재계산하는 기법
-  ← 활성화 기억을 약 87% 절감하는 대신 훈련 속도가 약 30% 느려짐
+What is a slope checkpoint?? (What is gradient checkpointing?)
+  ← A technique that does not store the required intermediate values during backpropagation and recalculates them when needed.
+  ← Activate memories around 87% Instead of reducing training speed by about 30% slow down
   ← (Do not store internal activations; recompute them during backprop)
   ← (Saves ~87% of activation memory at ~30% speed cost)
 
-검사점 적용시 보관하는 것 (What IS stored with checkpointing):
-  → 층 입력(layer boundary inputs)만 저장 — 층 내부 텐서는 재계산
+What to keep when applying checkpoints (What IS stored with checkpointing):
+  → floor input(layer boundary inputs)save only — The inner tensor of the layer is recalculated
   → Only layer inputs stored — internal tensors (Q,K,V,FFN hidden) recomputed
 
-층 하나당 저장 바이트 (bytes stored per layer):
-  = B × S × n_embd × 2 bytes   ← 층 경계 입력 하나만
+Bytes stored per layer (bytes stored per layer):
+  = B × S × n_embd × 2 bytes   ← Only one floor boundary input
   = 16 × 1,024 × 1,024 × 2
   = 33,554,432 bytes = 32 MB per layer
 
-전체 24층 (all 24 layers):
+Total 24 floors (all 24 layers):
   = 24 × 33,554,432
   = 805,306,368 bytes = 0.75 GB
 
-Total VRAM (검사점 적용, batch_size=16):
+Total VRAM (Apply checkpoint, batch_size=16):
   = 3.58 + 0.75 + 0.50 = 4.83 GB
 
   ┌────────────────────────────────────────────────────────────────────────┐
-  │ 활성화 기억 절감: 7.50 GB → 0.75 GB  (약 10분의 1로 줄어듦)          │
-  │ 전체 기억 절감: 11.58 GB → 4.83 GB  (약 58% 절감)                    │
+  │ Activation memory savings: 7.50 GB → 0.75 GB  (Reduced to about 1/10th)          │
+  │ Total memory savings: 11.58 GB → 4.83 GB  (about 58% savings)                    │
   │ Activation: 7.50 GB → 0.75 GB (10× reduction)                        │
   │ Total: 11.58 GB → 4.83 GB (58% reduction, 30% slower training speed) │
   └────────────────────────────────────────────────────────────────────────┘
@@ -1210,7 +1210,7 @@ Total VRAM (검사점 적용, batch_size=16):
 ---
 
 **B-5. How batch_size and sequence_length affect activation memory**
-**일괄처리·문맥길이에 따른 활성화기억 변화 (Large config 기준)**
+**batch processing·Activation memory changes according to context length (Large config standard)**
 
 ```
 Activation Memory = n_layers × B × S × (6×n_embd + ffn_dim) × 2
@@ -1218,141 +1218,141 @@ Activation Memory = n_layers × B × S × (6×n_embd + ffn_dim) × 2
                   = B × S × 491,520 bytes per (B×S) token
 
   ┌──────────────┬────────────┬───────────────────┬───────────────────┐
-  │ batch_size B │ seq_len  S │ B × S (총 토큰 수) │ Activation Memory │
+  │ batch_size B │ seq_len  S │ B × S (Total number of tokens) │ Activation Memory │
   ├──────────────┼────────────┼───────────────────┼───────────────────┤
   │      4       │    512     │      2,048         │      1.00 GB      │
   │      4       │  1,024     │      4,096         │      1.88 GB      │
-  │      8       │  1,024     │      8,192   ★     │      3.75 GB      │  ← B-2 예제
-  │     16       │  1,024     │     16,384         │      7.50 GB      │  ← B-3 예제
+  │      8       │  1,024     │      8,192   ★     │      3.75 GB      │  ← B-2 example
+  │     16       │  1,024     │     16,384         │      7.50 GB      │  ← B-3 example
   │     16       │  2,048     │     32,768         │     15.00 GB      │  ← OOM on 12 GB
-  │      1       │  2,048     │      2,048         │      1.00 GB      │  ← 단일 긴 문맥
+  │      1       │  2,048     │      2,048         │      1.00 GB      │  ← single long context
   └──────────────┴────────────┴───────────────────┴───────────────────┘
 
-  ← 일괄처리와 문맥길이를 줄이면 같은 GPU에서 더 큰 모형을 훈련할 수 있다
+  ← Same thing if you reduce batch processing and context length GPUYou can train a larger model in
   ← (Reducing batch_size or seq_len lets you train a larger model on the same GPU)
-  ← 단, 일괄처리 크기 축소는 grad_accum_steps로 보완해야 학습 효율 유지됨
+  ← sweet, Batch size reduction grad_accum_stepsLearning efficiency must be maintained by supplementing with
   ← (Compensate with larger grad_accum_steps to keep effective batch size constant)
 ```
 
 ---
 
-#### Calculation C — Inference VRAM (추론 도형처리장치 기억 계산)
-> **추론(inference)** 은 훈련보다 훨씬 단순하다.  
-> 경사도도, 최적화기 상태도, 활성화 보관도 필요 없다.  
-> 필요한 것은 가중치와, 대화가 길어질수록 커지는 키값 완충기억기(KV cache)뿐이다.  
+#### Calculation C — Inference VRAM (Inference graphic processing device memory calculation)
+> **inference(inference)** is much simpler than training.  
+> Gradient, Optimizer state diagram, No need to activate or store.  
+> What you need is weight and, Key value buffer memory that grows as the conversation lasts(KV cache)It's just.  
 > *(Inference is much simpler than training — no gradients, no optimizer, minimal activations.  
 > Only weights and the growing KV cache matter.)*
 
-**C-1. Formula — 추론 기억 공식**
+**C-1. Formula — inferential memory formula**
 
 ```
-추론 기억 (Inference VRAM) = 가중치 기억 + KV 완충기억기 + 활성화 부가비용
+inference memory (Inference VRAM) = weight memory + KV buffer memory + Activation additional cost
                            = Weight Memory + KV Cache + Activation Overhead
 
 ══════════════════════════════════════════════════════════════
-[1] 가중치 기억 (Weight Memory) = P × bytes_per_param
+[1] weight memory (Weight Memory) = P × bytes_per_param
 
-  량자화 방법별 매개변수당 바이트 수 (bytes per param by quantization method):
+  Bytes per parameter by quantization method (bytes per param by quantization method):
   ┌─────────────────┬───────────────┬───────────────────────────────────────────────────┐
-  │ 정밀도           │ 매개변수당    │ 설명 (Description)                                │
-  │ (Precision)      │ 바이트 수     │                                                   │
+  │ precision           │ per parameter    │ Description (Description)                                │
+  │ (Precision)      │ number of bytes     │                                                   │
   ├─────────────────┼───────────────┼───────────────────────────────────────────────────┤
-  │ fp32            │ 4.0 bytes     │ 완전 32비트 부동소수점 — 가장 정확, 가장 큰 기억  │
+  │ fp32            │ 4.0 bytes     │ Fully 32-bit floating point — most accurate, greatest memory  │
   │                 │               │ Full 32-bit float — most precise, largest memory  │
   ├─────────────────┼───────────────┼───────────────────────────────────────────────────┤
-  │ fp16 / bf16     │ 2.0 bytes     │ 16비트 부동소수점 — 훈련과 추론 모두에 사용       │
+  │ fp16 / bf16     │ 2.0 bytes     │ 16bit floating point — Used for both training and inference       │
   │                 │               │ 16-bit float — used in both training and inference │
   ├─────────────────┼───────────────┼───────────────────────────────────────────────────┤
-  │ 8비트 (Q8_0)    │ 1.0 byte      │ 정수 량자화 — 품질 손실 미미, 기억 절반           │
+  │ 8bit (Q8_0)    │ 1.0 byte      │ Integer Quantization — Minor quality loss, half memory           │
   │                 │               │ Integer quant — minimal quality loss, half memory  │
   ├─────────────────┼───────────────┼───────────────────────────────────────────────────┤
-  │ 4비트 (Q4_K_M)  │ 0.5 bytes     │ 4비트 량자화 — 소비자 GPU에 가장 많이 씀         │
+  │ 4bit (Q4_K_M)  │ 0.5 bytes     │ 4bit quantization — consumer GPUMost used in         │
   │                 │               │ Best quality-per-byte for consumer GPUs            │
   ├─────────────────┼───────────────┼───────────────────────────────────────────────────┤
-  │ 2비트 (Q2_K)    │ 0.25 bytes    │ 극한 압축 — 품질 저하 심함, 거의 안 씀           │
+  │ 2bit (Q2_K)    │ 0.25 bytes    │ extreme compression — Severe quality decline, I hardly ever use it           │
   │                 │               │ Extreme compression — significant quality loss     │
   └─────────────────┴───────────────┴───────────────────────────────────────────────────┘
 
-  ← 4비트 량자화 = 가중치를 16수준(4bit=2⁴)으로 반올림
-  ← 원소 두 개를 1바이트에 묶어서 저장 → 원래의 4분의 1 기억
+  ← 4bit quantization = Weight level 16(4bit=2⁴)round to
+  ← Store two elements in one byte → original quarter memory
   ← (4-bit quant packs 2 values per byte → ¼ of fp16 storage)
 
 ══════════════════════════════════════════════════════════════
-[2] KV 완충기억기 (KV Cache)
+[2] KV buffer memory (KV Cache)
 
   KV Cache = 2 × n_layers × n_kv_heads × head_dim × seq_len × batch × bytes
 
-  변수 설명 (Variable definitions):
-    2          ← K(열쇠) 텐서 1개 + V(값) 텐서 1개
+  Variable Description (Variable definitions):
+    2          ← K(key) 1 tensor + V(value) 1 tensor
                  one Key tensor + one Value tensor per layer
 
-    n_kv_heads ← KV 주의 머리 수
-                 = n_heads  (다중머리주의, MHA — 모든 머리가 각자 K·V 보유)
-                 < n_heads  (군화주의, GQA — 여러 Q 머리가 하나의 K·V 공유)
-                 ← 현대 대형 모형(Llama-3, Qwen2.5)은 GQA로 KV 기억 절감
+    n_kv_heads ← KV Number of heads in the state
+                 = n_heads  (multi-headedness, MHA — Every head is different K·V holding)
+                 < n_heads  (military boots, GQA — several Q one head K·V share)
+                 ← modern large model(Llama-3, Qwen2.5)silver GQAby KV memory savings
 
-    head_dim   ← 머리 하나의 차원 = n_embd ÷ n_heads
+    head_dim   ← head one dimension = n_embd ÷ n_heads
 
-    seq_len    ← 현재 문맥 길이 (토큰 수)
-                 ← 대화할수록 증가 → KV 기억도 계속 증가
+    seq_len    ← current context length (number of tokens)
+                 ← Increases as you talk → KV Memories continue to increase
                  current context length — grows with every generated token
 
-    batch      ← 병렬 처리 중인 대화 수 (concurrent conversations)
+    batch      ← Number of conversations being processed in parallel (concurrent conversations)
 
-    bytes      ← KV를 보관하는 자료형 바이트
-                 = 2  (fp16)   ← 대부분의 추론 서버
-                 = 1  (int8)   ← 량자화 KV 기억으로 절감 가능
+    bytes      ← KVdata type byte that stores
+                 = 2  (fp16)   ← Most inference servers
+                 = 1  (int8)   ← Quantization KV Save money by remembering
 
 ══════════════════════════════════════════════════════════════
-[3] 활성화 부가비용 (Activation Overhead) ≈ 0.1–0.3 GB
-    ← 추론 중에는 한 번에 층 하나만 계산하고 즉시 해제
+[3] Activation additional cost (Activation Overhead) ≈ 0.1–0.3 GB
+    ← During inference, compute only one layer at a time and release immediately
     ← (inference computes one layer at a time, frees it immediately)
-    ← 훈련의 활성화기억(수 GB)과 달리 매우 작다
+    ← activated memory of training(number GB)Unlike, it is very small
     ← (unlike training's activation memory of several GB — this is tiny)
 ```
 
 ---
 
 **C-2. Worked example — This project's Small model (34M), fp16**
-**실례 A — 본 프로젝트 소형 모형 (34M 매개변수), 반정밀도 추론**
+**Excuse me A — Small model of this project (34M parameter), Half-precision inference**
 
 ```
-────────── 설정값 ──────────
-P         = 34,000,000    ← 소형 모형 매개변수 수 (계산 A에서 산출)
-n_layers  =  8            ← 변환기 층 수
-n_heads   =  8            ← 주의 머리 수
-n_embd    = 512           ← 은닉차원
-head_dim  = 512 ÷ 8 = 64  ← 머리 하나의 차원
-seq_len   = 512           ← 대화 중간 시점 (512 토큰 대화)
-batch     =  1            ← 이용자 1명
+────────── Setting value ──────────
+P         = 34,000,000    ← Number of small model parameters (calculation Aoutput from)
+n_layers  =  8            ← converter layer number
+n_heads   =  8            ← Number of heads in the state
+n_embd    = 512           ← Hidden dimension
+head_dim  = 512 ÷ 8 = 64  ← head one dimension
+seq_len   = 512           ← mid-point of conversation (512 token conversation)
+batch     =  1            ← 1 user
 
-────────── STEP 1: 가중치 기억 ──────────
+────────── STEP 1: weight memory ──────────
 Weight Memory = 34,000,000 × 2 bytes   ← fp16
               = 68,000,000 bytes
               = 0.063 GB
 
-────────── STEP 2: KV 완충기억기 계산 ──────────
+────────── STEP 2: KV Buffer memory calculation ──────────
 KV Cache = 2 × n_layers × n_heads × head_dim × seq_len × batch × bytes
 
-단계별 곱셈 (step-by-step multiplication):
-  2           = 2            ← K와 V 각 1개
-  × n_layers  = 2 × 8  = 16  ← 8개 층
-  × n_heads   = 16 × 8 = 128  ← 8개 주의 머리
-  × head_dim  = 128 × 64 = 8,192  ← 머리당 64차원
-  × seq_len   = 8,192 × 512 = 4,194,304  ← 512 토큰
-  × batch     = 4,194,304 × 1 = 4,194,304  ← 이용자 1명
+step by step multiplication (step-by-step multiplication):
+  2           = 2            ← KWow V 1 each
+  × n_layers  = 2 × 8  = 16  ← 8dog floor
+  × n_heads   = 16 × 8 = 128  ← 8dog attention head
+  × head_dim  = 128 × 64 = 8,192  ← 64 dimensions per head
+  × seq_len   = 8,192 × 512 = 4,194,304  ← 512 token
+  × batch     = 4,194,304 × 1 = 4,194,304  ← 1 user
   × bytes     = 4,194,304 × 2 = 8,388,608 bytes  ← fp16
 
   KV Cache = 8,388,608 bytes = 0.008 GB = 8 MB
 
-  ← 소형 모형이라 KV 완충기억기가 매우 작다 (거의 무시 가능)
+  ← It's a small model KV The buffer memory is very small. (Almost ignorable)
   ← (Tiny model → KV cache is negligible — only 8 MB)
 
-────────── STEP 3: 합산 ──────────
+────────── STEP 3: summation ──────────
 Total = 0.063 + 0.008 + 0.1 (overhead) = 0.171 GB
 
   ┌───────────────────────────────────────────────────────────┐
-  │ 사실상 어떤 GPU에서도 실행 가능 (심지어 1 GB 내장그래픽도) │
+  │ in fact any GPUCan also run in (even 1 GB Built-in graphics) │
   │ Runs on virtually any GPU — even 1 GB integrated graphics  │
   └───────────────────────────────────────────────────────────┘
 ```
@@ -1360,30 +1360,30 @@ Total = 0.063 + 0.008 + 0.1 (overhead) = 0.171 GB
 ---
 
 **C-3. Worked example — Llama-3.1-8B in 4-bit, 4096 context**
-**실례 B — Llama-3.1-8B 4비트 량자화, 4096 문맥**
+**Excuse me B — Llama-3.1-8B 4bit quantization, 4096 context**
 
 ```
-────────── 설정값 ──────────
-P          = 8,000,000,000  ← 80억 매개변수
-n_layers   = 32             ← 32층
-n_heads    = 32             ← 32 주의 머리
-n_kv_heads = 8              ← GQA: 8 KV 머리 (4개 Q머리가 1 KV 머리 공유)
+────────── Setting value ──────────
+P          = 8,000,000,000  ← 80billion parameters
+n_layers   = 32             ← 32floor
+n_heads    = 32             ← 32 attention head
+n_kv_heads = 8              ← GQA: 8 KV head (4dog Qhead 1 KV head sharing)
                               ← GQA reduces KV memory by 4× vs MHA
-head_dim   = 4,096 ÷ 32 = 128  ← 머리당 128차원
-seq_len    = 4,096          ← 최대 4,096 토큰 문맥
+head_dim   = 4,096 ÷ 32 = 128  ← 128 dimensions per head
+seq_len    = 4,096          ← up to 4,096 token context
 batch      = 1
 
-────────── STEP 1: 4비트 가중치 기억 ──────────
-Weight Memory = 8,000,000,000 × 0.5 bytes   ← Q4_K_M 량자화
+────────── STEP 1: 4Remember bit weights ──────────
+Weight Memory = 8,000,000,000 × 0.5 bytes   ← Q4_K_M Quantization
               = 4,000,000,000 bytes
               = 3.73 GB
 
-  ← fp16이었다면: 8,000,000,000 × 2 = 14.9 GB → 12 GB GPU에 들어가지 않음
+  ← fp16If it were: 8,000,000,000 × 2 = 14.9 GB → 12 GB GPUdoes not enter
   ← (In fp16 would need 14.9 GB — doesn't fit 12 GB GPU)
-  ← 4bit 량자화로 14.9 GB → 3.73 GB (4배 절감, 75% 절약)
+  ← 4bit 14 Liangjahwa Road.9 GB → 3.73 GB (42x savings, 75% saving)
   ← (4-bit cuts 14.9 GB → 3.73 GB — 4× smaller, 75% saved)
 
-────────── STEP 2: KV 완충기억기 ──────────
+────────── STEP 2: KV buffer memory ──────────
 KV Cache = 2 × n_layers × n_kv_heads × head_dim × seq_len × batch × bytes
 
   2                 = 2
@@ -1394,17 +1394,17 @@ KV Cache = 2 × n_layers × n_kv_heads × head_dim × seq_len × batch × bytes
   × batch           = 268,435,456 × 1 = 268,435,456
   × bytes (fp16)    = 268,435,456 × 2 = 536,870,912 bytes = 0.50 GB
 
-  ← GQA 없이 MHA(n_kv_heads=32)였다면: 0.50 × 4 = 2.0 GB
+  ← GQA without MHA(n_kv_heads=32)If it were: 0.50 × 4 = 2.0 GB
   ← (Without GQA, MHA would need 2.0 GB KV cache — 4× more)
-  ← GQA가 KV 기억을 4배 줄여주는 것 확인
+  ← GQAgo KV Confirmed to reduce memory by 4 times
   ← (GQA confirmed to give exactly 4× KV cache reduction)
 
-────────── STEP 3: 합산 ──────────
+────────── STEP 3: summation ──────────
 Total = 3.73 + 0.50 + 0.15 = 4.38 GB
 
   ┌──────────────────────────────────────────────────────────────────┐
-  │ 6 GB GPU (RTX 2060)에서도 쾌적하게 실행 가능 ✓                  │
-  │ RTX 5070 (12 GB)에서 3개 동시 대화도 가능                        │
+  │ 6 GB GPU (RTX 2060)Can run comfortably in ✓                  │
+  │ RTX 5070 (12 GB)Three simultaneous conversations are also possible.                        │
   │ Comfortably fits in a 6 GB GPU ✓                                 │
   │ RTX 5070 can run 3 simultaneous users (3 × 4.38 GB ≈ 13 GB)     │
   └──────────────────────────────────────────────────────────────────┘
@@ -1413,204 +1413,204 @@ Total = 3.73 + 0.50 + 0.15 = 4.38 GB
 ---
 
 **C-4. Worked example — 70B model in 4-bit**
-**실례 C — 700억 매개변수 모형, 4비트 량자화**
+**Excuse me C — 700billion parameter model, 4bit quantization**
 
 ```
-────────── 설정값 ──────────
-P          = 70,000,000,000  ← 700억 매개변수
-n_layers   = 80              ← 80층
-n_kv_heads = 8               ← GQA (Llama-3.1-70B 기준)
+────────── Setting value ──────────
+P          = 70,000,000,000  ← 700billion parameters
+n_layers   = 80              ← 80floor
+n_kv_heads = 8               ← GQA (Llama-3.1-70B standard)
 head_dim   = 128
 seq_len    = 4,096
 batch      = 1
 
-────────── STEP 1: 가중치 기억 ──────────
+────────── STEP 1: weight memory ──────────
 Weight Memory = 70,000,000,000 × 0.5 bytes
               = 35,000,000,000 bytes
               = 32.6 GB
 
-  ← fp16 이었다면: 70B × 2 = 130 GB → 소비자 GPU 불가능
-  ← 4비트로 줄여도 32.6 GB → RTX 5090 (32 GB)도 아슬아슬
+  ← fp16 If it were: 70B × 2 = 130 GB → consumer GPU impossible
+  ← 4Even if reduced to bits, it is 32.6 GB → RTX 5090 (32 GB)It's too close
 
-────────── STEP 2: KV 완충기억기 ──────────
+────────── STEP 2: KV buffer memory ──────────
   2 × 80 × 8 × 128 × 4,096 × 1 × 2
   = 160 × 8 × 128 × 4,096 × 2
   = 1,280 × 128 = 163,840
   × 4,096 = 671,088,640
   × 2     = 1,342,177,280 bytes = 1.25 GB
 
-────────── STEP 3: 합산 ──────────
+────────── STEP 3: summation ──────────
 Total = 32.6 + 1.25 + 0.15 = 34.0 GB
 
   ┌──────────────────────────────────────────────────────────────────────────┐
-  │ RTX 5090 (32 GB): 약간 초과 — OOM 가능성 있음 ✗ (아슬아슬)             │
+  │ RTX 5090 (32 GB): slightly over — OOM Possible ✗ (Just barely)             │
   │ RTX 5090 (32 GB): slightly over — likely OOM ✗                          │
-  │ 필요한 최소 GPU: 2× RTX 5090, 또는 A100 40 GB × 1 (타이트)             │
+  │ minimum required GPU: 2× RTX 5090, or A100 40 GB × 1 (tight)             │
   │ Minimum: 2× RTX 5090, or A100 40 GB (tight)                             │
-  │ 실용적 선택: 2× RTX 4090 (48 GB 합산) 또는 A100 40 GB × 1              │
+  │ a practical choice: 2× RTX 4090 (48 GB summation) or A100 40 GB × 1              │
   └──────────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-#### Calculation D — KV cache growth per token (토큰당 KV 완충기억기 증가량)
-> 대화를 할수록 KV 완충기억기는 선형으로 증가한다.  
-> 새 토큰 하나가 생성될 때마다 아래의 고정 크기만큼 기억이 늘어난다.  
+#### Calculation D — KV cache growth per token (per token KV Buffer memory increase)
+> The more we talk KV Buffer memory increases linearly.  
+> Each time a new token is created, the memory increases by a fixed size below:.  
 > *(Every new generated token adds a fixed amount to the KV cache — it grows linearly.)*
 
-**D-1. Formula — 토큰당 증가량 공식**
+**D-1. Formula — Formula for increase per token**
 
 ```
-토큰당 KV 증가 (KV bytes added per new token)
+per token KV increase (KV bytes added per new token)
   = 2 × n_layers × n_kv_heads × head_dim × batch × bytes
 
-  ← 토큰 하나를 생성하면, 모든 층의 K·V 텐서에 새 행(row)이 추가된다
+  ← When you create a token, on all floors K·V new row in tensor(row)is added
   ← (Each new token appends one new row to K and V in every layer)
-  ← 이 증가는 '토큰 위치' 차원에서만 발생한다 (seq_len 방향으로 성장)
+  ← This increase is 'token location' It only happens in one dimension (seq_len grow in the direction)
   ← (Growth is only along the seq_len dimension — all other dims are fixed)
 ```
 
 **D-2. Worked example — Llama-3.1-8B (fp16)**
 
 ```
-토큰당 증가 = 2 × 32 × 8 × 128 × 1 × 2
+Increase per token = 2 × 32 × 8 × 128 × 1 × 2
             = 2 × 32 = 64
               × 8    = 512
               × 128  = 65,536
               × 1    = 65,536   (batch=1)
               × 2    = 131,072 bytes
 
-  → 토큰 1개 생성 = 131,072 bytes = 128 KB (키보드 자판 한 번 = 128 KB)
+  → Generate 1 token = 131,072 bytes = 128 KB (keyboard once = 128 KB)
   → (Every single token generated adds 128 KB to VRAM)
 
-  문맥 길이별 누적 KV 기억 (KV cache total at different context lengths):
+  Accumulation by context length KV memory (KV cache total at different context lengths):
   ┌──────────────────────────────────┬─────────────┬────────────────────────────────────────────┐
-  │ 문맥 길이 (Context length)        │ KV 기억     │ 비고 (Note)                                │
+  │ context length (Context length)        │ KV memory     │ Remarks (Note)                                │
   ├──────────────────────────────────┼─────────────┼────────────────────────────────────────────┤
-  │     512 tokens  (짧은 대화)       │   64 MB     │ 이 프로젝트 기본 block_size                │
-  │   1,024 tokens  (중간 대화)       │  128 MB     │ 이 프로젝트 기본 block_size                │
-  │   4,096 tokens  (표준 최대 문맥)  │  512 MB     │ 계산 C-3 예제와 일치 ✓                     │
-  │   8,192 tokens  (확장 문맥)       │    1 GB     │ 가중치 기억의 27% 추가                     │
-  │  32,768 tokens  (긴 문서)         │    4 GB     │ 가중치 기억의 107% ← KV > 가중치 기억       │
-  │ 131,072 tokens  (128K 문맥)       │   16 GB     │ 가중치(3.7 GB) 4배 초과 — RTX 5070 불가능  │
+  │     512 tokens  (short conversation)       │   64 MB     │ This project basics block_size                │
+  │   1,024 tokens  (mid conversation)       │  128 MB     │ This project basics block_size                │
+  │   4,096 tokens  (standard maximum context)  │  512 MB     │ calculation C-3 matches the example ✓                     │
+  │   8,192 tokens  (extended context)       │    1 GB     │ 27 of weighted memory% add                     │
+  │  32,768 tokens  (long document)         │    4 GB     │ 107 of weighted memory% ← KV > weight memory       │
+  │ 131,072 tokens  (128K context)       │   16 GB     │ weight(3.7 GB) 4double excess — RTX 5070 impossible  │
   └──────────────────────────────────┴─────────────┴────────────────────────────────────────────┘
 
-  ← 128K 문맥 모형은 가중치보다 KV 기억이 더 크다
+  ← 128K Contextual models are better than weights. KV the memory is bigger
   ← (For 128K context models, the KV cache is larger than the model weights)
-  ← 긴 문맥 지원이 왜 기억 집약적인지 이 계산이 설명해준다
+  ← This calculation explains why long context support is memory intensive.
   ← (This explains why long-context support is so memory-intensive)
 ```
 
 **D-3. Worked example — This project's Small model (34M, fp16)**
 
 ```
-토큰당 증가 = 2 × 8 × 8 × 64 × 1 × 2
-            = 16,384 bytes = 16 KB per token  ← 극히 작음
+Increase per token = 2 × 8 × 8 × 64 × 1 × 2
+            = 16,384 bytes = 16 KB per token  ← extremely small
 
   ┌──────────────────────────────────────────────────────────────────────────────┐
-  │ 문맥 1,024 토큰에서도 KV = 1,024 × 16 KB = 16 MB → 무시할 수 있는 수준    │
+  │ Context 1,024 Even in tokens KV = 1,024 × 16 KB = 16 MB → negligible level    │
   │ Even at 1,024 tokens context, KV = only 16 MB — completely negligible       │
-  │ 소형 모형은 문맥 길이가 KV 기억에 사실상 영향을 주지 않는다               │
+  │ The small model has portal length KV Has virtually no effect on memory               │
   │ Small models: context length barely affects VRAM at all                      │
   └──────────────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-#### Calculation E — Complete summary formulas (종합 추정 공식)
-> 계산기 없이 머릿속으로 빠르게 추정하기 위한 간략 규칙과,  
-> 정확한 계산을 위한 전체 공식을 함께 제공한다.
+#### Calculation E — Complete summary formulas (Comprehensive estimation formula)
+> Simple rules for quick estimation in your head without a calculator,  
+> Provides complete formulas for accurate calculations.
 
-**E-1. Full formulas — 전체 공식**
+**E-1. Full formulas — full formula**
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-훈련 기억 (TRAINING VRAM) — 처음부터 훈련시:
+training memory (TRAINING VRAM) — Training from the beginning:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-  VRAM_train =  P × 12                                        [기반기억: 바이트]
-             +  n_layers × B × S × (6 × n_embd + ffn_dim) × 2  [활성화: 바이트]
-             +  536,870,912                                    [부가비용 약 0.5 GB]
+  VRAM_train =  P × 12                                        [based memory: byte]
+             +  n_layers × B × S × (6 × n_embd + ffn_dim) × 2  [activation: byte]
+             +  536,870,912                                    [Additional costs approximately 0.5 GB]
 
-  경사도 검사점 사용시 활성화기억 항을 아래로 교체:
+  When using gradient checkpoints, change the activation memory term to below.:
   (With gradient checkpointing, replace activation term with:)
-             +  n_layers × B × S × n_embd × 2                 [검사점: 훨씬 작음]
+             +  n_layers × B × S × n_embd × 2                 [checkpoint: much smaller]
 
-  단위: 위 결과(바이트) ÷ 1,073,741,824 = GB
+  unit: above result(byte) ÷ 1,073,741,824 = GB
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-추론 기억 (INFERENCE VRAM) — 생성시:
+inference memory (INFERENCE VRAM) — When created:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-  VRAM_infer =  P × bytes_per_param                           [가중치 기억]
+  VRAM_infer =  P × bytes_per_param                           [weight memory]
              +  2 × n_layers × n_kv_heads × head_dim
-                  × seq_len × batch × 2                       [KV 기억: fp16]
-             +  161,061,273                                   [부가비용 약 0.15 GB]
+                  × seq_len × batch × 2                       [KV memory: fp16]
+             +  161,061,273                                   [Additional costs approximately 0.15 GB]
 
   bytes_per_param: fp32=4, fp16=2, Q8=1, Q4=0.5, Q2=0.25
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-매개변수 수 (PARAMETER COUNT):
+number of parameters (PARAMETER COUNT):
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-  P = vocab_size × n_embd                                     [어휘 삽입표현]
-    + block_size × n_embd                                     [위치 삽입표현]
-    + n_layers × (4 × n_embd² + 2 × n_embd × ffn_dim)        [변환기 층들]
-    (+ vocab_size × n_embd  if tie_weights = false)           [출력 행렬]
+  P = vocab_size × n_embd                                     [Vocabulary insertion expression]
+    + block_size × n_embd                                     [Position insertion expression]
+    + n_layers × (4 × n_embd² + 2 × n_embd × ffn_dim)        [converter layers]
+    (+ vocab_size × n_embd  if tie_weights = false)           [output matrix]
 ```
 
-**E-2. Quick mental math rules — 암산 간략 규칙**
+**E-2. Quick mental math rules — Simple mental arithmetic rules**
 
 ```
-훈련 (TRAINING):
-  ★ GPU 기억 1 GB ≈ 훈련 가능 매개변수 30M 개
-      (표준 일괄처리, 문맥길이 1024 기준)
-  ★ 정확히: VRAM_GB ≈ P / 83,333,333  (83.3M params per GB)
-      — 단, 이는 기반기억만; 활성화 포함하면 약 30M params/GB
+training (TRAINING):
+  ★ GPU memory 1 GB ≈ Trainable parameters 30M dog
+      (Standard batch processing, Based on context length 1024)
+  ★ exactly: VRAM_GB ≈ P / 83,333,333  (83.3M params per GB)
+      — sweet, This is only basic memory; Approximately 30 including activationM params/GB
 
-  ★ 경사도 검사점 사용 → 활성화 기억 약 90% 절감, 속도 30% 저하
-  ★ 일괄처리 반감 (B÷2) → 활성화 기억 반감, 유효 배치 유지하려면 grad_accum×2
+  ★ Use gradient checkpoint → Activate memory approximately 90% savings, speed 30% degradation
+  ★ Batch processing halved (B÷2) → Activation memory antagonism, To maintain valid placement grad_accum×2
 
-추론 (INFERENCE):
-  ★ fp16 가중치 기억 (GB) ≈ 매개변수 수 (B) × 2
-      예: 7B 모형 → 7 × 2 = 14 GB
-  ★ 4비트 가중치 기억 (GB) ≈ 매개변수 수 (B) × 0.5
-      예: 7B 모형 → 7 × 0.5 = 3.5 GB
-  ★ Q4 KV 기억 (GB) ≈ n_layers × n_kv_heads × head_dim × seq_len × 4 / 10⁹
+inference (INFERENCE):
+  ★ fp16 weight memory (GB) ≈ number of parameters (B) × 2
+      yes: 7B model → 7 × 2 = 14 GB
+  ★ 4Remember bit weights (GB) ≈ number of parameters (B) × 0.5
+      yes: 7B model → 7 × 0.5 = 3.5 GB
+  ★ Q4 KV memory (GB) ≈ n_layers × n_kv_heads × head_dim × seq_len × 4 / 10⁹
 
-훈련 대 추론 비율 (TRAINING vs INFERENCE):
-  ★ 훈련 기억 ≈ 추론(fp16) 기억 × 6 ~ 8 배
-  ★ 즉, fp16 추론이 가능한 GPU로는 같은 크기 모형을 훈련할 수 없다
+Training to inference ratio (TRAINING vs INFERENCE):
+  ★ training memory ≈ inference(fp16) memory × 6 ~ 8 ship
+  ★ That is, fp16 capable of inference GPUcannot train models of the same size
   ★ (If a GPU can run a model in fp16, it cannot train that model from scratch)
 ```
 
-**E-3. Full worked comparison — 3가지 모형 크기, 훈련 대 추론 나란히 비교**
+**E-3. Full worked comparison — 3eggplant model size, Training vs. inference side by side comparison**
 
 ```
 ┌──────────────────┬────────────────────────────────────┬────────────────────────────────────┐
-│                  │ 훈련 (Training from scratch)        │ 추론 (Inference)                   │
-│ 모형             │ 기반+활성화+부가 (B=8, S=1024)      │ fp16 가중치 + KV(4K ctx) + 부가    │
+│                  │ training (Training from scratch)        │ inference (Inference)                   │
+│ model             │ based+activation+addition (B=8, S=1024)      │ fp16 weight + KV(4K ctx) + addition    │
 ├──────────────────┼────────────────────────────────────┼────────────────────────────────────┤
-│ 소형 ~34M        │ 0.41 + 0.94 + 0.50 = 1.85 GB       │ 0.06 + 0.01 + 0.15 = 0.22 GB      │
-│ (본 프로젝트,    │ ← 기반: 34M×12=408MB               │ ← 가중치: 34M×2=68MB              │
-│  Small config)   │ ← 활성화: 8×8×1024×(6×512+2048)×2 │ ← KV: 2×8×8×64×4096×2=32MB       │
+│ small ~34M        │ 0.41 + 0.94 + 0.50 = 1.85 GB       │ 0.06 + 0.01 + 0.15 = 0.22 GB      │
+│ (This project,    │ ← based: 34M×12=408MB               │ ← weight: 34M×2=68MB              │
+│  Small config)   │ ← activation: 8×8×1024×(6×512+2048)×2 │ ← KV: 2×8×8×64×4096×2=32MB       │
 │                  │ = 943MB                             │                                    │
 ├──────────────────┼────────────────────────────────────┼────────────────────────────────────┤
-│ 대형 ~320M       │ 3.58 + 3.75 + 0.50 = 7.83 GB ✓    │ 0.60 + 0.50 + 0.15 = 1.25 GB      │
-│ (본 프로젝트,    │ ← 기반: 320M×12=3,600MB            │ ← 가중치: 320M×2=600MB            │
-│  Large config)   │ ← 활성화: 8×24×1024×10240×2        │ ← KV: 2×24×8×128×4096×2=500MB    │
+│ large ~320M       │ 3.58 + 3.75 + 0.50 = 7.83 GB ✓    │ 0.60 + 0.50 + 0.15 = 1.25 GB      │
+│ (This project,    │ ← based: 320M×12=3,600MB            │ ← weight: 320M×2=600MB            │
+│  Large config)   │ ← activation: 8×24×1024×10240×2        │ ← KV: 2×24×8×128×4096×2=500MB    │
 │  RTX 5070 ✓      │ = 3,750MB                           │                                    │
 ├──────────────────┼────────────────────────────────────┼────────────────────────────────────┤
-│ 7B 모형          │ 14+14+56+15 = ~99 GB ✗              │ fp16: 14+0.5+0.15 = 14.65 GB ✗    │
-│ (Llama-3.1-8B    │ ← 단일 소비자 GPU 불가능            │ 4bit: 3.73+0.50+0.15 = 4.38 GB ✓  │
-│  기준)           │ ← 2× A100 80GB 필요                │ ← RTX 5070에서 실행 가능           │
+│ 7B model          │ 14+14+56+15 = ~99 GB ✗              │ fp16: 14+0.5+0.15 = 14.65 GB ✗    │
+│ (Llama-3.1-8B    │ ← single consumer GPU impossible            │ 4bit: 3.73+0.50+0.15 = 4.38 GB ✓  │
+│  standard)           │ ← 2× A100 80GB need                │ ← RTX 5070Can run on           │
 └──────────────────┴────────────────────────────────────┴────────────────────────────────────┘
 
-핵심 결론 (Key takeaway):
-  훈련 7.83 GB (대형 설정)  vs.  추론 1.25 GB (같은 모형)  →  6.3배 차이
+Key Conclusion (Key takeaway):
+  training 7.83 GB (large setting)  vs.  inference 1.25 GB (same model)  →  6.3pear difference
   Training 7.83 GB (Large) vs. Inference 1.25 GB (same model) → 6.3× difference
 
-  7B 모형: 훈련 ~99 GB  vs.  추론(4bit) 4.38 GB  →  22.6배 차이
+  7B model: training ~99 GB  vs.  inference(4bit) 4.38 GB  →  22.6pear difference
   7B model: Training ~99 GB vs. Inference (4-bit) 4.38 GB → 22.6× difference
 ```
 
